@@ -1,0 +1,151 @@
+freeCAD: 3D CAD with Motion Simulation  by  askoh.com
+Assembly
+    Notes
+		(Text string: 'xxxx' runs: (Core.RunArray runs: #(4) values: #(nil)))
+    Name
+        CompoundPendulum
+    Position3D
+        0.0 	0.0 	0.0
+    RotationMatrix
+        1.0 	0.0 	0.0
+        0.0 	1.0 	0.0
+        0.0 	0.0 	1.0
+    Velocity3D
+        0.0 	0.0 	0.0
+    Omega3D
+        0.0 	0.0 	0.0
+    RefPoints
+        RefPoint
+            Position3D
+                3.552713678800501e-18    -2.671474153004283e-19    0.1175
+            RotationMatrix
+                1.0 	0.0 	0.0
+                0.0 	1.0 	0.0
+                0.0 	0.0 	1.0
+            Markers
+                Marker
+                    Name
+                        MbD_ELEMENT_marker_1_1
+                    Position3D
+                        3.552713678800501e-18    -2.671474153004283e-19    0.1175
+                    RotationMatrix
+                        1.0 	0.0 	0.0
+                        0.0 	1.0 	0.0
+                        0.0 	0.0 	1.0
+	RefCurves
+	RefSurfaces
+    Parts
+        Part
+            Name
+                MbD_ELEMENT_part_2
+            Position3D
+                0.053    -0.014     0.1
+            RotationMatrix
+                1.0 	0.0 	0.0
+                0.0 	1.0 	0.0
+                0.0 	0.0 	1.0
+            Velocity3D
+                0.0     0.0 	0.0
+            Omega3D
+                0.0 	0.0 	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.0 
+					zEnd
+						0.1 
+					Sketch
+						Name
+							Sketch1
+						Position3D
+							0.0 	0.0 	0.0 
+						RotationMatrix
+							1.0 	0.0 	0.0 
+							0.0 	1.0 	0.0 
+							0.0 	0.0 	1.0 
+						Graphics
+							Rectangle
+								Position2D
+									0.0 	0.0 
+								Angle
+									0.0 
+								xLength
+									1.0 
+								yLength
+									0.2 
+            PrincipalMassMarker
+                Name
+                    MassMarker_2
+                Position3D
+                    0.09    0.014999999999999984    -1.6240613881291804e-19
+                RotationMatrix
+                    -2.773503872325199e-18    -8.08370750876344e-17    1.0
+                    2.1290513619083535e-18    1.0    8.08370750876344e-17
+                    1.0    -2.129051361908354e-18    2.773503872325199e-18
+                Mass
+                    0.35941537558266995
+                MomentOfInertias
+                    0.0007802815301969031    0.0007548947620545673    3.137702440204827e-05
+                Density
+                    7850.0
+            RefPoints
+                RefPoint
+                    Position3D
+                        0.015000000000000005    0.014999999999999998    8.481479150569378e-20
+                    RotationMatrix
+                        1.0 	0.0 	0.0
+                        0.0 	1.0 	0.0
+                        0.0 	0.0 	1.0
+                Markers
+                    Marker
+                        Name
+                            MbD_ELEMENT_marker_2_2
+                        Position3D
+                            0.015000000000000005    0.014999999999999998    8.481479150569378e-20
+                        RotationMatrix
+                            1.0 	0.0 	0.0
+                            0.0 	1.0 	0.0
+                            0.0 	0.0 	1.0
+			RefCurves
+			RefSurfaces
+	KinematicIJs
+    ConstraintSets
+        Joints
+            RevoluteJoint
+                Name
+                    MbD_ELEMENT_joint_hinge_1010
+                MarkerI
+                    /CompoundPendulum/MbD_ELEMENT_marker_1_1
+                MarkerJ
+                    /CompoundPendulum/MbD_ELEMENT_part_2/MbD_ELEMENT_marker_2_2
+		Motions
+		GeneralConstraintSets
+	ForceTorques
+    ConstantGravity
+        0.0    -9.807    0.0
+    SimulationParameters
+        tstart
+            0.0
+        tend
+            0.756
+        hmin
+            1e-09
+        hmax
+            0.1
+        hout
+            0.0003
+        errorTol
+            1.0e-6
+	AnimationParameters
+		nframe
+			26
+		icurrent
+			1
+		istart
+			1
+		iend
+			26
+		isForward
+			true
+		framesPerSecond
+			30

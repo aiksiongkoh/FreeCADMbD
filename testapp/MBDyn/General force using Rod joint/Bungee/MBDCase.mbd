@@ -1,0 +1,254 @@
+#-----------------------------------------------------------------------------
+ # [Nomenclature and conventions:]
+
+ #4. magnitude
+ #    4.1 disp = displacement
+ #    4.2 alp = angle
+ #    4.3 vel = linear velocity
+ #    4.4 vol = volume
+ #    4.5 ome = angular velocity
+ #    4.6 acc = linear acceleration
+ #    4.7 alpha = angular acceleration
+ #    4.8 mass = mass
+ #    4.9 for = force
+ #    4.10 mom = moment
+ #
+ #1. node (n)
+ #    1.1 dn = dynamic node
+ #    1.2 sn = static node
+ #    1.3 an = abstract node
+ #    1.4 en = electric node
+ #    1.5 hn = hydraulic node
+ #    1.6 in = interface node, to interface with fem flexible bodies
+ #
+ #2. body (b)
+ #    2.1 rb = rigid body
+ #
+ #3. structural force (f) and structural couple (c)
+ #    3.1 sf = structural force
+ #    3.2 sif = structural internal force
+ #    3.3 sc = structural couple
+ #    3.4 sic = structural internal couple
+ #
+ #3. joint (j)
+ #    3.1 alpj = angular acceleration joint
+ #    3.2 omej = angular velocity joint
+ #    3.3 dfaj = deformable axial joint
+ #    3.4 dfdj = deformable displacement joint
+ #    3.5 dfhj = deformable hinge joint
+ #    3.6 disj = distance joint
+ #    3.7 drhj = drive hinge joint
+ #    3.8 inlj = in line joint
+ #    3.9 iplj = in plane joint
+ #    3.10 accj = linear acceleration joint
+ #    3.12 velj = linear velocity joint
+ #    3.13 prij = prismatic joint
+ #    3.14 rehj = revolute hinge joint
+ #    3.15 rerj = revolute rotation joint
+ #    3.16 sphj = spherical hinge joint
+ #    3.17 totj = total joint
+ #    3.18 topj = total pin joint
+ #
+ #5. reference frames
+ #    5.1 wf = global inertial reference frame (world frame)
+ #    5.2 each simulation element has a reference frame attached to it
+ #
+ #6. data examples
+ #    6.1 no1_disp_wf_no1_wf_3 = dynamic node 1 (no1) displacement (disp) from world frame (wf) to dynamic node 1 in world frame 3 component
+ #    6.2 rehj2_alp_wf_rerj2_wf_3 = revolute hinge joint 2 (rehj2) angle (alp) from world frame (wf) to revolute hinge joint 2 in world frame 3 component
+ #
+ #-----------------------------------------------------------------------------
+ # [Data Block]
+
+ begin: data;
+     problem: initial value;
+ end: data;
+
+ #-----------------------------------------------------------------------------
+ # [Problem Block]
+
+ begin: initial value;
+     initial time: 0.0;
+     final time: 4.0;
+     time step: 0.01;
+     max iterations: 100;
+     tolerance: 1e-06;
+     derivatives tolerance: 0.0001;
+     derivatives max iterations: 100;
+     derivatives coefficient: auto;
+ end: initial value;
+
+ #-----------------------------------------------------------------------------
+ # [Control Data Block]
+
+ begin: control data;
+     max iterations: 1000;
+     default orientation: orientation matrix;
+     omega rotates: no;
+     print: none;
+     initial stiffness: 1.0, 1.0;
+     structural nodes: 2;
+     rigid bodies: 2;
+     joints: 2;
+     gravity;
+ end: control data;
+
+ #-----------------------------------------------------------------------------
+ # [Design Variables]
+
+     #Generic bodies
+
+         #body: 1
+             set: integer body_1 = 1; #body label
+
+             set: real mass_1_0 = 4.13643032722656; #mass [kg]
+             set: real volume_1_0 = 0.0005235987755982988; #volume [m^3]
+
+         #body: 2
+             set: integer body_2 = 2; #body label
+
+             set: real mass_2_0 = 5.37893164526188; #mass [kg]
+             set: real volume_2_0 = 0.0006808774234508709; #volume [m^3]
+
+     #Nodes
+
+         #structural node: 1
+             set: integer structural_node_1 = 1; #node label
+
+         #structural node: 2
+             set: integer structural_node_2 = 2; #node label
+
+     #Joints
+
+         #joint: 1
+             set: integer joint_1 = 1; #joint label
+
+         #joint: 2
+             set: integer joint_2 = 2; #joint label
+
+     #Nodes: initial conditions
+
+         #node: 1
+             set: real Px_1 = -7.949781095530902e-19; #X component of the absolute position [m]
+             set: real Py_1 = -1.3748434703159951e-18; #Y component of the absolute position [m]
+             set: real Pz_1 = 4.365574568510056e-19; #Z component of the absolute position [m]
+
+             set: real Vx_1 = 0.0; #X component of the absolute velocity [m/s]
+             set: real Vy_1 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real Vz_1 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real Wx_1 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real Wy_1 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real Wz_1 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+         #node: 2
+             set: real Px_2 = 0.36775411765231114; #X component of the absolute position [m]
+             set: real Py_2 = 1.3956151779529135e-18; #Y component of the absolute position [m]
+             set: real Pz_2 = 0.32599999999999996; #Z component of the absolute position [m]
+
+             set: real Vx_2 = 0.0; #X component of the absolute velocity [m/s]
+             set: real Vy_2 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real Vz_2 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real Wx_2 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real Wy_2 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real Wz_2 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+ #-----------------------------------------------------------------------------
+ # [Intermediate Variables]
+
+     #Moments of inertia and relative center of mass
+
+         #rigid body->Fixed body
+         #body 1: 
+             set: real Ixx_1_0 = 0.004136430327226562; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real Iyy_1_0 = 0.004136430327226562; #moment of inertia around second axis of inertia [kg*m^2]
+             set: real Izz_1_0 = 0.004136430327226561; #moment of inertia around third axis of inertia [kg*m^2]
+             set: real Rx_1_0 = 0.0; #X component of the relative center of mass [m]
+             set: real Ry_1_0 = 0.0; #Y component of the relative center of mass [m]
+             set: real Rz_1_0 = 0.0; #Z component of the relative center of mass [m]
+
+         #rigid body->Moving body
+         #body 2: 
+             set: real Ixx_2_0 = 0.012097663128936877; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real Iyy_2_0 = 0.012097663128936871; #moment of inertia around second axis of inertia [kg*m^2]
+             set: real Izz_2_0 = 0.004520278915987001; #moment of inertia around third axis of inertia [kg*m^2]
+             set: real Rx_2_0 = 0.0; #X component of the relative center of mass [m]
+             set: real Ry_2_0 = 0.0; #Y component of the relative center of mass [m]
+             set: real Rz_2_0 = 0.0; #Z component of the relative center of mass [m]
+
+ #-----------------------------------------------------------------------------
+ # [Nodes Block]
+
+ begin: nodes;
+
+     #structural dynamic node->Fixed body
+     structural: structural_node_1,
+                 dynamic,
+                 Px_1, Py_1, Pz_1, #<absolute_position> [m]
+                 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #<absolute_orientation_matrix>
+                 Vx_1, Vy_1, Vz_1, #<absolute_velocity> [m/s]
+                 Wx_1, Wy_1, Wz_1; #<absolute_angular_velocity> [rad/s]
+
+     #structural dynamic node->Moving body
+     structural: structural_node_2,
+                 dynamic,
+                 Px_2, Py_2, Pz_2, #<absolute_position> [m]
+                 3, -1.0, -0.0, 2.220446049250313e-16, 2, -0.0, 1.0, 0.0, #<absolute_orientation_matrix>
+                 Vx_2, Vy_2, Vz_2, #<absolute_velocity> [m/s]
+                 Wx_2, Wy_2, Wz_2; #<absolute_angular_velocity> [rad/s]
+
+ end: nodes;
+
+ #-----------------------------------------------------------------------------
+ # [Elements Block]
+
+ begin: elements;
+
+     #-----------------------------------------------------------------------------
+     # [Bodies]
+
+         #rigid body->Fixed body
+         body: body_1,
+               structural_node_1, #<node_label> 
+               condense, 1,
+                   #solid: 0
+                       mass_1_0, #<mass> [kg]
+                       Rx_1_0, Ry_1_0, Rz_1_0, #<relative_center_of_mass> [m]
+                       diag, Ixx_1_0, Iyy_1_0, Izz_1_0, #<inertia matrix> [kg*m^2]
+                       orientation, 3, -0.360845887622372, 0.9326254582553613, -9.696897871091158e-19, 2, 1.1102230246251565e-16, 0.0, -1.0 ;
+
+         #rigid body->Moving body
+         body: body_2,
+               structural_node_2, #<node_label> 
+               condense, 1,
+                   #solid: 0
+                       mass_2_0, #<mass> [kg]
+                       Rx_2_0, Ry_2_0, Rz_2_0, #<relative_center_of_mass> [m]
+                       diag, Ixx_2_0, Iyy_2_0, Izz_2_0, #<inertia matrix> [kg*m^2]
+                       orientation, 3, 1.2487886104502834e-15, -7.597753748831685e-18, -1.0, 2, -0.01819866345641067, 0.9998343906109652, -2.830232162058758e-17 ;
+
+     #-----------------------------------------------------------------------------
+     # [Joints]
+
+     #ground<->Fixed body->ACTIVATION: During assembly and simulation
+     joint: joint_1,
+         clamp,
+         structural_node_1, #<node_label>
+             -7.949781095530902e-19, -1.3748434703159951e-18, 4.365574568510056e-19, #<absolute_pin_position> [m]
+             3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #<absolute_orientation_matrix> 
+
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_2->ACTIVATION: Inconditional during assembly and simulation
+     joint: joint_2,
+         rod,
+         structural_node_1, #<base_entity_label>
+             position, -7.779880773641398e-19, 7.873338210045535e-19, -1.8917489796876907e-18, #point offset relative to node 1 [m]
+         structural_node_2, #<action_entity_label>
+             position, 5.684341886080802e-17, -1.995615177952912e-18, 0.1807541176523111, #point offset relative to node 2 [m]
+         0.37582575749940295, # natural length [m]
+         linear elastic isotropic, 100.0; # constitutive law
+
+     gravity: uniform, 0.0, 0.0, 1.0, string, "9.807"; #<gravity_acceleration> [m/s^2]
+
+ end: elements;
+

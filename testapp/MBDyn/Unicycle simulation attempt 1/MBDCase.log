@@ -1,0 +1,426 @@
+output frequency: custom
+structural node: 1 -0.337779 0.391297 0.0335725 mat 1 0 0 0 1 0 0 0 1
+structural node: 2 -0.338801 0.321212 0.150119 mat 1 0 0 0 1 0 0 0 1
+structural node: 3 -0.337524 0.281916 0.0324998 mat 1 0 0 0 1 0 0 0 1
+structural node: 4 -0.334893 0.158553 -0.0068223 mat 1 -7.9515e-13 1.13047e-25 7.9515e-13 1 -2.84341e-13 1.13047e-25 2.84341e-13 1
+structural node: 5 -0.334587 0.0309169 -0.008942 mat 1 -7.9515e-13 1.13047e-25 7.9515e-13 1 -2.84341e-13 1.13047e-25 2.84341e-13 1
+structural node: 6 -0.341 -0.602 -0.07 mat 1 -0 0 0 2.22045e-16 1 -0 -1 2.22045e-16
+structural node: 7 -0.341 -0.601 -0.07 mat 1 -0 0 0 2.22045e-16 1 -0 -1 2.22045e-16
+structural node: 8 -0.334587 -0.202083 -0.008942 mat 1 -3.21439e-38 0 -3.21439e-38 1 0 0 0 1
+structural node: 9 -0.341 -0.351 -0.07 mat 1 0 0 0 1 0 -0 0 1
+body: 1 1 9.81435 0.00385225 -0.109676 -0.063992 0.465992 0.00352335 0.00117002 0.00352335 0.0998141 -0.0465855 0.00117002 -0.0465855 0.432317
+body: 2 2 0.869286 0.000196583 0.0469115 -0.0297941 0.00469286 -9.90463e-06 8.86711e-06 -9.90463e-06 0.00347392 0.00124841 8.86711e-06 0.00124841 0.0035406
+body: 3 3 0.278054 -0.000668131 0.0225768 0.0610717 0.00168046 5.61812e-06 1.41417e-05 5.61812e-06 0.00163296 -0.000543608 1.41417e-05 -0.000543608 0.000389869
+body: 4 4 5.33895 1.1559e-16 -9.24393e-17 3.4805e-17 0.0397954 4.84445e-05 -0.000191078 4.84445e-05 0.0222922 -0.000925243 -0.000191078 -0.000925243 0.0588893
+body: 5 5 111.965 0 0 0 2.83141 0.00300583 0.013613 0.00300583 1.48552 3.02642e-05 0.013613 3.02642e-05 1.48567
+body: 6 6 882.288 0 0 0 250.842 8.70415e-14 5.35217e-14 8.70415e-14 250.842 8.87369e-14 5.35217e-14 8.87369e-14 464.922
+body: 7 7 6080.55 0 0 0 871.546 -1.58762e-14 1.07285e-14 -1.56541e-14 871.546 2.95223e-13 1.07285e-14 2.95223e-13 1489.74
+totaljoint: 2 1 0 0 0 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 2.90258e-16 0.999949 0.010114 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 2.90258e-16 0.999949 0.010114 2 0.0010223 0.070085 -0.116546 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 2.90258e-16 0.999949 0.010114 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 2.90258e-16 0.999949 0.010114 1 1 1 0 0 0 1 1 0 0 0 0
+totaljoint: 4 2 0 0 0 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 -1.47865e-16 0.999949 0.010114 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 -1.47865e-16 0.999949 0.010114 3 -0.0012775 0.0392953 0.117619 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 -1.47865e-16 0.999949 0.010114 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.0022332 -1.47865e-16 0.999949 0.010114 1 1 1 0 0 0 1 1 0 0 0 0
+inline: 6 1 0.0673378 -0.424068 -0.0424933 -0.999997 2.28748e-05 -0.0023324 -0.00233251 -0.00980689 0.999949 -5.0822e-20 0.999952 0.00980691 4 0.0643614 -0.152492 -0.00171758 1 0 0 0 1 0 0 0 1
+prismatic: 7 1 0 0 0 -0.999997 2.28748e-05 -0.0023324 -0.00233251 -0.00980689 0.999949 -5.0822e-20 0.999952 0.00980691 4 0 0 0 -0.999997 2.28748e-05 -0.0023324 -0.00233251 -0.00980689 0.999949 6.62898e-16 0.999952 0.00980691
+inline: 9 3 0 0 0 -0.00223332 -0.0101139 0.999946 0.999998 -2.25877e-05 0.00223321 2.50278e-16 0.999949 0.010114 4 -0.000673444 0.123368 0.0393419 1 0 0 0 1 0 0 0 1
+prismatic: 10 5 0 0 0 1 7.9515e-13 1.13047e-25 -7.9515e-13 1 2.84341e-13 1.13047e-25 -2.84341e-13 1 4 0 0 0 1 7.9515e-13 1.13047e-25 -7.9515e-13 1 2.84341e-13 1.13047e-25 -2.84341e-13 1
+sphericalhinge: 11 5 0.0451644 0.0152963 -0.0193958 1 0 0 0 1 0 0 0 1 4 0.0454709 -0.11234 -0.0215155 1 0 0 0 1 0 0 0 1
+rod: 12 2 -0.000490074 0.077975 0.0312354 4 -0.000673444 0.123368 0.0393419
+clamp: 13 6 0 0 0 1 0 0 0 1 0 0 0 1 6 0 0 0 1 0 0 0 1 0 0 0 1
+inline: 14 6 7.95808e-16 1.42109e-17 -3.15544e-33 -1 0 0 0 -1 4.44089e-16 0 4.44089e-16 1 7 -5.68434e-17 -4.26326e-17 0 1 0 0 0 1 0 0 0 1
+prismatic: 15 6 0 0 0 -1 0 0 0 -1 4.44089e-16 0 4.44089e-16 1 7 0 0 0 -1 0 0 0 -1 4.44089e-16 0 4.44089e-16 1
+distance: 16 6 0 0 0 7 0 0 0
+prismatic: 17 6 0 0 0 1 0 0 0 2.22045e-16 -1 -0 1 2.22045e-16 1 0 0 0 1 0 0 0 1 0 0 0 1
+structural absolute force: 1 5 0.000323596 -0.138732 -0.00136061
+structural internal absolute force: 2 5 0 1.42109e-17 -8.88178e-18 7 2.84217e-16 -4.26326e-17 0.25
+structural absolute force: 3 1 0.110231 -0.395973 -0.0417842
+struct node dofs: 0 12 24 36 48 60 72
+struct node eqs: 6 18 30 42 54 66 78
+struct node momentum dofs: 6 18 30 42 54 66 78
+struct node momentum eqs: 0 12 24 36 48 60 72
+struct displacement node dofs: 0 12 24 36 48 60 72
+struct displacement node eqs: 6 18 30 42 54 66 78
+struct displacement node momentum dofs: 6 18 30 42 54 66 78
+struct displacement node momentum eqs: 0 12 24 36 48 60 72
+struct node labels: 1 2 3 4 5 6 7
+struct displacement node labels: 1 2 3 4 5 6 7
+Symbol table:
+  real Cc_2 = 5000.
+  const bool FALSE = 0
+  const real Fx_2 = 0.
+  const real Fx_4 = 0.
+  const real Fy_2 = 0.
+  const real Fy_4 = 0.
+  const real Fz_2 = 0.
+  const real Fz_4 = 0.
+  const integer INT_MAX = 2147483647
+  const integer INT_MIN = -2147483648
+  real Ixx_1_0 = 0.0353997
+  real Ixx_1_1 = 0.000785807
+  real Ixx_1_2 = 0.0099317
+  real Ixx_1_3 = 0.0099317
+  real Ixx_1_4 = 0.000785807
+  real Ixx_2_0 = 0.00100411
+  real Ixx_2_1 = 0.00100411
+  real Ixx_3_0 = 0.000250846
+  real Ixx_3_1 = 0.000250846
+  real Ixx_4_0 = 0.0127816
+  real Ixx_4_1 = 1.93619e-05
+  real Ixx_4_2 = 0.0127816
+  real Ixx_4_3 = 0.00156623
+  real Ixx_4_4 = 1.93619e-05
+  real Ixx_5_0 = 2.83156
+  real Ixx_6_0 = 464.922
+  real Ixx_7_0 = 1489.74
+  real Iyy_1_0 = 0.0248807
+  real Iyy_1_1 = 0.000664238
+  real Iyy_1_2 = 0.00993083
+  real Iyy_1_3 = 0.00993083
+  real Iyy_1_4 = 0.000664238
+  real Iyy_2_0 = 0.000772353
+  real Iyy_2_1 = 0.000772353
+  real Iyy_3_0 = 0.000244
+  real Iyy_3_1 = 0.000244
+  real Iyy_4_0 = 0.0125254
+  real Iyy_4_1 = 1.23546e-05
+  real Iyy_4_2 = 0.0125254
+  real Iyy_4_3 = 0.00128245
+  real Iyy_4_4 = 1.23546e-05
+  real Iyy_5_0 = 1.48553
+  real Iyy_6_0 = 250.842
+  real Iyy_7_0 = 871.546
+  real Izz_1_0 = 0.012409
+  real Izz_1_1 = 0.000326842
+  real Izz_1_2 = 0.000120397
+  real Izz_1_3 = 0.000120397
+  real Izz_1_4 = 0.000326842
+  real Izz_2_0 = 0.000233945
+  real Izz_2_1 = 0.000233945
+  real Izz_3_0 = 7.54633e-06
+  real Izz_3_1 = 7.54633e-06
+  real Izz_4_0 = 0.000979007
+  real Izz_4_1 = 7.19116e-06
+  real Izz_4_2 = 0.000979007
+  real Izz_4_3 = 0.000318427
+  real Izz_4_4 = 7.19116e-06
+  real Izz_5_0 = 1.48551
+  real Izz_6_0 = 250.842
+  real Izz_7_0 = 871.546
+  real Kc_2 = 1e+07.
+  real Px_1 = -0.337779
+  real Px_2 = -0.338801
+  real Px_3 = -0.337524
+  real Px_4 = -0.334893
+  real Px_5 = -0.334587
+  real Px_6 = -0.341
+  real Px_7 = -0.341
+  real Px_8 = -0.334587
+  real Px_9 = -0.341
+  real Py_1 = 0.391297
+  real Py_2 = 0.321212
+  real Py_3 = 0.281916
+  real Py_4 = 0.158553
+  real Py_5 = 0.0309169
+  real Py_6 = -0.602
+  real Py_7 = -0.601
+  real Py_8 = -0.202083
+  real Py_9 = -0.351
+  real Pz_1 = 0.0335725
+  real Pz_2 = 0.150119
+  real Pz_3 = 0.0324998
+  real Pz_4 = -0.0068223
+  real Pz_5 = -0.008942
+  real Pz_6 = -0.07
+  real Pz_7 = -0.07
+  real Pz_8 = -0.008942
+  real Pz_9 = -0.07
+  const integer RAND_MAX = 2147483647
+  const real REAL_MAX = 1.79769e+308
+  const real REAL_MIN = 2.22507e-308
+  real Rx_1_0 = 0.00418779
+  real Rx_1_1 = -0.0860557
+  real Rx_1_2 = 0.0668406
+  real Rx_1_3 = -0.0611525
+  real Rx_1_4 = 0.0926878
+  real Rx_2_0 = 0.036702
+  real Rx_2_1 = -0.0363088
+  real Rx_3_0 = -0.0254168
+  real Rx_3_1 = 0.0240805
+  real Rx_4_0 = 0.0640575
+  real Rx_4_1 = 0.0637552
+  real Rx_4_2 = -0.0639356
+  real Rx_4_3 = -0.000324379
+  real Rx_4_4 = -0.064238
+  real Rx_5_0 = 0.
+  real Rx_6_0 = 0.
+  real Rx_7_0 = 0.
+  real Ry_1_0 = -0.00530034
+  real Ry_1_1 = -0.413645
+  real Ry_1_2 = -0.210928
+  real Ry_1_3 = -0.211214
+  real Ry_1_4 = -0.413245
+  real Ry_2_0 = 0.046993
+  real Ry_2_1 = 0.04683
+  real Ry_3_0 = 0.0225216
+  real Ry_3_1 = 0.0226321
+  real Ry_4_0 = -0.0222249
+  real Ry_4_1 = 0.107395
+  real Ry_4_2 = -0.0225108
+  real Ry_4_3 = 0.116914
+  real Ry_4_4 = 0.107109
+  real Ry_5_0 = 0.
+  real Ry_6_0 = 0.
+  real Ry_7_0 = 0.
+  real Rz_1_0 = -0.0741025
+  real Rz_1_1 = -0.0439389
+  real Rz_1_2 = -0.0404056
+  real Rz_1_3 = -0.0417002
+  real Rz_1_4 = -0.042131
+  real Rz_2_0 = -0.0294248
+  real Rz_2_1 = -0.0301633
+  real Rz_3_0 = 0.0608214
+  real Rz_3_1 = 0.061322
+  real Rz_4_0 = -0.000439996
+  real Rz_4_1 = 0.000831241
+  real Rz_4_2 = -0.00173458
+  real Rz_4_3 = 0.00625565
+  real Rz_4_4 = -0.000463346
+  real Rz_5_0 = 0.
+  real Rz_6_0 = 0.
+  real Rz_7_0 = 0.
+  integer Step = 0
+  const bool TRUE = 1
+  real Time = 0.
+  real TimeStep = 0.
+  real Var = 0.
+  real Vx_1 = 0.
+  real Vx_2 = 0.
+  real Vx_3 = 0.
+  real Vx_4 = 0.
+  real Vx_5 = 0.
+  real Vx_6 = 0.
+  real Vx_7 = 0.
+  real Vy_1 = 0.
+  real Vy_2 = 0.
+  real Vy_3 = 0.
+  real Vy_4 = 0.
+  real Vy_5 = 0.
+  real Vy_6 = 0.
+  real Vy_7 = 0.
+  real Vz_1 = 0.
+  real Vz_2 = 0.
+  real Vz_3 = 0.
+  real Vz_4 = 0.
+  real Vz_5 = 0.
+  real Vz_6 = 0.
+  real Vz_7 = 0.
+  real Wx_1 = 0.
+  real Wx_2 = 0.
+  real Wx_3 = 0.
+  real Wx_4 = 0.
+  real Wx_5 = 0.
+  real Wx_6 = 0.
+  real Wx_7 = 0.
+  real Wy_1 = 0.
+  real Wy_2 = 0.
+  real Wy_3 = 0.
+  real Wy_4 = 0.
+  real Wy_5 = 0.
+  real Wy_6 = 0.
+  real Wy_7 = 0.
+  real Wz_1 = 0.
+  real Wz_2 = 0.
+  real Wz_3 = 0.
+  real Wz_4 = 0.
+  real Wz_5 = 0.
+  real Wz_6 = 0.
+  real Wz_7 = 0.
+  const real XP_2_8 = 0.
+  const real XP_2_9 = 0.
+  const real X_2_8 = -0.202083
+  const real X_2_9 = -0.351
+  integer abstract_node_1 = 1
+  integer abstract_node_2 = 2
+  integer abstract_node_3 = 3
+  integer abstract_node_4 = 4
+  integer abstract_node_5 = 5
+  integer abstract_node_6 = 6
+  integer abstract_node_7 = 7
+  integer abstract_node_8 = 8
+  integer abstract_node_9 = 9
+  integer body_1 = 1
+  integer body_2 = 2
+  integer body_3 = 3
+  integer body_4 = 4
+  integer body_5 = 5
+  integer body_6 = 6
+  integer body_7 = 7
+  const real deg2rad = 0.0174533
+  integer drive_1 = 1
+  integer drive_2 = 2
+  integer drive_3 = 3
+  const real e = 2.71828
+  const real ft2m = 0.3048
+  integer genel_clamp_1 = 1
+  integer genel_clamp_2 = 2
+  integer genel_clamp_3 = 3
+  integer genel_clamp_4 = 4
+  integer genel_clamp_5 = 5
+  integer genel_clamp_6 = 6
+  integer genel_clamp_7 = 7
+  integer genel_clamp_8 = 8
+  integer genel_clamp_9 = 9
+  const real in2m = 0.0254
+  const real in2mm = 25.4
+  integer joint_10 = 10
+  integer joint_11 = 11
+  integer joint_12 = 12
+  integer joint_13 = 13
+  integer joint_14 = 14
+  integer joint_15 = 15
+  integer joint_16 = 16
+  integer joint_17 = 17
+  integer joint_2 = 2
+  integer joint_3 = 3
+  integer joint_4 = 4
+  integer joint_5 = 5
+  integer joint_6 = 6
+  integer joint_7 = 7
+  integer joint_8 = 8
+  integer joint_9 = 9
+  const real kg2lb = 2.20462
+  const real kg2slug = 0.0685218
+  const real lb2kg = 0.453592
+  const real m2ft = 3.28084
+  const real m2in = 39.3701
+  real mass_1_0 = 6.69838
+  real mass_1_1 = 0.94678
+  real mass_1_2 = 0.611203
+  real mass_1_3 = 0.611203
+  real mass_1_4 = 0.94678
+  real mass_2_0 = 0.434643
+  real mass_2_1 = 0.434643
+  real mass_3_0 = 0.139027
+  real mass_3_1 = 0.139027
+  real mass_4_0 = 2.23771
+  real mass_4_1 = 0.0441271
+  real mass_4_2 = 2.23771
+  real mass_4_3 = 0.775274
+  real mass_4_4 = 0.0441271
+  real mass_5_0 = 111.965
+  real mass_6_0 = 882.288
+  real mass_7_0 = 6080.55
+  const real mm2in = 0.0393701
+  const real pi = 3.14159
+  const real rad2deg = 57.2958
+  const real slug2kg = 14.5939
+  integer structural_force_1 = 1
+  integer structural_force_3 = 3
+  integer structural_internal_force_2 = 2
+  integer structural_node_1 = 1
+  integer structural_node_2 = 2
+  integer structural_node_3 = 3
+  integer structural_node_4 = 4
+  integer structural_node_5 = 5
+  integer structural_node_6 = 6
+  integer structural_node_7 = 7
+  integer structural_node_8 = 8
+  integer structural_node_9 = 9
+  real volume_1_0 = 0.000847897
+  real volume_1_1 = 0.000119846
+  real volume_1_2 = 7.73674e-05
+  real volume_1_3 = 7.73674e-05
+  real volume_1_4 = 0.000119846
+  real volume_2_0 = 5.50181e-05
+  real volume_2_1 = 5.50181e-05
+  real volume_3_0 = 1.75984e-05
+  real volume_3_1 = 1.75984e-05
+  real volume_4_0 = 0.000283255
+  real volume_4_1 = 5.58571e-06
+  real volume_4_2 = 0.000283255
+  real volume_4_3 = 9.8136e-05
+  real volume_4_4 = 5.58571e-06
+  real volume_5_0 = 0.0141727
+  real volume_6_0 = 0.111682
+  real volume_7_0 = 0.76969
+Environment:
+  SHELL=/bin/bash
+  SESSION_MANAGER=local/jose-Inspiron-7391-2n1:@/tmp/.ICE-unix/1841,unix/jose-Inspiron-7391-2n1:/tmp/.ICE-unix/1841
+  WINDOWID=62914566
+  QT_ACCESSIBILITY=1
+  COLORTERM=truecolor
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  GTK_IM_MODULE=ibus
+  FONTCONFIG_PATH=/etc/fonts
+  LANGUAGE=en_US
+  PREFIX=/tmp/.mount_FreeCAj3fw3W/usr
+  LC_ADDRESS=es_EC.UTF-8
+  LC_NAME=es_EC.UTF-8
+  SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+  ARGV0=./Desktop/FreeCADs/FreeCADweekly.AppImage
+  XMODIFIERS=@im=ibus
+  DESKTOP_SESSION=mate
+  LC_MONETARY=es_EC.UTF-8
+  QTWEBENGINE_DISABLE_SANDBOX=1
+  GTK_MODULES=appmenu-gtk-module:gail:atk-bridge:canberra-gtk-module
+  DBUS_STARTER_BUS_TYPE=session
+  MATE_DESKTOP_SESSION_ID=this-is-deprecated
+  PWD=/home/jose
+  LOGNAME=jose
+  XDG_SESSION_DESKTOP=mate
+  QT_QPA_PLATFORMTHEME=gtk2
+  XDG_SESSION_TYPE=x11
+  GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+  SYSTEMD_EXEC_PID=1849
+  XAUTHORITY=/home/jose/.Xauthority
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/jose
+  GDM_LANG=en_US
+  HOME=/home/jose
+  IM_CONFIG_PHASE=1
+  GIT_SSL_CAINFO=/tmp/.mount_FreeCAj3fw3W/usr/ssl/cacert.pem
+  LANG=en_US.UTF-8
+  LC_PAPER=es_EC.UTF-8
+  LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+  XDG_CURRENT_DESKTOP=MATE
+  VTE_VERSION=6800
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  INVOCATION_ID=c1e13bacb5974cf3a3092bbe5a1eb165
+  MANAGERPID=1809
+  CLUTTER_IM_MODULE=ibus
+  APPDIR=/tmp/.mount_FreeCAj3fw3W
+  LESSCLOSE=/usr/bin/lesspipe %s %s
+  XDG_SESSION_CLASS=user
+  LC_IDENTIFICATION=es_EC.UTF-8
+  TERM=xterm-256color
+  GTK_OVERLAY_SCROLLING=0
+  PYTHONHOME=/tmp/.mount_FreeCAj3fw3W/usr
+  LESSOPEN=| /usr/bin/lesspipe %s
+  USER=jose
+  OWD=/home/jose
+  DISPLAY=:0
+  SHLVL=2
+  LC_TELEPHONE=es_EC.UTF-8
+  QT_IM_MODULE=ibus
+  LC_MEASUREMENT=es_EC.UTF-8
+  UBUNTU_MENUPROXY=1
+  DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=5bc4ddb4507d8c532821a2f06629354f
+  LD_LIBRARY_PATH=/tmp/.mount_FreeCAj3fw3W/usr/lib
+  APPIMAGE=/home/jose/Desktop/FreeCADs/FreeCADweekly.AppImage
+  PATH_TO_FREECAD_LIBDIR=/tmp/.mount_FreeCAj3fw3W/usr/lib
+  XDG_RUNTIME_DIR=/run/user/1000
+  SSL_CERT_FILE=/tmp/.mount_FreeCAj3fw3W/usr/ssl/cacert.pem
+  COMPIZ_CONFIG_PROFILE=mate
+  LC_TIME=es_EC.UTF-8
+  FONTCONFIG_FILE=/etc/fonts/fonts.conf
+  JOURNAL_STREAM=8:32302
+  XDG_DATA_DIRS=/usr/share/mate:/home/jose/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+  PATH=/tmp/.mount_FreeCAj3fw3W/usr/bin:/tmp/.mount_FreeCAj3fw3W/usr/Mod/AddonManager:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Arch:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Assembly:/tmp/.mount_FreeCAj3fw3W/usr/Mod/CAM:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Draft:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Fem:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Help:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Idf:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Import:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Inspection:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Material:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Measure:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Mesh:/tmp/.mount_FreeCAj3fw3W/usr/Mod/MeshPart:/tmp/.mount_FreeCAj3fw3W/usr/Mod/OpenSCAD:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Part:/tmp/.mount_FreeCAj3fw3W/usr/Mod/PartDesign:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Plot:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Points:/tmp/.mount_FreeCAj3fw3W/usr/Mod/ReverseEngineering:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Robot:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Show:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Sketcher:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Spreadsheet:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Start:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Surface:/tmp/.mount_FreeCAj3fw3W/usr/Mod/TechDraw:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Test:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Tux:/tmp/.mount_FreeCAj3fw3W/usr/Mod/Web:/home/jose/.local/share/FreeCAD/Mod/FreeCAD-motion-workbench-master.7z:/home/jose/.local/share/FreeCAD/Mod/freecad.gears:/home/jose/.local/share/FreeCAD/Mod/freecad.gears/./:/home/jose/.local/share/FreeCAD/Mod/fasteners:/home/jose/.local/share/FreeCAD/Mod/fasteners/./:/home/jose/.local/share/FreeCAD/Mod/FreeCAD-motion-workbench-master:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes/./:/home/jose/.local/share/FreeCAD/Mod/Curves:/home/jose/.local/share/FreeCAD/Mod/Curves/./:/home/jose/.local/share/FreeCAD/Mod/Silk:/home/jose/.local/share/FreeCAD/Mod/Silk/./:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  GDMSESSION=mate
+  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=5bc4ddb4507d8c532821a2f06629354f
+  QT_FONT_DPI=96
+  QT_SCALE_FACTOR=2
+  LC_NUMERIC=C
+  _=/tmp/.mount_FreeCAj3fw3W/usr/bin/freecad
+  PYTHONPATH=
+  COIN_VBO=0
+  force_s3tc_enable=true
+  COIN_AUTO_CACHING=0
+  COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE=1

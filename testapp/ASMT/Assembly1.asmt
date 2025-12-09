@@ -1,0 +1,54 @@
+freeCAD: 3D CAD with Motion Simulation  by  askoh.com
+Assembly
+	Notes
+		(Text string: 'xxxx' runs: (Core.RunArray runs: #(4) values: #(nil)))
+	Name
+		Assembly1
+	Position3D
+		0.0 	0.0 	0.0 
+	RotationMatrix
+		1.0 	0.0 	0.0 
+		0.0 	1.0 	0.0 
+		0.0 	0.0 	1.0 
+	Velocity3D
+		0.0 	0.0 	0.0 
+	Omega3D
+		0.0 	0.0 	0.0 
+	RefPoints
+	RefCurves
+	RefSurfaces
+	Parts
+	KinematicIJs
+	ConstraintSets
+		Joints
+		Motions
+		GeneralConstraintSets
+	ForceTorques
+	ConstantGravity
+		0.0 	0.0 	0.0 
+	SimulationParameters
+		tstart
+			0.0 
+		tend
+			1.0 
+		hmin
+			1.0e-9
+		hmax
+			1.0 
+		hout
+			0.1 
+		errorTol
+			1.0e-6
+	AnimationParameters
+		nframe
+			0
+		icurrent
+			1
+		istart
+			0
+		iend
+			0
+		isForward
+			true
+		framesPerSecond
+			30

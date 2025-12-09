@@ -1,0 +1,366 @@
+#-----------------------------------------------------------------------------
+ # [Data Block]
+
+ begin: data;
+     problem: initial value;
+ end: data;
+
+ #-----------------------------------------------------------------------------
+ # [Problem Block]
+
+ begin: initial value;
+     initial time: 0.0;
+     final time: 2.0;
+     time step: 0.001;
+     max iterations: 100;
+     tolerance: 1e-06;
+     derivatives tolerance: 0.0001;
+     derivatives max iterations: 100;
+     derivatives coefficient: auto;
+ end: initial value;
+
+ #-----------------------------------------------------------------------------
+ # [Control Data Block]
+
+ begin: control data;
+     max iterations: 1000;
+     default orientation: orientation matrix;
+     omega rotates: no;
+     print: none;
+     initial stiffness: 1.0, 1.0;
+     structural nodes: 3;
+     rigid bodies: 3;
+     abstract nodes: 1;
+     joints: 4;
+     forces: 2;
+     gravity;
+     genels: 1;
+ end: control data;
+
+ #-----------------------------------------------------------------------------
+ # [Design Variables]
+
+     #Generic bodies
+
+         #body: 1
+             set: integer body_1 = 1; #body label
+             set: real mass_1 = 2.364998382008118; #mass [kg]
+             set: real volume_1 = 0.00029936688379849594; #volume [m^3]
+
+         #body: 2
+             set: integer body_2 = 2; #body label
+             set: real mass_2 = 0.1030869284766723; #mass [kg]
+             set: real volume_2 = 1.3048978288186362e-05; #volume [m^3]
+
+         #body: 3
+             set: integer body_3 = 3; #body label
+             set: real mass_3 = 0.1485143944687426; #mass [kg]
+             set: real volume_3 = 1.8799290439081342e-05; #volume [m^3]
+
+     #Nodes
+
+         #structural node: 1
+             set: integer structural_node_1 = 1; #node label
+
+         #structural node: 2
+             set: integer structural_node_2 = 2; #node label
+
+         #structural node: 3
+             set: integer structural_node_3 = 3; #node label
+
+         #abstract node: 1
+             set: integer abstract_node_1 = 1; #abstract node label
+
+     #Joints
+
+         #joint: 1
+             set: integer joint_1 = 1; #joint label
+
+         #joint: 2_3_4
+             set: integer joint_2 = 2; #joint label
+
+             set: integer joint_3 = 3; #joint label
+
+             set: integer joint_4 = 4; #joint label
+
+         #joint: 5_6
+             set: integer joint_5 = 5; #joint label
+
+             set: integer joint_6 = 6; #joint label
+
+     #Drives: 
+
+         #drive: 1
+             set: integer drive_1 = 1; #drive label
+
+     #Genels: 
+
+         #genel clamp: 1
+             set: integer genel_clamp_1 = 1; #genel label
+
+     #Forces/couples: 
+
+         #structural force: 1
+             set: integer structural_force_1 = 1; #structural force label
+
+         #structural force: 2
+             set: integer structural_force_2 = 2; #structural force label
+
+     #Nodes: initial conditions
+
+         #node: 1
+             set: real Px_1 = 0.015; #X component of the absolute position [m]
+             set: real Py_1 = -0.02924999; #Y component of the absolute position [m]
+             set: real Pz_1 = -1.3040519775131543e-09; #Z component of the absolute position [m]
+
+             set: real Vx_1 = 0.0; #X component of the absolute velocity [m/s]
+             set: real Vy_1 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real Vz_1 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real Wx_1 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real Wy_1 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real Wz_1 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+         #node: 2
+             set: real Px_2 = 0.015000000000000003; #X component of the absolute position [m]
+             set: real Py_2 = -0.02875; #Y component of the absolute position [m]
+             set: real Pz_2 = 0.24750000000000003; #Z component of the absolute position [m]
+
+             set: real Vx_2 = 0.0; #X component of the absolute velocity [m/s]
+             set: real Vy_2 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real Vz_2 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real Wx_2 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real Wy_2 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real Wz_2 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+         #node: 3
+             set: real Px_3 = 0.024049999999999985; #X component of the absolute position [m]
+             set: real Py_3 = 0.0005985872999999979; #Y component of the absolute position [m]
+             set: real Pz_3 = 0.2725000000000001; #Z component of the absolute position [m]
+
+             set: real Vx_3 = 0.0; #X component of the absolute velocity [m/s]
+             set: real Vy_3 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real Vz_3 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real Wx_3 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real Wy_3 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real Wz_3 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+ #-----------------------------------------------------------------------------
+ # [Intermediate Variables]
+
+     #Moments of inertia and relative center of mass
+
+         #rigid body->Rail
+         #body 1: 
+             set: real Ixx_1 = 0.020399745709328003; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real Iyy_1 = 0.018809325649618003; #moment of inertia around second axis of inertiae [kg*m^2]
+             set: real Izz_1 = 0.0019375854360750002; #moment of inertia around third axis of inertia [kg*m^2]
+
+             set: real Rx_1 = -0.014999999565301564; #X component of the relative center of mass [m]
+             set: real Ry_1 = 0.029234503799479335; #Y component of the relative center of mass [m]
+             set: real Rz_1 = 0.15419324389269992; #Z component of the relative center of mass [m]
+
+         #rigid body->Pusher1
+         #body 2: 
+             set: real Ixx_2 = 5.9553646691e-05; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real Iyy_2 = 3.9556293425e-05; #moment of inertia around second axis of inertiae [kg*m^2]
+             set: real Izz_2 = 2.3306364172000004e-05; #moment of inertia around third axis of inertia [kg*m^2]
+
+             set: real Rx_2 = 0.002694057934700947; #X component of the relative center of mass [m]
+             set: real Ry_2 = 0.028573911779967452; #Y component of the relative center of mass [m]
+             set: real Rz_2 = 0.02716190393540191; #Z component of the relative center of mass [m]
+
+         #rigid body->Spool1
+         #body 3: 
+             set: real Ixx_3 = 3.1567325205000005e-05; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real Iyy_3 = 2.6693778865000002e-05; #moment of inertia around second axis of inertiae [kg*m^2]
+             set: real Izz_3 = 2.6693778865000002e-05; #moment of inertia around third axis of inertia [kg*m^2]
+
+             set: real Rx_3 = 0.0; #X component of the relative center of mass [m]
+             set: real Ry_3 = 0.0; #Y component of the relative center of mass [m]
+             set: real Rz_3 = 0.0; #Z component of the relative center of mass [m]
+
+ #-----------------------------------------------------------------------------
+ # [User-defined variables]
+
+         set: real Kc1 = 100000.; # Contact stiffness coefficient 1
+         set: real Ec1 = 1.2;    # Contact Stiffness exponent 1
+         set: real Cc1 = 50.0;    # Contact damping coefficient 1
+         set: real Dc1 = 0.000001; # Contact damping activation depth 1
+ 
+ #-----------------------------------------------------------------------------
+ # [Scalar functions]
+
+ scalar function: "function:1",
+     cubicspline, do not extrapolate,
+         -0.03, 0,
+         -0.02, 0,
+         -0.01, 0,
+         0, 0,
+         1, 1,
+         1.01, 1,
+         1.03, 1;
+
+ #-----------------------------------------------------------------------------
+ # [Nodes Block]
+
+ begin: nodes;
+
+     #To visualize contact force between rail and pusher
+     abstract: abstract_node_1, #<label>
+                 differential, #<additional_args>
+                 value, 0.0, #<initial_value>
+                 derivative, 0.0; #<derivative_initial_value> 
+
+     #structural dynamic node->Rail
+     structural: structural_node_1,
+                 dynamic,
+                 Px_1, Py_1, Pz_1, #<absolute_position> [m]
+                 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #<absolute_orientation_matrix>
+                 Vx_1, Vy_1, Vz_1, #<absolute_velocity> [m/s]
+                 Wx_1, Wy_1, Wz_1; #<absolute_angular_velocity> [rad/s]
+
+     #structural dynamic node->Pusher1
+     structural: structural_node_2,
+                 dynamic,
+                 Px_2, Py_2, Pz_2, #<absolute_position> [m]
+                 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #<absolute_orientation_matrix>
+                 Vx_2, Vy_2, Vz_2, #<absolute_velocity> [m/s]
+                 Wx_2, Wy_2, Wz_2; #<absolute_angular_velocity> [rad/s]
+
+     #structural dynamic node->Spool1
+     structural: structural_node_3,
+                 dynamic,
+                 Px_3, Py_3, Pz_3, #<absolute_position> [m]
+                 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #<absolute_orientation_matrix>
+                 Vx_3, Vy_3, Vz_3, #<absolute_velocity> [m/s]
+                 Wx_3, Wy_3, Wz_3; #<absolute_angular_velocity> [rad/s]
+
+ end: nodes;
+
+ #-----------------------------------------------------------------------------
+ # [Elements Block]
+
+ begin: elements;
+
+     #-----------------------------------------------------------------------------
+     # [Bodies]
+
+         #rigid body->Rail
+         body: body_1,
+               structural_node_1, #<node_label> 
+               mass_1, #<mass> [kg]
+               Rx_1, Ry_1, Rz_1, #<relative_center_of_mass> [m]
+               diag, Ixx_1, Iyy_1, Izz_1, #<inertia matrix> [kg*m^2]
+               orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; 
+
+         #rigid body->Pusher1
+         body: body_2,
+               structural_node_2, #<node_label> 
+               mass_2, #<mass> [kg]
+               Rx_2, Ry_2, Rz_2, #<relative_center_of_mass> [m]
+               diag, Ixx_2, Iyy_2, Izz_2, #<inertia matrix> [kg*m^2]
+               orientation, 3, 0.0, 1.0, 0.05, 2, 0.02, -0.05, 1.0; 
+
+         #rigid body->Spool1
+         body: body_3,
+               structural_node_3, #<node_label> 
+               mass_3, #<mass> [kg]
+               Rx_3, Ry_3, Rz_3, #<relative_center_of_mass> [m]
+               diag, Ixx_3, Iyy_3, Izz_3, #<inertia matrix> [kg*m^2]
+               orientation, 3, -0.28, 0.0, 0.96, 2, 0.96, 0.0, 0.28; 
+
+     #-----------------------------------------------------------------------------
+     # [Joints]
+
+     #ground<->Rail->ACTIVATION: During assembly and simulation
+     joint: joint_1,
+         clamp,
+         structural_node_1, #<node_label>
+             0.015, -0.02924999, -1.3040519775131543e-09, #<absolute_pin_position> [m]
+             3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #<absolute_orientation_matrix> 
+
+     #ELEMENT_rigid_body_2<->ELEMENT_rigid_body_1->ACTIVATION: Inconditional during assembly and simulation
+     joint: joint_2,
+         in line,
+         structural_node_2, #<base_entity_label>
+             6.169623780749589e-10, 0.05799999639882907, 0.0, #<relative_line_position> [m]
+             3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #<relative_orientation>
+         structural_node_1, #<action_entity_label>
+             offset, 8.685437045130584e-10, 0.058499986196916806, 0.30800000262168925; #<relative_offset> [m]
+
+     joint: joint_3,
+         prismatic,
+         structural_node_2, #<base_entity_label>
+             orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0, #relative_orientation_matrix_1>
+         structural_node_1, #<action_entity_label>
+             orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
+
+     #ELEMENT_rigid_body_3<->ELEMENT_rigid_body_2->ACTIVATION: Inconditional during assembly and simulation
+     joint: joint_5,
+         total joint,
+         structural_node_3, #<base_entity_label>
+             position, 1.4133214421008233e-10, 0.013999999999999967, 1.0083277288686076e-09, #<relative_position_1> [m]
+             position orientation, 3, -1.009515276011091e-08, -0.9999999999999974, -7.20234092366212e-08, 2, -3.635436466565824e-16, -7.20234092366212e-08, 0.9999999999999974, #<relative_pin_orientation_matrix_1>
+             rotation orientation, 3, -1.009515276011091e-08, -0.9999999999999974, -7.20234092366212e-08, 2, -3.635436466565824e-16, -7.20234092366212e-08, 0.9999999999999974, #<relative_pin_orientation_matrix_1>
+         structural_node_2, #<action_entity_label>
+             position, 0.009050000141332124, 0.04334858729999996, 0.025000001008327756, #<relative_position_2> [m]
+             position orientation, 3, -1.009515276011091e-08, -0.9999999999999974, -7.20234092366212e-08, 2, -3.635436466565824e-16, -7.20234092366212e-08, 0.9999999999999974, #<relative_pin_orientation_matrix_2>
+             rotation orientation, 3, -1.009515276011091e-08, -0.9999999999999974, -7.20234092366212e-08, 2, -3.635436466565824e-16, -7.20234092366212e-08, 0.9999999999999974, #<relative_pin_orientation_matrix_2>
+         position constraint,
+             active, active, active,
+             null,
+         orientation constraint,
+             active, active, inactive,
+             null;
+
+     #-----------------------------------------------------------------------------
+     # [Plugin variables: nodes]
+
+         #node: 1
+             set: [node, X_3_1, structural_node_1, structural, string="X[3]"];
+ 
+         #node: 2
+             set: [node, X_3_2, structural_node_2, structural, string="X[3]"];
+             set: [node, XP_3_2, structural_node_2, structural, string="XP[3]"];
+ 
+     #-----------------------------------------------------------------------------
+     # [Drive callers]
+
+     drive caller: drive_1, name,"drive:1", cosine, 0.0, 6.28, 5.0, half, 0.0;
+
+     #-----------------------------------------------------------------------------
+     # [Forces]
+
+         #Force applied to rail. Simulate the spring used to push the rail.
+         force: structural_force_1,
+             absolute, #<force_type>
+             structural_node_2, #<node_label>
+             position, 0.001564833561587058, 0.028999996383031922, 0.05000000208769481, #<relative_arm>
+             single, -0.03047465726507273, 4.325391129565703e-05, -0.9995355388347509, #<force_orientation>
+             string, "model::drive(drive_1, Time)"; #<force_value> [N] 
+
+         #Rail-Pusher1 contact force to avoid pusher fying out of rail.
+         force: structural_force_2,
+             absolute, #<force_type>
+             structural_node_2, #<node_label>
+             position, 2.9275943091988665e-10, 0.0289999999999999, 2.0886790537133494e-09, #<relative_arm>
+             single, 0.0, 0.0, 1.0, #<force_orientation>
+             string, "max(0,Kc1*sign(X_3_1-(X_3_2-X_3_1))*abs(X_3_1-(X_3_2-X_3_1))^Ec1-Cc1*XP_3_2*model::sf::function:1((X_3_1-(X_3_2-X_3_1))/Dc1))"; #<force_value> [N] 
+
+     gravity: uniform, 0.0, -1.0, 2.220446049250313e-16, string, "9.807"; #<gravity_acceleration> [m/s^2]
+
+     #-----------------------------------------------------------------------------
+     # [Genels]
+
+         genel: genel_clamp_1,
+             clamp,
+                 abstract_node_1,
+                 abstract,
+                    differential,
+                    string, "max(0,Kc1*sign(X_3_1-(X_3_2-X_3_1))*abs(X_3_1-(X_3_2-X_3_1))^Ec1-Cc1*XP_3_2*model::sf::function:1((X_3_1-(X_3_2-X_3_1))/Dc1))"; #imposed value
+
+ end: elements;
+

@@ -1,0 +1,167 @@
+output frequency: 1
+structural node: 1 -7.94978e-19 -1.37484e-18 4.36557e-19 mat 1 0 0 0 1 0 0 0 1
+structural node: 2 0.367754 1.39562e-18 0.326 mat 2.22045e-16 -0 -1 0 1 -0 1 0 2.22045e-16
+body: 1 1 4.13643 0 0 0 0.00413643 4.33681e-19 -1.12847e-36 2.1684e-19 0.00413643 -6.77085e-36 -9.40395e-37 -6.77085e-36 0.00413643
+body: 2 2 5.37893 0 0 0 0.0120977 1.0842e-19 9.46255e-18 1.0842e-19 0.0120977 -5.75711e-20 9.46255e-18 -5.75711e-20 0.00452028
+clamp: 1 1 0 0 0 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0 0 0 1 0 0 0 1
+rod: 2 1 -7.77988e-19 7.87334e-19 -1.89175e-18 2 5.68434e-17 -1.99562e-18 0.180754
+struct node dofs: 0 12
+struct node eqs: 6 18
+struct node momentum dofs: 6 18
+struct node momentum eqs: 0 12
+struct displacement node dofs: 0 12
+struct displacement node eqs: 6 18
+struct displacement node momentum dofs: 6 18
+struct displacement node momentum eqs: 0 12
+struct node labels: 1 2
+struct displacement node labels: 1 2
+Symbol table:
+  const bool FALSE = 0
+  const integer INT_MAX = 2147483647
+  const integer INT_MIN = -2147483648
+  real Ixx_1_0 = 0.00413643
+  real Ixx_2_0 = 0.0120977
+  real Iyy_1_0 = 0.00413643
+  real Iyy_2_0 = 0.0120977
+  real Izz_1_0 = 0.00413643
+  real Izz_2_0 = 0.00452028
+  real Px_1 = -7.94978e-19
+  real Px_2 = 0.367754
+  real Py_1 = -1.37484e-18
+  real Py_2 = 1.39562e-18
+  real Pz_1 = 4.36557e-19
+  real Pz_2 = 0.326
+  const integer RAND_MAX = 2147483647
+  const real REAL_MAX = 1.79769e+308
+  const real REAL_MIN = 2.22507e-308
+  real Rx_1_0 = 0.
+  real Rx_2_0 = 0.
+  real Ry_1_0 = 0.
+  real Ry_2_0 = 0.
+  real Rz_1_0 = 0.
+  real Rz_2_0 = 0.
+  integer Step = 0
+  const bool TRUE = 1
+  real Time = 0.
+  real TimeStep = 0.
+  real Var = 0.
+  real Vx_1 = 0.
+  real Vx_2 = 0.
+  real Vy_1 = 0.
+  real Vy_2 = 0.
+  real Vz_1 = 0.
+  real Vz_2 = 0.
+  real Wx_1 = 0.
+  real Wx_2 = 0.
+  real Wy_1 = 0.
+  real Wy_2 = 0.
+  real Wz_1 = 0.
+  real Wz_2 = 0.
+  integer body_1 = 1
+  integer body_2 = 2
+  const real deg2rad = 0.0174533
+  const real e = 2.71828
+  const real ft2m = 0.3048
+  const real in2m = 0.0254
+  const real in2mm = 25.4
+  integer joint_1 = 1
+  integer joint_2 = 2
+  const real kg2lb = 2.20462
+  const real kg2slug = 0.0685218
+  const real lb2kg = 0.453592
+  const real m2ft = 3.28084
+  const real m2in = 39.3701
+  real mass_1_0 = 4.13643
+  real mass_2_0 = 5.37893
+  const real mm2in = 0.0393701
+  const real pi = 3.14159
+  const real rad2deg = 57.2958
+  const real slug2kg = 14.5939
+  integer structural_node_1 = 1
+  integer structural_node_2 = 2
+  real volume_1_0 = 0.000523599
+  real volume_2_0 = 0.000680877
+Environment:
+  SHELL=/bin/bash
+  SESSION_MANAGER=local/jose-Inspiron-7391-2n1:@/tmp/.ICE-unix/1870,unix/jose-Inspiron-7391-2n1:/tmp/.ICE-unix/1870
+  WINDOWID=60817414
+  QT_ACCESSIBILITY=1
+  COLORTERM=truecolor
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  GTK_IM_MODULE=ibus
+  FONTCONFIG_PATH=/etc/fonts
+  LANGUAGE=en_US
+  PREFIX=/tmp/.mount_FreeCAz9s6XK/usr
+  LC_ADDRESS=es_EC.UTF-8
+  LC_NAME=es_EC.UTF-8
+  SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+  ARGV0=./Desktop/FreeCADs/FreeCADweekly.AppImage
+  XMODIFIERS=@im=ibus
+  DESKTOP_SESSION=mate
+  LC_MONETARY=es_EC.UTF-8
+  QTWEBENGINE_DISABLE_SANDBOX=1
+  GTK_MODULES=appmenu-gtk-module:gail:atk-bridge:canberra-gtk-module
+  DBUS_STARTER_BUS_TYPE=session
+  MATE_DESKTOP_SESSION_ID=this-is-deprecated
+  PWD=/home/jose
+  LOGNAME=jose
+  XDG_SESSION_DESKTOP=mate
+  QT_QPA_PLATFORMTHEME=gtk2
+  XDG_SESSION_TYPE=x11
+  GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+  SYSTEMD_EXEC_PID=1871
+  XAUTHORITY=/home/jose/.Xauthority
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/jose
+  GDM_LANG=en_US
+  HOME=/home/jose
+  IM_CONFIG_PHASE=1
+  GIT_SSL_CAINFO=/tmp/.mount_FreeCAz9s6XK/usr/ssl/cacert.pem
+  LANG=en_US.UTF-8
+  LC_PAPER=es_EC.UTF-8
+  LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+  XDG_CURRENT_DESKTOP=MATE
+  VTE_VERSION=6800
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  INVOCATION_ID=b2e03c3952874b8daea1a473fd4872ee
+  MANAGERPID=1838
+  CLUTTER_IM_MODULE=ibus
+  APPDIR=/tmp/.mount_FreeCAz9s6XK
+  LESSCLOSE=/usr/bin/lesspipe %s %s
+  XDG_SESSION_CLASS=user
+  LC_IDENTIFICATION=es_EC.UTF-8
+  TERM=xterm-256color
+  GTK_OVERLAY_SCROLLING=0
+  PYTHONHOME=/tmp/.mount_FreeCAz9s6XK/usr
+  LESSOPEN=| /usr/bin/lesspipe %s
+  USER=jose
+  OWD=/home/jose
+  DISPLAY=:0
+  SHLVL=2
+  LC_TELEPHONE=es_EC.UTF-8
+  QT_IM_MODULE=ibus
+  LC_MEASUREMENT=es_EC.UTF-8
+  UBUNTU_MENUPROXY=1
+  DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=775373d85a2c5d6304ef494b661ea5af
+  LD_LIBRARY_PATH=/tmp/.mount_FreeCAz9s6XK/usr/lib
+  APPIMAGE=/home/jose/Desktop/FreeCADs/FreeCADweekly.AppImage
+  PATH_TO_FREECAD_LIBDIR=/tmp/.mount_FreeCAz9s6XK/usr/lib
+  XDG_RUNTIME_DIR=/run/user/1000
+  SSL_CERT_FILE=/tmp/.mount_FreeCAz9s6XK/usr/ssl/cacert.pem
+  COMPIZ_CONFIG_PROFILE=mate
+  LC_TIME=es_EC.UTF-8
+  FONTCONFIG_FILE=/etc/fonts/fonts.conf
+  JOURNAL_STREAM=8:32364
+  XDG_DATA_DIRS=/usr/share/mate:/home/jose/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+  PATH=/tmp/.mount_FreeCAz9s6XK/usr/bin:/tmp/.mount_FreeCAz9s6XK/usr/Mod/AddonManager:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Arch:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Assembly:/tmp/.mount_FreeCAz9s6XK/usr/Mod/CAM:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Draft:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Fem:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Help:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Idf:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Import:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Inspection:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Material:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Measure:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Mesh:/tmp/.mount_FreeCAz9s6XK/usr/Mod/MeshPart:/tmp/.mount_FreeCAz9s6XK/usr/Mod/OpenSCAD:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Part:/tmp/.mount_FreeCAz9s6XK/usr/Mod/PartDesign:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Plot:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Points:/tmp/.mount_FreeCAz9s6XK/usr/Mod/ReverseEngineering:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Robot:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Show:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Sketcher:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Spreadsheet:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Start:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Surface:/tmp/.mount_FreeCAz9s6XK/usr/Mod/TechDraw:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Test:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Tux:/tmp/.mount_FreeCAz9s6XK/usr/Mod/Web:/home/jose/.local/share/FreeCAD/Mod/FreeCAD-motion-workbench-master.7z:/home/jose/.local/share/FreeCAD/Mod/freecad.gears:/home/jose/.local/share/FreeCAD/Mod/freecad.gears/./:/home/jose/.local/share/FreeCAD/Mod/fasteners:/home/jose/.local/share/FreeCAD/Mod/fasteners/./:/home/jose/.local/share/FreeCAD/Mod/FreeCAD-motion-workbench-master:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes/./:/home/jose/.local/share/FreeCAD/Mod/Curves:/home/jose/.local/share/FreeCAD/Mod/Curves/./:/home/jose/.local/share/FreeCAD/Mod/Silk:/home/jose/.local/share/FreeCAD/Mod/Silk/./:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  GDMSESSION=mate
+  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=775373d85a2c5d6304ef494b661ea5af
+  QT_FONT_DPI=96
+  QT_SCALE_FACTOR=2
+  LC_NUMERIC=C
+  _=/tmp/.mount_FreeCAz9s6XK/usr/bin/freecad
+  PYTHONPATH=
+  COIN_VBO=0
+  force_s3tc_enable=true
+  COIN_AUTO_CACHING=0
+  COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE=1

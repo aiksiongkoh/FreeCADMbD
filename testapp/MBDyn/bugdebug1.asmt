@@ -1,0 +1,211 @@
+OndselSolver
+Assembly
+	Notes
+		(Text string: '' runs: (Core.RunArray runs: #() values: #()))
+	Name
+		Assembly
+	Position3D
+		0	0	0	
+	RotationMatrix
+		1	0	0	
+		0	1	0	
+		0	0	1	
+	Velocity3D
+		0	0	0	
+	Omega3D
+		0	0	0	
+	RefPoints
+		RefPoint
+			Position3D
+				0	0	0	
+			RotationMatrix
+				1	0	0	
+				0	1	0	
+				0	0	1	
+			Markers
+				Marker
+					Name
+						Marker0
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+	RefCurves
+	RefSurfaces
+	Parts
+		Part
+			Name
+				structural_node_1
+			Position3D
+				0.49669269999999988	-0.21590899999999982	0.47280929999999971	
+			RotationMatrix
+				1	-2.1217660000000002e-18	5.4210109999999999e-20	
+				2.1217660000000002e-18	1	-3.851284894158729e-34	
+				-5.4210109999999999e-20	3.8524351058412716e-34	1	
+			Velocity3D
+				0	0	0	
+			Omega3D
+				0	0	0	
+			FeatureOrder
+			PrincipalMassMarker
+				Name
+					MassMarker
+				Position3D
+					0.01199998873943349	-3.410605131648481e-16	0.0095000443697171016	
+				RotationMatrix
+					-5.5511151231257839e-17	-0.20952908873087342	0.97780241407740964	
+					1.0000000000000002	-1.1631200931887155e-17	5.4278937682140074e-17	
+					0	0.97780241407740986	0.20952908873087336	
+				Mass
+					10
+				MomentOfInertias
+					1.6362803110000002e-06	1.500925424e-06	2.5235878499999995e-07	
+				Density
+					10
+			RefPoints
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker0
+							Position3D
+								-0.019058699999999932	-1.4210854715202004e-16	-0.0020292999999996369	
+							RotationMatrix
+								1	2.1217660000000002e-18	-5.4210109999999999e-20	
+								-2.1217660000000002e-18	1	3.8524351058412716e-34	
+								5.4210109999999999e-20	-3.851284894158729e-34	1	
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				structural_node_2
+			Position3D
+				0.477634	-0.21590899999999999	0.46278000000000002	
+			RotationMatrix
+				1	0	0	
+				0	1	0	
+				0	0	1	
+			Velocity3D
+				0	0	0	
+			Omega3D
+				0	0	0	
+			FeatureOrder
+			PrincipalMassMarker
+				Name
+					MassMarker
+				Position3D
+					0	0	0	
+				RotationMatrix
+					1	0	0	
+					0	1	0	
+					0	0	1	
+				Mass
+					1
+				MomentOfInertias
+					1	2	3	
+				Density
+					10
+			RefPoints
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker0
+							Position3D
+								-0.477634	0.21590899999999999	-0.46278000000000002	
+							RotationMatrix
+								1	0	0	
+								0	1	0	
+								0	0	1	
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker1
+							Position3D
+								-5.6843418860808016e-17	2.8421709430404008e-17	0.0080000000000000574	
+							RotationMatrix
+								1	0	0	
+								0	1	0	
+								0	0	1	
+			RefCurves
+			RefSurfaces
+	KinematicIJs
+	ConstraintSets
+		Joints
+			FixedJoint
+				Name
+					joint_1
+				MarkerI
+					/Assembly/Marker0
+				MarkerJ
+					/Assembly/structural_node_2/Marker0
+			RevoluteJoint
+				Name
+					joint_2
+				MarkerI
+					/Assembly/structural_node_2/Marker1
+				MarkerJ
+					/Assembly/structural_node_1/Marker0
+		Motions
+			RotationalMotion
+				Name
+					joint_2Motion
+				MarkerI
+					/Assembly/structural_node_2/Marker1
+				MarkerJ
+					/Assembly/structural_node_1/Marker0
+				MotionJoint
+					/Assembly/joint_2
+				RotationZ
+					integral(time,  piecewise(time, functions(0, (0 + 10*sin(3.1416*(time - 0.25))), -6.64028e-07), transitions(0.25, 2e+09)))
+		GeneralConstraintSets
+	ForceTorques
+	ConstantGravity
+		0	-9.8070000000000004	0	
+	SimulationParameters
+		tstart
+			0
+		tend
+			4
+		hmin
+			1.0000000000000001e-09
+		hmax
+			1
+		hout
+			0.001
+		errorTol
+			9.9999999999999995e-07
+	AnimationParameters
+		nframe
+			1000000
+		icurrent
+			1
+		istart
+			1
+		iend
+			1000000
+		isForward
+			true
+		framesPerSecond
+			30

@@ -1,0 +1,71 @@
+Naming Conventions for MBDyn
+n = node
+sn = structural node
+an = abstract node
+b = body
+m = marker
+j = joint
+pg = plugin
+dc = drive caller
+f = force
+c = couple
+g = gravity
+gn = genel
+r = displacement
+v = velocity
+ome = omega = angular velocity
+a = acceleration
+alp = alpha = angular acceleration
+
+n1_rOnO1 = node1 displacement from world origin to node origin component1 in world frame
+n1_m2_rnmn1 = node1 marker2 displacement from node origin to marker origin component1 in node frame
+n1_zDir1 = node1 z-axis direction component1 in world frame
+n1_m2_zDir1 = node1 marker2 z-axis direction component1 in node frame
+b1_Ixx = b1_Ipp1 = body1 principal moment of inertia in x-axis.
+
+         #node: 1
+             set: real node1_rOpO1 = 0.015; #X component of the absolute position [m]
+             set: real node1_rOpO2 = -0.02924999; #Y component of the absolute position [m]
+             set: real node1_rOpO3 = -1.3040519775131543e-09; #Z component of the absolute position [m]
+			 
+             set: real node1_vOpO1 = 0.0; #X component of the absolute velocity [m/s]
+             set: real node1_vOpO2 = 0.0; #Y component of the absolute velocity [m/s]
+             set: real node1_vOpO3 = 0.0; #Z component of the absolute velocity [m/s]
+
+             set: real node1_omeOpO1 = 0.0; #X component of the absolute angular velocity [rad/s]
+             set: real node1_omeOpO2 = 0.0; #Y component of the absolute angular velocity [rad/s]
+             set: real node1_omeOpO3 = 0.0; #Z component of the absolute angular velocity [rad/s]
+
+
+         #body 1: 
+             set: real body1_Ippx = 0.020399745709328003; #moment of inertia around first axis of inertia [kg*m^2]
+             set: real body1_Ippy = 0.018809325649618003; #moment of inertia around second axis of inertia [kg*m^2]
+             set: real body1_Ippz = 0.0019375854360750002; #moment of inertia around third axis of inertia [kg*m^2]
+
+             set: real body1_rpcmp1 = -0.014999999565301564; #X component of the relative center of mass [m]
+             set: real body1_rpcmp2 = 0.029234503799479335; #Y component of the relative center of mass [m]
+             set: real body1_rpcmp3 = 0.15419324389269992; #Z component of the relative center of mass [m]
+
+     joint: joint_1,
+         clamp,
+         structural_node_1, #<node_label>
+             0.015, -0.02924999, -1.3040519775131543e-09, #<absolute_pin_position> [m]
+             3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #<absolute_orientation_matrix> 
+
+	 set: real node1_rpmp1 = 0.015; #X component of the absolute position [m]
+	 set: real node1_rpmp2 = -0.02924999; #Y component of the absolute position [m]
+	 set: real node1_rpmp3 = -1.3040519775131543e-09; #Z component of the absolute position [m]
+
+	 set: real node1_zDir1 = 0.0; #X component zDir
+	 set: real node1_zDir2 = 0.0; #Y component zDir
+	 set: real node1_zDir3 = 1.0; #Z component zDir
+
+	 set: real node1_yDir1 = 0.0; #X component yDir
+	 set: real node1_yDir2 = 1.0; #Y component yDir
+	 set: real node1_yDir3 = 0.0; #Z component yDir
+
+     joint: joint_1,
+         clamp,
+         structural_node_1, #<node_label>
+             node1_rpmp1, node1_rpmp2, node1_rpmp3, #<absolute_pin_position> [m]
+             3, zDir1, zDir2, zDir3, 2, yDir1, yDir2, yDir3; #<absolute_orientation_matrix> 

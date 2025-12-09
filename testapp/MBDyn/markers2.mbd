@@ -1,0 +1,145 @@
+set: integer ref_id_part1 = 1000;
+set: integer ref_id_part2 = 2000;
+
+set: integer ref_id_marker1 = 1001;
+set: integer ref_id_marker2 = 2002;
+
+set: integer node_id_part1 = 1010;
+set: integer node_id_part2 = 2020;
+
+set: integer node_id_marker1 = 1011;
+set: integer node_id_marker2 = 2022;
+
+set: integer body_id_part1 = 1100;
+set: integer body_id_part2 = 2200;
+
+set: integer joint_id_spring12 = 12000;
+set: integer drive_id_distance12a = 12100;
+set: integer drive_id_distance12b = 12101;
+
+set: real x1 = 1.;
+set: real y1 = 2.;
+set: real z1 = 3.;
+
+set: real Phix1 = 1. * pi / 180.;
+set: real Phiy1 = 2. * pi / 180.;
+set: real Phiz1 = 3. * pi / 180.;
+
+set: real x2 = 11.;
+set: real y2 = 12.;
+set: real z2 = 13.;
+
+set: real Phix2 = 10. * pi / 180.;
+set: real Phiy2 = 20. * pi / 180.;
+set: real Phiz2 = 30. * pi / 180.;
+
+set: real ox1 = 0.5;
+set: real oy1 = 0.6;
+set: real oz1 = 0.7;
+
+set: real ox2 = 0.8;
+set: real oy2 = 0.9;
+set: real oz2 = 1.0;
+
+set: real m1 = 100.;
+set: real Jxx1 = 10.;
+set: real Jyy1 = 11.;
+set: real Jzz1 = 12.;
+
+set: real m2 = 200.;
+set: real Jxx2 = 20.;
+set: real Jyy2 = 21.;
+set: real Jzz2 = 22.;
+
+set: real k12 = 1000.;
+set: real d12 = 100.;
+
+begin: data;
+	problem: initial value; # the default
+end: data;
+
+begin: initial value;
+	initial time: 0.;
+	final time: 1.;
+	time step: 0.01;
+end: initial value;
+
+begin: control data;
+    structural nodes: 4;
+    rigid bodies: 2;
+    joints: 1;
+end: control data;
+
+
+reference: ref_id_part1,
+    position, reference, global, x1, y1, z1,
+    orientation, reference, global, euler123, Phix1, Phiy1, Phiz1,
+    velocity, reference, global, null,
+    angular velocity, reference, global, null;
+
+reference: ref_id_marker1,
+    position, reference, ref_id_part1, ox1, oy1, oz1,
+    orientation, reference, ref_id_part1, eye,
+    velocity, reference, ref_id_part1, null,
+    angular velocity, reference, ref_id_part1, null;
+
+reference: ref_id_part2,
+    position, reference, global, x2, y2, z2,
+    orientation, reference, global, euler123, Phix2, Phiy2, Phiz2,
+    velocity, reference, global, null,
+    angular velocity, reference, global, null;
+
+reference: ref_id_marker2,
+    position, reference, ref_id_part2, ox2, oy2, oz2,
+    orientation, reference, ref_id_part2, eye,
+    velocity, reference, ref_id_part2, null,
+    angular velocity, reference, ref_id_part1, null;
+
+begin: nodes;
+
+    structural: node_id_part1, dynamic,
+            reference, ref_id_part1, null,
+            reference, ref_id_part1, eye,
+            reference, ref_id_part1, null,
+            reference, ref_id_part1, null;
+
+    structural: node_id_part2, dynamic,
+            reference, ref_id_part2, null,
+            reference, ref_id_part2, eye,
+            reference, ref_id_part2, null,
+            reference, ref_id_part2, null;
+
+   structural: node_id_marker1, dummy,
+            node_id_part1, offset,
+            reference, ref_id_marker1, null,
+            reference, ref_id_marker1, eye;
+
+   structural: node_id_marker2, dummy,
+            node_id_part2, offset,
+            reference, ref_id_marker2, null,
+            reference, ref_id_marker2, eye;
+end: nodes;
+
+begin: elements;
+
+body: body_id_part1, node_id_part1,
+    m1,
+    reference, ref_id_part1, null,
+    diag, Jxx1, Jyy1, Jzz1;
+
+
+body: body_id_part2, node_id_part2,
+    m2,
+    reference, ref_id_part2, null,
+    diag, Jxx2, Jyy2, Jzz2;
+
+
+joint: joint_id_spring12, rod,
+    node_id_part1, position, reference, ref_id_marker1, null,
+    node_id_part2, position, reference, ref_id_marker2, null,
+    from nodes, 
+    linear viscoelastic, k12, d12;
+
+    drive caller: drive_id_distance12a, element, joint_id_spring12, joint, string, "l", direct, output, yes;
+    drive caller: drive_id_distance12b, string, "model::distance(node_id_marker1, node_id_marker2)", output, yes;
+end: elements;

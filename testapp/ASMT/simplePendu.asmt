@@ -1,0 +1,151 @@
+freeCAD: 3D CAD with Motion Simulation  by  askoh.com
+Assembly
+	Notes
+		(Text string: '' runs: (Core.RunArray runs: #() values: #()))
+	Name
+		simplePendu
+	Position3D
+		0.0 	0.0 	0.0 
+	RotationMatrix
+		1.0 	0.0 	0.0 
+		0.0 	1.0 	0.0 
+		0.0 	0.0 	1.0 
+	Velocity3D
+		0.0 	0.0 	0.0 
+	Omega3D
+		0.0 	0.0 	0.0 
+	RefPoints
+		RefPoint
+			Position3D
+				0.0 	0.0 	0.0 
+			RotationMatrix
+				1.0 	0.0 	0.0 
+				0.0 	1.0 	0.0 
+				0.0 	0.0 	1.0 
+			Markers
+				Marker
+					Name
+						Marker1
+					Position3D
+						0.0 	0.0 	0.0 
+					RotationMatrix
+						1.0 	0.0 	0.0 
+						0.0 	1.0 	0.0 
+						0.0 	0.0 	1.0 
+	RefCurves
+	RefSurfaces
+	Parts
+		Part
+			Name
+				Part1
+			Position3D
+				0.045692831451382 	-0.13136689042272 	0.0 
+			RotationMatrix
+				1.0 	0.0 	0.0 
+				0.0 	1.0 	0.0 
+				0.0 	0.0 	1.0 
+			Velocity3D
+				0.0 	0.0 	0.0 
+			Omega3D
+				0.0 	0.0 	0.0 
+			FeatureOrder
+				Extrusion
+					zStart
+						0.0 
+					zEnd
+						0.01 
+					Sketch
+						Name
+							Sketch1
+						Position3D
+							0.0 	0.0 	0.0 
+						RotationMatrix
+							1.0 	0.0 	0.0 
+							0.0 	1.0 	0.0 
+							0.0 	0.0 	1.0 
+						Graphics
+							Rectangle
+								Position2D
+									-0.045692831451382 	-0.025702217691403 
+								Angle
+									0.0 
+								xLength
+									0.52403966070804 
+								yLength
+									0.052832336365661 
+			PrincipalMassMarker
+				Name
+					MassMarker
+				Position3D
+					0.21632699890264 	7.1395049142783e-4	0.005 
+				RotationMatrix
+					1.0 	0.0 	0.0 
+					0.0 	1.0 	0.0 
+					0.0 	0.0 	1.0 
+				Mass
+					0.27686239623474 
+				MomentOfInertias
+					6.6706666621828e-5	0.0063382469674292 	0.0064003392607805 
+				Density
+					1000.0 
+			RefPoints
+				RefPoint
+					Position3D
+						-0.045692831451382 	-0.025702217691403 	0.01 
+					RotationMatrix
+						1.0 	0.0 	0.0 
+						0.0 	1.0 	0.0 
+						0.0 	0.0 	1.0 
+					Markers
+						Marker
+							Name
+								Marker1
+							Position3D
+								0.025702217691403 	0.027130118674258 	0.0 
+							RotationMatrix
+								1.0 	0.0 	0.0 
+								0.0 	1.0 	0.0 
+								0.0 	0.0 	1.0 
+			RefCurves
+			RefSurfaces
+	KinematicIJs
+	ConstraintSets
+		Joints
+			RevoluteJoint
+				Name
+					Joint1
+				MarkerI
+					/simplePendu/Marker1
+				MarkerJ
+					/simplePendu/Part1/Marker1
+		Motions
+		GeneralConstraintSets
+	ForceTorques
+	ConstantGravity
+		0.0 	0.0 	0.0 
+	SimulationParameters
+		tstart
+			0.0 
+		tend
+			1.0 
+		hmin
+			1.0e-9
+		hmax
+			1.0 
+		hout
+			0.1 
+		errorTol
+			1.0e-6
+	AnimationParameters
+		nframe
+			0
+		icurrent
+			1
+		istart
+			0
+		iend
+			0
+		isForward
+			true
+		framesPerSecond
+			30

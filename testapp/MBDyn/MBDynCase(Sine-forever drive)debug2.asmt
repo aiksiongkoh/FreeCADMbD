@@ -1,0 +1,274 @@
+OndselSolver
+Assembly
+	Notes
+		(Text string: '' runs: (Core.RunArray runs: #() values: #()))
+	Name
+		Assembly
+	Position3D
+		0	0	0	
+	RotationMatrix
+		1	0	0	
+		0	1	0	
+		0	0	1	
+	Velocity3D
+		0	0	0	
+	Omega3D
+		0	0	0	
+	RefPoints
+		RefPoint
+			Position3D
+				0	0	0	
+			RotationMatrix
+				1	0	0	
+				0	1	0	
+				0	0	1	
+			Markers
+				Marker
+					Name
+						Marker0
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+	RefCurves
+	RefSurfaces
+	Parts
+		Part
+			Name
+				structural_node_1
+			Position3D
+				-0.13221311939246777	0.04215394533365132	0.2000000152587891	
+			RotationMatrix
+				1	0	0	
+				0	1	0	
+				0	0	1	
+			Velocity3D
+				0	0	0	
+			Omega3D
+				0	0	0	
+			FeatureOrder
+			PrincipalMassMarker
+				Name
+					MassMarker
+				Position3D
+					0	0	0	
+				RotationMatrix
+					1	0	0	
+					0	1	0	
+					0	0	1	
+				Mass
+					0
+				MomentOfInertias
+					0	0	0	
+				Density
+					0
+			RefPoints
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker0
+							Position3D
+								0.13221311939246777	-0.04215394533365132	-0.2000000152587891	
+							RotationMatrix
+								1	0	0	
+								0	1	0	
+								0	0	1	
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker1
+							Position3D
+								0.20321309650428418	0.11784606885225504	-2.8421709430404008e-17	
+							RotationMatrix
+								1	-0	0	
+								0	1	2.4714529939481741e-16	
+								-0	-2.4714529939481741e-16	1	
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				structural_node_2
+			Position3D
+				0.42576986163457325	0.17328227925917639	0.30217588595602157	
+			RotationMatrix
+				-0.89959659642313017	0.42349821686212669	-0.1066546952483526	
+				-0.43672183790591451	-0.87235746405512649	0.21969636137949333	
+				-2.1811124156778661e-09	0.24421653347369396	0.96972072514621044	
+			Velocity3D
+				0	0	0	
+			Omega3D
+				0	0	0	
+			FeatureOrder
+			PrincipalMassMarker
+				Name
+					MassMarker
+				Position3D
+					-0.0039477053649746947	0.010426613861126484	-1.1368683772161603e-16	
+				RotationMatrix
+					-0.93607804660889704	0.35178059340574519	0.0028748075480010725	
+					-0.3517859285932321	-0.93607906757615356	-0.0016122803084550671	
+					0.0021238782453490111	-0.0025205370445249989	0.99999456800213116	
+				Mass
+					12.635833504434357
+				MomentOfInertias
+					0.08708924866282601	0.085370944710881996	0.064597123189377006	
+				Density
+					10
+			RefPoints
+				RefPoint
+					Position3D
+						0	0	0	
+					RotationMatrix
+						1	0	0	
+						0	1	0	
+						0	0	1	
+					Markers
+						Marker
+							Name
+								Marker0
+							Position3D
+								0	0	0	
+							RotationMatrix
+								1	0	0	
+								0	1	0	
+								0	0	1	
+			RefCurves
+			RefSurfaces
+	KinematicIJs
+	ConstraintSets
+		Joints
+			FixedJoint
+				Name
+					joint_1
+				MarkerI
+					/Assembly/Marker0
+				MarkerJ
+					/Assembly/structural_node_1/Marker0
+		Motions
+			GeneralMotion
+				Name
+					joint_2
+				MarkerI
+					/Assembly/structural_node_1/Marker1
+				MarkerJ
+					/Assembly/structural_node_2/Marker0
+		GeneralConstraintSets
+	ForceTorques
+	ConstantGravity
+		0	0	0	
+	SimulationParameters
+		tstart
+			0
+		tend
+			4
+		hmin
+			1.0000000000000001e-09
+		hmax
+			1
+		hout
+			0.01
+		errorTol
+			1e-08
+	AnimationParameters
+		nframe
+			1000000
+		icurrent
+			1
+		istart
+			1
+		iend
+			1000000
+		isForward
+			true
+		framesPerSecond
+			30
+TimeSeries
+Number	Input	1	
+Time	Input	0	
+AssemblySeries	/Assembly
+X	0	0	
+Y	0	0	
+Z	0	0	
+Bryantx	-0	-0	
+Bryanty	0	0	
+Bryantz	-0	-0	
+VX	0	-0	
+VY	0	-0	
+VZ	0	0	
+OmegaX	0	-0	
+OmegaY	0	0	
+OmegaZ	0	0	
+AX	0	0	
+AY	0	0	
+AZ	0	0	
+AlphaX	0	0	
+AlphaY	0	0	
+AlphaZ	0	0	
+PartSeries	/Assembly/structural_node_1
+X	-0.13221311939246777	-0.13221311939246777	
+Y	0.04215394533365132	0.04215394533365132	
+Z	0.2000000152587891	0.2000000152587891	
+Bryantx	-0	-0	
+Bryanty	0	0	
+Bryantz	-0	-0	
+VX	0	-0	
+VY	0	-0	
+VZ	0	-0	
+OmegaX	0	0	
+OmegaY	0	0	
+OmegaZ	0	0	
+AX	0	0	
+AY	0	0	
+AZ	0	0	
+AlphaX	0	0	
+AlphaY	0	0	
+AlphaZ	0	0	
+PartSeries	/Assembly/structural_node_2
+X	0.42576986163457325	0.070999977111816409	
+Y	0.17328227925917639	0.16000001418590637	
+Z	0.30217588595602157	0.20000001525878908	
+Bryantx	-0.22279527790180084	-6.4881067532454896e-11	
+Bryanty	-0.10685794086945766	-1.1568699904293297e-10	
+Bryantz	-2.7016057050124953	-3.1415926535896066	
+VX	0	0	
+VY	0	0	
+VZ	0	0	
+OmegaX	0	0	
+OmegaY	0	0	
+OmegaZ	0	0	
+AX	0	0	
+AY	0	0	
+AZ	0	0	
+AlphaX	0	0	
+AlphaY	0	0	
+AlphaZ	0	0	
+FixedJointSeries	/Assembly/joint_1
+FXonI	0	0	
+FYonI	0	0	
+FZonI	0	0	
+TXonI	0	0	
+TYonI	0	0	
+TZonI	0	0	
+GeneralMotionSeries	/Assembly/joint_2
+FXonI	0	0	
+FYonI	0	0	
+FZonI	0	0	
+TXonI	0	0	
+TYonI	0	0	
+TZonI	0	0	

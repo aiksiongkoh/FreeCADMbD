@@ -1,0 +1,200 @@
+output frequency: 1
+structural node: 1 0.015 -0.02925 -1.30405e-09 mat 1 0 0 0 1 0 0 0 1
+structural node: 2 0.015 -0.02875 0.2475 mat 1 0 0 0 1 0 0 0 1
+structural node: 3 0.02405 0.000598587 0.2725 mat 1 0 0 0 1 0 0 0 1
+body: 1 1 2.365 -0.015 0.0292345 0.154193 0.0786502 0.00103709 0.00547 0.00103709 0.0755706 -0.0106609 0.00547 -0.0106609 0.00449097
+body: 2 2 0.103087 0.00269406 0.0285739 0.0271619 0.000219767 -7.91567e-06 -7.94225e-06 -7.91567e-06 0.000100149 -8.08189e-05 -7.94225e-06 -8.08189e-05 0.000124439
+body: 3 3 0.148514 0 0 0 2.66938e-05 0 0 0 3.15673e-05 0 0 0 2.66938e-05
+clamp: 1 1 0 0 0 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0 0 0 1 0 0 0 1
+inline: 2 2 6.16962e-10 0.058 0 1 0 0 0 1 0 0 0 1 1 8.68544e-10 0.0585 0.308 1 0 0 0 1 0 0 0 1
+prismatic: 3 2 0 0 0 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0 0 0 1 0 0 0 1
+totaljoint: 5 3 1.41332e-10 0.014 1.00833e-09 1 -3.63544e-16 -1.00952e-08 -1.00952e-08 -7.20234e-08 -1 -3.63544e-16 1 -7.20234e-08 1 -3.63544e-16 -1.00952e-08 -1.00952e-08 -7.20234e-08 -1 -3.63544e-16 1 -7.20234e-08 2 0.00905 0.0433486 0.025 1 -3.63544e-16 -1.00952e-08 -1.00952e-08 -7.20234e-08 -1 -3.63544e-16 1 -7.20234e-08 1 -3.63544e-16 -1.00952e-08 -1.00952e-08 -7.20234e-08 -1 -3.63544e-16 1 -7.20234e-08 1 1 1 0 0 0 1 1 0 0 0 0
+structural absolute force: 1 2 0.00156483 0.029 0.05
+structural absolute force: 2 2 2.92759e-10 0.029 2.08868e-09
+struct node dofs: 0 12 24
+struct node eqs: 6 18 30
+struct node momentum dofs: 6 18 30
+struct node momentum eqs: 0 12 24
+struct displacement node dofs: 0 12 24
+struct displacement node eqs: 6 18 30
+struct displacement node momentum dofs: 6 18 30
+struct displacement node momentum eqs: 0 12 24
+struct node labels: 1 2 3
+struct displacement node labels: 1 2 3
+Symbol table:
+  real Cc1 = 10.
+  real Dc1 = 1e-06.
+  real Ec1 = 1.2
+  const bool FALSE = 0
+  const integer INT_MAX = 2147483647
+  const integer INT_MIN = -2147483648
+  real Ixx_1 = 0.0203997
+  real Ixx_2 = 5.95536e-05
+  real Ixx_3 = 3.15673e-05
+  real Iyy_1 = 0.0188093
+  real Iyy_2 = 3.95563e-05
+  real Iyy_3 = 2.66938e-05
+  real Izz_1 = 0.00193759
+  real Izz_2 = 2.33064e-05
+  real Izz_3 = 2.66938e-05
+  real Kc1 = 10000.
+  real Px_1 = 0.015
+  real Px_2 = 0.015
+  real Px_3 = 0.02405
+  real Py_1 = -0.02925
+  real Py_2 = -0.02875
+  real Py_3 = 0.000598587
+  real Pz_1 = -1.30405e-09
+  real Pz_2 = 0.2475
+  real Pz_3 = 0.2725
+  const integer RAND_MAX = 2147483647
+  const real REAL_MAX = 1.79769e+308
+  const real REAL_MIN = 2.22507e-308
+  real Rx_1 = -0.015
+  real Rx_2 = 0.00269406
+  real Rx_3 = 0.
+  real Ry_1 = 0.0292345
+  real Ry_2 = 0.0285739
+  real Ry_3 = 0.
+  real Rz_1 = 0.154193
+  real Rz_2 = 0.0271619
+  real Rz_3 = 0.
+  integer Step = 0
+  const bool TRUE = 1
+  real Time = 0.
+  real TimeStep = 0.
+  real Var = 0.
+  real Vx_1 = 0.
+  real Vx_2 = 0.
+  real Vx_3 = 0.
+  real Vy_1 = 0.
+  real Vy_2 = 0.
+  real Vy_3 = 0.
+  real Vz_1 = 0.
+  real Vz_2 = 0.
+  real Vz_3 = 0.
+  real Wx_1 = 0.
+  real Wx_2 = 0.
+  real Wx_3 = 0.
+  real Wy_1 = 0.
+  real Wy_2 = 0.
+  real Wy_3 = 0.
+  real Wz_1 = 0.
+  real Wz_2 = 0.
+  real Wz_3 = 0.
+  const real XP_3_2 = 0.
+  const real X_3_1 = -1.30405e-09
+  const real X_3_2 = 0.2475
+  integer abstract_node_1 = 1
+  integer body_1 = 1
+  integer body_2 = 2
+  integer body_3 = 3
+  const real deg2rad = 0.0174533
+  const real e = 2.71828
+  const real ft2m = 0.3048
+  integer genel_clamp_1 = 1
+  const real in2m = 0.0254
+  const real in2mm = 25.4
+  integer joint_1 = 1
+  integer joint_2 = 2
+  integer joint_3 = 3
+  integer joint_4 = 4
+  integer joint_5 = 5
+  integer joint_6 = 6
+  const real kg2lb = 2.20462
+  const real kg2slug = 0.0685218
+  const real lb2kg = 0.453592
+  const real m2ft = 3.28084
+  const real m2in = 39.3701
+  real mass_1 = 2.365
+  real mass_2 = 0.103087
+  real mass_3 = 0.148514
+  const real mm2in = 0.0393701
+  const real pi = 3.14159
+  const real rad2deg = 57.2958
+  const real slug2kg = 14.5939
+  integer structural_node_1 = 1
+  integer structural_node_2 = 2
+  integer structural_node_3 = 3
+  real volume_1 = 0.000299367
+  real volume_2 = 1.3049e-05
+  real volume_3 = 1.87993e-05
+Environment:
+  SHELL=/bin/bash
+  SESSION_MANAGER=local/jose-Inspiron-7391-2n1:@/tmp/.ICE-unix/2043,unix/jose-Inspiron-7391-2n1:/tmp/.ICE-unix/2043
+  WINDOWID=50331654
+  QT_ACCESSIBILITY=1
+  COLORTERM=truecolor
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  FONTCONFIG_PATH=/etc/fonts
+  LANGUAGE=en_US
+  PREFIX=/tmp/.mount_FreeCArPECwW/usr
+  LC_ADDRESS=es_EC.UTF-8
+  LC_NAME=es_EC.UTF-8
+  SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+  ARGV0=./Desktop/FreeCADweekly.AppImage
+  DESKTOP_SESSION=mate
+  LC_MONETARY=es_EC.UTF-8
+  QTWEBENGINE_DISABLE_SANDBOX=1
+  GTK_MODULES=appmenu-gtk-module:gail:atk-bridge:canberra-gtk-module
+  DBUS_STARTER_BUS_TYPE=session
+  MATE_DESKTOP_SESSION_ID=this-is-deprecated
+  PWD=/home/jose
+  XDG_SESSION_DESKTOP=mate
+  LOGNAME=jose
+  QT_QPA_PLATFORMTHEME=gtk2
+  XDG_SESSION_TYPE=x11
+  GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+  SYSTEMD_EXEC_PID=2048
+  XAUTHORITY=/home/jose/.Xauthority
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/jose
+  GDM_LANG=en_US
+  HOME=/home/jose
+  IM_CONFIG_PHASE=1
+  GIT_SSL_CAINFO=/tmp/.mount_FreeCArPECwW/usr/ssl/cacert.pem
+  LANG=en_US.UTF-8
+  LC_PAPER=es_EC.UTF-8
+  LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+  XDG_CURRENT_DESKTOP=MATE
+  VTE_VERSION=6800
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  INVOCATION_ID=db802b4f45b54bafb19f99d6bfb280f3
+  MANAGERPID=2018
+  APPDIR=/tmp/.mount_FreeCArPECwW
+  LESSCLOSE=/usr/bin/lesspipe %s %s
+  XDG_SESSION_CLASS=user
+  LC_IDENTIFICATION=es_EC.UTF-8
+  TERM=xterm-256color
+  GTK_OVERLAY_SCROLLING=0
+  PYTHONHOME=/tmp/.mount_FreeCArPECwW/usr
+  LESSOPEN=| /usr/bin/lesspipe %s
+  USER=jose
+  OWD=/home/jose
+  DISPLAY=:0
+  SHLVL=2
+  LC_TELEPHONE=es_EC.UTF-8
+  LC_MEASUREMENT=es_EC.UTF-8
+  UBUNTU_MENUPROXY=1
+  DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=58cfc371dff60846630d01e465d74972
+  LD_LIBRARY_PATH=/tmp/.mount_FreeCArPECwW/usr/lib
+  APPIMAGE=/home/jose/Desktop/FreeCADweekly.AppImage
+  PATH_TO_FREECAD_LIBDIR=/tmp/.mount_FreeCArPECwW/usr/lib
+  XDG_RUNTIME_DIR=/run/user/1000
+  SSL_CERT_FILE=/tmp/.mount_FreeCArPECwW/usr/ssl/cacert.pem
+  COMPIZ_CONFIG_PROFILE=mate
+  LC_TIME=es_EC.UTF-8
+  FONTCONFIG_FILE=/etc/fonts/fonts.conf
+  JOURNAL_STREAM=8:35067
+  XDG_DATA_DIRS=/usr/share/mate:/home/jose/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+  PATH=/tmp/.mount_FreeCArPECwW/usr/bin:/tmp/.mount_FreeCArPECwW/usr/Mod/AddonManager:/tmp/.mount_FreeCArPECwW/usr/Mod/Arch:/tmp/.mount_FreeCArPECwW/usr/Mod/Assembly:/tmp/.mount_FreeCArPECwW/usr/Mod/Draft:/tmp/.mount_FreeCArPECwW/usr/Mod/Fem:/tmp/.mount_FreeCArPECwW/usr/Mod/Help:/tmp/.mount_FreeCArPECwW/usr/Mod/Idf:/tmp/.mount_FreeCArPECwW/usr/Mod/Import:/tmp/.mount_FreeCArPECwW/usr/Mod/Inspection:/tmp/.mount_FreeCArPECwW/usr/Mod/Material:/tmp/.mount_FreeCArPECwW/usr/Mod/Measure:/tmp/.mount_FreeCArPECwW/usr/Mod/Mesh:/tmp/.mount_FreeCArPECwW/usr/Mod/MeshPart:/tmp/.mount_FreeCArPECwW/usr/Mod/OpenSCAD:/tmp/.mount_FreeCArPECwW/usr/Mod/Part:/tmp/.mount_FreeCArPECwW/usr/Mod/PartDesign:/tmp/.mount_FreeCArPECwW/usr/Mod/Path:/tmp/.mount_FreeCArPECwW/usr/Mod/Plot:/tmp/.mount_FreeCArPECwW/usr/Mod/Points:/tmp/.mount_FreeCArPECwW/usr/Mod/ReverseEngineering:/tmp/.mount_FreeCArPECwW/usr/Mod/Robot:/tmp/.mount_FreeCArPECwW/usr/Mod/Show:/tmp/.mount_FreeCArPECwW/usr/Mod/Sketcher:/tmp/.mount_FreeCArPECwW/usr/Mod/Spreadsheet:/tmp/.mount_FreeCArPECwW/usr/Mod/Start:/tmp/.mount_FreeCArPECwW/usr/Mod/Surface:/tmp/.mount_FreeCArPECwW/usr/Mod/TechDraw:/tmp/.mount_FreeCArPECwW/usr/Mod/Test:/tmp/.mount_FreeCArPECwW/usr/Mod/Tux:/tmp/.mount_FreeCArPECwW/usr/Mod/Web:/home/jose/.local/share/FreeCAD/Mod/freecad.gears:/home/jose/.local/share/FreeCAD/Mod/freecad.gears/./:/home/jose/.local/share/FreeCAD/Mod/fasteners:/home/jose/.local/share/FreeCAD/Mod/fasteners/./:/home/jose/.local/share/FreeCAD/Mod/FreeCAD-motion-workbench-master:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes:/home/jose/.local/share/FreeCAD/Mod/CurvedShapes/./:/home/jose/.local/share/FreeCAD/Mod/Curves:/home/jose/.local/share/FreeCAD/Mod/Curves/./:/home/jose/.local/share/FreeCAD/Mod/Silk:/home/jose/.local/share/FreeCAD/Mod/Silk/./:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  GDMSESSION=mate
+  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=58cfc371dff60846630d01e465d74972
+  QT_FONT_DPI=96
+  QT_SCALE_FACTOR=2
+  LC_NUMERIC=C
+  _=/tmp/.mount_FreeCArPECwW/usr/bin/freecad
+  PYTHONPATH=
+  force_s3tc_enable=true
+  COIN_AUTO_CACHING=0
+  COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE=1
