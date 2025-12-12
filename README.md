@@ -13,7 +13,7 @@ In Windows 11
 In Visual Studio
     Clone a Repository
     Enter
-        Repository Location https://github.com/FreeCAD/FreeCADMbD
+        Repository Location https://github.com/aiksiongkoh/FreeCADMbD
         Path C:\Users\...\FreeCADMbD
     Click/Clone
     Close Visual Studio
