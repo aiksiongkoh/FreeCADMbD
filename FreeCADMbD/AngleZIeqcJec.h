@@ -15,7 +15,7 @@ namespace MbD {
     {
         //pthezpEI ppthezpEIpEI pcthezpEI psthezpEI 
     public:
-		AngleZIeqcJec() {}
+        AngleZIeqcJec() {}
         AngleZIeqcJec(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZIecJec(frmi, frmj) {}
         static std::shared_ptr<AngleZIeqcJec> With();
         static std::shared_ptr<AngleZIeqcJec> With(EndFrmsptr frmi, EndFrmsptr frmj);

@@ -10,7 +10,9 @@
 
 #include "System.h"
 #include "Part.h"
-#include "ConstraintSet.h"
+#include "AssemblyFrame.h"
+#include "EndFramec.h"
+#include "EndFrameqc.h"
 #include "JointIJ.h"
 #include "LimitIJ.h"
 #include "ForceTorqueIJ.h"
@@ -44,6 +46,7 @@ void System::initialize()
 {
     externalSystem = std::make_shared<ExternalSystem>();
     time = std::make_shared<SymTime>();
+    createAssemblyFrame();
     parts = std::make_shared<std::vector<std::shared_ptr<Part>>>();
     joints = std::make_shared<std::vector<std::shared_ptr<JointIJ>>>();
     motions = std::make_shared<std::vector<std::shared_ptr<PrescribedMotion>>>();
@@ -51,6 +54,12 @@ void System::initialize()
     forcesTorques = std::make_shared<std::vector<std::shared_ptr<ForceTorqueIJ>>>();
     fields = std::make_shared<std::vector<std::shared_ptr<ConstantGravity>>>();
     systemSolver = std::make_shared<SystemSolver>(this);
+}
+
+void System::createAssemblyFrame()
+{
+    asmFrame = AssemblyFrame::With();
+    asmFrame->setAssembly(this);
 }
 
 System* System::root()
@@ -128,11 +137,24 @@ double System::calcCharacteristicLength() const
 {
     auto lengths = std::make_shared<std::vector<double>>();
     auto connectorList = this->connectorList();
-    for (auto& connector : *connectorList) {
-        auto eFrmI = connector->geteFrmI();
-        lengths->push_back(eFrmI->rpmp()->length());
-        auto eFrmJ = connector->geteFrmJ();
-        lengths->push_back(eFrmJ->rpmp()->length());
+    for (auto connector : *connectorList) {
+        std::vector<EndFrmsptr> efrms = { connector->geteFrmI(), connector->geteFrmJ() };
+        for (const EndFrmsptr& efrm : efrms) {
+            auto xc = std::dynamic_pointer_cast<EndFramec>(efrm);
+            auto efrmqc = std::dynamic_pointer_cast<EndFrameqc>(efrm);
+            if (efrmqc) {
+                lengths->push_back(efrmqc->rpep()->length());
+            }
+            else {
+                auto efrmc = std::dynamic_pointer_cast<EndFramec>(efrm);
+                if (efrmc) {
+                    lengths->push_back(efrmc->rOeO->length());
+                }
+                else {
+                    throw SimulationStoppingError("To be implemented.");
+                }
+            }
+        }
     }
     auto n = lengths->size();
     double sumOfSquares = std::accumulate(lengths->begin(), lengths->end(), 0.0, [](double sum, double l) { return sum + l * l; });
@@ -228,27 +250,29 @@ std::shared_ptr<std::vector<std::string>> System::discontinuitiesAtIC()
 
 void System::jointsMotionsLimitsDo(const std::function<void(std::shared_ptr<ConstraintSet>)>& f) const
 {
-    std::for_each(joints->begin(), joints->end(), f);
-    std::for_each(motions->begin(), motions->end(), f);
-    std::for_each(limits->begin(), limits->end(), f);
-}
-
-void System::partsJointsMotionsLimitsForcesTorquesDo(const std::function<void(std::shared_ptr<Item>)>& f) const
-{
-    std::for_each(parts->begin(), parts->end(), f);
-    std::for_each(joints->begin(), joints->end(), f);
-    std::for_each(motions->begin(), motions->end(), f);
-    std::for_each(limits->begin(), limits->end(), f);
-    std::for_each(forcesTorques->begin(), forcesTorques->end(), f);
-    std::for_each(fields->begin(), fields->end(), f);
+    for (const auto joint : *joints) f(joint);
+    for (const auto motion : *motions) f(motion);
+    for (const auto limit : *limits) f(limit);
 }
 
 void System::partsJointsMotionsLimitsDo(const std::function<void(std::shared_ptr<Item>)>& f) const
 {
-    std::for_each(parts->begin(), parts->end(), f);
-    std::for_each(joints->begin(), joints->end(), f);
-    std::for_each(motions->begin(), motions->end(), f);
-    std::for_each(limits->begin(), limits->end(), f);
+    f(asmFrame);
+    for (const auto part : *parts) f(part);
+    for (const auto joint : *joints) f(joint);
+    for (const auto motion : *motions) f(motion);
+    for (const auto limit : *limits) f(limit);
+}
+
+void System::partsJointsMotionsLimitsForcesTorquesDo(const std::function<void(std::shared_ptr<Item>)>& f) const
+{
+    f(asmFrame);
+    for (const auto part : *parts) f(part);
+    for (const auto joint : *joints) f(joint);
+    for (const auto motion : *motions) f(motion);
+    for (const auto limit : *limits) f(limit);
+    for (const auto forceTorque : *forcesTorques) f(forceTorque);
+    for (const auto field : *fields) f(field);
 }
 
 void System::logString(const std::string& str)
@@ -313,7 +337,7 @@ std::shared_ptr<std::vector<std::shared_ptr<Item>>> System::connectorList() cons
 
 double System::maximumMass() const
 {
-    auto maxPart = std::max_element(parts->begin(), parts->end(), [](auto& a, auto& b) { return a->m < b->m; });
+    auto maxPart = std::max_element(parts->begin(), parts->end(), [](auto a, auto b) { return a->m < b->m; });
     return maxPart->get()->m;
 }
 
@@ -322,10 +346,10 @@ double System::maximumMomentOfInertia() const
     double max = 0.0;
     for (size_t i = 0; i < parts->size(); i++)
     {
-        auto& part = parts->at(i);
+        auto part = parts->at(i);
         for (size_t j = 0; j < 3; j++)
         {
-            auto& aJ = part->aJ;
+            auto aJ = part->aJ;
             auto aJi = aJ->at(j);
             if (max < aJi) max = aJi;
         }
@@ -350,7 +374,7 @@ void System::outputFor(AnalysisType type) const
 
 bool System::limitsSatisfied() const
 {
-    return  std::all_of(limits->cbegin(), limits->cend(), [](auto& limit) { return limit->satisfied(); });
+    return  std::all_of(limits->cbegin(), limits->cend(), [](auto limit) { return limit->satisfied(); });
 }
 
 void System::useKineTrialStepStats(std::shared_ptr<SolverStatistics> stats) const

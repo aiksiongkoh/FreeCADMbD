@@ -24,6 +24,7 @@ namespace MbD {
             mbdSystem->externalSystem->cadSystem = this;
         }
         static std::shared_ptr<CADSystem> With();
+        static void noop();
         void initialize();
 
         void outputFor(AnalysisType type);

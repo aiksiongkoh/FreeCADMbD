@@ -20,19 +20,23 @@ namespace MbD {
     //class FullMatrix;
     //using FMatDsptr = std::shared_ptr<FullMatrix<double>>;
     template<typename T>
+    class FullMatrix;
+    template<typename T>
+    using FMatsptr = std::shared_ptr<FullMatrix<T>>;
+    template<typename T>
     class FullColumn;
-    using FColDsptr = std::shared_ptr<FullColumn<double>>;
     template<typename T>
     using FColsptr = std::shared_ptr<FullColumn<T>>;
+    using FColDsptr = std::shared_ptr<FullColumn<double>>;
     template<typename T>
     class FullRow;
+    template<typename T>
+    using FRowsptr = std::shared_ptr<FullRow<T>>;
     using FRowDsptr = std::shared_ptr<FullRow<double>>;
     template<typename T>
     class SparseRow;
     template<typename T>
     using SpRowsptr = std::shared_ptr<SparseRow<T>>;
-    template<typename T>
-    using FRowsptr = std::shared_ptr<FullRow<T>>;
     class Symbolic;
 
     template<typename T>
@@ -54,11 +58,14 @@ namespace MbD {
         FColsptr<T> plusFullColumntimes(FColsptr<T> fullCol, double factor);
         FColsptr<T> minusFullColumn(FColsptr<T> fullCol);
         FColsptr<T> times(T a);
-        //FMatDsptr timesFullRowtimes(FRowDsptr row, double a);    //Why this doesn't work???
+        FMatsptr<T> timesFullRowtimes(FRowsptr<T> row, double a);
+        FMatsptr<T> timesFullRow(FRowsptr<T> row);
         FColsptr<T> negated();
         void atiputFullColumn(size_t i, FColsptr<T> fullCol);
         void atiplusFullColumn(size_t i, FColsptr<T> fullCol);
         void equalSelfPlusFullColumnAt(FColsptr<T> fullCol, size_t i);
+        void equalSelfPlus(FColsptr<T> fullCol);
+        void equalSelfMinus(FColsptr<T> fullCol);
         void atiminusFullColumn(size_t i, FColsptr<T> fullCol);
         void equalFullColumnAt(FColsptr<T> fullCol, size_t i);
         FColsptr<T> copy();
@@ -67,6 +74,7 @@ namespace MbD {
         T transposeTimesFullColumn(const FColsptr<T> fullCol);
         void equalSelfPlusFullColumntimes(FColsptr<T> fullCol, T factor);
         FColsptr<T> cross(FColsptr<T> fullCol);
+        FMatsptr<T> crossMatrix(FMatsptr<T> mat);
         FColsptr<T> simplified();
         std::shared_ptr<FullColumn<T>> clonesptr();
         double dot(std::shared_ptr<FullVector<T>> vec);
@@ -170,18 +178,19 @@ namespace MbD {
     {
         throw SimulationStoppingError("To be implemented.");
     }
-    //template<>
-    //inline FMatDsptr FullColumn<double>::timesFullRowtimes(FRowDsptr row, double a)
-    //{
-    //    //"a*b*scalar = a(i)b(j)*scalar"
 
-    //    auto nrow = this->size();
-    //    auto answer = FullMatrix<double>::With(nrow);
-    //    for (size_t i = 0; i < nrow; i++) {
-    //        answer->atiput(i, row->times(a * this->at(i)));
-    //    }
-    //    return answer;
-    //}
+    template<typename T>
+    inline FMatsptr<T> FullColumn<T>::timesFullRowtimes(FRowsptr<T> row, double a)
+    {
+        //"a*b*scalar = a(i)b(j)*scalar"
+
+        auto nrow = this->size();
+        auto answer = FullMatrix<T>::With(nrow);
+        for (size_t i = 0; i < nrow; i++) {
+            answer->atiput(i, row->times(a * this->at(i)));
+        }
+        return answer;
+    }
 
     template<typename T>
     inline FColsptr<T> FullColumn<T>::negated()
@@ -214,6 +223,34 @@ namespace MbD {
         for (size_t i = 0; i < this->size(); i++)
         {
             this->at(i) += fullCol->at(ii + i);
+        }
+    }
+
+    template<typename T>
+    inline void FullColumn<T>::equalSelfPlus(FColsptr<T> fullCol)
+    {
+        size_t n = this->size();
+        for (size_t i = 0; i < n; i++) {
+            if constexpr (std::is_same_v<T, double>) {
+                this->at(i) += fullCol->at(i);
+            }
+            else {
+                this->at(i)->equalSelfPlus(fullCol->at(i));
+            }
+        }
+    }
+
+    template<typename T>
+    inline void FullColumn<T>::equalSelfMinus(FColsptr<T> fullCol)
+    {
+        size_t n = this->size();
+        for (size_t i = 0; i < n; i++) {
+            if constexpr (std::is_same_v<T, double>) {
+                this->at(i) -= fullCol->at(i);
+            }
+            else {
+                this->at(i)->equalSelfMinus(fullCol->at(i));
+            }
         }
     }
 
@@ -292,6 +329,22 @@ namespace MbD {
         answer->atiput(2, a0 * b1 - (a1 * b0));
         return answer;
     }
+
+    template<typename T>
+    inline FMatsptr<T> FullColumn<T>::crossMatrix(FMatsptr<T> mat)
+    {
+        auto m = mat->nrow();
+        auto n = mat->ncol();
+        assert(mat->nrow() == 3);
+        assert(this->size() == 3);
+        auto result = FullMatrix<T>::With(m, n);
+        for (size_t j = 0; j < n; ++j)
+        {
+            auto colj = mat->column(j);
+            result->atijputFullColumn(0, j, this->cross(colj));
+        }
+        return result;
+    }
     //template<>
     //inline std::shared_ptr<FullColumn<Symsptr>> FullColumn<Symsptr>::simplified()
     //{
@@ -357,6 +410,20 @@ namespace MbD {
         }
         s << "}";
         return s;
+    }
+
+    template<typename T>
+    inline FMatsptr<T> FullColumn<T>::timesFullRow(FRowsptr<T> row) {
+        // Returns a matrix M(i,j) = this->at(i) * row->at(j)
+        size_t nrow = this->size();
+        size_t ncol = row->size();
+        auto answer = FullMatrix<T>::With(nrow, ncol);
+        for (size_t i = 0; i < nrow; ++i) {
+            for (size_t j = 0; j < ncol; ++j) {
+                answer->at(i)->at(j) = this->at(i) * row->at(j);
+            }
+        }
+        return answer;
     }
 }
 

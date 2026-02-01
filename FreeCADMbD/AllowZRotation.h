@@ -15,7 +15,7 @@ namespace MbD {
     {
         //
     public:
-        AllowZRotation();
+        AllowZRotation() {}
         AllowZRotation(const std::string& str);
         static std::shared_ptr<AllowZRotation> With();
         static std::shared_ptr<AllowZRotation> With(const std::string& str);

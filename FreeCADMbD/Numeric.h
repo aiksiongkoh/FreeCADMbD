@@ -20,6 +20,7 @@ namespace MbD {
     public:
         static double arcTan0to2piYoverX(double y, double x);
         static bool equaltol(double x, double xx, double tol);
+        static bool equalDigitTol(double x, double xx, size_t nDigit, double tol);
         template <typename T>
         static bool isIncreasingVector(std::vector<T>* vec);
 

@@ -32,10 +32,8 @@ double OmeCompIecJecKec::value()
 
 void OmeCompIecJecKec::calcPostDynCorrectorIteration()
 {
-    KinematicDotIJ::calcPostDynCorrectorIteration();
-    aAjOKe = efrmK->aAjOe(axisK);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
-    omeIeJeO = eFrmJqc->omeOeO()->minusFullColumn(eFrmIqc->omeOeO());
-    omeiIeJeKe = aAjOKe->dot(omeIeJeO);
+    //omeIeJeO = omeOJeO - omeOIeO
+    //omeIeJeKe = AKeO * omeIeJeO
+    //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
+    throw SimulationStoppingError("Should not implemented.");
 }

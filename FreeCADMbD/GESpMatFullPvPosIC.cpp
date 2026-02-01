@@ -54,7 +54,7 @@ void GESpMatFullPvPosIC::doPivoting(size_t p)
     }
     for (size_t i = p; i < pivotRowLimit; i++)
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         for (auto const& kv : *rowi) {
             rowPositionsOfNonZerosInColumns->at(kv.first)->push_back(i);
             auto aij = kv.second;
@@ -97,7 +97,7 @@ void GESpMatFullPvPosIC::doPivoting(size_t p)
     rowPositionsOfNonZerosInPivotColumn = rowPositionsOfNonZerosInColumns->at(jp);
     for (size_t i = pivotRowLimit; i < m; i++)
     {
-        auto& spRowi = matrixA->at(i);
+        auto spRowi = matrixA->at(i);
         if (spRowi->find(jp) != spRowi->end()) {
             rowPositionsOfNonZerosInPivotColumn->push_back(i);
         }

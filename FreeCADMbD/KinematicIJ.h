@@ -11,7 +11,7 @@
 #include "Kinematic.h"
 
 namespace MbD {
-    class PartFrame;
+    class SpatialContainerFrame;
     class EndFramec;
     using EndFrmsptr = std::shared_ptr<EndFramec>;
 
@@ -27,6 +27,9 @@ namespace MbD {
         virtual void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         virtual void withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
         virtual void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis);
+
+        void initializeLocally() override;
+        void initializeGlobally() override;
 
         bool isKineIJ() override;
         virtual void calc_value();
@@ -60,6 +63,9 @@ namespace MbD {
         virtual void calc_ppvaluepEKpt();
         virtual void calc_ppvalueptpt();
 
+        FColDsptr getrIeJeO();
+        virtual FRowDsptr pvaluepX(SpatialContainerFrame* partFrame);
+        virtual FRowDsptr pvaluepE(SpatialContainerFrame* partFrame);
         virtual FRowDsptr pvaluepXI();
         virtual FRowDsptr pvaluepEI();
         virtual FMatDsptr ppvaluepXIpXI();
@@ -94,12 +100,16 @@ namespace MbD {
         virtual FRowDsptr ppvaluepXKpt();
         virtual FRowDsptr ppvaluepEKpt();
         virtual double value() override;
-        PartFrame* partFrameI();
-        PartFrame* partFrameJ();
+        SpatialContainerFrame* partFrameI();
+        SpatialContainerFrame* partFrameJ();
         EndFrmsptr geteFrmI() override { return eFrmI; }
         EndFrmsptr geteFrmJ() override { return eFrmJ; }
 
         EndFrmsptr eFrmI, eFrmJ;
+        SpatialContainerFrame* prtFrmI = nullptr;
+        SpatialContainerFrame* prtFrmJ = nullptr;
+        bool has_qI = false;
+        bool has_qJ = false;
     };
 }
 

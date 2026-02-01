@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "ASMTConstraintSet.h"
 #include "ASMTAssembly.h"
 #include "ASMTMarker.h"
@@ -65,16 +65,34 @@ void ASMTConstraintSet::compareResults(AnalysisType)
 {
     if (infxs == nullptr || infxs->empty()) return;
     auto mbdUnts = mbdUnits();
-    //auto factor = 1.0e-6;
-    //auto forceTol = mbdUnts->force * factor;
-    //auto torqueTol = mbdUnts->torque * factor;
-    //auto i = fxs->size() - 1;
-    //assert(Numeric::equaltol(fxs->at(i), infxs->at(i), forceTol));
-    //assert(Numeric::equaltol(fys->at(i), infys->at(i), forceTol));
-    //assert(Numeric::equaltol(fzs->at(i), infzs->at(i), forceTol));
-    //assert(Numeric::equaltol(txs->at(i), intxs->at(i), torqueTol));
-    //assert(Numeric::equaltol(tys->at(i), intys->at(i), torqueTol));
-    //assert(Numeric::equaltol(tzs->at(i), intzs->at(i), torqueTol));
+    auto factor = 1.0e-6;
+    auto forceTol = mbdUnts->force * factor;
+    auto torqueTol = mbdUnts->torque * factor;
+    auto i = cFIO->size() - 1;
+    size_t nDigit = 3;
+    auto lambda = [&](std::string name, std::shared_ptr<std::vector<FColDsptr>> cols, size_t icomp, FRowDsptr invals, size_t i, size_t nSig, double tol) {
+        auto val = cols->at(i)->at(icomp);
+        auto inval = invals->at(i);
+        if (std::abs(val) < tol && std::abs(inval) < tol) return;
+        auto ratio = val / inval;
+        auto relDiff = std::abs(ratio) - 1.0;
+        if (ratio < 0.0) {
+            std::cout << "                    Sign Error ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
+        }
+        if (std::abs(relDiff) >= std::pow(10, -int(nDigit))) {
+            std::cout << "                    ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
+        }
+        };
+    //Force
+    lambda("FIOx", cFIO, 0, infxs, i, nDigit, forceTol);
+    lambda("FIOy", cFIO, 1, infys, i, nDigit, forceTol);
+    lambda("FIOz", cFIO, 2, infzs, i, nDigit, forceTol);
+    //Torque
+    lambda("TIOx", cTIO, 0, intxs, i, nDigit, torqueTol);
+    lambda("TIOy", cTIO, 1, intys, i, nDigit, torqueTol);
+    lambda("TIOz", cTIO, 2, intzs, i, nDigit, torqueTol);
 }
 
 void ASMTConstraintSet::outputResults(AnalysisType)

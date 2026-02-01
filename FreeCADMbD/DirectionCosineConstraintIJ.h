@@ -22,6 +22,8 @@ namespace MbD {
         void initialize() override;
 
         void calcPostDynCorrectorIteration() override;
+        void addToJointForceI(FColDsptr col) override;
+        void addToJointTorqueI(FColDsptr col) = 0;
         virtual void initaAijIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
@@ -37,7 +39,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        size_t axisI, axisJ;
+        size_t axisI = SIZE_MAX, axisJ = SIZE_MAX;
         std::shared_ptr<DirectionCosineIecJec> aAijIeJe;
     };
 }

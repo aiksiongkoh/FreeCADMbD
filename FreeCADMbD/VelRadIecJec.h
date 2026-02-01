@@ -16,7 +16,7 @@ namespace MbD {
         //rIeJe rIeJeO uIeJeO vIeJe vIeJeO 
     public:
         VelRadIecJec() {}
-		VelRadIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
+        VelRadIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
         static std::shared_ptr<VelRadIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void calcPostDynCorrectorIteration() override;

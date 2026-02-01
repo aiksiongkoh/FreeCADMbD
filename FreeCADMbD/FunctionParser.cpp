@@ -23,7 +23,7 @@ void FunctionParser::initgeoIJs()
     geoIJs = std::make_shared<std::map<std::string, std::shared_ptr<ASMTSymbolicFunctionIJ>>>();
     auto connectorList = owner->root()->connectorList();
     std::shared_ptr<ASMTSymbolicFunctionIJ> funcIJ;
-    for (auto& geoIJ : *connectorList) {
+    for (auto geoIJ : *connectorList) {
         funcIJ = ASMTSymbolicFunctionIJ::With();
         funcIJ->geoIJ = geoIJ;
         geoIJs->insert(std::make_pair(geoIJ->name, funcIJ));
@@ -38,7 +38,7 @@ void FunctionParser::initgeoIJs()
 bool FunctionParser::geoIJ()
 {
     if ((tokenType == "word") && (geoIJs->count(token) == 1)) {
-        auto& var = geoIJs->at(token);
+        auto var = geoIJs->at(token);
         stack->push(var);
         scanToken();
         return true;
@@ -121,7 +121,7 @@ bool FunctionParser::velocity()
                     scanToken();
                     assert(peekForTypeNoPush(","));
                     assert(tokenType == "number");
-                    funcIJ->axisK = (size_t)tokenNum;
+                    funcIJ->axisK = (size_t)tokenNum - 1;    //convert to zero index
                     scanToken();
                     assert(peekForTypeNoPush(")"));
                     return true;

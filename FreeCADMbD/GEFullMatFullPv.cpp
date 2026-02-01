@@ -52,7 +52,7 @@ void GEFullMatFullPv::doPivoting(size_t p)
         rowOrder->swapElems(p, pivotRow);
     }
     if (p != pivotCol) {
-        for (auto& rowi : *matrixA) {
+        for (auto rowi : *matrixA) {
             rowi->swapElems(p, pivotCol);
         }
         colOrder->swapElems(p, pivotCol);

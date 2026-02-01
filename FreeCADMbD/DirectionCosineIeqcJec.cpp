@@ -42,6 +42,7 @@ FRowDsptr DirectionCosineIeqcJec::pvaluepEI()
 
 void DirectionCosineIeqcJec::calcPostDynCorrectorIteration()
 {
+    //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     DirectionCosineIecJec::calcPostDynCorrectorIteration();
     pAjOIepEIT = std::static_pointer_cast<EndFrameqc>(eFrmI)->pAjOepET(axisI);
     for (size_t i = 0; i < 4; i++)
@@ -50,8 +51,8 @@ void DirectionCosineIeqcJec::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppAijIeJepEIipEI = ppAijIeJepEIpEI->at(i);
-        auto& ppAjOIepEIipEI = ppAjOIepEIpEI->at(i);
+        auto ppAijIeJepEIipEI = ppAijIeJepEIpEI->at(i);
+        auto ppAjOIepEIipEI = ppAjOIepEIpEI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             ppAijIeJepEIipEI->at(j) = ppAjOIepEIipEI->at(j)->dot(aAjOJe);

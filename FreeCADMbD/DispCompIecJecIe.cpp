@@ -28,12 +28,15 @@ void DispCompIecJecIe::withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t
 void DispCompIecJecIe::calc_value()
 {
     aAjOIe = eFrmI->aAjOe(axis);
-    rIeJeO = eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
+    rIeJeO = getrIeJeO();
     riIeJeIe = aAjOIe->dot(rIeJeO);
 }
 
 void DispCompIecJecIe::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeIe = aAIeO * rIeJeO
+    //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
     calc_value();
 }
 

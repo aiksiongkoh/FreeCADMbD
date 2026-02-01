@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "EndFrameqct2.h"
-#include "MarkerFrame.h"
+#include "MarkerFramec.h"
 #include "System.h"
 #include "Symbolic.h"
 #include "SymTime.h"
@@ -27,14 +27,14 @@ std::shared_ptr<EndFrameqct2> EndFrameqct2::With(const std::string& str)
 
 void EndFrameqct2::initpPhiThePsiptBlks()
 {
-    auto& mbdTime = root()->time;
+    auto mbdTime = root()->time;
     auto eulerAngles = std::static_pointer_cast<EulerAngles<Symsptr>>(phiThePsiBlks);
     pPhiThePsiptBlks = eulerAngles->differentiateWRT(mbdTime);
 }
 
 void EndFrameqct2::initppPhiThePsiptptBlks()
 {
-    auto& mbdTime = root()->time;
+    auto mbdTime = root()->time;
     auto eulerAnglesDot = std::static_pointer_cast<EulerAnglesDot<Symsptr>>(pPhiThePsiptBlks);
     ppPhiThePsiptptBlks = eulerAnglesDot->differentiateWRT(mbdTime);
 }

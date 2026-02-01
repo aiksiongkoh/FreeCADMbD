@@ -8,14 +8,6 @@
  
 #pragma once
 
-//#include <memory>
-//#include <vector>
-//#include <functional>
-
-#include "Item.h"
-#include "EndFrameqc.h"
-#include "TranslationConstraintIJ.h"
-#include "DirectionCosineConstraintIJ.h"
 #include "ConstraintSet.h"
 
 namespace MbD {
@@ -25,7 +17,6 @@ namespace MbD {
 
     class JointIJ : public ConstraintSet
     {
-        //eFrmI eFrmJ constraints friction 
     public:
         JointIJ() {}
         JointIJ(const std::string& str) : ConstraintSet(str) {}

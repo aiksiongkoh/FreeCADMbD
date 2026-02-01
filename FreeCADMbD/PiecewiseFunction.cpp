@@ -44,7 +44,7 @@ Symsptr PiecewiseFunction::expandUntil(Symsptr, std::shared_ptr<std::unordered_s
     std::transform(functions->begin(),
         functions->end(),
         expansions->begin(),
-        [&](auto& func) { return func->expandUntil(func, set); }
+        [&](auto func) { return func->expandUntil(func, set); }
     );
     return PiecewiseFunction::With(xx, expansions, transitions);
 }
@@ -55,7 +55,7 @@ Symsptr PiecewiseFunction::simplifyUntil(Symsptr, std::shared_ptr<std::unordered
     std::transform(functions->begin(),
         functions->end(),
         simplifications->begin(),
-        [&](auto& func) { return func->simplifyUntil(func, set); }
+        [&](auto func) { return func->simplifyUntil(func, set); }
     );
     return PiecewiseFunction::With(xx, simplifications, transitions);
 }
@@ -66,7 +66,7 @@ Symsptr PiecewiseFunction::differentiateWRTx()
     std::transform(functions->begin(),
         functions->end(),
         derivatives->begin(),
-        [&](auto& func) { return func->differentiateWRT(xx); }
+        [&](auto func) { return func->differentiateWRT(xx); }
     );
     return PiecewiseFunction::With(xx, derivatives, transitions);
 }
@@ -79,7 +79,7 @@ Symsptr PiecewiseFunction::integrateWRT(Symsptr var)
     answer->xx = var;
     answer->integrand = simple;
     auto integrals = std::make_shared<std::vector<Symsptr>>();
-    for (const auto& func : *functions) {
+    for (const auto func : *functions) {
         integrals->push_back(func->integrateWRT(var));
     }
     for (size_t i = 0; i < transitions->size(); i++)

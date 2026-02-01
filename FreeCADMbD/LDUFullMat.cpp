@@ -46,11 +46,11 @@ void LDUFullMat::forwardEliminateWithPivot(size_t p)
     //"Save factors in lower triangle for LU decomposition."
 
         //| rowp app rowi aip factor |
-    auto& rowp = matrixA->at(p);
+    auto rowp = matrixA->at(p);
     auto app = rowp->at(p);
     for (size_t i = p + 1; i < m; i++)
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         auto aip = rowi->at(p);
         auto factor = aip / app;
         rowi->at(p) = factor;
@@ -146,7 +146,7 @@ void LDUFullMat::forwardSubstituteIntoL()
     auto vectorc = std::make_shared<FullColumn<double>>(n);
     for (size_t i = 0; i < n; i++)
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         double sum = 0.0;
         for (size_t j = 0; j < i; j++)
         {
@@ -166,7 +166,7 @@ void LDUFullMat::backSubstituteIntoDU()
     answerX->at(n - 1) = rightHandSideB->at(m - 1) / matrixA->at(m - 1)->at(n - 1);
     for (int i = (int)n - 2; i >= 0; i--)    //Use int because of decrement
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         double sum = answerX->at(n - 1) * rowi->at(n - 1);
         for (int j = i + 1; j < n - 1; j++)
         {

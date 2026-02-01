@@ -15,7 +15,18 @@ namespace MbD {
     {
         //prIeJept pprIeJepXIpt pprIeJepEIpt pprIeJepXJpt pprIeJepEJpt pprIeJeptpt 
     public:
-        //ToDo: add member functions.
+        DistIeqctJeqc() {}
+        DistIeqctJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : DistIeqcJeqc(frmi, frmj) {}
+        static std::shared_ptr<DistIeqctJeqc> With();
+        static std::shared_ptr<DistIeqctJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        void initialize() override;
+
+        double prIeJept = 0.0;
+        FRowDsptr pprIeJepXIpt;
+        FRowDsptr pprIeJepEIpt;
+        FRowDsptr pprIeJepXJpt;
+        FRowDsptr pprIeJepEJpt;
+        double pprIeJeptpt = 0.0;
 
     };
 }

@@ -40,11 +40,11 @@ void ASMTGeneralMotion::readrIJI(std::vector<std::string>& lines)
     rIJI = std::make_shared<FullColumn<std::string>>(3);
 
     assert(readStringNoSpacesOffTop(lines) == "rIJI1");
-    rIJI->at(0) = readStringNoSpacesOffTop(lines);
+    rIJI->at(0) = readStringTrimmedOffTop(lines);
     assert(readStringNoSpacesOffTop(lines) == "rIJI2");
-    rIJI->at(1) = readStringNoSpacesOffTop(lines);
+    rIJI->at(1) = readStringTrimmedOffTop(lines);
     assert(readStringNoSpacesOffTop(lines) == "rIJI3");
-    rIJI->at(2) = readStringNoSpacesOffTop(lines);
+    rIJI->at(2) = readStringTrimmedOffTop(lines);
 }
 
 void ASMTGeneralMotion::readangIJJ(std::vector<std::string>& lines)
@@ -52,11 +52,11 @@ void ASMTGeneralMotion::readangIJJ(std::vector<std::string>& lines)
     angIJJ = std::make_shared<FullColumn<std::string>>(3);
 
     assert(readStringNoSpacesOffTop(lines) == "angIJJ1");
-    angIJJ->at(0) = readStringNoSpacesOffTop(lines);
+    angIJJ->at(0) = readStringTrimmedOffTop(lines);
     assert(readStringNoSpacesOffTop(lines) == "angIJJ2");
-    angIJJ->at(1) = readStringNoSpacesOffTop(lines);
+    angIJJ->at(1) = readStringTrimmedOffTop(lines);
     assert(readStringNoSpacesOffTop(lines) == "angIJJ3");
-    angIJJ->at(2) = readStringNoSpacesOffTop(lines);
+    angIJJ->at(2) = readStringTrimmedOffTop(lines);
 }
 
 void ASMTGeneralMotion::readRotationOrder(std::vector<std::string>& lines)
@@ -79,7 +79,7 @@ std::shared_ptr<ConstraintSet> ASMTGeneralMotion::mbdClassNew()
 void ASMTGeneralMotion::createMbD()
 {
     ASMTMotion::createMbD();
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->owner = this;
     auto geoTime = owner->root()->geoTime();
     parser->variables->insert(std::make_pair("time", geoTime));
@@ -89,21 +89,21 @@ void ASMTGeneralMotion::createMbD()
     //rIJI
     userFunc = std::make_shared<BasicUserFunction>(rIJI->at(0), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoX = parser->stack->top();
+    auto geoX = parser->stack->top();
     geoX = Symbolic::times(geoX, sptrConstant(asmtUnits()->length));
     geoX->createMbD();
     auto xBlk = geoX->simplified(geoX);
 
     userFunc = std::make_shared<BasicUserFunction>(rIJI->at(1), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoY = parser->stack->top();
+    auto geoY = parser->stack->top();
     geoY = Symbolic::times(geoY, sptrConstant(asmtUnits()->length));
     geoY->createMbD();
     auto yBlk = geoY->simplified(geoY);
 
     userFunc = std::make_shared<BasicUserFunction>(rIJI->at(2), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoZ = parser->stack->top();
+    auto geoZ = parser->stack->top();
     geoZ = Symbolic::times(geoZ, sptrConstant(asmtUnits()->length));
     geoZ->createMbD();
     auto zBlk = geoZ->simplified(geoZ);
@@ -114,21 +114,21 @@ void ASMTGeneralMotion::createMbD()
     //angIJJ
     userFunc = std::make_shared<BasicUserFunction>(angIJJ->at(0), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoPhi = parser->stack->top();
+    auto geoPhi = parser->stack->top();
     geoPhi = Symbolic::times(geoPhi, sptrConstant(asmtUnits()->angle));
     geoPhi->createMbD();
     auto phiBlk = geoPhi->simplified(geoPhi);
 
     userFunc = std::make_shared<BasicUserFunction>(angIJJ->at(1), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoThe = parser->stack->top();
+    auto geoThe = parser->stack->top();
     geoThe = Symbolic::times(geoThe, sptrConstant(asmtUnits()->angle));
     geoThe->createMbD();
     auto theBlk = geoThe->simplified(geoThe);
 
     userFunc = std::make_shared<BasicUserFunction>(angIJJ->at(2), 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoPsi = parser->stack->top();
+    auto geoPsi = parser->stack->top();
     geoPsi = Symbolic::times(geoPsi, sptrConstant(asmtUnits()->angle));
     geoPsi->createMbD();
     auto psiBlk = geoPsi->simplified(geoPsi);

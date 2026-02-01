@@ -32,15 +32,10 @@
 #include "Functions.h"
 #include "Transitions.h"
 #include "SimulationStoppingError.h"
+#include "ASMTAssembly.h"
+#include "ASMTTime.h"
 
 using namespace MbD;
-
-SymbolicParser::SymbolicParser()
-{
-    variables = std::make_shared<std::map<std::string, Symsptr>>();
-    stack = std::make_shared<std::stack<Symsptr>>();
-    buffer = std::make_shared<std::stringstream>();
-}
 
 std::shared_ptr<SymbolicParser> SymbolicParser::With()
 {
@@ -425,7 +420,7 @@ bool SymbolicParser::intrinsic()
 bool SymbolicParser::variable()
 {
     if ((tokenType == "word") && (variables->count(token) == 1)) {
-        auto& var = variables->at(token);
+        auto var = variables->at(token);
         stack->push(var);
         scanToken();
         return true;
@@ -502,7 +497,17 @@ void SymbolicParser::notifyat(std::string, int) const
     auto p = source->tellg();
     source->seekg(0);
     auto contents = source->str();
+    source->clear();
     source->seekg(p);
+
+    if (!*source)
+        throw std::runtime_error("seek failed");
+
+    std::string s(
+        std::istreambuf_iterator<char>(*source),
+        {}
+    );
+    std::cout << s << std::endl;
     throw SimulationStoppingError("To be implemented.");
     //SyntaxErrorException new
     //targetClass : class;
@@ -551,14 +556,7 @@ bool SymbolicParser::isNextLineTag(char c) const
 
 void SymbolicParser::initVariables()
 {
-    auto varsSet = variablesSet();
-    for (auto& each : *varsSet) {
-        variables->insert(std::make_pair(each->getName(), each));
-    }
-}
-
-std::shared_ptr<std::set<Symbolic*>> SymbolicParser::variablesSet()
-{
-    return std::make_shared<std::set<Symbolic*>>();
+    auto geoTime = owner->root()->geoTime();
+    variables->insert(std::make_pair("time", geoTime));
 }
 

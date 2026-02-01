@@ -82,6 +82,9 @@ void DispCompIeqcJecIe::calc_pvaluepXI()
 
 void DispCompIeqcJecIe::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeIe = aAIeO * rIeJeO
+    //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
     //Must maintain order of calc_xxx.
     DispCompIecJecIe::calcPostDynCorrectorIteration();
     calc_pvaluepXI();

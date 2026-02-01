@@ -15,8 +15,8 @@ namespace MbD {
     {
         //theIzJz
     public:
-		AngleJoint() {}
-		AngleJoint(const std::string& str) : JointIJ(str) {}
+        AngleJoint() {}
+        AngleJoint(const std::string& str) : JointIJ(str) {}
         static std::shared_ptr<AngleJoint> With();
         static std::shared_ptr<AngleJoint> With(const std::string& str);
 

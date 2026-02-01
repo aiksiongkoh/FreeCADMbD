@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <cmath>
 #include <numbers>
 #include <stdexcept>
@@ -32,4 +32,13 @@ double Numeric::arcTan0to2piYoverX(double y, double x)
 bool Numeric::equaltol(double x, double xx, double tol)
 {
     return std::abs(x - xx) < tol;
+}
+
+bool Numeric::equalDigitTol(double x, double xx, size_t nDigit, double tol)
+{
+    if (std::abs(x) < tol && std::abs(xx) < tol) return true;
+    auto ratio = x / xx;
+    if (ratio < 0.0) return false;  //Sign error.
+    auto relDiff = ratio - 1.0;
+    return std::abs(relDiff) < std::pow(10, -int(nDigit));
 }

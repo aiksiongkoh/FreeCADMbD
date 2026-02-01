@@ -225,12 +225,12 @@ void Part::prePosKine()
     partFrame->prePosKine();
 }
 
-size_t Part::iqX()
+size_t Part::iqX() const
 {
     return partFrame->iqX;
 }
 
-size_t Part::iqE()
+size_t Part::iqE() const
 {
     return partFrame->iqE;
 }
@@ -243,7 +243,6 @@ void Part::iqX(size_t eqnNo)
 void Part::iqE(size_t eqnNo)
 {
     partFrame->iqE = eqnNo;
-
 }
 
 void Part::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
@@ -492,7 +491,7 @@ void Part::calcmEdot()
 void Part::calcpTpE()
 {
     //"pTpE is a column vector."
-    auto& qEdot = partFrame->qEdot;
+    auto qEdot = partFrame->qEdot;
     auto aC = partFrame->aC();
     auto pCpEtimesqEdot = EulerParameters<double>::pCpEtimesColumn(qEdot);
     pTpE = (pCpEtimesqEdot->transposeTimesFullColumn(aJ->timesFullColumn(aC->timesFullColumn(qEdot))))->times(4.0);
@@ -500,7 +499,7 @@ void Part::calcpTpE()
 
 void Part::calcppTpEpE()
 {
-    auto& qEdot = partFrame->qEdot;
+    auto qEdot = partFrame->qEdot;
     auto pCpEtimesqEdot = EulerParameters<double>::pCpEtimesColumn(qEdot);
     auto a4J = aJ->times(4.0);
     ppTpEpE = pCpEtimesqEdot->transposeTimesFullMatrix(a4J->timesFullMatrix(pCpEtimesqEdot));
@@ -509,7 +508,7 @@ void Part::calcppTpEpE()
 void Part::calcppTpEpEdot()
 {
     //| qEdot aC a4J term1 pCpEtimesqEdot term2 |
-    auto& qEdot = partFrame->qEdot;
+    auto qEdot = partFrame->qEdot;
     auto aC = partFrame->aC();
     auto a4J = aJ->times(4.0);
     auto term1 = EulerParameters<double>::pCTpEtimesColumn(a4J->timesFullColumn(aC->timesFullColumn(qEdot)));

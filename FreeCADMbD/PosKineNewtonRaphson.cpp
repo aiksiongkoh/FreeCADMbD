@@ -82,28 +82,28 @@ void PosKineNewtonRaphson::assignEquationNumbers()
     //auto uHolders = system->uHolders();
     auto constraints = system->allConstraints();
     size_t varNo = 0;
-    for (auto& part : *parts) {
+    for (auto part : *parts) {
         part->iqX(varNo);
         varNo = varNo + 3;
         part->iqE(varNo);
         varNo = varNo + 4;
     }
-    //for (auto& endFrm : *contactEndFrames) {
+    //for (auto endFrm : *contactEndFrames) {
     //    endFrm->is(varNo);
     //    varNo = varNo + endFrm->sSize();
     //}
-    //for (auto& uHolder : *uHolders) {
+    //for (auto uHolder : *uHolders) {
     //    uHolder->iu(varNo);
     //    varNo += 1;
     //}
     auto eqnNo = 0;
-    for (auto& con : *constraints) {
+    for (auto con : *constraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     n = eqnNo;    //C++ uses index 0.
     if (varNo != eqnNo) {
-        std::string str = "MbD: SYSTEM IS NOT PURE KINEMATIC.";
+        const std::string& str = "MbD: SYSTEM IS NOT PURE KINEMATIC.";
         system->logString(str);
         throw NotKinematicError("");
     }
@@ -111,7 +111,7 @@ void PosKineNewtonRaphson::assignEquationNumbers()
 
 void PosKineNewtonRaphson::preRun()
 {
-    std::string str = "MbD: Solving for kinematic position.";
+    const std::string& str = "MbD: Solving for kinematic position.";
     system->logString(str);
     system->partsJointsMotionsLimitsDo([](std::shared_ptr<Item> item) { item->prePosKine(); });
 }

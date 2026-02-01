@@ -20,6 +20,7 @@ namespace MbD {
         void initialize() override;
 
         void parseASMT(std::vector<std::string>& lines) override;
+        void createMbD() override;
         void setMass(double mass);
         void setDensity(double density);
         void setMomentOfInertias(DiagMatDsptr momentOfInertias);

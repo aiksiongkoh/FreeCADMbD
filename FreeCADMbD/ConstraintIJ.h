@@ -27,6 +27,11 @@ namespace MbD {
         EndFrmsptr geteFrmI() override { return eFrmI; }
         EndFrmsptr geteFrmJ() override { return eFrmJ; }
         std::string constraintSpec() override;
+        FColDsptr getrIeJeO();
+        void addToJointForceI(FColDsptr col) override;
+        void addToJointTorqueI(FColDsptr col) override;
+        void addToJointForceJ(FColDsptr col) override;
+        void addToJointTorqueJ(FColDsptr col) override;
 
         EndFrmsptr eFrmI, eFrmJ;
     };

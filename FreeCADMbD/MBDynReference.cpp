@@ -91,7 +91,7 @@ void MBDynReference::readOrientation(std::vector<std::string>& args)
 
 void MBDynReference::readVelocity(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     vFfF = std::make_shared<FullColumn<double>>(3);
     if (args[0].find("null") != std::string::npos) {
@@ -113,7 +113,7 @@ void MBDynReference::readVelocity(std::vector<std::string>& args)
 
 void MBDynReference::readOmega(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     omeFfF = std::make_shared<FullColumn<double>>(3);
     if (args[0].find("null") != std::string::npos) {

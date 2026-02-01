@@ -63,6 +63,10 @@ void ASMTPrincipalMassMarker::parseASMT(std::vector<std::string>& lines)
     lines.erase(lines.begin());
 }
 
+void ASMTPrincipalMassMarker::createMbD()
+{
+}
+
 void ASMTPrincipalMassMarker::setMass(double m)
 {
     mass = m;

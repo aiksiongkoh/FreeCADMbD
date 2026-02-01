@@ -39,7 +39,7 @@ namespace MbD {
             }
         }
         SparseMatrix(std::initializer_list<std::initializer_list<std::initializer_list<double>>> list2D) {
-            for (auto& rowList : list2D)
+            for (auto rowList : list2D)
             {
                 auto row = std::make_shared<SparseRow<T>>(rowList);
                 this->push_back(row);
@@ -54,6 +54,7 @@ namespace MbD {
         void atijplusFullRow(size_t i, size_t j, FRowsptr<T> fullRow);
         void atijplusFullColumn(size_t i, size_t j, FColsptr<T> fullCol);
         void atijplusFullMatrix(size_t i, size_t j, FMatDsptr fullMat);
+        void atijplusSparseMatrix(size_t i, size_t j, SpMatsptr<T> spMat);
         void atijminusFullMatrix(size_t i, size_t j, FMatDsptr fullMat);
         void atijplusTransposeFullMatrix(size_t i, size_t j, FMatDsptr fullMat);
         void atijplusFullMatrixtimes(size_t i, size_t j, FMatDsptr fullMat, T factor);
@@ -160,6 +161,19 @@ namespace MbD {
         for (size_t ii = 0; ii < fullMat->nrow(); ii++)
         {
             this->at(i + ii)->atiplusFullRow(j, fullMat->at(ii));
+        }
+    }
+
+    template<typename T>
+    inline void SparseMatrix<T>::atijplusSparseMatrix(size_t i, size_t j, SpMatsptr<T> spMat)
+    {
+        //"a + b."
+        //"Assume all checking of validity of this operation has been done."
+        //"Just evaluate quickly."
+
+        for (size_t ii = 0; ii < spMat->nrow(); ii++)
+        {
+            this->at(i + ii)->atiplusSparseRow(j, spMat->at(ii));
         }
     }
 

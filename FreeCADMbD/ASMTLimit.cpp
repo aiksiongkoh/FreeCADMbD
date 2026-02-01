@@ -81,13 +81,13 @@ void ASMTLimit::createMbD()
     auto limitIJ = std::static_pointer_cast<LimitIJ>(mbdObject);
     mbdSys()->addLimit(limitIJ);
     //
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->owner = this;
     std::shared_ptr<BasicUserFunction> userFunc;
     //
     userFunc = std::make_shared<BasicUserFunction>(limit, 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geolimit = parser->stack->top();
+    auto geolimit = parser->stack->top();
     geolimit = Symbolic::times(geolimit, sptrConstant(1.0 / mbdUnits()->angle));
     geolimit->createMbD();
     geolimit = geolimit->simplified(geolimit);
@@ -97,7 +97,7 @@ void ASMTLimit::createMbD()
     //
     userFunc = std::make_shared<BasicUserFunction>(tol, 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geotol = parser->stack->top();
+    auto geotol = parser->stack->top();
     geotol = Symbolic::times(geotol, sptrConstant(1.0 / mbdUnits()->angle));
     geotol->createMbD();
     geotol = geotol->simplified(geotol);

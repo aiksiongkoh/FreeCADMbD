@@ -29,24 +29,25 @@ void ConstVelConstraintIqcJqc::initialize()
 
 void ConstVelConstraintIqcJqc::calcPostDynCorrectorIteration()
 {
+    //aG = aA01IeJe + aA10IeJe - aConstant;
     ConstVelConstraintIqcJc::calcPostDynCorrectorIteration();
     auto aA01IeqcJeqc = std::dynamic_pointer_cast<DirectionCosineIeqcJeqc>(aA01IeJe);
-    auto& pA01IeJepEJ = aA01IeqcJeqc->pAijIeJepEJ;
-    auto& ppA01IeJepEIpEJ = aA01IeqcJeqc->ppAijIeJepEIpEJ;
-    auto& ppA01IeJepEJpEJ = aA01IeqcJeqc->ppAijIeJepEJpEJ;
+    auto pA01IeJepEJ = aA01IeqcJeqc->pAijIeJepEJ;
+    auto ppA01IeJepEIpEJ = aA01IeqcJeqc->ppAijIeJepEIpEJ;
+    auto ppA01IeJepEJpEJ = aA01IeqcJeqc->ppAijIeJepEJpEJ;
     auto aA10IeqcJeqc = std::dynamic_pointer_cast<DirectionCosineIeqcJeqc>(aA10IeJe);
-    auto& pA10IeJepEJ = aA10IeqcJeqc->pAijIeJepEJ;
-    auto& ppA10IeJepEIpEJ = aA10IeqcJeqc->ppAijIeJepEIpEJ;
-    auto& ppA10IeJepEJpEJ = aA10IeqcJeqc->ppAijIeJepEJpEJ;
+    auto pA10IeJepEJ = aA10IeqcJeqc->pAijIeJepEJ;
+    auto ppA10IeJepEIpEJ = aA10IeqcJeqc->ppAijIeJepEIpEJ;
+    auto ppA10IeJepEJpEJ = aA10IeqcJeqc->ppAijIeJepEJpEJ;
     for (size_t i = 0; i < 4; i++)
     {
         pGpEJ->atiput(i, pA01IeJepEJ->at(i) + pA10IeJepEJ->at(i));
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppGpEIpEJi = ppGpEIpEJ->at(i);
-        auto& ppA01IeJepEIpEJi = ppA01IeJepEIpEJ->at(i);
-        auto& ppA10IeJepEIpEJi = ppA10IeJepEIpEJ->at(i);
+        auto ppGpEIpEJi = ppGpEIpEJ->at(i);
+        auto ppA01IeJepEIpEJi = ppA01IeJepEIpEJ->at(i);
+        auto ppA10IeJepEIpEJi = ppA10IeJepEIpEJ->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             auto ppGpEIpEJij = ppA01IeJepEIpEJi->at(j) + ppA10IeJepEIpEJi->at(j);
@@ -55,9 +56,9 @@ void ConstVelConstraintIqcJqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppGpEJpEJi = ppGpEJpEJ->at(i);
-        auto& ppA01IeJepEJpEJi = ppA01IeJepEJpEJ->at(i);
-        auto& ppA10IeJepEJpEJi = ppA10IeJepEJpEJ->at(i);
+        auto ppGpEJpEJi = ppGpEJpEJ->at(i);
+        auto ppA01IeJepEJpEJi = ppA01IeJepEJpEJ->at(i);
+        auto ppA10IeJepEJpEJi = ppA10IeJepEJpEJ->at(i);
         ppGpEJpEJi->atiput(i, ppA01IeJepEJpEJi->at(i) + ppA10IeJepEJpEJi->at(i));
         for (size_t j = i + 1; j < 4; j++)
         {

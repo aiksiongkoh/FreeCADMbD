@@ -139,64 +139,84 @@ void MbDSymbolicFunction::useEquationNumbers()
     mbdObject->useEquationNumbers();
 }
 
+FRowDsptr MbDSymbolicFunction::pvaluepE(SpatialContainerFrame* partFrame)
+{
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepE(partFrame);
+}
+
+FRowDsptr MbDSymbolicFunction::pvaluepX(SpatialContainerFrame* partFrame)
+{
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepX(partFrame);
+}
+
+FRowDsptr MbDSymbolicFunction::pvaluepXdot(SpatialContainerFrame* partFrame)
+{
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdot(partFrame);
+}
+
+FRowDsptr MbDSymbolicFunction::pvaluepEdot(SpatialContainerFrame* partFrame)
+{
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdot(partFrame);
+}
+
 FRowDsptr MbDSymbolicFunction::pvaluepEI()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEI();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEI();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXI()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXI();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXI();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepEJ()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEJ();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEJ();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXJ()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXJ();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXJ();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepEK()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEK();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepEK();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXK()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXK();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->pvaluepXK();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepEdotI()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotI();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotI();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXdotI()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotI();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotI();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepEdotJ()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotJ();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotJ();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXdotJ()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotJ();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotJ();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepEdotK()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotK();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepEdotK();
 }
 
 FRowDsptr MbDSymbolicFunction::pvaluepXdotK()
 {
-    return std::static_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotK();
+    return std::dynamic_pointer_cast<KinematicDotIJ>(mbdObject)->pvaluepXdotK();
 }
 
 SpRowDsptr MbDSymbolicFunction::pvalueplam()
@@ -205,17 +225,17 @@ SpRowDsptr MbDSymbolicFunction::pvalueplam()
     return SpRowDsptr();
 }
 
-PartFrame* MbDSymbolicFunction::partFrameI()
+SpatialContainerFrame* MbDSymbolicFunction::partFrameI()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->partFrameI();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->partFrameI();
 }
 
-PartFrame* MbDSymbolicFunction::partFrameJ()
+SpatialContainerFrame* MbDSymbolicFunction::partFrameJ()
 {
-    return std::static_pointer_cast<KinematicIJ>(mbdObject)->partFrameJ();
+    return std::dynamic_pointer_cast<KinematicIJ>(mbdObject)->partFrameJ();
 }
 
-PartFrame* MbDSymbolicFunction::partFrameK()
+SpatialContainerFrame* MbDSymbolicFunction::partFrameK()
 {
     auto frmIqc = std::dynamic_pointer_cast<DispCompIecJecKec>(mbdObject);
     if (frmIqc) {

@@ -7,10 +7,12 @@
  ***************************************************************************/
 #include <fstream>    
 
-#include "ASMTPart.h"
-#include "ASMTPrincipalMassMarker.h"
-#include "Part.h"
 #include <algorithm>
+#include "ASMTPart.h"
+#include "ASMTMarkerTemp.h"
+#include "Part.h"
+#include "Units.h"
+#include "System.h"
 
 using namespace MbD;
 
@@ -61,14 +63,14 @@ void ASMTPart::readFeatureOrder(std::vector<std::string>& lines)
 void ASMTPart::readPrincipalMassMarker(std::vector<std::string>& lines)
 {
     assert(readStringNoSpacesOffTop(lines) == "PrincipalMassMarker");
-    principalMassMarker = ASMTPrincipalMassMarker::With();
+    principalMassMarker = ASMTMarkerTemp::With();
     principalMassMarker->owner = this;
     principalMassMarker->parseASMT(lines);
 }
 
 void ASMTPart::readPartSeries(std::vector<std::string>& lines)
 {
-    std::string str = lines[0];
+    std::string str = lines[0]; // Make a local copy
     std::string substr = "PartSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
@@ -97,11 +99,34 @@ void ASMTPart::readPartSeries(std::vector<std::string>& lines)
     readAlphaZs(lines);
 }
 
+void ASMTPart::setPrincipalMassMarker(std::shared_ptr<ASMTMarkerTemp> aJ)
+{
+    principalMassMarker = aJ;
+    aJ->owner = this;
+}
+
+FColDsptr ASMTPart::rOcmO()
+{
+    auto rOPO = position3D;
+    auto aAOP = rotationMatrix;
+    auto rPcmP = principalMassMarker->position3D;
+    auto rOcmO = rOPO->plusFullColumn(aAOP->timesFullColumn(rPcmP));
+    return rOcmO;
+}
+
+std::shared_ptr<EulerParameters<double>> ASMTPart::qEp()
+{
+    auto aAOP = rotationMatrix;
+    auto aAPcm = principalMassMarker->rotationMatrix;
+    auto aAOcm = aAOP->timesFullMatrix(aAPcm);
+    return aAOcm->asEulerParameters();
+}
+
 FColDsptr ASMTPart::vOcmO()
 {
-    auto& rOPO = position3D;
-    auto& vOPO = velocity3D;
-    auto& omeOPO = omega3D;
+    auto rOPO = position3D;
+    auto vOPO = velocity3D;
+    auto omeOPO = omega3D;
     auto rPcmO = rOcmO()->minusFullColumn(rOPO);
     return vOPO->plusFullColumn(omeOPO->cross(rPcmO));
 }
@@ -111,6 +136,12 @@ FColDsptr ASMTPart::omeOpO()
     return omega3D;
 }
 
+void ASMTPart::initialize()
+{
+    ASMTSpatialContainer::initialize();
+    setPrincipalMassMarker(ASMTMarkerTemp::With());
+}
+
 ASMTPart* ASMTPart::part()
 {
     return this;
@@ -118,8 +149,76 @@ ASMTPart* ASMTPart::part()
 
 void ASMTPart::createMbD()
 {
+    //Create MbD in SI units
+    auto asmtUnts = asmtUnits();
+    auto mbdPart = Part::With();
+    mbdObject = mbdPart;
+    mbdPart->name = fullName("");
+    principalMassMarker->createMbD();
+    mbdPart->m = principalMassMarker->mass * asmtUnts->mass;
+    mbdPart->aJ = principalMassMarker->momentOfInertias->times(asmtUnts->aJ);
+    mbdPart->qX(rOcmO()->times(asmtUnts->length));
+    mbdPart->qE(qEp());
+    mbdPart->qXdot(vOcmO()->times(asmtUnts->velocity));
+    mbdPart->omeOpO(omeOpO()->times(asmtUnts->omega));
+    mbdPart->qXddot(std::make_shared<FullColumn<double>>(3, 0));
+    mbdPart->qEddot(std::make_shared<FullColumn<double>>(4, 0));
+    mbdSys()->addPart(mbdPart);
     ASMTSpatialContainer::createMbD();
     if (isFixed) std::static_pointer_cast<Part>(mbdObject)->asFixed();
+}
+
+void ASMTPart::updateFromMbD()
+{
+    auto mbdUnts = mbdUnits();
+    auto mbdPart = std::static_pointer_cast<Part>(mbdObject);
+    auto rOcmO = mbdPart->qX()->times(mbdUnts->length);
+    auto aAOp = mbdPart->aAOp();
+    //std::cout << "aAOp" << *aAOp << std::endl;
+    auto vOcmO = mbdPart->qXdot()->times(mbdUnts->velocity);
+    auto omeOPO = mbdPart->omeOpO()->times(mbdUnts->omega);
+    omega3D = omeOPO;
+    auto aOcmO = mbdPart->qXddot()->times(mbdUnts->acceleration);
+    auto alpOPO = mbdPart->alpOpO()->times(mbdUnts->alpha);
+    alpha3D = alpOPO;
+    auto rPcmP = principalMassMarker->position3D;
+    auto aAPp = principalMassMarker->rotationMatrix;
+    auto aAOP = aAOp->timesTransposeFullMatrix(aAPp);
+    rotationMatrix = aAOP;
+    auto rPcmO = aAOP->timesFullColumn(rPcmP);
+    auto rOPO = rOcmO->minusFullColumn(rPcmO);
+    position3D = rOPO;
+    auto vOPO = vOcmO->minusFullColumn(omeOPO->cross(rPcmO));
+    velocity3D = vOPO;
+    auto aOPO = aOcmO->minusFullColumn(alpOPO->cross(rPcmO))->minusFullColumn(omeOPO->cross(omeOPO->cross(rPcmO)));
+    acceleration3D = aOPO;
+    xs->push_back(rOPO->at(0));
+    ys->push_back(rOPO->at(1));
+    zs->push_back(rOPO->at(2));
+    auto bryantAngles = aAOP->bryantAngles();
+    bryxs->push_back(bryantAngles->at(0));
+    bryys->push_back(bryantAngles->at(1));
+    bryzs->push_back(bryantAngles->at(2));
+    //std::cout << "bry " << *bryantAngles << std::endl;
+    vxs->push_back(vOPO->at(0));
+    vys->push_back(vOPO->at(1));
+    vzs->push_back(vOPO->at(2));
+    omexs->push_back(omeOPO->at(0));
+    omeys->push_back(omeOPO->at(1));
+    omezs->push_back(omeOPO->at(2));
+    axs->push_back(aOPO->at(0));
+    ays->push_back(aOPO->at(1));
+    azs->push_back(aOPO->at(2));
+    alpxs->push_back(alpOPO->at(0));
+    alpys->push_back(alpOPO->at(1));
+    alpzs->push_back(alpOPO->at(2));
+}
+
+void ASMTSpatialContainer::updateMbDFromPosition3D(FColDsptr vec)
+{
+    position3D = vec;
+    auto mbdPart = std::static_pointer_cast<Part>(mbdObject);
+    mbdPart->qX(rOcmO()->times(asmtUnits()->length));
 }
 
 void ASMTPart::storeOnLevel(std::ofstream& os, size_t level)

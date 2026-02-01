@@ -48,7 +48,7 @@ void Item::noop()
 
 std::ostream& Item::printOn(std::ostream& s) const
 {
-    std::string str = typeid(*this).name();
+    const std::string& str = typeid(*this).name();
     auto classname = str.substr(11, str.size() - 11);
     s << classname << std::endl;
     return s;
@@ -192,7 +192,7 @@ void Item::fillStaticJacob(SpMatDsptr mat)
 
 void Item::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
 {
-    throw SimulationStoppingError("To be implemented.");
+    noop(); throw SimulationStoppingError("To be implemented.");
 }
 
 void Item::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
@@ -280,7 +280,7 @@ void Item::postDynCorrectorIteration()
 
 std::string Item::classname()
 {
-    std::string str = typeid(*this).name();
+    const std::string& str = typeid(*this).name();
     auto answer = str.substr(11, str.size() - 11);
     return answer;
 }
@@ -677,3 +677,15 @@ void Item::fillPosICJacob(SpMatDsptr)
 {
     //Do nothing.
 }
+
+std::ostream& MbD::operator<<(std::ostream& s, const Item& item)
+{
+    if (&item) {
+        return item.printOn(s);
+    }
+    else {
+        s << "NULL";
+    }
+    return s;
+}
+

@@ -36,6 +36,7 @@ double DispCompIeqctJeqcO::ppvalueptpt()
 
 void DispCompIeqctJeqcO::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
     //"ppriIeJeOpEIpEI is not a constant now."
     DispCompIeqcJeqcO::calcPostDynCorrectorIteration();
     ppriIeJeOpEIpEI = std::static_pointer_cast<EndFrameqct>(eFrmI)->ppriOeOpEpE(axis)->negated();

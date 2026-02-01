@@ -16,8 +16,11 @@ namespace MbD {
     public:
         OmeCompIeqcJeqcKeqc() {}
         OmeCompIeqcJeqcKeqc(EndFrmsptr frmi, EndFrmsptr frmj) : OmeCompIeqcJecKeqc(frmi, frmj) {}
+        OmeCompIeqcJeqcKeqc(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : OmeCompIeqcJecKeqc(frmi, frmj, efrmK, axisK) {}
         static std::shared_ptr<OmeCompIeqcJeqcKeqc> With();
         static std::shared_ptr<OmeCompIeqcJeqcKeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        //static std::shared_ptr<OmeCompIeqcJeqcKeqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK);
+        static std::shared_ptr<OmeCompIeqcJeqcKeqc> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK);
         void initialize() override;
 
         void calcPostDynCorrectorIteration() override;

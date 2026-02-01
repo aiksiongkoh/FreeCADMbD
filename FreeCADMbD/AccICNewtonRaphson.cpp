@@ -56,7 +56,7 @@ bool AccICNewtonRaphson::isConverged()
 
 void AccICNewtonRaphson::preRun()
 {
-    std::string str("MbD: Solving for acceleration initial conditions.");
+    const std::string& str("MbD: Solving for acceleration initial conditions.");
     system->logString(str);
     AccNewtonRaphson::preRun();
 }

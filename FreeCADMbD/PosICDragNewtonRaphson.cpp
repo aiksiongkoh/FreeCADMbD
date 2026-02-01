@@ -43,7 +43,7 @@ void PosICDragNewtonRaphson::initializeGlobally()
     {
         qsuWeights->at(i) = 1.0e3;    //minimum weight
     }
-    for (auto& part : *dragParts) {
+    for (auto part : *dragParts) {
         auto iqX = part->iqX();
         for (size_t i = 0; i < 3; i++)
         {
@@ -59,23 +59,23 @@ void PosICDragNewtonRaphson::assignEquationNumbers()
     //auto uHolders = system->uHolders();
     auto constraints = system->allConstraints();
     size_t eqnNo = 0;
-    for (auto& part : *parts) {
+    for (auto part : *parts) {
         part->iqX(eqnNo);
         eqnNo = eqnNo + 3;
         part->iqE(eqnNo);
         eqnNo = eqnNo + 4;
     }
-    //for (auto& endFrm : *contactEndFrames) {
+    //for (auto endFrm : *contactEndFrames) {
     //    endFrm->is(eqnNo);
     //    eqnNo = eqnNo + endFrm->sSize();
     //}
-    //for (auto& uHolder : *uHolders) {
+    //for (auto uHolder : *uHolders) {
     //    uHolder->iu(eqnNo);
     //    eqnNo += 1;
     //}
     auto nEqns = eqnNo;    //C++ uses index 0.
     nqsu = nEqns;
-    for (auto& con : *constraints) {
+    for (auto con : *constraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }

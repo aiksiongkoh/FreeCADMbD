@@ -13,7 +13,7 @@ std::shared_ptr<VelRadIecJec> VelRadIecJec::With(EndFrmsptr frmi, EndFrmsptr frm
 
 void VelRadIecJec::calcPostDynCorrectorIteration()
 {
-    rIeJeO = eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
+    rIeJeO = getrIeJeO();
     rIeJe = rIeJeO->length();
     if (rIeJe == 0.0) return;
     uIeJeO = rIeJeO->times(1.0 / rIeJe);

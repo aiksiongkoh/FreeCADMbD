@@ -48,6 +48,7 @@ double DirectionCosineIeqctJeqc::ppvalueptpt()
 
 void DirectionCosineIeqctJeqc::calcPostDynCorrectorIteration()
 {
+    //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     //"ppAjOIepEIpEI is not longer constant and must be set before any calculation."
 
     ppAjOIepEIpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->ppAjOepEpE(axisI);
@@ -75,7 +76,7 @@ void DirectionCosineIeqctJeqc::preAccIC()
     auto ppAjOIeptpt = std::static_pointer_cast<EndFrameqct>(eFrmI)->ppAjOeptpt(axisI);
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppAjOIepEITpti = ppAjOIepEITpt->at(i);
+        auto ppAjOIepEITpti = ppAjOIepEITpt->at(i);
         ppAijIeJepEIpt->atiput(i, ppAjOIepEITpti->dot(aAjOJe));
     }
     for (size_t i = 0; i < 4; i++)

@@ -23,6 +23,11 @@ namespace MbD {
         Symsptr getformula();
         void setformula(Symsptr function);
         double forTor();
+        double value();
+        FRowDsptr pvaluepX(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepE(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepXdot(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepEdot(SpatialContainerFrame* partFrame);
         void initializeGlobally() override;
         void initializeLocally() override;
         void postAccICIteration() override;

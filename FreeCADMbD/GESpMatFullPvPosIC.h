@@ -24,7 +24,7 @@ namespace MbD {
 
         PosICNewtonRaphson* system; //Use raw pointer when pointing backwards.
         std::shared_ptr<std::vector<size_t>> pivotRowLimits;
-        size_t pivotRowLimit;
+        size_t pivotRowLimit = SIZE_MAX;
     };
 }
 

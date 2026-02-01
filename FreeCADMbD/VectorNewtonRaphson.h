@@ -18,8 +18,8 @@ namespace MbD {
     public:
         static std::shared_ptr<VectorNewtonRaphson> With();
 
-        void run() override;
         void initializeGlobally() override;
+        void run() override;
         virtual std::shared_ptr<MatrixSolver> matrixSolverClassNew();
         void fillY() override;
         void calcyNorm() override;

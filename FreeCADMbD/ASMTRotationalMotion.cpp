@@ -44,19 +44,19 @@ void ASMTRotationalMotion::readMotionJoint(std::vector<std::string>& lines)
 void ASMTRotationalMotion::readRotationZ(std::vector<std::string>& lines)
 {
     assert(readStringNoSpacesOffTop(lines) == "RotationZ");
-    rotationZ = readStringNoSpacesOffTop(lines);
+    rotationZ = readStringTrimmedOffTop(lines);
 }
 
 void ASMTRotationalMotion::createMbD()
 {
     ASMTMotion::createMbD();
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->owner = this;
     auto geoTime = owner->root()->geoTime();
     parser->variables->insert(std::make_pair("time", geoTime));
     auto userFunc = std::make_shared<BasicUserFunction>(rotationZ, 1.0);
     parser->parseUserFunction(userFunc);
-    auto& geoPhi = parser->stack->top();
+    auto geoPhi = parser->stack->top();
     //std::cout << *geoPhi << std::endl;
     geoPhi = Symbolic::times(geoPhi, sptrConstant(asmtUnits()->angle));
     geoPhi->createMbD();

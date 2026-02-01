@@ -17,6 +17,8 @@ namespace MbD {
     public:
         static std::shared_ptr<ASMTOmegaIJKi> With();
         std::shared_ptr<KinematicIJ> mbdClassNew() override;
+        std::shared_ptr<KinematicIJ> mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) override;
+        std::shared_ptr<KinematicIJ> mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) override;
         double asmtUnit() override;
 
 

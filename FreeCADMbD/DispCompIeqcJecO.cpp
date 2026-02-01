@@ -42,6 +42,7 @@ FRowDsptr DispCompIeqcJecO::pvaluepXI()
 
 void DispCompIeqcJecO::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
     DispCompIecJecO::calcPostDynCorrectorIteration();
     priIeJeOpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->priOeOpE(axis)->negated();
 }

@@ -31,22 +31,23 @@ void ConstVelConstraintIqcJc::initialize()
 
 void ConstVelConstraintIqcJc::calcPostDynCorrectorIteration()
 {
+    //aG = aA01IeJe + aA10IeJe - aConstant;
     ConstVelConstraintIJ::calcPostDynCorrectorIteration();
     auto aA01IeqcJec = std::dynamic_pointer_cast<DirectionCosineIeqcJec>(aA01IeJe);
-    auto& pA01IeJepEI = aA01IeqcJec->pAijIeJepEI;
-    auto& ppA01IeJepEIpEI = aA01IeqcJec->ppAijIeJepEIpEI;
+    auto pA01IeJepEI = aA01IeqcJec->pAijIeJepEI;
+    auto ppA01IeJepEIpEI = aA01IeqcJec->ppAijIeJepEIpEI;
     auto aA10IeqcJec = std::dynamic_pointer_cast<DirectionCosineIeqcJec>(aA10IeJe);
-    auto& pA10IeJepEI = aA10IeqcJec->pAijIeJepEI;
-    auto& ppA10IeJepEIpEI = aA10IeqcJec->ppAijIeJepEIpEI;
+    auto pA10IeJepEI = aA10IeqcJec->pAijIeJepEI;
+    auto ppA10IeJepEIpEI = aA10IeqcJec->ppAijIeJepEIpEI;
     for (size_t i = 0; i < 4; i++)
     {
         pGpEI->atiput(i, pA01IeJepEI->at(i) + pA10IeJepEI->at(i));
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppGpEIpEIi = ppGpEIpEI->at(i);
-        auto& ppA01IeJepEIpEIi = ppA01IeJepEIpEI->at(i);
-        auto& ppA10IeJepEIpEIi = ppA10IeJepEIpEI->at(i);
+        auto ppGpEIpEIi = ppGpEIpEI->at(i);
+        auto ppA01IeJepEIpEIi = ppA01IeJepEIpEI->at(i);
+        auto ppA10IeJepEIpEIi = ppA10IeJepEIpEI->at(i);
         ppGpEIpEIi->atiput(i, ppA01IeJepEIpEIi->at(i) + ppA10IeJepEIpEIi->at(i));
         for (size_t j = i + 1; j < 4; j++)
         {

@@ -24,8 +24,16 @@ std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, En
 
 void AngleZConstraintIJ::calcPostDynCorrectorIteration()
 {
+    //aG = thezIeJe - C
     auto thez = thezIeJe->value();
     aG = thez - aConstant;
+}
+
+void MbD::AngleZConstraintIJ::addToJointForceI(FColDsptr col)
+{
+    //aFIeO = lam * pGpXI
+    //aFIeO = lam * zero
+    //Do nothing.
 }
 
 void AngleZConstraintIJ::initthezIeJe()

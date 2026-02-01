@@ -16,7 +16,7 @@ namespace MbD {
         //
     public:
         ASMTAngleJoint() {}
-		ASMTAngleJoint(const std::string& str) {}
+        ASMTAngleJoint(const std::string& str) {}
         static std::shared_ptr<ASMTAngleJoint> With();
         static std::shared_ptr<ASMTAngleJoint> With(const std::string& str);
 

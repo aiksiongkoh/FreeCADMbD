@@ -57,6 +57,7 @@ void OrbitAngleZIecJec::initializeGlobally()
 
 void OrbitAngleZIecJec::initializeLocally()
 {
+    KinematicIJ::initializeLocally();
     xIeJeIe->initializeLocally();
     yIeJeIe->initializeLocally();
 }

@@ -31,6 +31,7 @@ void ConstVelConstraintIJ::initialize()
 
 void ConstVelConstraintIJ::calcPostDynCorrectorIteration()
 {
+    //aG = aA01IeJe + aA10IeJe - aConstant;
     aG = aA01IeJe->aAijIeJe + aA10IeJe->aAijIeJe - aConstant;
 }
 

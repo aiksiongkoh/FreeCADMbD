@@ -19,11 +19,6 @@
 
 using namespace MbD;
 
-std::shared_ptr<VectorNewtonRaphson> VectorNewtonRaphson::With()
-{
-    throw SimulationStoppingError("To be implemented by concrete subclasses.");
-}
-
 void VectorNewtonRaphson::initializeGlobally()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -82,12 +77,6 @@ bool VectorNewtonRaphson::isConverged()
 void VectorNewtonRaphson::xEqualxoldPlusdx()
 {
     x = xold->plusFullColumn(dx);
-}
-
-void VectorNewtonRaphson::basicSolveEquations()
-{
-    //Subclasses must implement.
-    throw SimulationStoppingError("To be implemented.");
 }
 
 void VectorNewtonRaphson::handleSingularMatrix()

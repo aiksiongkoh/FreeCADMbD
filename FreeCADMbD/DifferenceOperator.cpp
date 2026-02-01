@@ -79,7 +79,7 @@ void DifferenceOperator::instantiateTaylorMatrix()
 void DifferenceOperator::formTaylorRowwithTimeNodederivative(size_t i, size_t ii, size_t k)
 {
     //| rowi hi hipower aij |
-    auto& rowi = taylorMatrix->at(i);
+    auto rowi = taylorMatrix->at(i);
     for (size_t j = 0; j < k; j++)
     {
         rowi->at(j) = 0.0;
@@ -102,7 +102,7 @@ void DifferenceOperator::settime(double t)
 
 void DifferenceOperator::formDegenerateTaylorRow(size_t i) const
 {
-    auto& rowi = taylorMatrix->at(i);
+    auto rowi = taylorMatrix->at(i);
     rowi->atiput(0, 1.0);
     for (size_t i = 1; i < order + 1; i++)
     {
@@ -182,7 +182,7 @@ FColDsptr DifferenceOperator::valueWith(std::shared_ptr<std::vector<FColDsptr>> 
 FColDsptr DifferenceOperator::derivativewith(size_t deriv, std::shared_ptr<std::vector<FColDsptr>> series) const
 {
     //"Answer ith derivative given past values in series."
-    auto& coeffs = operatorMatrix->at(deriv);
+    auto coeffs = operatorMatrix->at(deriv);
     auto answer = coeffs->dot(series);
     return std::static_pointer_cast<FullColumn<double>>(answer);
 }

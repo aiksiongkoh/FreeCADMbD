@@ -19,7 +19,7 @@ Polynomial::Polynomial(Symsptr var, std::shared_ptr<std::vector<double>> coeffic
     assert(!coefficients->empty());
     xx = var;
     std::transform(coefficients->begin(), coefficients->end(), coeffs->begin(),
-        [&](auto& coeff) { return sptrConstant(coeff); }
+        [&](auto coeff) { return sptrConstant(coeff); }
     );
 }
 Polynomial::Polynomial(Symsptr var, std::shared_ptr<std::vector<Symsptr>> coefficients)
@@ -90,7 +90,7 @@ Symsptr Polynomial::differentiateWRTx()
     std::transform(coeffs->begin(),
         coeffs->end(),
         coeffDerivs->begin(),
-        [&](auto& coeff) { return coeff->differentiateWRT(xx); }
+        [&](auto coeff) { return coeff->differentiateWRT(xx); }
     );
     auto poly2 = std::make_shared<Polynomial>(xx, coeffDerivs);
     return std::make_shared<Sum>(poly1, poly2);

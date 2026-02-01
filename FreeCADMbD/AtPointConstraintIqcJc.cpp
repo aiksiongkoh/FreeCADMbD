@@ -32,6 +32,8 @@ void AtPointConstraintIqcJc::initriIeJeO()
 
 void AtPointConstraintIqcJc::calcPostDynCorrectorIteration()
 {
+    //riIeJeO = rOJeO - rOIeO;
+    //aG = riIeJeO - C;
     AtPointConstraintIJ::calcPostDynCorrectorIteration();
     pGpEI = std::static_pointer_cast<DispCompIeqcJecO>(riIeJeO)->priIeJeOpEI;
 }
@@ -105,23 +107,27 @@ void AtPointConstraintIqcJc::fillAccICIterError(FColDsptr col)
 
 void AtPointConstraintIqcJc::addToJointForceI(FColDsptr col)
 {
+    //aFIeO = lam * pGpXI
+    //aFIeO = lam * priIeJeOpXI
+    //aFIeO = lam * [-I]coli
     col->atiminusNumber(axis, lam);
 }
 
-void AtPointConstraintIqcJc::addToJointTorqueI(FColDsptr jointTorque)
+void AtPointConstraintIqcJc::addToJointTorqueI(FColDsptr col)
 {
-    auto cForceT = FullRow<double>::With(3, 0.0);
-    cForceT->atiput(axis, -lam);
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    auto aFIeOT = FullRow<double>::With(3, 0.0);
+    aFIeOT->atiput(axis, -lam);
     auto rIpIeIp = eFrmI->rpep();
     auto pAOIppEI = eFrmI->pAOppE();
     auto aBOIp = eFrmI->aBOp();
-    auto fpAOIppEIrIpIeIp = std::make_shared<FullColumn<double>>(4, 0.0);
+    auto prOIeOpEITaFIeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOIeOpEIT * aFIeO
     for (size_t i = 0; i < 4; i++)
     {
-        auto dum = cForceT->timesFullColumn(pAOIppEI->at(i)->timesFullColumn(rIpIeIp));
-        fpAOIppEIrIpIeIp->atiput(i, dum);
+        auto prOIeOpEITaFIeOi = aFIeOT->timesFullColumn(pAOIppEI->at(i)->timesFullColumn(rIpIeIp));
+        prOIeOpEITaFIeO->atiput(i, prOIeOpEITaFIeOi);
     }
-    auto lampGpE = pGpEI->transpose()->times(lam);
-    auto c2Torque = aBOIp->timesFullColumn(lampGpE->minusFullColumn(fpAOIppEIrIpIeIp));
-    jointTorque->equalSelfPlusFullColumntimes(c2Torque, 0.5);
+    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
+    auto aTIeO = aBOIp->timesFullColumn(lampGpEI->minusFullColumn(prOIeOpEITaFIeO))->times(0.5);
+    col->equalSelfPlus(aTIeO);
 }

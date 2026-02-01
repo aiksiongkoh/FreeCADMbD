@@ -41,13 +41,3 @@ FColDsptr ForceTorqueItem::getFTIeO() const
     throw SimulationStoppingError("To be implemented.");
     return FColDsptr();
 }
-
-void ForceTorqueItem::forceOnFrmIandFrmJ(EndFrmsptr eFrmI, EndFrmsptr eFrmJ)
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void ForceTorqueItem::torqueOnFrmIandFrmJ(EndFrmsptr eFrmI, EndFrmsptr eFrmJ)
-{
-    throw SimulationStoppingError("To be implemented.");
-}

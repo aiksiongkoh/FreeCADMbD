@@ -88,7 +88,7 @@ void MBDynTotalJoint::readOrientationConstraints(std::vector<std::string>& args)
 
 void MBDynTotalJoint::readPositionFormulas(std::vector<std::string>& args)
 {
-    std::string str = readStringNoSpacesOffTop(args);
+    const std::string& str = readStringNoSpacesOffTop(args);
     if (str == "null") return;
     throw SimulationStoppingError("To be implemented.");
 }
@@ -104,7 +104,7 @@ void MBDynTotalJoint::readOrientationFormulas(std::vector<std::string>& args)
         formula = popOffTop(args);
         formula = std::regex_replace(formula, std::regex("\""), "");
         orientationFormulas = std::vector<std::string>();
-        for (auto& status : orientationConstraints) {
+        for (auto status : orientationConstraints) {
             if (status == "active") {
                 orientationFormulas.push_back("");
             }

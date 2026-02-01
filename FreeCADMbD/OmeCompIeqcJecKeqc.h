@@ -7,15 +7,16 @@
  ***************************************************************************/
 
 #pragma once
-#include "OmeCompIecJecKeqc.h"
+#include "OmeCompIecJecKec.h"
 
 namespace MbD {
-    class OmeCompIeqcJecKeqc : public OmeCompIecJecKeqc
+    class OmeCompIeqcJecKeqc : public OmeCompIecJecKec
     {
         //pomeiIeJeKepEI pomeiIeJeKepEdotI 
     public:
         OmeCompIeqcJecKeqc() {}
-        OmeCompIeqcJecKeqc(EndFrmsptr frmi, EndFrmsptr frmj) : OmeCompIecJecKeqc(frmi, frmj) {}
+        OmeCompIeqcJecKeqc(EndFrmsptr frmi, EndFrmsptr frmj) : OmeCompIecJecKec(frmi, frmj) {}
+        OmeCompIeqcJecKeqc(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : OmeCompIecJecKec(frmi, frmj, efrmK, axisK) {}
         static std::shared_ptr<OmeCompIeqcJecKeqc> With();
         static std::shared_ptr<OmeCompIeqcJecKeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
@@ -24,6 +25,6 @@ namespace MbD {
         FRowDsptr pvaluepEI() override;
         FRowDsptr pvaluepEdotI() override;
 
-        FRowDsptr pomeiIeJeKepEI, pomeiIeJeKepEdotI;
+        FRowDsptr pomeiIeJeKepEI, pomeiIeJeKepEdotI, pomeiIeJeKepEK;
     };
 }

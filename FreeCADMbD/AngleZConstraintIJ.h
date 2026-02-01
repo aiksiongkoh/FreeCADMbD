@@ -16,11 +16,13 @@ namespace MbD {
     {
         //thezIeJe 
     public:
-		AngleZConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        AngleZConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
 
         static std::shared_ptr<AngleZConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void calcPostDynCorrectorIteration() override;
+        void addToJointForceI(FColDsptr col) override;
+        void addToJointTorqueI(FColDsptr col) = 0;
         virtual void initthezIeJe();
         void initialize() override;
         void initializeGlobally() override;

@@ -34,7 +34,7 @@ void ASMTTime::createMbD()
 {
     //asmtTime * asmtUnits->time = SI Units seconds
     //mbdTime * mbdUnits->time = SI Units seconds. This will be done later by mbdSys nondimensionalization
-    auto& mbdTime = mbdSys()->time;    //mbdTime is in SI seconds at this point
+    auto mbdTime = mbdSys()->time;    //mbdTime is in SI seconds at this point
     if (xx == mbdTime) return;
     auto timeScale = sptrConstant(1.0 / asmtUnits()->time);
     auto geoTime = std::make_shared<Product>(timeScale, mbdTime);
@@ -58,7 +58,7 @@ bool ASMTTime::isVariable()
 
 void ASMTTime::setValue(double val)
 {
-    std::string str = typeid(*xx).name();
+    const std::string& str = typeid(*xx).name();
     if (str == "class SymTime") {
         xx->setValue(val);
     }

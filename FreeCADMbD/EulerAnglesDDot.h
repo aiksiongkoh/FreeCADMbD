@@ -27,7 +27,7 @@ namespace MbD {
         
         void calc() override;
 
-        EulerAnglesDot<T>* aEulerAnglesDot; //Use raw pointer to point backwards
+        EulerAnglesDot<T>* aEulerAnglesDot = nullptr; //Use raw pointer to point backwards
         FColFMatDsptr cAddot;
         FMatDsptr aAddot;
         FColDsptr alpF, alpf;

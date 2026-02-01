@@ -71,7 +71,7 @@ void PosICNewtonRaphson::iterate()
 
 void PosICNewtonRaphson::preRun()
 {
-    std::string str("MbD: Assembling system. ");
+    const std::string& str("MbD: Assembling system. ");
     system->logString(str);
     PosNewtonRaphson::preRun();
 }
@@ -85,33 +85,33 @@ void PosICNewtonRaphson::assignEquationNumbers()
     auto displacementConstraints = system->displacementConstraints();
     auto perpendicularConstraints = system->perpendicularConstraints();
     size_t eqnNo = 0;
-    for (auto& part : *parts) {
+    for (auto part : *parts) {
         part->iqX(eqnNo);
         eqnNo = eqnNo + 3;
         part->iqE(eqnNo);
         eqnNo = eqnNo + 4;
     }
-    //for (auto& endFrm : *contactEndFrames) {
+    //for (auto endFrm : *contactEndFrames) {
     //    endFrm->is(eqnNo);
     //    eqnNo = eqnNo + endFrm->sSize();
     //}
-    //for (auto& uHolder : *uHolders) {
+    //for (auto uHolder : *uHolders) {
     //    uHolder->iu(eqnNo);
     //    eqnNo += 1;
     //}
     auto nEqns = eqnNo;    //C++ uses index 0.
     nqsu = nEqns;
-    for (auto& con : *essentialConstraints) {
+    for (auto con : *essentialConstraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     auto lastEssenConEqnNo = eqnNo - 1;
-    for (auto& con : *displacementConstraints) {
+    for (auto con : *displacementConstraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     auto lastDispConEqnNo = eqnNo - 1;
-    for (auto& con : *perpendicularConstraints) {
+    for (auto con : *perpendicularConstraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }
@@ -157,7 +157,7 @@ void PosICNewtonRaphson::handleSingularMatrix()
 
 void PosICNewtonRaphson::lookForRedundantConstraints()
 {
-    std::string str("MbD: Checking for redundant constraints.");
+    const std::string& str("MbD: Checking for redundant constraints.");
     system->logString(str);
     auto posICsolver = GESpMatFullPvPosIC::With();
     posICsolver->system = this;

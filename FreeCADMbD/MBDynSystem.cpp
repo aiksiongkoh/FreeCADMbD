@@ -104,16 +104,16 @@ void MBDynSystem::createASMT()
     asmtItem = asmtAsm;
     asmtItem->setName("Assembly");
     initialValue->createASMT();
-    for (auto& node : *nodes) node->createASMT();
-    for (auto& body : *bodies) body->createASMT();
-    for (auto& joint : *joints) joint->createASMT();
-    for (auto& plugin : *plugins) plugin->createASMT();
+    for (auto node : *nodes) node->createASMT();
+    for (auto body : *bodies) body->createASMT();
+    for (auto joint : *joints) joint->createASMT();
+    for (auto plugin : *plugins) plugin->createASMT();
     if (gravity) gravity->createASMT();
 }
 
 std::shared_ptr<MBDynNode> MBDynSystem::nodeAt(std::string nodeName)
 {
-    for (auto& node : *nodes) {
+    for (auto node : *nodes) {
         if (node->label == nodeName) return node;
     }
     return nullptr;
@@ -126,7 +126,7 @@ int MBDynSystem::labelIDat(std::string nodeName)
 
 std::shared_ptr<MBDynBody> MBDynSystem::bodyWithNode(std::string nodeName)
 {
-    for (auto& body : *bodies) {
+    for (auto body : *bodies) {
         if (body->nodeName == nodeName) return body;
     }
     return nullptr;
@@ -140,7 +140,7 @@ std::shared_ptr<ASMTAssembly> MBDynSystem::asmtAssembly()
 std::vector<std::string> MBDynSystem::nodeNames()
 {
     auto nodeNames = std::vector<std::string>();
-    for (auto& node : *nodes) {
+    for (auto node : *nodes) {
         nodeNames.push_back(node->label);
     }
     return nodeNames;
@@ -178,15 +178,15 @@ void MBDynSystem::outputNodesFile()
 {
     auto movFile = filename.substr(0, filename.find_last_of('.')) + ".mov";
     auto asmtAsm = asmtAssembly();
-    auto& asmtTimes = asmtAsm->times;
-    //auto& asmtParts = asmtAsm->parts;
-    //auto& asmtJoints = asmtAsm->joints;
-    //auto& asmtMotions = asmtAsm->motions;
+    auto asmtTimes = asmtAsm->times;
+    //auto asmtParts = asmtAsm->parts;
+    //auto asmtJoints = asmtAsm->joints;
+    //auto asmtMotions = asmtAsm->motions;
     std::ofstream os(movFile);
     os << std::setprecision(std::numeric_limits<double>::max_digits10);
     for (size_t i = 1; i < asmtTimes->size(); i++)
     {
-        for (auto& node : *nodes) {
+        for (auto node : *nodes) {
             node->outputLine(i, os);
         }
     }
@@ -196,12 +196,12 @@ void MBDynSystem::outputJointsFile()
 {
     auto jntFile = filename.substr(0, filename.find_last_of('.')) + ".jnt";
     auto asmtAsm = asmtAssembly();
-    auto& asmtTimes = asmtAsm->times;
+    auto asmtTimes = asmtAsm->times;
     std::ofstream os(jntFile);
     os << std::setprecision(std::numeric_limits<double>::max_digits10);
     for (size_t i = 1; i < asmtTimes->size(); i++)
     {
-        for (auto& joint : *joints) {
+        for (auto joint : *joints) {
             joint->outputLine(i, os);
         }
     }
@@ -299,7 +299,7 @@ void MBDynSystem::eraseComments(std::vector<std::string>& lines)
 {
     for (size_t i = 0; i < lines.size(); i++)
     {
-        auto& line = lines[i];
+        auto line = lines[i];
         auto it = line.find('#');
         if (it != std::string::npos) {
             lines[i] = line.substr(0, it);
@@ -307,7 +307,7 @@ void MBDynSystem::eraseComments(std::vector<std::string>& lines)
     }
     for (int i = (int)lines.size() - 1; i >= 0; i--)    //Use int because of decrement
     {
-        auto& line = lines[i];
+        auto line = lines[i];
         auto it = std::find_if(line.begin(), line.end(), [](unsigned char ch) { return !std::isspace(ch); });
         if (it == line.end()) lines.erase(lines.begin() + i);
     }
@@ -481,7 +481,7 @@ void MBDynSystem::parseMBDynVariables(std::vector<std::string>& lines)
             str = iss.str();
             auto previousPos = str.find("=");
             str = str.substr(previousPos + 1);
-            auto parser = std::make_shared<SymbolicParser>();
+            auto parser = SymbolicParser::With();
             parser->variables = variables;
             auto userFunc = std::make_shared<BasicUserFunction>(str, 1.0);
             parser->parseUserFunction(userFunc);
@@ -523,7 +523,6 @@ void MBDynSystem::parseMBDynLabels(std::vector<std::string>& lines)
 void MBDynSystem::parseMBDynReferences(std::vector<std::string>& lines)
 {
     references = std::make_shared<std::map<std::string, std::shared_ptr<MBDynReference>>>();
-    std::string str, refName;
     std::vector<std::string> tokens{ "reference:" };
     while (true) {
         auto it = findLineWith(lines, tokens);
@@ -543,7 +542,6 @@ void MBDynSystem::parseMBDynReferences(std::vector<std::string>& lines)
 void MBDynSystem::parseMBDynScalarFunctions(std::vector<std::string>& lines)
 {
     scalarFunctions = std::make_shared<std::map<std::string, std::shared_ptr<MBDynScalarFunction>>>();
-    std::string str, refName;
     std::vector<std::string> tokens{ "scalar", "function:" };
     while (true) {
         auto it = findLineWith(lines, tokens);

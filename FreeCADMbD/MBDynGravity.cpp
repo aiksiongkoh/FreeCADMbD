@@ -38,7 +38,6 @@ void MBDynGravity::parseMBDyn(std::string line)
 void MBDynGravity::readFunction(std::vector<std::string>&)
 {
     throw SimulationStoppingError("To be implemented.");
-    noop();
 }
 
 void MBDynGravity::createASMT()

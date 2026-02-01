@@ -65,6 +65,7 @@ void DAECorrector::calcdxNorm()
     dxNorm = daeSystem->corErrorNormFromwrt(dx, x);
     std::stringstream ss;
     ss << std::setprecision(std::numeric_limits<double>::max_digits10);
+    ss << "          ";
     ss << "MbD: Convergence = " << dxNorm;
     auto str = ss.str();
     daeSystem->logString(str);

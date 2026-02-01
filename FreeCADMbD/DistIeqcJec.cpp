@@ -33,16 +33,16 @@ void DistIeqcJec::calcPrivate()
     DistIecJec::calcPrivate();
     if (rIeJe == 0.0) return;
     auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto& mprIeJeOpEI = frmIeqc->prOeOpE;
+    auto mprIeJeOpEI = frmIeqc->prOeOpE;
     mprIeJeOpEIT = mprIeJeOpEI->transpose();
-    auto& mpprIeJeOpEIpEI = frmIeqc->pprOeOpEpE;
+    auto mpprIeJeOpEIpEI = frmIeqc->pprOeOpEpE;
     auto muIeJeOT = muIeJeO->transpose();
     prIeJepXI = muIeJeOT;
     prIeJepEI = muIeJeOT->timesFullMatrix(mprIeJeOpEI);
     for (size_t i = 0; i < 3; i++)
     {
-        auto& pprIeJepXIipXI = pprIeJepXIpXI->at(i);
-        auto& prIeJepXIi = prIeJepXI->at(i);
+        auto pprIeJepXIipXI = pprIeJepXIpXI->at(i);
+        auto prIeJepXIi = prIeJepXI->at(i);
         for (size_t j = 0; j < 3; j++)
         {
             auto element = (i == j) ? 1.0 : 0.0;
@@ -53,9 +53,9 @@ void DistIeqcJec::calcPrivate()
     pprIeJepXIpEI = FullMatrix<double>::With(3, 4);
     for (size_t i = 0; i < 3; i++)
     {
-        auto& pprIeJepXIipEI = pprIeJepXIpEI->at(i);
-        auto& prIeJepXIi = prIeJepXI->at(i);
-        auto& mprIeJeOipEI = mprIeJeOpEI->at(i);
+        auto pprIeJepXIipEI = pprIeJepXIpEI->at(i);
+        auto prIeJepXIi = prIeJepXI->at(i);
+        auto mprIeJeOipEI = mprIeJeOpEI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             auto element = mprIeJeOipEI->at(j) - prIeJepXIi * prIeJepEI->at(j);
@@ -65,10 +65,10 @@ void DistIeqcJec::calcPrivate()
     pprIeJepEIpEI = FullMatrix<double>::With(4, 4);
     for (size_t i = 0; i < 4; i++)
     {
-        auto& pprIeJepEIipEI = pprIeJepEIpEI->at(i);
-        auto& prIeJepEIi = prIeJepEI->at(i);
-        auto& mpprIeJeOpEIipEI = mpprIeJeOpEIpEI->at(i);
-        auto& mprIeJeOpEIiT = mprIeJeOpEIT->at(i);
+        auto pprIeJepEIipEI = pprIeJepEIpEI->at(i);
+        auto prIeJepEIi = prIeJepEI->at(i);
+        auto mpprIeJeOpEIipEI = mpprIeJeOpEIpEI->at(i);
+        auto mprIeJeOpEIiT = mprIeJeOpEIT->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             auto element = mprIeJeOpEIiT->dot(mprIeJeOpEIT->at(j))

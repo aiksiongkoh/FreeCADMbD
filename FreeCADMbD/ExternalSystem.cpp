@@ -27,6 +27,11 @@ void ExternalSystem::initialize()
     //Do nothing.
 }
 
+void ExternalSystem::noop()
+{
+    //Do nothing.
+}
+
 void ExternalSystem::preMbDrun(std::shared_ptr<System> mbdSys)
 {
     if (cadSystem) {

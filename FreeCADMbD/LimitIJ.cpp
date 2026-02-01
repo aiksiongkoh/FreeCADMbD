@@ -14,7 +14,7 @@ using namespace MbD;
 
 bool LimitIJ::satisfied() const
 {
-    auto& constraint = constraints->front();
+    auto constraint = constraints->front();
     if (type == "=<") {
         return constraint->aG < tol;
     }

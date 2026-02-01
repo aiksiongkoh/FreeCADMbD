@@ -58,7 +58,7 @@ void AccKineNewtonRaphson::initializeGlobally()
 
 void AccKineNewtonRaphson::preRun()
 {
-    std::string str("MbD: Solving for kinematic acceleration.");
+    const std::string& str("MbD: Solving for kinematic acceleration.");
     system->logString(str);
     AccNewtonRaphson::preRun();
 }

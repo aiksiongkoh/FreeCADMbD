@@ -56,7 +56,7 @@ void MomentOfInertiaSolver::doFullPivoting(size_t p) const
     auto pivotCol = p;
     for (size_t i = p; i < 3; i++)
     {
-        auto& rowi = aJcmPcopy->at(i);
+        auto rowi = aJcmPcopy->at(i);
         for (size_t j = p; j < 3; j++)
         {
             auto aij = rowi->at(j);
@@ -73,7 +73,7 @@ void MomentOfInertiaSolver::doFullPivoting(size_t p) const
     }
     if (p != pivotRow) aJcmPcopy->swapElems(p, pivotRow);
     if (p != pivotCol) {
-        for (auto& row : *aJcmPcopy) {
+        for (auto row : *aJcmPcopy) {
             row->swapElems(p, pivotCol);
         }
         colOrder->swapElems(p, pivotCol);
@@ -82,11 +82,11 @@ void MomentOfInertiaSolver::doFullPivoting(size_t p) const
 
 void MomentOfInertiaSolver::forwardEliminateWithPivot(size_t p)
 {
-    auto& rowp = aJcmPcopy->at(p);
+    auto rowp = aJcmPcopy->at(p);
     auto app = rowp->at(p);
     for (size_t i = p + 1; i < 3; i++)
     {
-        auto& rowi = aJcmPcopy->at(i);
+        auto rowi = aJcmPcopy->at(i);
         auto aip = rowi->at(p);
         if (aip != 0) {
             rowi->atiput(p, 0.0);
@@ -196,7 +196,7 @@ void MomentOfInertiaSolver::calcJoo()
     }
     auto rocmPtilde = FullMatrix<double>::tildeMatrix(rPcmP->minusFullColumn(rPoP));
     auto rPoPtilde = FullMatrix<double>::tildeMatrix(rPoP);
-    auto& term1 = aJPP;
+    auto term1 = aJPP;
     auto term21 = rPoPtilde->timesFullMatrix(rPoPtilde);
     auto term22 = rPoPtilde->timesFullMatrix(rocmPtilde);
     auto term23 = term22->transpose();
@@ -276,9 +276,9 @@ FColDsptr MomentOfInertiaSolver::eigenvectorFor(double lam)
         forwardEliminateWithPivot(p);
     }
 
-    auto& row0 = aJcmPcopy->at(0);
-    auto& row1 = aJcmPcopy->at(1);
-    auto& row2 = aJcmPcopy->at(2);
+    auto row0 = aJcmPcopy->at(0);
+    auto row1 = aJcmPcopy->at(1);
+    auto row2 = aJcmPcopy->at(2);
     auto norm0 = row0->length();
     //auto aaaa = row2->length();
     if ((row2->length() / norm0) > 1.0e-5) throw std::runtime_error("3rd row should be very small.");

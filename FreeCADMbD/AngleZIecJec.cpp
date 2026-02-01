@@ -9,12 +9,83 @@
 #include <cmath>
 #include <numbers>
 
+#include <iostream>
 #include "AngleZIecJec.h"
 #include "Numeric.h"
-#include <iostream>
+#include "AngleZIecJeqc.h"
+#include "AngleZIeqcJec.h"
+#include "AngleZIeqcJeqc.h"
+#include "EndFrameqct.h"
+#include "EndFrameqc.h"
+#include "EndFramect.h"
+#include "EndFramec.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+std::shared_ptr<AngleZIecJec> AngleZIecJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    std::shared_ptr<AngleZIecJec> inst;
+    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AngleZIeqcJeqc>(frmi, frmj);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            inst = std::make_shared<AngleZIeqcJec>(frmi, frmj);
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AngleZIecJeqc>(frmi, frmj);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    assert(inst);
+    inst->initialize();
+    return inst;
+}
 
 void AngleZIecJec::initialize()
 {
@@ -24,6 +95,8 @@ void AngleZIecJec::initialize()
 
 void AngleZIecJec::calcPostDynCorrectorIteration()
 {
+    //thezIeJe = atan2(sthez, cthez)
+    //thezIeJe = atan2(aA10IeJe, aA00IeJe)
     auto cthez = aA00IeJe->value();
     auto sthez = aA10IeJe->value();
     auto sumOfSquares = cthez * cthez + (sthez * sthez);
@@ -51,6 +124,7 @@ void AngleZIecJec::initializeGlobally()
 
 void AngleZIecJec::initializeLocally()
 {
+    KinematicIJ::initializeLocally();
     if (!aA00IeJe) init_aAijIeJe();
     aA00IeJe->initializeLocally();
     aA10IeJe->initializeLocally();

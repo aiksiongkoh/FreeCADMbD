@@ -15,6 +15,7 @@ namespace MbD {
         //targetFrame rpep pprOeOpEpEtarget 
     public:
         static std::shared_ptr<EndFrameqccq> With();
+        void setTargetFrame(std::shared_ptr<EndFramec> targetFrm) override;
 
         EndFrmsptr targetFrame;
         FColDsptr rpep;

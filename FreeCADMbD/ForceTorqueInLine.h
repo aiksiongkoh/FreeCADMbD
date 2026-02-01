@@ -9,8 +9,8 @@
 #pragma once
 
 #include "ForceTorqueIJ.h"
-#include "MarkerFrame.h"
-#include "ForceTorqueActReactInLine.h"
+#include "MarkerFramec.h"
+#include "DistIecJec.h"
 
 namespace MbD {
     class ForceTorqueInLine : public ForceTorqueIJ
@@ -20,33 +20,54 @@ namespace MbD {
         ForceTorqueInLine(EndFrmsptr frmi, EndFrmsptr frmj) : ForceTorqueIJ(frmi, frmj) {}
         static std::shared_ptr<ForceTorqueInLine> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        FColDsptr aFX() const override;
-        FColDsptr aTX() const override;
-        void fillAccICIterError(FColDsptr col) override;
-        void fillAccICIterJacob(SpMatDsptr mat) override;
-        void fillDynError(FColDsptr col) override;
-        void fillpFpy(SpMatDsptr mat) override;
-        void fillpFpydot(SpMatDsptr mat) override;
-        void fillStaticError(FColDsptr col) override;
-        void fillStaticJacob(SpMatDsptr mat) override;
-        void initializeGlobally() override;
-        void initializeLocally() override;
-        void postAccICIteration() override;
-        void postCollisionCorrectorIteration() override;
-        void postCollisionPredictor() override;
+        void calcPostDynCorrectorIteration() override;
+        void calcuIeJeO();
+        void calctension();
+        void calctwist();
+        void calcaFIeO() override;
+        void calcpFIeOpX(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpE(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpXdot(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpEdot(SpatialContainerFrame* partFrame) override;
+        void calcaTIeO() override;
+        void calcpTIeOpX(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpE(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpXdot(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpEdot(SpatialContainerFrame* partFrame) override;
         void postDynCorrectorIteration() override;
         void postDynOutput() override;
-        void postDynPredictor() override;
-        void postInput() override;
-        void postStaticIteration() override;
-        void preAccIC() override;
+        void postAccICIteration() override;
         void preDynOutput() override;
-        void preStatic() override;
-        void simUpdateAll() override;
-        void tension(Symsptr tensionFunc);
-        void twist(Symsptr twistFunc);
+        void postDynPredictor() override;
+        void preAccIC() override;
+        void postInput() override;
+        void initializeLocally() override;
+        void initializeGlobally() override;
+        void fillAccICIterError(FColDsptr col) override;
+        void fillAccICIterJacob(SpMatDsptr mat) override;
+
+        double getTension() override;
+        double getTwist() override;
+        void initialize() override;
+        void setTension(Symsptr formula) override;
+        void setTwist(Symsptr formula) override;
         void useEquationNumbers() override;
 
-        std::shared_ptr<ForceTorqueActReactInLine> forceInLine, torqueInLine;
+        std::shared_ptr<DistIecJec> distIeJe;
+        FColDsptr uIeJeO;
+        FMatDsptr puIeJeOpXI;
+        FMatDsptr puIeJeOpEI;
+        FMatDsptr puIeJeOpXJ;
+        FMatDsptr puIeJeOpEJ;
+        double tension;
+        FRowDsptr ptensionpXI;
+        FRowDsptr ptensionpEI;
+        FRowDsptr ptensionpXJ;
+        FRowDsptr ptensionpEJ;
+        double twist;
+        FRowDsptr ptwistXI;
+        FRowDsptr ptwistEI;
+        FRowDsptr ptwistXJ;
+        FRowDsptr ptwistEJ;
     };
 }

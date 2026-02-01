@@ -9,30 +9,25 @@
 #pragma once
 
 #include "ForceTorqueIJ.h"
-#include "ForceVector.h"
-#include "TorqueVector.h"
 
 namespace MbD {
     class ForceTorqueGeneral : public ForceTorqueIJ
     {
-        //forceVector torqueVector 
     public:
         ForceTorqueGeneral() {}
-        static std::shared_ptr<ForceTorqueGeneral> OnFrmIandFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
-        static std::shared_ptr<ForceTorqueGeneral> OnFrmIandFrmJwrtFrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
+        ForceTorqueGeneral(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : eFrmK(frmk), ForceTorqueIJ(frmi, frmj) {}
+        static std::shared_ptr<ForceTorqueGeneral> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
 
-        void onFrmIandFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
-        void onFrmIandFrmJwrtFrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
+        void initialize() override;
         FColDsptr aFX() const override;
         FColDsptr aTX() const override;
+        void calcPostDynCorrectorIteration() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
-        void fillDynError(FColDsptr col) override;
         void fillpFpy(SpMatDsptr mat) override;
-        void fillpFpydot(SpMatDsptr mat) override;
         void fillStaticError(FColDsptr col) override;
         void fillStaticJacob(SpMatDsptr mat) override;
-        void forceFunctions(FColsptr<Symsptr> col);
+        void setforceFunctions(FColsptr<Symsptr> col);
         void initializeGlobally() override;
         void initializeLocally() override;
         void postAccICIteration() override;
@@ -47,11 +42,61 @@ namespace MbD {
         void preDynOutput() override;
         void preStatic() override;
         void simUpdateAll() override;
-        void torqueFunctions(FColsptr<Symsptr> col);
+        void settorqueFunctions(FColsptr<Symsptr> col);
         void useEquationNumbers() override;
+        void calcaFIeKe();
+        void calcaTIeKe();
+        void calcaFIeO() override;
+        void calcpFIeOpX(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpE(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpXdot(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpEdot(SpatialContainerFrame* partFrame) override;
+        void calcpFIeOpEK();
+        void calcpFJeOpEK();
 
-        std::shared_ptr<ForceVector> forceVector;
-        std::shared_ptr<TorqueVector> torqueVector;
+        void calcaTIeO() override;
+        void calcpTIeOpX(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpE(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpXdot(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpEdot(SpatialContainerFrame* partFrame) override;
+        void calcpTIeOpEK();
+        void calcpTJeOpEK();
+        void calcpQXIpEK();
+        void calcpQEIpEK();
+        void calcpQXJpEK();
+        void calcpQEJpEK();
+        FColDsptr getaFIeK() const;
+        FColDsptr getaTIeK() const;
+
+        EndFrmsptr eFrmK;
+        size_t iqEK = SIZE_MAX;
+        FColDsptr aFIeKe;
+        FColDsptr aTIeKe;
+        FMatDsptr aAOKe;
+        FMatDsptr pFIeKepXI;
+        FMatDsptr pFIeKepEI;
+        FMatDsptr pFIeKepXJ;
+        FMatDsptr pFIeKepEJ;
+        FMatDsptr pTIeKepXI;
+        FMatDsptr pTIeKepEI;
+        FMatDsptr pTIeKepXJ;
+        FMatDsptr pTIeKepEJ;
+
+        FMatDsptr pFIeOpEK;
+        FMatDsptr pFJeOpEK;
+        FMatDsptr pTIeOpEK;
+        FMatDsptr pTJeOpEK;
+
+        FMatDsptr pQXIpXK;
+        FMatDsptr pQXIpEK;
+        FMatDsptr pQEIpXK;
+        FMatDsptr pQEIpEK;
+        FMatDsptr pQXJpXK;
+        FMatDsptr pQXJpEK;
+        FMatDsptr pQEJpXK;
+        FMatDsptr pQEJpEK;
+
     };
 }
+
 

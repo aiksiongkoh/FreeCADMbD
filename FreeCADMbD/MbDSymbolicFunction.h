@@ -42,6 +42,10 @@ namespace MbD {
         void preStatic();
         void simUpdateAll();
         void useEquationNumbers();
+        FRowDsptr pvaluepX(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepE(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepXdot(SpatialContainerFrame* partFrame);
+        FRowDsptr pvaluepEdot(SpatialContainerFrame* partFrame);
         FRowDsptr pvaluepEI();
         FRowDsptr pvaluepXI();
         FRowDsptr pvaluepEJ();
@@ -55,9 +59,9 @@ namespace MbD {
         FRowDsptr pvaluepEdotK();
         FRowDsptr pvaluepXdotK();
         SpRowDsptr pvalueplam();
-        PartFrame* partFrameI();
-        PartFrame* partFrameJ();
-        PartFrame* partFrameK();
+        SpatialContainerFrame* partFrameI();
+        SpatialContainerFrame* partFrameJ();
+        SpatialContainerFrame* partFrameK();
 
         std::shared_ptr<Item> mbdObject;
     };

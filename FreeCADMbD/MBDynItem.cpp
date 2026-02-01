@@ -93,7 +93,7 @@ std::vector<std::string> MBDynItem::collectArgumentsFor(std::string title, std::
             std::stringstream ss;
             ss << needToCombineArgs[0];
             needToCombineArgs.erase(needToCombineArgs.begin());
-            for (auto& arg : needToCombineArgs) {
+            for (auto arg : needToCombineArgs) {
                 ss << ',' << arg;
             }
             arguments2.push_back(ss.str());
@@ -118,7 +118,7 @@ bool MBDynItem::lineHasToken(const std::string& line, const std::string& token)
 bool MBDynItem::lineHasTokens(const std::string& line, std::vector<std::string>& tokens)
 {
     size_t index = 0;
-    for (auto& token : tokens) {
+    for (auto token : tokens) {
         index = line.find(token, index);
         if (index == std::string::npos) return false;
         index++;
@@ -231,10 +231,10 @@ std::shared_ptr<ASMTAssembly> MBDynItem::asmtAssembly()
 std::string MBDynItem::formulaFromDrive(std::string driveName, std::string varName)
 {
     auto drives = mbdynDrives();
-    auto it = std::find_if(drives->begin(), drives->end(), [&](auto& drive) {
+    auto it = std::find_if(drives->begin(), drives->end(), [&](auto drive) {
         return lineHasTokens(drive->driveName, "drive:", driveName);
         });
-    auto& formula = (*it)->formula;
+    auto formula = (*it)->formula;
     assert(varName == "Time");
     return formula;
 }
@@ -246,7 +246,7 @@ void MBDynItem::logString(const std::string& str)
 
 FColDsptr MBDynItem::readVector3(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     auto col3D = std::make_shared<FullColumn<double>>(3);
     auto str = args.at(0); //Must copy string
@@ -258,7 +258,7 @@ FColDsptr MBDynItem::readVector3(std::vector<std::string>& args)
         {
             auto userFunc = std::make_shared<BasicUserFunction>(popOffTop(args), 1.0);
             parser->parseUserFunction(userFunc);
-            auto& sym = parser->stack->top();
+            auto sym = parser->stack->top();
             col3D->at(i) = sym->getValue();
         }
 
@@ -281,10 +281,10 @@ FColDsptr MBDynItem::readPosition(std::vector<std::string>& args)
     else if (str.find("reference") != std::string::npos) {
         args.erase(args.begin());
         auto refName = readStringNoSpacesOffTop(args);
-        auto& ref = mbdynReferences()->at(refName);
+        auto ref = mbdynReferences()->at(refName);
         auto rFfF = readBasicPosition(args);
-        auto& rOFO = ref->rFfF;
-        auto& aAOF = ref->aAFf;
+        auto rOFO = ref->rFfF;
+        auto aAOF = ref->aAFf;
         rOfO = rOFO->plusFullColumn(aAOF->timesFullColumn(rFfF));
     }
     else if (str.find("offset") != std::string::npos) {
@@ -313,9 +313,9 @@ FMatDsptr MBDynItem::readOrientation(std::vector<std::string>& args)
     if (str.find("reference") != std::string::npos) {
         args.erase(args.begin());
         auto refName = readStringNoSpacesOffTop(args);
-        auto& ref = mbdynReferences()->at(refName);
+        auto ref = mbdynReferences()->at(refName);
         auto aAFf = readBasicOrientation(args);
-        auto& aAOF = ref->aAFf;
+        auto aAOF = ref->aAFf;
         aAOf = aAOF->timesFullMatrix(aAFf);
     }
     else if (str.find("hinge") != std::string::npos) {
@@ -340,7 +340,7 @@ FMatDsptr MBDynItem::readOrientation(std::vector<std::string>& args)
 
 FMatDsptr MBDynItem::readBasicOrientation(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     auto str = args.at(0);    //Must copy string
     if (str.find("euler") != std::string::npos) {
@@ -364,11 +364,11 @@ FMatDsptr MBDynItem::readBasicOrientation(std::vector<std::string>& args)
         {
             auto userFunc = std::make_shared<BasicUserFunction>(popOffTop(args), 1.0);
             parser->parseUserFunction(userFunc);
-            auto& sym = parser->stack->top();
+            auto sym = parser->stack->top();
             euler->at(i) = sym->simplified();
         }
         euler->calc();
-        auto& aAFf = euler->aA;
+        auto aAFf = euler->aA;
         return aAFf;
     }
     if (str.find("eye") != std::string::npos) {
@@ -480,12 +480,12 @@ FMatDsptr MBDynItem::readBasicOrientation(std::vector<std::string>& args)
     auto aAFf = FullMatrix<double>::identitysptr(3);
     for (size_t i = 0; i < 3; i++)
     {
-        auto& rowi = aAFf->at(i);
+        auto rowi = aAFf->at(i);
         for (size_t j = 0; j < 3; j++)
         {
             auto userFunc = std::make_shared<BasicUserFunction>(popOffTop(args), 1.0);
             parser->parseUserFunction(userFunc);
-            auto& sym = parser->stack->top();
+            auto sym = parser->stack->top();
             rowi->at(j) = sym->getValue();
         }
     }
@@ -505,11 +505,6 @@ std::string MBDynItem::readStringNoSpacesOffTop(std::vector<std::string>& args)
     std::string str = popOffTop(args);
     str.erase(std::remove_if(str.begin(), str.end(), isspace), str.end());
     return str;
-}
-
-std::string MBDynItem::stringOffTopHas(std::vector<std::string>& args, std::string token)
-{
-    return std::string();
 }
 
 FRowDsptr MBDynItem::readRowOfDoubles(const std::string& line)
@@ -536,11 +531,11 @@ double MBDynItem::readDoubleOffTop(std::vector<std::string>& args)
 
 double MBDynItem::readDouble(const std::string& line)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     auto userFunc = std::make_shared<BasicUserFunction>(line, 1.0);
     parser->parseUserFunction(userFunc);
-    auto& sym = parser->stack->top();
+    auto sym = parser->stack->top();
     return sym->getValue();
 }
 

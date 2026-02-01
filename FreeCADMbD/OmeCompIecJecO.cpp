@@ -8,3 +8,9 @@ void OmeCompIecJecO::withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t a
     eFrmJ = frmj;
     axis = axs;
 }
+
+void OmeCompIecJecO::calcPostDynCorrectorIteration()
+{
+    //omeIeJeO = omeOJeO - omeOIeO
+    throw SimulationStoppingError("To be implemented.");
+}

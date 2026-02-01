@@ -26,6 +26,7 @@ void DirectionCosineConstraintIqcJc::initaAijIeJe()
 
 void DirectionCosineConstraintIqcJc::calcPostDynCorrectorIteration()
 {
+    //aG = aAijIeJe - aConstant;
     DirectionCosineConstraintIJ::calcPostDynCorrectorIteration();
     auto aAijIeqJe = std::static_pointer_cast<DirectionCosineIeqcJec>(aAijIeJe);
     pGpEI = aAijIeqJe->pAijIeJepEI;
@@ -88,10 +89,13 @@ void DirectionCosineConstraintIqcJc::fillAccICIterError(FColDsptr col)
     col->atiplusNumber(iG, sum);
 }
 
-void DirectionCosineConstraintIqcJc::addToJointTorqueI(FColDsptr jointTorque)
+void DirectionCosineConstraintIqcJc::addToJointTorqueI(FColDsptr col)
 {
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    //aFIeO = zero;
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI)
     auto aBOIp = eFrmI->aBOp();
-    auto lampGpE = pGpEI->transpose()->times(lam);
-    auto c2Torque = aBOIp->timesFullColumn(lampGpE);
-    jointTorque->equalSelfPlusFullColumntimes(c2Torque, 0.5);
+    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
+    auto aTIeO = aBOIp->timesFullColumn(lampGpEI)->times(0.5);
+    col->equalSelfPlus(aTIeO);
 }

@@ -29,3 +29,32 @@ std::string ConstraintIJ::constraintSpec()
 {
     return "ConstraintIJ";
 }
+
+void ConstraintIJ::addToJointForceI(FColDsptr col)
+{
+    //aFIeO = lam * pGpXI
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void ConstraintIJ::addToJointTorqueI(FColDsptr col)
+{
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void ConstraintIJ::addToJointForceJ(FColDsptr col)
+{
+    //aFJeO = lam * pGpXJ
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void ConstraintIJ::addToJointTorqueJ(FColDsptr col)
+{
+    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FColDsptr ConstraintIJ::getrIeJeO()
+{
+    return eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
+}

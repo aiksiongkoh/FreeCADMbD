@@ -36,7 +36,7 @@ double GeneralSpline::getValue()
 Symsptr GeneralSpline::differentiateWRTx()
 {
     auto self = clonesptr();
-    auto& arg = std::static_pointer_cast<GeneralSpline>(self)->xx;
+    auto arg = std::static_pointer_cast<GeneralSpline>(self)->xx;
     auto deriv = std::make_shared<DifferentiatedGeneralSpline>(arg, self, 1);
     return deriv;
 }
@@ -44,7 +44,7 @@ Symsptr GeneralSpline::differentiateWRTx()
 void GeneralSpline::arguments(Symsptr args)
 {
     auto array = args->getTerms();
-    auto& arg = array->at(0);
+    auto arg = array->at(0);
     size_t order = (size_t)array->at(1)->getValue();
     size_t n = (array->size() - 2) / 2;
     auto xarray = std::make_shared<std::vector<double>>(n);
@@ -136,7 +136,7 @@ void GeneralSpline::computeDerivatives()
     }
     for (size_t i = 0; i < n; i++)
     {
-        auto& derivsi = derivs->at(i);
+        auto derivsi = derivs->at(i);
         derivsi->equalArrayAt(derivsVector, (i - 1) * p + 1);
         for (size_t j = 0; j < p; j++)
         {
@@ -156,7 +156,7 @@ double GeneralSpline::derivativeAt(size_t n, double xxx)
     //"d2ydx2(x) := d2ydx2i + d3ydx3i*hi + d4ydx4i*hi^2/2! +"
     if (n > degree) return 0.0;
     calcIndexAndDeltaFor(xxx);
-    auto& derivsi = derivs->at(index);
+    auto derivsi = derivs->at(index);
     double sum = 0.0;
     for (int j = (int)degree; j >= n + 1; j--)    //Use int because of decrement
     {
@@ -238,7 +238,7 @@ double GeneralSpline::y(double xxx)
     //"y(x) := yi + dydxi*hi + d2ydx2i*hi^2/2! + d3ydx3i*hi^3/3! +"
 
     calcIndexAndDeltaFor(xxx);
-    auto& derivsi = derivs->at(index);
+    auto derivsi = derivs->at(index);
     double sum = 0.0;
     for (int j = (int)degree; j >= 1; j--)    //Use int because of decrement
     {

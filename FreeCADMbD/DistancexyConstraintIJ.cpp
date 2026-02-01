@@ -30,6 +30,7 @@ void DistancexyConstraintIJ::initialize()
 
 void DistancexyConstraintIJ::calcPostDynCorrectorIteration()
 {
+    //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
     aG = x * x + (y * y) - (aConstant * aConstant);

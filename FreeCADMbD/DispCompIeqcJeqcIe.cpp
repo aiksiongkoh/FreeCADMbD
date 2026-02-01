@@ -31,7 +31,7 @@ void DispCompIeqcJeqcIe::initialize()
 void DispCompIeqcJeqcIe::calc_ppvaluepEIpEJ()
 {
     auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
-    auto& prIeJeOpEJ = frmJeqc->prOeOpE;
+    auto prIeJeOpEJ = frmJeqc->prOeOpE;
     ppriIeJeIepEIpEJ = pAjOIepEIT->timesFullMatrix(prIeJeOpEJ);
 }
 
@@ -77,6 +77,9 @@ void DispCompIeqcJeqcIe::calc_pvaluepXJ()
 
 void DispCompIeqcJeqcIe::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeIe = aAIeO * rIeJeO
+    //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
     //Must maintain order of calc_xxx.
     DispCompIeqcJecIe::calcPostDynCorrectorIteration();
     calc_pvaluepXJ();

@@ -28,10 +28,10 @@ namespace MbD {
     {
         //
     public:
-		ConstraintSet() {}
-		ConstraintSet(const std::string& str) : ConstraintIJ(str) {}
+        ConstraintSet() {}
+        ConstraintSet(const std::string& str) : ConstraintIJ(str) {}
         ConstraintSet(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
-        void constraintsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
+
         void initialize() override;
         void initializeGlobally() override;
         void initializeLocally() override;
@@ -43,6 +43,7 @@ namespace MbD {
         FColDsptr aTIeJtO() const;
         FColDsptr aTX() const;
         virtual void connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj);
+        void constraintsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
         void constraintsReport() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;

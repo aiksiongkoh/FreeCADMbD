@@ -6,18 +6,7 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-#include<algorithm>
-#include <memory>
-#include <typeinfo>
-
 #include "JointIJ.h"
-#include "Constraint.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
-#include "RedundantConstraint.h"
-#include "MarkerFrame.h"
-#include "ForceTorqueData.h"
-#include "System.h"
 
 using namespace MbD;
 

@@ -54,26 +54,26 @@ namespace MbD {
         //| zero phiThePsi phi sphi cphi phidot phiddot cphiddot sphiddot the sthe cthe thedot theddot ctheddot stheddot 
         // psi spsi cpsi psidot psiddot cpsiddot spsiddot phiA theA psiA phiAdot theAdot psiAdot |
         double zero = 0.0;
-        auto& phiThePsi = phiThePsiDot->phiThePsi;
-        auto& phi = phiThePsi->at(0);
+        auto phiThePsi = phiThePsiDot->phiThePsi;
+        auto phi = phiThePsi->at(0);
         auto sphi = std::sin(phi);
         auto cphi = std::cos(phi);
-        auto& phidot = phiThePsiDot->at(0);
-        auto& phiddot = this->at(0);
+        auto phidot = phiThePsiDot->at(0);
+        auto phiddot = this->at(0);
         auto cphiddot = zero - (sphi * phiddot) - (cphi * phidot * phidot);
         auto sphiddot = cphi * phiddot - (sphi * phidot * phidot);
-        auto& the = phiThePsi->at(1);
+        auto the = phiThePsi->at(1);
         auto sthe = std::sin(the);
         auto cthe = std::cos(the);
-        auto& thedot = phiThePsiDot->at(1);
-        auto& theddot = this->at(1);
+        auto thedot = phiThePsiDot->at(1);
+        auto theddot = this->at(1);
         auto ctheddot = zero - (sthe * theddot) - (cthe * thedot * thedot);
         auto stheddot = cthe * theddot - (sthe * thedot * thedot);
-        auto& psi = phiThePsi->at(2);
+        auto psi = phiThePsi->at(2);
         auto spsi = std::sin(psi);
         auto cpsi = std::cos(psi);
-        auto& psidot = phiThePsiDot->at(2);
-        auto& psiddot = this->at(2);
+        auto psidot = phiThePsiDot->at(2);
+        auto psiddot = this->at(2);
         auto cpsiddot = zero - (spsi * psiddot) - (cpsi * psidot * psidot);
         auto spsiddot = cpsi * psiddot - (spsi * psidot * psidot);
         phiAddot->at(0)->atiput(0, cphiddot);
@@ -88,12 +88,12 @@ namespace MbD {
         psiAddot->at(0)->atiput(1, zero - spsiddot);
         psiAddot->at(1)->atiput(0, spsiddot);
         psiAddot->at(1)->atiput(1, cpsiddot);
-        auto& phiA = phiThePsi->phiA;
-        auto& theA = phiThePsi->theA;
-        auto& psiA = phiThePsi->psiA;
-        auto& phiAdot = phiThePsiDot->phiAdot;
-        auto& theAdot = phiThePsiDot->theAdot;
-        auto& psiAdot = phiThePsiDot->psiAdot;
+        auto phiA = phiThePsi->phiA;
+        auto theA = phiThePsi->theA;
+        auto psiA = phiThePsi->psiA;
+        auto phiAdot = phiThePsiDot->phiAdot;
+        auto theAdot = phiThePsiDot->theAdot;
+        auto psiAdot = phiThePsiDot->psiAdot;
         auto mat = *(phiAddot->timesFullMatrix(theA->timesFullMatrix(psiA)))
             + *(phiAdot->timesFullMatrix(theAdot->timesFullMatrix(psiA)))
             + *(phiAdot->timesFullMatrix(theA->timesFullMatrix(psiAdot)))
@@ -103,7 +103,6 @@ namespace MbD {
             + *(phiAdot->timesFullMatrix(theA->timesFullMatrix(psiAdot)))
             + *(phiA->timesFullMatrix(theAdot->timesFullMatrix(psiAdot)))
             + *(phiA->timesFullMatrix(theA->timesFullMatrix(psiAddot)));
-        //aAddot = FullMatrix<double>::With(mat);    //Doesn't compile. Why?
         aAddot = std::make_shared<FullMatrix<double>>(mat);
     }
 }

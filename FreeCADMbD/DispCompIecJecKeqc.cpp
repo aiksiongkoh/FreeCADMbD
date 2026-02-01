@@ -13,6 +13,9 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIecJecKeqc> DispCompIecJecKeqc::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
+    assert(!frmi->has_qX());
+    assert(!frmj->has_qX());
+    assert(frmk->has_qX());
     auto inst = std::make_shared<DispCompIecJecKeqc>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
@@ -31,6 +34,9 @@ void DispCompIecJecKeqc::initializeGlobally()
 
 void DispCompIecJecKeqc::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeKe = aAKeO * rIeJeO
+    //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
     auto frmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto frmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto efrmKqc = std::static_pointer_cast<EndFrameqc>(efrmK);
@@ -42,8 +48,8 @@ void DispCompIecJecKeqc::calcPostDynCorrectorIteration()
     for (size_t i = 0; i < 4; i++)
     {
         priIeJeKepEK->at(i) = ((pAjOKepEKT->at(i))->dot(rIeJeO));
-        auto& ppAjOKepEKipEK = ppAjOKepEKpEK->at(i);
-        auto& ppriIeJeKepEKipEK = ppriIeJeKepEKpEK->at(i);
+        auto ppAjOKepEKipEK = ppAjOKepEKpEK->at(i);
+        auto ppriIeJeKepEKipEK = ppriIeJeKepEKpEK->at(i);
         ppriIeJeKepEKipEK->at(i) = ((ppAjOKepEKipEK->at(i))->dot(rIeJeO));
         for (size_t j = i + 1; j < 4; j++)
         {

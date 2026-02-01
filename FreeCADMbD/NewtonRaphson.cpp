@@ -17,11 +17,6 @@
 
 using namespace MbD;
 
-std::shared_ptr<NewtonRaphson> NewtonRaphson::With()
-{
-    throw SimulationStoppingError("To be implemented by concrete subclasses.");
-}
-
 void NewtonRaphson::initialize()
 {
     dxNorms = std::make_shared<std::vector<double>>();

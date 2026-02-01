@@ -33,13 +33,13 @@ void ASMTForceTorqueInLine::parseASMT(std::vector<std::string>& lines)
 void ASMTForceTorqueInLine::readTension(std::vector<std::string>& lines)
 {
     assert(readStringNoSpacesOffTop(lines) == "tension");
-    tensionFunc = popOffTop(lines);
+    tensionFunc = readStringTrimmedOffTop(lines);
 }
 
 void ASMTForceTorqueInLine::readTwist(std::vector<std::string>& lines)
 {
     assert(readStringNoSpacesOffTop(lines) == "twist");
-    twistFunc = popOffTop(lines);
+    twistFunc = readStringTrimmedOffTop(lines);
 }
 
 void ASMTForceTorqueInLine::storeOnLevel(std::ofstream& os, size_t level)
@@ -78,7 +78,7 @@ void ASMTForceTorqueInLine::createMbD()
     //std::cout << *tension << std::endl;
     auto simple = tension->simplified(tension);
     //std::cout << *simple << std::endl;
-    mbdForceTorqueInLine->tension(simple);
+    mbdForceTorqueInLine->setTension(simple);
 
     parser = functionParser();
     userFunc = std::make_shared<BasicUserFunction>(twistFunc, 1.0);
@@ -89,7 +89,7 @@ void ASMTForceTorqueInLine::createMbD()
     //std::cout << *twist << std::endl;
     simple = twist->simplified(twist);
     //std::cout << *simple << std::endl;
-    mbdForceTorqueInLine->twist(simple);
+    mbdForceTorqueInLine->setTwist(simple);
     mbdObject = mbdForceTorqueInLine;
     mbdSys()->addForceTorque(mbdForceTorqueInLine);
 }

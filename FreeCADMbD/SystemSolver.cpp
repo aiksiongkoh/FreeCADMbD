@@ -34,7 +34,6 @@
 
 using namespace MbD;
 
-
 std::shared_ptr<SystemSolver> SystemSolver::With()
 {
     auto inst = std::make_shared<SystemSolver>();
@@ -119,17 +118,17 @@ bool SystemSolver::needToRedoPosIC()
 {
     auto allRedunCons = allRedundantConstraints();
     auto newSet = std::make_shared<std::set<std::string>>();
-    for (auto& con : *allRedunCons) {
+    for (auto con : *allRedunCons) {
         auto aaa = std::static_pointer_cast<RedundantConstraint>(con);
-        auto& bbb = aaa->constraint->name;
+        auto bbb = aaa->constraint->name;
         newSet->insert(bbb);
     }
     //std::transform(allRedunCons->begin(), allRedunCons->end(), newSet->begin(), [](auto con) {
     //    return std::static_pointer_cast<RedundantConstraint>(con)->constraint->name;
     //    });
     if (newSet->empty()) return false;
-    auto itr = std::find_if(setsOfRedundantConstraints->begin(), setsOfRedundantConstraints->end(), [&](auto& set) {
-        for (auto& name : *set) {
+    auto itr = std::find_if(setsOfRedundantConstraints->begin(), setsOfRedundantConstraints->end(), [&](auto set) {
+        for (auto name : *set) {
             if (newSet->find(name) == newSet->end()) return false;
         }
         return true;
@@ -156,14 +155,17 @@ bool SystemSolver::needToRedoPosIC()
 
 void SystemSolver::preCollision()
 {
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void SystemSolver::runCollisionDerivativeIC()
 {
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void SystemSolver::runBasicCollision()
 {
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void SystemSolver::runBasicKinematic()
@@ -447,7 +449,7 @@ void SystemSolver::deactivateLimits()
 
 void System::deactivateLimits()
 {
-    std::for_each(limits->cbegin(), limits->cend(), [](auto& limit) { limit->deactivate(); });
+    for (const auto limit : *limits) limit->deactivate();
 }
 
 void SystemSolver::useKineTrialStepStats(std::shared_ptr<SolverStatistics> stats)

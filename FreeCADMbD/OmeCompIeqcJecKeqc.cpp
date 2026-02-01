@@ -19,20 +19,27 @@ std::shared_ptr<OmeCompIeqcJecKeqc> OmeCompIeqcJecKeqc::With(EndFrmsptr frmi, En
 
 void OmeCompIeqcJecKeqc::initialize()
 {
-    OmeCompIecJecKeqc::initialize();
+    OmeCompIecJecKec::initialize();
     pomeiIeJeKepEI = FullRow<double>::With(4);
     pomeiIeJeKepEdotI = FullRow<double>::With(4);
 }
 
 void OmeCompIeqcJecKeqc::calcPostDynCorrectorIteration()
 {
-    OmeCompIecJecKeqc::calcPostDynCorrectorIteration();
+    //omeIeJeO = omeOJeO - omeOIeO
+    //omeIeJeKe = AKeO * omeIeJeO
+    //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
+    aAjOKe = efrmK->aAjOe(axisK);
     auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto mpomeIeJeOpEI = eFrmIqc->pomeOeOpE();
-    auto mpomeIeJeOpEdotI = eFrmIqc->pomeOeOpEdot();
-    auto mAjOKe = aAjOKe->negated();
-    pomeiIeJeKepEI = mpomeIeJeOpEI->dot(mAjOKe);
-    pomeiIeJeKepEdotI = mpomeIeJeOpEdotI->dot(mAjOKe);
+    auto efrmKqc = std::static_pointer_cast<EndFrameqc>(efrmK);
+    omeIeJeO = eFrmIqc->omeOeO()->negated();    //omeOJeO is zero
+    omeiIeJeKe = aAjOKe->dot(omeIeJeO);
+    auto pAjOKepEK = efrmKqc->pAjOepE(axisK);
+    pomeiIeJeKepEK = pAjOKepEK->dot(omeIeJeO);
+    auto pomeIeJeOpEI = eFrmIqc->pomeOeOpE()->negated();    //pomeOJeOpE is zero
+    auto pomeIeJeOpEdotI = eFrmIqc->pomeOeOpEdot()->negated();    //pomeOJeOpEdot is zero
+    pomeiIeJeKepEI = pomeIeJeOpEI->dot(aAjOKe);
+    pomeiIeJeKepEdotI = pomeIeJeOpEdotI->dot(aAjOKe);
 }
 
 FRowDsptr OmeCompIeqcJecKeqc::pvaluepEI()

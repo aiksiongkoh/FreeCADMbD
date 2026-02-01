@@ -98,6 +98,9 @@ void DispCompIeqctJeqcIe::calc_pvaluept()
 
 void DispCompIeqctJeqcIe::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeIe = aAIeO * rIeJeO
+    //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
     //"ppAjOIepEIpEI is not longer constant and must be set before any calculation."
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     ppAjOIepEIpEI = frmIeqct->ppAjOepEpE(axis);

@@ -21,7 +21,10 @@ namespace MbD {
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
         void calcPostDynCorrectorIteration() override;
+        std::string constraintSpec() override;
         void fillAccICIterError(FColDsptr col) override;
+        void fillpFpy(SpMatDsptr mat) override;
+        void fillpFpydot(SpMatDsptr mat) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;
         void fillPosKineJacob(SpMatDsptr mat) override;
@@ -29,9 +32,6 @@ namespace MbD {
         void initializeGlobally() override;
         void initriIeJeO() override;
         void useEquationNumbers() override;
-        void fillpFpy(SpMatDsptr mat) override;
-        void fillpFpydot(SpMatDsptr mat) override;
-        std::string constraintSpec() override;
 
         FRowDsptr pGpEI;
         FMatDsptr ppGpEIpEI;
