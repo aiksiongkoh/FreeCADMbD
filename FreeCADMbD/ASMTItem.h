@@ -33,6 +33,7 @@ namespace MbD {
         ASMTItem() {}
         //virtual ~ASMTItem() {}
         static std::shared_ptr<ASMTItem> With();
+        static void noop();
         virtual void initialize();
         virtual void initializeGlobally();
         virtual void initializeLocally();
@@ -41,11 +42,11 @@ namespace MbD {
         virtual ASMTSpatialContainer* partOrAssembly();
         virtual ASMTPart* part();
 
-        void noop();
         virtual std::string classname();
         void setName(const std::string& str);
         virtual void parseASMT(std::vector<std::string>& lines);
         std::string popOffTop(std::vector<std::string>& args);
+        std::string readStringTrimmedOffTop(std::vector<std::string>& args);
         std::string readStringNoSpacesOffTop(std::vector<std::string>& args);
         FRowDsptr readRowOfDoubles(const std::string& line);
         FRowDsptr readRowOfDoublesOffTop(std::vector<std::string>& lines);
@@ -71,7 +72,7 @@ namespace MbD {
         std::shared_ptr<Constant> sptrConstant(double value);
         virtual void storeOnLevel(std::ofstream& os, size_t level);
         virtual void storeOnLevelTabs(std::ofstream& os, size_t level);
-        virtual void storeOnLevelString(std::ofstream& os, size_t level, std::string str);
+        virtual void storeOnLevelString(std::ofstream& os, size_t level, const std::string& str);
         virtual void storeOnLevelDouble(std::ofstream& os, size_t level, double value);
         virtual void storeOnLevelInt(std::ofstream& os, size_t level, int i);
         virtual void storeOnLevelSize_t(std::ofstream& os, size_t level, size_t i);

@@ -50,11 +50,7 @@ namespace MbD {
         virtual FColDsptr omeOfO(size_t i);
 
         FColDsptr position3D = std::make_shared<FullColumn<double>>(3);
-        FMatDsptr rotationMatrix = FullMatrix<double>::With(ListListD{
-                { 1, 0, 0 },
-                { 0, 1, 0 },
-                { 0, 0, 1 }
-            });
+        FMatDsptr rotationMatrix = FullMatrix<double>::identitysptr(3);
         FRowDsptr xs, ys, zs, bryxs, bryys, bryzs;
         FRowDsptr inxs, inys, inzs, inbryxs, inbryys, inbryzs;
 

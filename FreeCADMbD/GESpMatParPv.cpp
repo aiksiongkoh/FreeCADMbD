@@ -24,7 +24,7 @@ void GESpMatParPv::forwardEliminateWithPivot(size_t p)
 {
     //"rightHandSideB may be multidimensional."
 
-    auto& rowp = matrixA->at(p);
+    auto rowp = matrixA->at(p);
     auto app = rowp->at(p);
     auto elementsInPivotRow = std::make_shared<std::vector<const std::pair<const size_t, double>*>>(rowp->size() - 1);
     size_t index = 0;
@@ -38,7 +38,7 @@ void GESpMatParPv::forwardEliminateWithPivot(size_t p)
     for (size_t ii = 0; ii < markowitzPivotColCount; ii++)
     {
         auto i = rowPositionsOfNonZerosInPivotColumn->at(ii);
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         auto aip = rowi->at(p);
         rowi->erase(p);
         auto factor = aip / app;

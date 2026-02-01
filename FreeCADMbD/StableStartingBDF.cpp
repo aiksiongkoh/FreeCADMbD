@@ -34,7 +34,7 @@ double StableStartingBDF::pvdotpv()
 {
     //"pvdotpv = operatorMatrix timesColumn: #(-1.0d ... -1.0d, 0.0d)."
 
-    auto& coeffs = operatorMatrix->at(0);
+    auto coeffs = operatorMatrix->at(0);
     auto sum = 0.0;
     for (size_t i = 0; i < order - 1; i++)
     {
@@ -50,7 +50,7 @@ void StableStartingBDF::formTaylorMatrix()
     //For method order 3: 
     //|    (t1 - t)    (t1 - t)^2/2!        (t1 - t)^3/3!    |    |qd(t)    |        |q(t1) - q(t)    | 
     //|    (t2 - t)    (t2 - t)^2/2!        (t2 - t)^3/3!    |    |qdd(t)    |        |q(t2) - q(t)    | 
-    //|        1        (t2 - t)            (t2 - t)^2/2!    |    |qddd(t)|        |qd(t2)         | 
+    //|        1        (t2 - t)            (t2 - t)^2/2!    |    |qddd(t)|        |qd(t2)        | 
     //"
 
     instantiateTaylorMatrix();
@@ -93,7 +93,7 @@ FColDsptr StableStartingBDF::derivativepresentpastpresentDerivativepastDerivativ
         series->at(j) = ypast->at(j)->minusFullColumn(y);
     }
     series->at(order - 1) = ydotpast->at(order - 2);
-    auto& coeffs = operatorMatrix->at(deriv - 1);
+    auto coeffs = operatorMatrix->at(deriv - 1);
     auto answer = coeffs->dot(series);
     return std::static_pointer_cast<FullColumn<double>>(answer);
 }

@@ -13,6 +13,7 @@ std::shared_ptr<ForceTorqueFunction> ForceTorqueFunction::With()
 
 void ForceTorqueFunction::initialize()
 {
+    ForceTorqueItem::initialize();
     kineIJs = std::make_shared<std::vector<std::shared_ptr<MbDSymbolicFunction>>>();
     kinedotIJs = std::make_shared<std::vector<std::shared_ptr<MbDSymbolicFunction>>>();
     jointActions = std::make_shared<std::vector<std::shared_ptr<MbDSymbolicFunction>>>();
@@ -35,57 +36,57 @@ void ForceTorqueFunction::setformula(Symsptr function)
 
 void ForceTorqueFunction::postDynPredictor()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postDynPredictor(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postDynPredictor(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postDynPredictor(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postDynPredictor();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postDynPredictor();
+    for (const auto jointAction : *jointActions) jointAction->postDynPredictor();
     ForceTorqueItem::postDynPredictor();
 }
 
 void ForceTorqueFunction::postInput()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postInput(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postInput(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postInput(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postInput();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postInput();
+    for (const auto jointAction : *jointActions) jointAction->postInput();
     ForceTorqueItem::postInput();
 }
 
 void ForceTorqueFunction::postStaticIteration()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postStaticIteration(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postStaticIteration(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postStaticIteration(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postStaticIteration();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postStaticIteration();
+    for (const auto jointAction : *jointActions) jointAction->postStaticIteration();
     ForceTorqueItem::postStaticIteration();
 }
 
 void ForceTorqueFunction::preAccIC()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->preAccIC(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->preAccIC(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->preAccIC(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->preAccIC();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->preAccIC();
+    for (const auto jointAction : *jointActions) jointAction->preAccIC();
     ForceTorqueItem::preAccIC();
 }
 
 void ForceTorqueFunction::preDynOutput()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->preDynOutput(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->preDynOutput(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->preDynOutput(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->preDynOutput();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->preDynOutput();
+    for (const auto jointAction : *jointActions) jointAction->preDynOutput();
     ForceTorqueItem::preDynOutput();
 }
 
 void ForceTorqueFunction::preStatic()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->preStatic(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->preStatic(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->preStatic(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->preStatic();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->preStatic();
+    for (const auto jointAction : *jointActions) jointAction->preStatic();
     ForceTorqueItem::preStatic();
 }
 
 void ForceTorqueFunction::simUpdateAll()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->simUpdateAll(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->simUpdateAll(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->simUpdateAll(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->simUpdateAll();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->simUpdateAll();
+    for (const auto jointAction : *jointActions) jointAction->simUpdateAll();
     ForceTorqueItem::simUpdateAll();
 }
 
@@ -95,7 +96,7 @@ FColDsptr ForceTorqueFunction::pFTpkineIJs()
     std::transform(pFTpkineIJFuncs->begin(),
         pFTpkineIJFuncs->end(),
         pFTpkineIJs->begin(),
-        [&](auto& pFTpkineIJFunc) { return pFTpkineIJFunc->getValue(); }
+        [&](auto pFTpkineIJFunc) { return pFTpkineIJFunc->getValue(); }
     );
     return pFTpkineIJs;
 }
@@ -106,7 +107,7 @@ FColDsptr ForceTorqueFunction::pFTpkinedotIJs()
     std::transform(pFTpkinedotIJFuncs->begin(),
         pFTpkinedotIJFuncs->end(),
         pFTpkinedotIJs->begin(),
-        [&](auto& pFTpkinedotIJFunc) { return pFTpkinedotIJFunc->getValue(); }
+        [&](auto pFTpkinedotIJFunc) { return pFTpkinedotIJFunc->getValue(); }
     );
     return pFTpkinedotIJs;
 }
@@ -117,7 +118,7 @@ FColDsptr ForceTorqueFunction::pFTpJtActs()
     std::transform(pFTpJtActFuncs->begin(),
         pFTpJtActFuncs->end(),
         pFTpJtActs->begin(),
-        [&](auto& pFTpJtActFunc) { return pFTpJtActFunc->getValue(); }
+        [&](auto pFTpJtActFunc) { return pFTpJtActFunc->getValue(); }
     );
     return pFTpJtActs;
 }
@@ -127,28 +128,93 @@ double ForceTorqueFunction::forTor()
     return forTorFunc->getValue();
 }
 
+double ForceTorqueFunction::value()
+{
+    return forTorFunc->getValue();
+}
+
+FRowDsptr MbD::ForceTorqueFunction::pvaluepX(SpatialContainerFrame* partFrame)
+{
+    auto answer = FullRow<double>::With(3, 0.0);
+    for (size_t i = 0; i < kineIJs->size(); i++) {
+        auto kineIJ = kineIJs->at(i);
+        auto pfpkineIJ = pFTpkineIJFuncs->at(i)->getValue();
+        auto pkineIJpX = kineIJ->pvaluepX(partFrame);
+        if (pkineIJpX) {
+            answer->equalSelfPlusFullRowtimes(pkineIJpX, pfpkineIJ);
+        }
+    }
+    //Must not return an empty std::shared_ptr
+    return answer;
+}
+
+FRowDsptr MbD::ForceTorqueFunction::pvaluepE(SpatialContainerFrame* partFrame)
+{
+    auto answer = FullRow<double>::With(4, 0.0);
+    for (size_t i = 0; i < kineIJs->size(); i++) {
+        auto kineIJ = kineIJs->at(i);
+        auto pfpkineIJ = pFTpkineIJFuncs->at(i)->getValue();
+        auto pkineIJpE = kineIJ->pvaluepE(partFrame);
+        if (pkineIJpE) {
+            answer->equalSelfPlusFullRowtimes(pkineIJpE, pfpkineIJ);
+        }
+    }
+    //Must not return an empty std::shared_ptr
+    return answer;
+}
+
+FRowDsptr MbD::ForceTorqueFunction::pvaluepXdot(SpatialContainerFrame* partFrame)
+{
+    auto answer = FullRow<double>::With(3, 0.0);
+    for (size_t i = 0; i < kinedotIJs->size(); i++) {
+        auto kinedotIJ = kinedotIJs->at(i);
+        auto pfpkinedotIJ = pFTpkinedotIJFuncs->at(i)->getValue();
+        auto pkinedotIJpXdot = kinedotIJ->pvaluepXdot(partFrame);
+        if (pkinedotIJpXdot) {
+            answer->equalSelfPlusFullRowtimes(pkinedotIJpXdot, pfpkinedotIJ);
+        }
+    }
+    //Must not return an empty std::shared_ptr
+    return answer;
+}
+
+FRowDsptr MbD::ForceTorqueFunction::pvaluepEdot(SpatialContainerFrame* partFrame)
+{
+    auto answer = FullRow<double>::With(4, 0.0);
+    for (size_t i = 0; i < kinedotIJs->size(); i++) {
+        auto kinedotIJ = kinedotIJs->at(i);
+        auto pfpkinedotIJ = pFTpkinedotIJFuncs->at(i)->getValue();
+        auto pkinedotIJpEdot = kinedotIJ->pvaluepEdot(partFrame);
+        if (pkinedotIJpEdot) {
+            answer->equalSelfPlusFullRowtimes(pkinedotIJpEdot, pfpkinedotIJ);
+        }
+    }
+    //Must not return an empty std::shared_ptr
+    return answer;
+}
+
 void ForceTorqueFunction::initializeGlobally()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->initializeGlobally(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->initializeGlobally(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->initializeGlobally(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->initializeGlobally();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->initializeGlobally();
+    for (const auto jointAction : *jointActions) jointAction->initializeGlobally();
     pFTpkineIJFuncs = std::make_shared<std::vector<Symsptr>>(kineIJs->size());
     std::transform(kineIJs->begin(),
         kineIJs->end(),
         pFTpkineIJFuncs->begin(),
-        [&](auto& kineIJ) { return forTorFunc->differentiateWRT(kineIJ)->simplified(); }
+        [&](auto kineIJ) { return forTorFunc->differentiateWRT(kineIJ)->simplified(); }
     );
     pFTpkinedotIJFuncs = std::make_shared<std::vector<Symsptr>>(kinedotIJs->size());
     std::transform(kinedotIJs->begin(),
         kinedotIJs->end(),
         pFTpkinedotIJFuncs->begin(),
-        [&](auto& kinedotIJ) { return forTorFunc->differentiateWRT(kinedotIJ)->simplified(); }
+        [&](auto kinedotIJ) { return forTorFunc->differentiateWRT(kinedotIJ)->simplified(); }
     );
     pFTpJtActFuncs = std::make_shared<std::vector<Symsptr>>(jointActions->size());
     std::transform(jointActions->begin(),
         jointActions->end(),
         pFTpJtActFuncs->begin(),
-        [&](auto& jointAction) { return forTorFunc->differentiateWRT(jointAction)->simplified(); }
+        [&](auto jointAction) { return forTorFunc->differentiateWRT(jointAction)->simplified(); }
     );
 }
 
@@ -159,47 +225,47 @@ void ForceTorqueFunction::initializeLocally()
     forTorFunc->fillKinedotIJs(kinedotIJs);
     forTorFunc->fillJointForces(jointActions);
     forTorFunc->fillJointTorques(jointActions);
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->initializeLocally(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->initializeLocally(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->initializeLocally(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->initializeLocally();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->initializeLocally();
+    for (const auto jointAction : *jointActions) jointAction->initializeLocally();
 }
 
 void ForceTorqueFunction::postAccICIteration()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postAccICIteration(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postAccICIteration(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postAccICIteration(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postAccICIteration();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postAccICIteration();
+    for (const auto jointAction : *jointActions) jointAction->postAccICIteration();
     ForceTorqueItem::postAccICIteration();
 }
 
 void ForceTorqueFunction::postCollisionCorrectorIteration()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postCollisionCorrectorIteration(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postCollisionCorrectorIteration(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postCollisionCorrectorIteration(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postCollisionCorrectorIteration();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postCollisionCorrectorIteration();
+    for (const auto jointAction : *jointActions) jointAction->postCollisionCorrectorIteration();
     ForceTorqueItem::postCollisionCorrectorIteration();
 }
 
 void ForceTorqueFunction::postCollisionPredictor()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postCollisionPredictor(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postCollisionPredictor(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postCollisionPredictor(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postCollisionPredictor();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postCollisionPredictor();
+    for (const auto jointAction : *jointActions) jointAction->postCollisionPredictor();
     ForceTorqueItem::postCollisionPredictor();
 }
 
 void ForceTorqueFunction::postDynCorrectorIteration()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postDynCorrectorIteration(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postDynCorrectorIteration(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postDynCorrectorIteration(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postDynCorrectorIteration();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postDynCorrectorIteration();
+    for (const auto jointAction : *jointActions) jointAction->postDynCorrectorIteration();
     ForceTorqueItem::postDynCorrectorIteration();
 }
 
 void ForceTorqueFunction::postDynOutput()
 {
-    std::for_each(kineIJs->begin(), kineIJs->end(), [&](auto kineIJ) { kineIJ->postDynOutput(); });
-    std::for_each(kinedotIJs->begin(), kinedotIJs->end(), [&](auto kinedotIJ) { kinedotIJ->postDynOutput(); });
-    std::for_each(jointActions->begin(), jointActions->end(), [&](auto jointAction) { jointAction->postDynOutput(); });
+    for (const auto kineIJ : *kineIJs) kineIJ->postDynOutput();
+    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->postDynOutput();
+    for (const auto jointAction : *jointActions) jointAction->postDynOutput();
     ForceTorqueItem::postDynOutput();
 }

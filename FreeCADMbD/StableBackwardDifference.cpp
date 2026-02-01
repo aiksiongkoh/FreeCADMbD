@@ -31,7 +31,7 @@ double StableBackwardDifference::pvdotpv()
 {
     //"pvdotpv = operatorMatrix timesColumn: #(-1.0d ... -1.0d)."
 
-    auto& coeffs = operatorMatrix->at(0);
+    auto coeffs = operatorMatrix->at(0);
     auto sum = 0.0;
     for (size_t i = 0; i < order; i++)
     {
@@ -77,7 +77,7 @@ void StableBackwardDifference::instantiateTaylorMatrix()
 void StableBackwardDifference::formTaylorRowwithTimeNodederivative(size_t i, size_t ii, size_t k)
 {
     //| rowi hi hipower aij |
-    auto& rowi = taylorMatrix->at(i);
+    auto rowi = taylorMatrix->at(i);
     if (k > 0) {
         for (int j = 0; j < (int)k - 2; j++)    //Use int because of subtraction
         {
@@ -117,7 +117,7 @@ FColDsptr StableBackwardDifference::derivativepresentpast(size_t deriv, FColDspt
             {
                 series->at(i) = ypast->at(i)->minusFullColumn(y);
             }
-            auto& coeffs = operatorMatrix->at(deriv - 1);
+            auto coeffs = operatorMatrix->at(deriv - 1);
             auto answer = coeffs->dot(series);
             return std::static_pointer_cast<FullColumn<double>>(answer);
         }

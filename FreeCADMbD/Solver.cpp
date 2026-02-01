@@ -14,11 +14,6 @@
 
 using namespace MbD;
 
-std::shared_ptr<Solver> Solver::With()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 void Solver::initialize()
 {
     //Do nothing.

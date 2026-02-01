@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (c) 2023 Ondsel, Inc.                                       *
  *                                                                         *
- *   This file is part of FreeCADMbD.                                       *
+ *   This file is part of OndselMbD.                                       *
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
@@ -26,7 +26,7 @@ void ConstantGravity::fillAccICIterError(FColDsptr col)
 
 void ConstantGravity::fillDynError(FColDsptr col)
 {
-    for (auto& part : *(root()->parts)) {
+    for (auto part : *(root()->parts)) {
         col->atiplusFullColumntimes(part->iqX(), gXYZ, part->m);
     }
 }

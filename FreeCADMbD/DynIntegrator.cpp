@@ -42,27 +42,27 @@ void DynIntegrator::assignEquationNumbers()
     auto constraints = system->allConstraints();
     ncon = constraints->size();
     auto eqnNo = 0;
-    for (auto& part : *parts) {
+    for (auto part : *parts) {
         part->ipX = eqnNo;
         eqnNo = eqnNo + 3;
         part->ipE = eqnNo;
         eqnNo = eqnNo + 4;
     }
-    for (auto& part : *parts) {
+    for (auto part : *parts) {
         part->iqX(eqnNo);
         eqnNo = eqnNo + 3;
         part->iqE(eqnNo);
         eqnNo = eqnNo + 4;
     }
-    //for (auto& endFrm : *contactEndFrames) {
+    //for (auto endFrm : *contactEndFrames) {
     //    endFrm->is(eqnNo);
     //    eqnNo = eqnNo + endFrm->sSize();
     //}
-    //for (auto& uHolder : *uHolders) {
+    //for (auto uHolder : *uHolders) {
     //    uHolder->iu(eqnNo);
     //    eqnNo += 1;
     //}
-    for (auto& con : *constraints) {
+    for (auto con : *constraints) {
         con->iG = eqnNo;
         eqnNo += 1;
     }
@@ -131,8 +131,8 @@ void DynIntegrator::checkForOutputThrough(double t)
         //"Reset system to integrator time."
         system->time(integrator->t);
         auto integ = std::static_pointer_cast<BasicDAEIntegrator>(integrator);
-        auto& y = integ->y;
-        auto& ydot = integ->ydot;
+        auto y = integ->y;
+        auto ydot = integ->ydot;
         system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) {
             item->setpqsumu(y);
             item->setpqsumudot(ydot);
@@ -158,7 +158,7 @@ void DynIntegrator::fillpFpydot(SpMatDsptr mat)
 
 void DynIntegrator::preRun()
 {
-    std::string str("MbD: Starting dynamic analysis.");
+    const std::string& str("MbD: Starting dynamic analysis.");
     system->logString(str);
     system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->preDyn(); });
 }

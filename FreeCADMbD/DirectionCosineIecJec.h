@@ -20,14 +20,14 @@ namespace MbD {
     {
         //aAijIeJe axisI axisJ aAjOIe aAjOJe 
     public:
-        DirectionCosineIecJec();
+        DirectionCosineIecJec() {}
         DirectionCosineIecJec(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : KinematicIJ(frmi, frmj), axisI(axisi), axisJ(axisj) {}
         static std::shared_ptr<DirectionCosineIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
         void calcPostDynCorrectorIteration() override;
         double value() override;
 
-        size_t axisI{}, axisJ{};   //0, 1, 2 = x, y, z
+        size_t axisI = SIZE_MAX, axisJ = SIZE_MAX;   //0, 1, 2 = x, y, z
         double aAijIeJe{};
         FColDsptr aAjOIe, aAjOJe;
     };

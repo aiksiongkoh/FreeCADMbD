@@ -12,10 +12,12 @@
 
 #include "ConstraintSet.h"
 #include "Constraint.h"
+#include "EndFramec.h"
+#include "EndFramect.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
 #include "RedundantConstraint.h"
-#include "MarkerFrame.h"
+#include "MarkerFramec.h"
 #include "ForceTorqueData.h"
 #include "System.h"
 
@@ -23,7 +25,9 @@ using namespace MbD;
 
 void ConstraintSet::constraintsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const
 {
-    std::for_each(constraints->begin(), constraints->end(), f);
+    for (const auto constraint : *constraints) {
+        f(constraint);
+    }
 }
 
 void ConstraintSet::initialize()
@@ -42,6 +46,14 @@ void ConstraintSet::initializeLocally()
     if (frmIqc) {
         if (frmIqc->endFrameqct) {
             eFrmI = frmIqc->endFrameqct;
+        }
+    }
+    else {
+        auto frmIc = std::dynamic_pointer_cast<EndFramec>(eFrmI);
+        if (frmIc) {
+            if (frmIc->endFramect) {
+                eFrmI = std::static_pointer_cast<EndFramec>(frmIc->endFramect);
+            }
         }
     }
     constraintsDo([](std::shared_ptr<Constraint> constraint) { constraint->initializeLocally(); });
@@ -295,7 +307,7 @@ void ConstraintSet::removeRedundantConstraints(std::shared_ptr<std::vector<size_
 {
     for (size_t i = 0; i < constraints->size(); i++)
     {
-        auto& constraint = constraints->at(i);
+        auto constraint = constraints->at(i);
         if (std::find(redundantEqnNos->begin(), redundantEqnNos->end(), constraint->iG) != redundantEqnNos->end()) {
             auto redunCon = RedundantConstraint::With();
             redunCon->constraint = constraint;
@@ -308,7 +320,7 @@ void ConstraintSet::reactivateRedundantConstraints()
 {
     for (size_t i = 0; i < constraints->size(); i++)
     {
-        auto& con = constraints->at(i);
+        auto con = constraints->at(i);
         if (con->isRedundant()) {
             constraints->at(i) = std::static_pointer_cast<RedundantConstraint>(con)->constraint;
         }
@@ -326,10 +338,10 @@ void ConstraintSet::constraintsReport()
     if (redunCons->size() > 0) {
         std::string str = "MbD: " + classname() + std::string(" ") + name + " has the following constraint(s) removed: ";
         logString(str);
-        std::for_each(redunCons->begin(), redunCons->end(), [&](auto& con) {
+        for (const auto con : *redunCons) {
             str = "MbD: " + std::string("    ") + con->classname();
             logString(str);
-            });
+        }
     }
 }
 

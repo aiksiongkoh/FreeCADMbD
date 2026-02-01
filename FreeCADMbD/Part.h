@@ -65,8 +65,8 @@ namespace MbD {
 
         void prePosIC() override;
         void prePosKine() override;
-        size_t iqX();
-        size_t iqE();
+        size_t iqX() const;
+        size_t iqE() const;
         void iqX(size_t eqnNo);
         void iqE(size_t eqnNo);
         void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;

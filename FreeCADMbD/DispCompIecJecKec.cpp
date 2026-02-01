@@ -13,6 +13,9 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIecJecKec> DispCompIecJecKec::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
+    assert(!frmi->has_qX());
+    assert(!frmj->has_qX());
+    assert(!frmk->has_qX());
     auto inst = std::make_shared<DispCompIecJecKec>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
@@ -26,9 +29,23 @@ void DispCompIecJecKec::withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, E
     axisK = axis;
 }
 
-PartFrame* DispCompIecJecKec::partFrameK()
+void DispCompIecJecKec::initializeLocally()
 {
-    return efrmK->getPartFrame();
+    KinematicIJ::initializeLocally();
+    prtFrmK = efrmK->getPartFrame();
+}
+
+void DispCompIecJecKec::calcPostDynCorrectorIteration()
+{
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeKe = aAKeO * rIeJeO
+    //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
+    throw SimulationStoppingError("To be implemented.");
+}
+
+SpatialContainerFrame* DispCompIecJecKec::partFrameK()
+{
+    return prtFrmK;
 }
 
 double DispCompIecJecKec::value()

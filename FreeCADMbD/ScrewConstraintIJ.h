@@ -17,7 +17,7 @@ namespace MbD {
     {
         //zIeJeIe thezIeJe pitch 
     public:
-        ScrewConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj), pitch(0.0) {}
+        ScrewConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
         static std::shared_ptr<ScrewConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

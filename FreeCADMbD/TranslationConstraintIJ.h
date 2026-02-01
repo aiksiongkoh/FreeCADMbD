@@ -21,6 +21,8 @@ namespace MbD {
         void initialize() override;
 
         void calcPostDynCorrectorIteration() override;
+        void addToJointForceI(FColDsptr col) = 0;
+        void addToJointTorqueI(FColDsptr col) = 0;
         void initializeGlobally() override;
         void initializeLocally() override;
         virtual void initriIeJeIe();
@@ -36,7 +38,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        size_t axisI;
+        size_t axisI = SIZE_MAX;
         std::shared_ptr<DispCompIecJecKec> riIeJeIe;
         //ToDo: Use DispCompIecJecIe instead of DispCompIecJecKec
     };

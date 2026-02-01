@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include <ostream>
@@ -34,9 +34,10 @@ namespace MbD {
         Array(std::initializer_list<T> list) : std::vector<T>{ list } {}
         virtual ~Array() {}
         static std::shared_ptr<Array<T>> With(size_t count);
-        virtual void initialize();
         static bool equaltol(double x, double xx, double tol);
-        
+
+        virtual void initialize();
+        void noop();
         void copyFrom(std::shared_ptr<Array<T>> x);
         virtual void zeroSelf();
         virtual double sumOfSquares();
@@ -50,12 +51,13 @@ namespace MbD {
         void magnifySelf(T factor);
         void negateSelf();
         void atitimes(size_t i, double factor);
+        bool isZero();
         virtual std::string to_CSV();
         void outputCSV(std::string filename);
         void appendCSV(std::string filename);
 
         virtual std::ostream& printOn(std::ostream& s) const {
-            std::string str = typeid(*this).name();
+            const std::string& str = typeid(*this).name();
             auto classname = str.substr(11, str.size() - 11);
             s << classname << std::endl;
             return s;
@@ -66,6 +68,28 @@ namespace MbD {
         }
 
     };
+
+    template<typename T>
+    inline bool Array<T>::isZero()
+    {
+        if constexpr (std::is_same_v<T, double>) {
+            for (size_t i = 0; i < this->size(); i++)
+            {
+                if (std::abs(this->at(i)) != 0.0) {
+                    return false;
+                }
+            }
+        }
+        else {
+            for (size_t i = 0; i < this->size(); i++)
+            {
+                if (!this->at(i)->isZero()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     template<typename T>
     inline std::shared_ptr<Array<T>> Array<T>::With(size_t count)
@@ -88,6 +112,11 @@ namespace MbD {
     }
 
     template<typename T>
+    inline void Array<T>::noop()
+    {
+    }
+
+    template<typename T>
     inline void Array<T>::copyFrom(std::shared_ptr<Array<T>> x)
     {
         for (size_t i = 0; i < x->size(); i++) {
@@ -101,7 +130,8 @@ namespace MbD {
         for (size_t i = 0; i < this->size(); i++) {
             if constexpr (std::is_pointer<T>::value) {
                 this->at(i) = nullptr; // Assign nullptr for pointer types
-            } else {
+            }
+            else {
                 this->at(i) = T(); // Use default constructor for non-pointer types
             }
         }

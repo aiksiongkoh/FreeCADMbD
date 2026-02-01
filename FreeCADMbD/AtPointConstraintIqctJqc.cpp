@@ -32,6 +32,8 @@ void AtPointConstraintIqctJqc::initriIeJeO()
 
 void AtPointConstraintIqctJqc::calcPostDynCorrectorIteration()
 {
+    //riIeJeO = rOJeO - rOIeO;
+    //aG = riIeJeO - C;
     //"ppGpEIpEI is no longer constant."
 
     ppGpEIpEI = std::static_pointer_cast<DispCompIeqctJeqcO>(riIeJeO)->ppriIeJeOpEIpEI;

@@ -1,0 +1,1132 @@
+freeCAD: 3D CAD with Motion Simulation  by  askoh.com
+Assembly
+	Notes
+		(Text string: 'xxxx' runs: (Core.RunArray runs: #(4) values: #(nil)))
+	Name
+		TreeWrench
+	Position3D
+		0.0	0.0	0.0
+	RotationMatrix
+		1.0	0.0	0.0
+		0.0	1.0	0.0
+		0.0	0.0	1.0
+	Velocity3D
+		0.0	0.0	0.0
+	Omega3D
+		0.0	0.0	0.0
+	RefPoints
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_mass_marker_6
+				Position3D
+					-0.7    0.018276    1.3450199999999999
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	1.0 	0.0
+					0.0 	0.0 	1.0
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_origin_marker_6
+				Position3D
+					-0.7    0.018276    1.3450199999999999
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	1.0 	0.0
+					0.0 	0.0 	1.0
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_marker_18_17
+				Position3D
+					-0.7    0.018276    1.3450199999999999
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	1.0 	0.0
+					0.0 	0.0 	1.0
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_mass_marker_5
+				Position3D
+					0.1240987931354359    0.018276013374328604    -0.14898474188312374
+				RotationMatrix
+					-0.9984940670230427 	0.05485980422663138 	3.8163916471489756e-17
+					-3.8163916471489756e-17 	-1.5543122344752192e-15 	1.0000000000000002
+					0.05485980422663138 	0.9984940670230424 	1.2212453270876722e-15
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_origin_marker_5
+				Position3D
+					-0.027878143310546874    -0.0017239866256713867    -0.09147498416900635
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	1.0 	0.0
+					0.0 	0.0 	1.0
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_marker_17_1
+				Position3D
+					-0.017878143310546876    0.018276013374328614    -0.10147498416900634
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	2.220446049250313e-16 	-1.0
+					0.0 	1.0 	2.220446049250313e-16
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_marker_17_13
+				Position3D
+					0.23212185668945312    0.0182760133743286    -0.14147498416900633
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	2.220446049250313e-16 	-1.0
+					0.0 	1.0 	2.220446049250313e-16
+		RefPoint
+			Position3D
+						0.0	0.0	0.0
+			RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+			Markers
+				Marker
+				Name
+					MbD_ELEMENT_marker_17_15
+				Position3D
+					0.30528185668945307    0.0182760133743286    -0.14147498416900633
+				RotationMatrix
+					1.0 	0.0 	0.0
+					0.0 	2.220446049250313e-16 	-1.0
+					0.0 	1.0 	2.220446049250313e-16
+	RefCurves
+	RefSurfaces
+	Parts
+		Part
+			Name
+				MbD_ELEMENT_part_2
+			Position3D
+				0.16095133660802363	-0.060823986625671414	-0.10097498416900631
+			RotationMatrix
+				1.0	0.0	0.0
+				0.0	1.0	0.0
+				0.0	0.0	1.0
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.048
+					zEnd
+						0.011
+					Sketch
+						Name
+							Sketch_2
+						Position3D
+							0.0	0.05910000000000001	0.011
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.16
+								yLength
+									0.094
+			PrincipalMassMarker
+					Name
+						MassMarker_2
+							Position3D
+								0.11675642129031119	0.11955303096520234	0.029500000000000012
+							RotationMatrix
+								0.9618793968176886	0.27347399506651354	1.4427831687148262e-15
+								-0.27347399506651354	0.9618793968176886	1.2174138660833856e-15
+								-1.0548523704549376e-15	-1.5655689923489453e-15	1.0
+							Mass
+								0.5255131056645288
+							MomentOfInertias
+								0.0003613424589753383	0.0014727618913778554	0.001664057389443864
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_2
+						Position3D
+							0.11675642129031119	0.11955303096520234	0.029500000000000012
+						RotationMatrix
+							0.9618793968176886	0.27347399506651354	1.4427831687148264e-15
+							-0.27347399506651354	0.9618793968176886	1.2174138660833856e-15
+							-1.0548523704549378e-15	-1.5655689923489447e-15	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_2
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_2_8
+						Position3D
+							0.019999999999999973	0.13410000000000083	0.0295
+						RotationMatrix
+							1.0	-6.310887241768095e-30	8.163999999999999e-14
+							8.163999999999999e-14	2.220446049250313e-16	-1.0
+							-6.310887241768095e-30	1.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_2_9
+						Position3D
+							0.075	0.13410000000000002	0.0295
+						RotationMatrix
+							0.0	0.0	1.0
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_2_12
+						Position3D
+							0.15	0.07910019394760838	0.0295
+						RotationMatrix
+							2.220446049250313e-16	0.0	1.0
+							0.0	1.0	0.0
+							-1.0	0.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_2_16
+						Position3D
+							0.15	0.07910019394760837	0.011
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				MbD_ELEMENT_part_1
+			Position3D
+				-0.017878143310546896	-0.1617239866256714	-0.10147498416900634
+			RotationMatrix
+				1.0	0.0	0.0
+				0.0	1.0	0.0
+				0.0	0.0	1.0
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.05
+					zEnd
+						0.0
+					Sketch
+						Name
+							Sketch_1
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.25
+								yLength
+									0.36
+			PrincipalMassMarker
+					Name
+						MassMarker_1
+							Position3D
+								0.061818292296097456	0.18168550963548932	0.010049205340430124
+							RotationMatrix
+								-0.054593178810047965	-0.9905102288191953	0.12613116756757345
+								-0.9984864530908826	0.054997510882410915	-0.00027711139960195496
+								-0.006662418585080635	-0.12595539052094695	-0.9920135340696278
+							Mass
+								2.8329698623252
+							MomentOfInertias
+								0.010386374134717121	0.025112410568264354	0.034925199501839956
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_1
+						Position3D
+							0.061818292296097456	0.18168550963548932	0.010049205340430124
+						RotationMatrix
+							-0.05459317881004799	-0.9905102288191955	0.12613116756757353
+							-0.9984864530908827	0.054997510882410894	-0.00027711139960197306
+							-0.006662418585080661	-0.125955390520947	-0.9920135340696281
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_1
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_1_2
+						Position3D
+							0.0	0.18	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_1_3
+						Position3D
+							0.02	0.18	0.03
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_1_10
+						Position3D
+							0.23	0.235	0.03
+						RotationMatrix
+							0.0	0.0	1.0
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_1_11
+						Position3D
+							0.25	0.18	0.03
+						RotationMatrix
+							2.220446049250313e-16	-0.0	-1.0
+							0.0	1.0	-0.0
+							1.0	0.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_1_14
+						Position3D
+							0.25	0.18	0.01
+						RotationMatrix
+							-1.0	0.0	0.0
+							0.0	2.220446049250313e-16	1.0
+							0.0	1.0	-2.220446049250313e-16
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				MbD_ELEMENT_part_4
+			Position3D
+				-0.09585529759648152	0.018276013374328652	-0.10055207546146812
+			RotationMatrix
+				0.9999996905220669	-2.948705745757462e-19	-0.0007867374214922995
+				-2.948705745757462e-19	1.0	-7.496034150465649e-16
+				0.0007867374214922995	7.496034150465649e-16	0.9999996905220669
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						1.5205
+					zEnd
+						0.009145822518038898
+					Sketch
+						Name
+							Sketch_4
+						Position3D
+							0.078	-0.030499999999999982	0.009145822518038898
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.039999999999999994
+								yLength
+									0.0855
+			PrincipalMassMarker
+					Name
+						MassMarker_4
+							Position3D
+								0.09799999999997079	0.000926194180235904	0.6845358588252809
+							RotationMatrix
+								-9.414525691644982e-14	-1.0653933624751597e-11	-0.9999999999999998
+								0.0028859488871662356	0.9999958356408394	-1.065416095634673e-11
+								-0.9999958356408395	0.002885948887166276	6.33981570160705e-14
+							Mass
+								2.9132538693438756
+							MomentOfInertias
+								0.0016452506943883196	0.5366078323762459	0.536916177934806
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_4
+						Position3D
+							0.09799999999997079	0.000926194180235904	0.6845358588252809
+						RotationMatrix
+							-9.459100169806334e-14	1.0653933464610521e-11	-1.0000000000000002
+							0.002885948887166237	-0.9999958356408398	-1.0654161580747612e-11
+							-0.9999958356408396	-0.002885948887166237	6.339373470609644e-14
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_4
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_9_4
+						Position3D
+							0.098	1.0658141036401503e-17	0.028999999999999998
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	-1.1102230246251565e-15	-1.0
+							0.0	1.0	-1.1102230246251565e-15
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_11_5
+						Position3D
+							0.098	0.029	0.157
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_9_20
+						Position3D
+							0.098	-1.2079969906387862e-18	1.4455
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				MbD_ELEMENT_part_7
+			Position3D
+				-0.7	0.018276	1.3450199999999999
+			RotationMatrix
+				-2.220446049250313e-16	0.0	1.0000000000000002
+				0.0	1.0	0.0
+				-1.0000000000000002	0.0	-2.220446049250313e-16
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.072
+					zEnd
+						0.0
+					Sketch
+						Name
+							Sketch_7
+						Position3D
+							-0.001999227114989108	-0.001999806769412762	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.003999227114989108
+								yLength
+									0.003999613538825524
+			PrincipalMassMarker
+					Name
+						MassMarker_7
+							Position3D
+								-6.282577148569912e-19	1.302247276063145e-20	0.036000000000000004
+							RotationMatrix
+								0.0	0.0	1.0
+								2.806997150130785e-18	-0.9999999999999999	0.0
+								0.9999999999999999	3.2742742827544647e-16	0.0
+							Mass
+								0.007102512671235801
+							MomentOfInertias
+								1.4205025342471647e-08	3.0753879866450995e-06	3.0753879866451e-06
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_7
+						Position3D
+							-6.282577148569912e-19	1.302247276063145e-20	0.036000000000000004
+						RotationMatrix
+							2.220446049250313e-16	0.0	1.0
+							0.0	-1.0	0.0
+							1.0	0.0	-2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_7
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_19_18
+						Position3D
+							0.0	0.0	0.072
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_19_22
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				MbD_ELEMENT_part_3
+			Position3D
+				0.0020211542994817955	-0.05772398662567153	0.05652497621781812
+			RotationMatrix
+				0.8133190104933967	2.4268528635858416e-16	0.5818180017583179
+				2.4268528635858416e-16	1.0	-7.563634022858129e-16
+				-0.5818180017583179	7.563634022858129e-16	0.8133190104933967
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.014000000000006726
+					zEnd
+						-0.014
+					Sketch
+						Name
+							Sketch_3
+						Position3D
+							-0.013897924237373035	0.09799999999999998	-0.014
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.2478965716232624
+								yLength
+									0.07200000000000004
+			PrincipalMassMarker
+					Name
+						MassMarker_3
+							Position3D
+								0.12732632785870515	0.11009426562321427	2.8958859845737088e-15
+							RotationMatrix
+								0.9961940831151515	-0.0871627716766888	-2.6679521423198163e-14
+								0.0871627716766888	0.9961940831151515	-3.9604683323625e-14
+								3.003003535199863e-14	3.712849015639097e-14	1.0
+							Mass
+								0.6167041399548341
+							MomentOfInertias
+								0.00015324119173002254	0.0035062896673786034	0.0035865752248061735
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_3
+						Position3D
+							0.12732632785870515	0.11009426562321427	2.8958859845737088e-15
+						RotationMatrix
+							0.9961940831151516	-0.0871627716766888	-2.6679521423198156e-14
+							0.0871627716766888	0.9961940831151516	-3.9604683323625004e-14
+							3.003003535199862e-14	3.7128490156390995e-14	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_3
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_3_6
+						Position3D
+							1.7763568394002505e-18	0.105	9.471590178833367e-19
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_7_7
+						Position3D
+							0.21999999999999992	0.13099999999999687	6.71285e-15
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	2.220446049250313e-16	-1.0
+							0.0	1.0	2.220446049250313e-16
+			RefCurves
+			RefSurfaces
+		Part
+			Name
+				MbD_ELEMENT_part_8
+			Position3D
+				0.001007443131685406	0.018276013374327722	1.3450245774555012
+			RotationMatrix
+				-2.220446049250313e-16	8.659560562354934e-17	-1.0000000000000002
+				-8.659560562354934e-17	-1.0000000000000004	-8.659560562354934e-17
+				-1.0000000000000002	8.659560562354934e-17	-2.220446049250313e-16
+			Velocity3D
+				0.0	0.0	0.0
+			Omega3D
+				0.0	0.0	0.0
+			FeatureOrder
+				Extrusion
+					zStart
+						0.072
+					zEnd
+						0.0
+					Sketch
+						Name
+							Sketch_8
+						Position3D
+							-0.001999227114989108	-0.001999806769412762	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+						Graphics
+							Rectangle
+								Position2D
+									0.0	0.0
+								Angle
+									0.0
+								xLength
+									0.003999227114989108
+								yLength
+									0.003999613538825524
+			PrincipalMassMarker
+					Name
+						MassMarker_8
+							Position3D
+								-6.282577148569912e-19	1.302247276063145e-20	0.036000000000000004
+							RotationMatrix
+								0.0	0.0	1.0
+								2.806997150130785e-18	-0.9999999999999999	0.0
+								0.9999999999999999	3.2742742827544647e-16	0.0
+							Mass
+								0.007102512671235801
+							MomentOfInertias
+								1.4205025342471647e-08	3.0753879866450995e-06	3.0753879866451e-06
+							Density
+								7850.0
+			RefPoints
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_mass_marker_8
+						Position3D
+							-6.282577148569912e-19	1.302247276063145e-20	0.036000000000000004
+						RotationMatrix
+							2.220446049250313e-16	0.0	1.0
+							0.0	-1.0	0.0
+							1.0	0.0	-2.220446049250313e-16
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_origin_marker_8
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_20_19
+						Position3D
+							0.0	0.0	0.0
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+				RefPoint
+					Position3D
+						0.0	0.0	0.0
+					RotationMatrix
+						1.0	0.0	0.0
+						0.0	1.0	0.0
+						0.0	0.0	1.0
+				Markers
+					Marker
+						Name
+							MbD_ELEMENT_marker_20_21
+						Position3D
+							0.0	0.0	0.072
+						RotationMatrix
+							1.0	0.0	0.0
+							0.0	1.0	0.0
+							0.0	0.0	1.0
+			RefCurves
+			RefSurfaces
+	KinematicIJs
+	ConstraintSets
+		Joints
+			RevoluteJoint
+				Name
+					MbD_ELEMENT_joint_hinge_1010
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_marker_17_1
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_1/MbD_ELEMENT_marker_1_2
+			SphericalJoint
+				Name
+					MbD_ELEMENT_joint_spherical_1090
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_marker_18_17
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_7/MbD_ELEMENT_marker_19_18
+			SphericalJoint
+				Name
+					MbD_ELEMENT_joint_spherical_1100
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_8/MbD_ELEMENT_marker_20_19
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_4/MbD_ELEMENT_marker_9_20
+			RevoluteJoint
+				Name
+					MbD_ELEMENT_joint_hinge_1040
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_3/MbD_ELEMENT_marker_7_7
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_2/MbD_ELEMENT_marker_2_8
+			RevoluteJoint
+				Name
+					MbD_ELEMENT_joint_hinge_1020
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_1/MbD_ELEMENT_marker_1_3
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_4/MbD_ELEMENT_marker_9_4
+			RevoluteJoint
+				Name
+					MbD_ELEMENT_joint_hinge_1030
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_4/MbD_ELEMENT_marker_11_5
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_3/MbD_ELEMENT_marker_3_6
+			TranslationalJoint
+				Name
+					MbD_ELEMENT_joint_slider_1050
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_2/MbD_ELEMENT_marker_2_9
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_1/MbD_ELEMENT_marker_1_10
+			TranslationalJoint
+				Name
+					MbD_ELEMENT_joint_slider_1110
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_8/MbD_ELEMENT_marker_20_21
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_7/MbD_ELEMENT_marker_19_22
+		Motions
+			TranslationalMotion
+				Name
+					Motion_1110
+				MotionJoint
+					/TreeWrench/MbD_ELEMENT_joint_slider_1110
+				TranslationZ
+					0.557d + -0.1d * sin(0.5d * pi * time)
+		GeneralConstraintSets
+	ForceTorques
+			InLineForceTorque
+				Name
+					MbD_ELEMENT_joint_linear_spring_1080
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_marker_17_15
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_2/MbD_ELEMENT_marker_2_16
+				tension
+					(0.0d + 80000.0d*(rIJ(self) + (-0.05181112817324762d)) + 100.0d*vrIJ(self))
+				twist
+					0.0
+			InLineForceTorque
+				Name
+					MbD_ELEMENT_joint_linear_spring_1070
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_marker_17_13
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_1/MbD_ELEMENT_marker_1_14
+				tension
+					(0.0d + 80000.0d*(rIJ(self) + (-0.05d)) + 100.0d*vrIJ(self))
+				twist
+					0.0
+			InLineForceTorque
+				Name
+					MbD_ELEMENT_joint_linear_spring_1060
+				MarkerI
+					/TreeWrench/MbD_ELEMENT_part_1/MbD_ELEMENT_marker_1_11
+				MarkerJ
+					/TreeWrench/MbD_ELEMENT_part_2/MbD_ELEMENT_marker_2_12
+				tension
+					(0.0d + 1000000.0d*(rIJ(self) + (-0.07882947991880916d)) + 100.0d*vrIJ(self))
+				twist
+					0.0
+	ConstantGravity
+		0.0	0.0	-9.807
+	SimulationParameters
+		tstart
+			0.0
+		tend
+			2.0
+		hmin
+			1e-09
+		hmax
+			0.1
+		hout
+			0.01
+		errorTol
+			1.0e-8
+	AnimationParameters
+		nframe
+			26
+		icurrent
+			1
+		istart
+			1
+		iend
+			26
+		isForward
+			true
+		framesPerSecond
+			30

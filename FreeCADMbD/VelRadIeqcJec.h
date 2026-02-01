@@ -16,7 +16,7 @@ namespace MbD {
         //pvIeJepXI pvIeJepEI pvIeJepXdotI pvIeJepEdotI 
     public:
         VelRadIeqcJec() {}
-		VelRadIeqcJec(EndFrmsptr frmi, EndFrmsptr frmj) : VelRadIecJec(frmi, frmj) {}
+        VelRadIeqcJec(EndFrmsptr frmi, EndFrmsptr frmj) : VelRadIecJec(frmi, frmj) {}
         static std::shared_ptr<VelRadIeqcJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

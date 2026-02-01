@@ -17,7 +17,7 @@ namespace MbD {
     {
         //pGpEJ ppGpEIpEJ ppGpEJpEJ iqEJ 
     public:
-		AngleZConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZConstraintIqcJc(frmi, frmj) {}
+        AngleZConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZConstraintIqcJc(frmi, frmj) {}
 
         void initthezIeJe() override;
         void calc_pGpEJ();

@@ -13,6 +13,9 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIeqcJeqcKeqc> DispCompIeqcJeqcKeqc::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
+    assert(frmi->has_qX());
+    assert(frmj->has_qX());
+    assert(frmk->has_qX());
     auto inst = std::make_shared<DispCompIeqcJeqcKeqc>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
@@ -30,10 +33,13 @@ void DispCompIeqcJeqcKeqc::initialize()
 
 void DispCompIeqcJeqcKeqc::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeKe = aAKeO * rIeJeO
+    //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
     DispCompIeqcJecKeqc::calcPostDynCorrectorIteration();
     auto frmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto prIeJeOpEJT = frmJqc->prOeOpE->transpose();
-    auto& pprIeJeOpEJpEJ = frmJqc->pprOeOpEpE;
+    auto pprIeJeOpEJpEJ = frmJqc->pprOeOpEpE;
     for (size_t i = 0; i < 3; i++)
     {
         priIeJeKepXJ->atiput(i, aAjOKe->at(i));
@@ -44,7 +50,7 @@ void DispCompIeqcJeqcKeqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 3; i++)
     {
-        auto& ppriIeJeKepXJipEK = ppriIeJeKepXJpEK->at(i);
+        auto ppriIeJeKepXJipEK = ppriIeJeKepXJpEK->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             ppriIeJeKepXJipEK->atiput(j, pAjOKepEKT->at(j)->at(i));
@@ -52,8 +58,8 @@ void DispCompIeqcJeqcKeqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& pprIeJeOpEJipEJ = pprIeJeOpEJpEJ->at(i);
-        auto& ppriIeJeKepEJipEJ = ppriIeJeKepEJpEJ->at(i);
+        auto pprIeJeOpEJipEJ = pprIeJeOpEJpEJ->at(i);
+        auto ppriIeJeKepEJipEJ = ppriIeJeKepEJpEJ->at(i);
         ppriIeJeKepEJipEJ->atiput(i, aAjOKe->dot(pprIeJeOpEJipEJ->at(i)));
         for (size_t j = 0; j < 4; j++)
         {
@@ -64,8 +70,8 @@ void DispCompIeqcJeqcKeqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& prIeJeOpEJTi = prIeJeOpEJT->at(i);
-        auto& ppriIeJeKepEJipEK = ppriIeJeKepEJpEK->at(i);
+        auto prIeJeOpEJTi = prIeJeOpEJT->at(i);
+        auto ppriIeJeKepEJipEK = ppriIeJeKepEJpEK->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             ppriIeJeKepEJipEK->atiput(j, pAjOKepEKT->at(j)->dot(prIeJeOpEJTi));

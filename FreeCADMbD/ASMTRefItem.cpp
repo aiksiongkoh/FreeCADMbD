@@ -51,14 +51,14 @@ void ASMTRefItem::storeOnLevel(std::ofstream& os, size_t level)
 {
     storeOnLevelString(os, level, "RefPoints");
     ASMTSpatialItem::storeOnLevel(os, level+1);
-    for (auto& marker : *markers) {
+    for (auto marker : *markers) {
         marker->storeOnLevel(os, level);
     }
 }
 
 void ASMTRefItem::updateFromInputState()
 {
-    for (auto& marker : *markers) {
+    for (auto marker : *markers) {
         marker->updateFromInputState();
     }
 }

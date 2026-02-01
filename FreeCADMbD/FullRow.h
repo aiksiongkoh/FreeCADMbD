@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "FullVector.h"
@@ -18,9 +18,17 @@ namespace MbD {
     using FRowsptr = std::shared_ptr<FullRow<T>>;
     using FRowDsptr = std::shared_ptr<FullRow<double>>;
     template<typename T>
+    class SparseRow;
+    template<typename T>
+    using SpRowsptr = std::shared_ptr<SparseRow<T>>;
+    template<typename T>
     class FullMatrix;
     template<typename T>
     using FMatsptr = std::shared_ptr<FullMatrix<T>>;
+    template<typename T>
+    class SparseMatrix;
+    template<typename T>
+    using SpMatsptr = std::shared_ptr<SparseMatrix<T>>;
     template<typename T>
     class FullColumn;
     template<typename T>
@@ -51,8 +59,9 @@ namespace MbD {
         T timesFullColumn(FColsptr<T> fullCol);
         T timesFullColumn(FullColumn<T>* fullCol);
         FRowsptr<T> timesFullMatrix(FMatsptr<T> fullMat);
+        SpRowsptr<T> timesSparseMatrix(SpMatsptr<T> spMat);
         FRowsptr<T> timesTransposeFullMatrix(FMatsptr<T> fullMat);
-        void equalSelfPlusFullRowTimes(FRowsptr<T> fullRow, double factor);
+        void equalSelfPlusFullRowtimes(FRowsptr<T> fullRow, double factor);
         void equalFullRow(FRowsptr<T> fullRow);
         FColsptr<T> transpose();
         FRowsptr<T> copy();
@@ -63,8 +72,10 @@ namespace MbD {
         //double dot(std::shared_ptr<FullRow<T>> vec);
         double dot(std::shared_ptr<FullVector<T>> vec);
         std::shared_ptr<FullVector<T>> dot(std::shared_ptr<std::vector<std::shared_ptr<FullColumn<T>>>> vecvec);
+        void equalSelfPlus(FRowsptr<T> fullRow);
+        void equalSelfMinus(FRowsptr<T> fullRow);
 
-        
+
         std::ostream& printOn(std::ostream& s) const override;
 
     };
@@ -143,7 +154,7 @@ namespace MbD {
     template<typename T>
     inline FRowsptr<T> FullRow<T>::plusFullRow(FRowsptr<T> fullRow)
     {
-        size_t n =  this->size();
+        size_t n = this->size();
         auto answer = FullRow<T>::With(n);
         for (size_t i = 0; i < n; i++) {
             answer->at(i) = this->at(i) + fullRow->at(i);
@@ -154,7 +165,7 @@ namespace MbD {
     template<typename T>
     inline FRowsptr<T> FullRow<T>::minusFullRow(FRowsptr<T> fullRow)
     {
-        size_t n =  this->size();
+        size_t n = this->size();
         auto answer = FullRow<T>::With(n);
         for (size_t i = 0; i < n; i++) {
             answer->at(i) = this->at(i) - fullRow->at(i);
@@ -192,7 +203,7 @@ namespace MbD {
     }
 
     template<typename T>
-    inline void FullRow<T>::equalSelfPlusFullRowTimes(FRowsptr<T> fullRow, double factor)
+    inline void FullRow<T>::equalSelfPlusFullRowtimes(FRowsptr<T> fullRow, double factor)
     {
         this->equalSelfPlusFullVectortimes(fullRow, factor);
     }
@@ -279,6 +290,34 @@ namespace MbD {
     }
 
     template<typename T>
+    inline void FullRow<T>::equalSelfPlus(FRowsptr<T> fullRow)
+    {
+        size_t n = this->size();
+        for (size_t i = 0; i < n; i++) {
+            if constexpr (std::is_same_v<T, double>) {
+                this->at(i) += fullRow->at(i);
+            }
+            else {
+                this->at(i)->equalSelfPlus(fullRow->at(i));
+            }
+        }
+    }
+
+    template<typename T>
+    inline void FullRow<T>::equalSelfMinus(FRowsptr<T> fullRow)
+    {
+        size_t n = this->size();
+        for (size_t i = 0; i < n; i++) {
+            if constexpr (std::is_same_v<T, double>) {
+                this->at(i) -= fullRow->at(i);
+            }
+            else {
+                this->at(i)->equalSelfMinus(fullRow->at(i));
+            }
+        }
+    }
+
+    template<typename T>
     inline std::ostream& FullRow<T>::printOn(std::ostream& s) const
     {
         s << "FullRow{";
@@ -295,12 +334,21 @@ namespace MbD {
     inline FRowsptr<T> FullRow<T>::timesFullMatrix(FMatsptr<T> fullMat)
     {
         FRowsptr<T> answer = fullMat->at(0)->times(this->at(0));
-        for (size_t j = 1; j <  this->size(); j++)
+        for (size_t j = 1; j < this->size(); j++)
         {
-            answer->equalSelfPlusFullRowTimes(fullMat->at(j), this->at(j));
+            answer->equalSelfPlusFullRowtimes(fullMat->at(j), this->at(j));
         }
         return answer;
-            //return FRowsptr<T>();
+    }
+    template<typename T>
+    inline SpRowsptr<T> FullRow<T>::timesSparseMatrix(SpMatsptr<T> spMat)
+    {
+        auto answer = spMat->at(0)->times(this->at(0));
+        for (size_t j = 1; j < this->size(); j++)
+        {
+            answer->equalSelfPlusSparseRowTimes(spMat->at(j), this->at(j));
+        }
+        return answer;
     }
 }
 

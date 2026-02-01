@@ -27,6 +27,7 @@ void DispCompIecJecO::withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t 
 
 void DispCompIecJecO::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
     riIeJeO = eFrmJ->riOeO(axis) - eFrmI->riOeO(axis);
 }
 

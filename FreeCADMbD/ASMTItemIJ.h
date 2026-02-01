@@ -38,7 +38,7 @@ namespace MbD {
         void readTZonIs(std::vector<std::string>& lines);
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnTimeSeries(std::ofstream& os) override;
-        FMatDsptr aAOI(size_t i);
+        FMatDsptr aAOI(size_t i) const;
         FColDsptr aFII(size_t i);
         FColDsptr aFIO(size_t i);
         FColDsptr aTII(size_t i);
@@ -48,10 +48,10 @@ namespace MbD {
         virtual bool isForceTorque();
 
         std::shared_ptr<ASMTMarker> markerI, markerJ;
-        std::shared_ptr<std::vector<std::shared_ptr<FullColumn<double>>>> cFIO;
-        std::shared_ptr<std::vector<std::shared_ptr<FullColumn<double>>>> cTIO;
-        std::shared_ptr<std::vector<std::shared_ptr<FullColumn<double>>>> in_cFIO;
-        std::shared_ptr<std::vector<std::shared_ptr<FullColumn<double>>>> in_cTIO;
+        std::shared_ptr<std::vector<FColDsptr>> cFIO;
+        std::shared_ptr<std::vector<FColDsptr>> cTIO;
+        std::shared_ptr<std::vector<FColDsptr>> in_cFIO;
+        std::shared_ptr<std::vector<FColDsptr>> in_cTIO;
         FRowDsptr infxs, infys, infzs, intxs, intys, intzs;
 
     };

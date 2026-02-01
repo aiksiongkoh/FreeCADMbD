@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "ASMTAngleIJ.h"
@@ -17,6 +17,8 @@ namespace MbD {
     public:
         static std::shared_ptr<ASMTAngleIJz> With();
         std::shared_ptr<KinematicIJ> mbdClassNew() override;
+        std::shared_ptr<KinematicIJ> mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
+        std::shared_ptr<KinematicIJ> mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
 
     };
 }

@@ -55,7 +55,7 @@ void ASMTForceTorque::readForceTorqueSeries(std::vector<std::string>& lines)
     std::string substr = "ForceTorqueSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
-    str.erase(0, pos + substr.length());
+    str.erase(0u, pos + substr.length()); // Use 0u to ensure unsigned type for erase
     auto seriesName = readString(str);
     assert(fullName("") == seriesName);
     lines.erase(lines.begin());
@@ -105,7 +105,7 @@ std::shared_ptr<StateData> ASMTForceTorque::dataFromMbD()
     auto mbdUnts = mbdUnits();
     auto mbdItem = std::static_pointer_cast<ForceTorqueIJ>(mbdObject);
     auto answer = ForceTorqueData::With();
-    answer->aFIO = mbdItem->aFX()->times(mbdUnts->force);
-    answer->aTIO = mbdItem->aTX()->times(mbdUnts->torque);
+    answer->aFIO = mbdItem->aFIeO->times(mbdUnts->force);
+    answer->aTIO = mbdItem->aTIeO->times(mbdUnts->torque);
     return answer;
 }

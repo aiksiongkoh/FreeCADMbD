@@ -8,7 +8,7 @@
  
 #include "KinematicIJ.h"
 #include "EndFramec.h"
-#include "PartFrame.h"
+#include "SpatialContainerFrame.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -180,6 +180,32 @@ void KinematicIJ::calc_ppvaluepXKpt()
 void KinematicIJ::calc_ppvaluepEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
+}
+
+FRowDsptr KinematicIJ::pvaluepX(SpatialContainerFrame* partFrame)
+{
+    if (partFrame == prtFrmI)
+    {
+        return pvaluepXI();
+    }
+    else if (partFrame == prtFrmJ)
+    {
+        return pvaluepXJ();
+    }
+    return FRowDsptr();
+}
+
+FRowDsptr KinematicIJ::pvaluepE(SpatialContainerFrame* partFrame)
+{
+    if (partFrame == prtFrmI)
+    {
+        return pvaluepEI();
+    }
+    else if (partFrame == prtFrmJ)
+    {
+        return pvaluepEJ();
+    }
+    return FRowDsptr();
 }
 
 FRowDsptr KinematicIJ::pvaluepXI()
@@ -400,12 +426,29 @@ void KinematicIJ::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrmj, EndFr
 {
 }
 
-PartFrame* KinematicIJ::partFrameI()
+void KinematicIJ::initializeLocally()
 {
-    return eFrmI->getPartFrame();
+    prtFrmI = eFrmI->getPartFrame();
+    prtFrmJ = eFrmJ->getPartFrame();
+    has_qI = eFrmI->has_qX();
+    has_qJ = eFrmJ->has_qX();
 }
 
-PartFrame* KinematicIJ::partFrameJ()
+void KinematicIJ::initializeGlobally()
 {
-    return eFrmJ->getPartFrame();
+}
+
+SpatialContainerFrame* KinematicIJ::partFrameI()
+{
+    return prtFrmI;
+}
+
+SpatialContainerFrame* KinematicIJ::partFrameJ()
+{
+    return prtFrmJ;
+}
+
+FColDsptr MbD::KinematicIJ::getrIeJeO()
+{
+    return eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
 }

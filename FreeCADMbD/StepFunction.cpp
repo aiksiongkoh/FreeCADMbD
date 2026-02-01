@@ -17,10 +17,10 @@ StepFunction::StepFunction(Symsptr var, std::shared_ptr<std::vector<double>> con
 {
     xx = var;
     std::transform(consts->begin(), consts->end(), functions->begin(),
-        [&](auto& constant) { return sptrConstant(constant); }
+        [&](auto constant) { return sptrConstant(constant); }
     );
     std::transform(trans->begin(), trans->end(), transitions->begin(),
-        [&](auto& constant) { return sptrConstant(constant); }
+        [&](auto constant) { return sptrConstant(constant); }
     );
 }
 

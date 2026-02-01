@@ -35,13 +35,13 @@ void ASMTTranslationalMotion::parseASMT(std::vector<std::string>& lines)
 void ASMTTranslationalMotion::createMbD()
 {
     ASMTMotion::createMbD();
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->owner = this;
     auto geoTime = owner->root()->geoTime();
     parser->variables->insert(std::make_pair("time", geoTime));
     auto userFunc = std::make_shared<BasicUserFunction>(translationZ, 1.0);
     parser->parseUserFunction(userFunc);
-    auto& zIJ = parser->stack->top();
+    auto zIJ = parser->stack->top();
     zIJ = Symbolic::times(zIJ, sptrConstant(asmtUnits()->length));
     zIJ->createMbD();
     std::static_pointer_cast<ZTranslation>(mbdObject)->zBlk = zIJ->simplified(zIJ);
@@ -61,7 +61,7 @@ void ASMTTranslationalMotion::readMotionJoint(std::vector<std::string>& lines)
 void ASMTTranslationalMotion::readTranslationZ(std::vector<std::string>& lines)
 {
     assert(readStringNoSpacesOffTop(lines) == "TranslationZ");
-    translationZ = readStringNoSpacesOffTop(lines);
+    translationZ = readStringTrimmedOffTop(lines);
 }
 
 void ASMTTranslationalMotion::storeOnLevel(std::ofstream& os, size_t level)

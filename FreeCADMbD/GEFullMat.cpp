@@ -36,7 +36,7 @@ void GEFullMat::backSubstituteIntoDU()
     answerX->at(n - 1) = rightHandSideB->at(m - 1) / matrixA->at(m - 1)->at(n - 1);
     for (int i = (int)n - 2; i >= 0; i--)    //Use int because of decrement
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         double sum = answerX->at(n) * rowi->at(n);
         for (size_t j = (size_t)i + 1; j < n - 1; j++)
         {

@@ -26,6 +26,7 @@ namespace MbD {
         //
     public:
         static std::shared_ptr<ExternalSystem> With();
+        static void noop();
         void initialize();
 
         void preMbDrun(std::shared_ptr<System> mbdSys);

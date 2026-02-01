@@ -33,10 +33,10 @@ void MBDynStructuralDummy::readPosition(std::vector<std::string>& args)
     if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
         baseRefName = readStringNoSpacesOffTop(args);
-        auto& ref = mbdynReferences()->at(baseRefName);
+        auto ref = mbdynReferences()->at(baseRefName);
         auto rFfF = readBasicPosition(args);
-        auto& rOFO = ref->rFfF;
-        auto& aAOF = ref->aAFf;
+        auto rOFO = ref->rFfF;
+        auto aAOF = ref->aAFf;
         rOfO = rOFO->plusFullColumn(aAOF->timesFullColumn(rFfF));
     }
     else if (args[0].find("null") != std::string::npos) {
@@ -54,9 +54,9 @@ void MBDynStructuralDummy::readOrientation(std::vector<std::string>& args)
     if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
         assert(baseRefName == readStringNoSpacesOffTop(args));
-        auto& ref = mbdynReferences()->at(baseRefName);
+        auto ref = mbdynReferences()->at(baseRefName);
         auto aAFf = readBasicOrientation(args);
-        auto& aAOF = ref->aAFf;
+        auto aAOF = ref->aAFf;
         aAOf = aAOF->timesFullMatrix(aAFf);
     }
     else if (args[0].find("position") != std::string::npos) {
@@ -89,7 +89,7 @@ void MBDynStructuralDummy::createASMT()
     auto it = std::find_if(asmtParts->begin(), asmtParts->end(), [&](const std::shared_ptr<ASMTPart>& prt) {
         return prt->name == baseNodeName;
         });
-    auto& asmtPart = *it;
+    auto asmtPart = *it;
     asmtPart->addMarker(asmtMarker);
 }
 

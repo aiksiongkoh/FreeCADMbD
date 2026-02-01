@@ -17,7 +17,7 @@ namespace MbD {
         //distxy xIeJeIe yIeJeIe
     public:
         DistxyIecJec() {}
-		DistxyIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
+        DistxyIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
         static std::shared_ptr<DistxyIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

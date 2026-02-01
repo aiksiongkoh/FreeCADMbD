@@ -22,7 +22,7 @@ namespace MbD {
     {
         //
     public:
-        SymbolicParser();
+        SymbolicParser() {}
         static std::shared_ptr<SymbolicParser> With();
         void initialize();
 
@@ -57,7 +57,6 @@ namespace MbD {
         void combineStackTo(size_t pos) const;
         bool isNextLineTag(char c) const;
         void initVariables();
-        std::shared_ptr<std::set<Symbolic*>> variablesSet();
 
         ASMTItem* owner = nullptr;
         std::shared_ptr<std::map<std::string, Symsptr>> variables;

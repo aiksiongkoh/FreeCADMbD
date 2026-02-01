@@ -21,6 +21,7 @@ std::shared_ptr<DistanceConstraintIqcJqc> DistanceConstraintIqcJqc::With(EndFrms
 
 void DistanceConstraintIqcJqc::calcPostDynCorrectorIteration()
 {
+    //aG = rIeJe - C;
     DistanceConstraintIqcJc::calcPostDynCorrectorIteration();
     pGpXJ = distIeJe->pvaluepXJ();
     pGpEJ = distIeJe->pvaluepEJ();

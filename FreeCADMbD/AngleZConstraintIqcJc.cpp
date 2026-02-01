@@ -17,16 +17,15 @@ void AngleZConstraintIqcJc::initthezIeJe()
     thezIeJe = std::make_shared<AngleZIeqcJec>(eFrmI, eFrmJ);
 }
 
-void AngleZConstraintIqcJc::addToJointTorqueI(FColDsptr jointTorque)
+void AngleZConstraintIqcJc::addToJointTorqueI(FColDsptr col)
 {
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto rIpIeIp = frmIeqc->rpep();
-    auto pAOIppEI = frmIeqc->pAOppE();
-    auto aBOIp = frmIeqc->aBOp();
-    auto fpAOIppEIrIpIeIp = std::make_shared<FullColumn<double>>(4, 0.0);
-    auto lampGpE = pGpEI->transpose()->times(lam);
-    auto c2Torque = aBOIp->timesFullColumn(lampGpE->minusFullColumn(fpAOIppEIrIpIeIp));
-    jointTorque->equalSelfPlusFullColumntimes(c2Torque, 0.5);
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    //aFIeO = zero;
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI)
+    auto aBOIp = eFrmI->aBOp();
+    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
+    auto aTIeO = aBOIp->timesFullColumn(lampGpEI)->times(0.5);
+    col->equalSelfPlus(aTIeO);
 }
 
 void AngleZConstraintIqcJc::calc_pGpEI()
@@ -41,6 +40,7 @@ void AngleZConstraintIqcJc::calc_ppGpEIpEI()
 
 void AngleZConstraintIqcJc::calcPostDynCorrectorIteration()
 {
+    //aG = thezIeJe - C
     AngleZConstraintIJ::calcPostDynCorrectorIteration();
     this->calc_pGpEI();
     this->calc_ppGpEIpEI();

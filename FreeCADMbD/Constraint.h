@@ -18,12 +18,14 @@ namespace MbD {
     {
         //iG aG lam mu lamDeriv owner 
     public:
-		Constraint() : Item() {}
-		Constraint(const std::string& str) : Item(str) {}
+        Constraint() : Item() {}
+        Constraint(const std::string& str) : Item(str) {}
         void initialize() override;
 
         virtual void addToJointForceI(FColDsptr col);
         virtual void addToJointTorqueI(FColDsptr col);
+        virtual void addToJointForceJ(FColDsptr col);
+        virtual void addToJointTorqueJ(FColDsptr col);
         void fillAccICIterJacob(SpMatDsptr mat) override;
         void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
         virtual void fillConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints);
@@ -54,7 +56,7 @@ namespace MbD {
         void setqsuddotlam(FColDsptr col) override;
         void setqsulam(FColDsptr col) override;
         virtual ConstraintType type();
-		virtual std::string constraintSpec() = 0;
+        virtual std::string constraintSpec() = 0;
         void setpqsumu(FColDsptr col) override;
         void setpqsumudot(FColDsptr col) override;
         void setpqsumuddot(FColDsptr col) override;

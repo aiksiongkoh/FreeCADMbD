@@ -7,8 +7,12 @@
  ***************************************************************************/
  
 #include "TranslationConstraintIqctJqc.h"
+#include "TranslationConstraintIctJqc.h"
 #include "DispCompIeqctJeqcKeqct.h"
 #include "EndFrameqct.h"
+#include "EndFrameqc.h"
+#include "EndFramect.h"
+#include "EndFramec.h"
 
 using namespace MbD;
 
@@ -16,11 +20,62 @@ std::shared_ptr<TranslationConstraintIJ> TranslationConstraintIJ::With(EndFrmspt
 {
     std::shared_ptr<TranslationConstraintIJ> inst;
     if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        inst = std::make_shared<TranslationConstraintIqctJqc>(frmi, frmj, axisi);
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<TranslationConstraintIqctJqc>(frmi, frmj, axisi);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
     }
-    else {
-        inst = std::make_shared<TranslationConstraintIqcJqc>(frmi, frmj, axisi);
+    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<TranslationConstraintIqcJqc>(frmi, frmj, axisi);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            inst = std::make_shared<TranslationConstraintIqcJc>(frmi, frmj, axisi);
+        }
     }
+    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<TranslationConstraintIctJqc>(frmi, frmj, axisi);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<TranslationConstraintIcJqc>(frmi, frmj, axisi);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    assert(inst);
     inst->initialize();
     return inst;
 }

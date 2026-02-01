@@ -23,6 +23,7 @@ std::shared_ptr<DirectionCosineIecJec> DirectionCosineIecJec::With(EndFrmsptr fr
 
 void DirectionCosineIecJec::calcPostDynCorrectorIteration()
 {
+    //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     aAjOIe = eFrmI->aAjOe(axisI);
     aAjOJe = eFrmJ->aAjOe(axisJ);
     aAijIeJe = aAjOIe->dot(aAjOJe);

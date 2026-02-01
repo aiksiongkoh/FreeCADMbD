@@ -39,12 +39,12 @@ void DistxyIeqcJec::calc_ppdistxypEIpEI()
     auto ppypEIpEI = yIeJeIe->ppvaluepEIpEI();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypEIpEIi = ppdistxypEIpEI->at(i);
-        auto& pdistxypEIi = pdistxypEI->at(i);
-        auto& ppxpEIpEIi = ppxpEIpEI->at(i);
-        auto& ppypEIpEIi = ppypEIpEI->at(i);
-        auto& pxpEIi = pxpEI->at(i);
-        auto& pypEIi = pypEI->at(i);
+        auto ppdistxypEIpEIi = ppdistxypEIpEI->at(i);
+        auto pdistxypEIi = pdistxypEI->at(i);
+        auto ppxpEIpEIi = ppxpEIpEI->at(i);
+        auto ppypEIpEIi = ppypEIpEI->at(i);
+        auto pxpEIi = pxpEI->at(i);
+        auto pypEIi = pypEI->at(i);
         for (size_t j = i; j < 4; j++)
         {
             auto pdistxypEIj = pdistxypEI->at(j);
@@ -72,17 +72,17 @@ void DistxyIeqcJec::calc_ppdistxypXIpEI()
     auto ppypXIpEI = yIeJeIe->ppvaluepXIpEI();
     for (size_t i = 0; i < 3; i++)
     {
-        auto& ppdistxypXIpEIi = ppdistxypXIpEI->at(i);
-        auto& pdistxypXIi = pdistxypXI->at(i);
-        auto& ppxpXIpEIi = ppxpXIpEI->at(i);
-        auto& ppypXIpEIi = ppypXIpEI->at(i);
-        auto& pxpXIi = pxpXI->at(i);
-        auto& pypXIi = pypXI->at(i);
+        auto ppdistxypXIpEIi = ppdistxypXIpEI->at(i);
+        auto pdistxypXIi = pdistxypXI->at(i);
+        auto ppxpXIpEIi = ppxpXIpEI->at(i);
+        auto ppypXIpEIi = ppypXIpEI->at(i);
+        auto pxpXIi = pxpXI->at(i);
+        auto pypXIi = pypXI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
-            auto& pdistxypEIj = pdistxypEI->at(j);
-            auto& pxpEIj = pxpEI->at(j);
-            auto& pypEIj = pypEI->at(j);
+            auto pdistxypEIj = pdistxypEI->at(j);
+            auto pxpEIj = pxpEI->at(j);
+            auto pypEIj = pypEI->at(j);
             auto term1 = -pdistxypXIi * pdistxypEIj;
             auto term2 = ppxpXIpEIi->at(j) * x + ppypXIpEIi->at(j) * y;
             auto term3 = pxpXIi * pxpEIj + pypXIi * pypEIj;
@@ -102,12 +102,12 @@ void DistxyIeqcJec::calc_ppdistxypXIpXI()
     auto ppypXIpXI = yIeJeIe->ppvaluepXIpXI();
     for (size_t i = 0; i < 3; i++)
     {
-        auto& ppdistxypXIpXIi = ppdistxypXIpXI->at(i);
-        auto& pdistxypXIi = pdistxypXI->at(i);
-        auto& ppxpXIpXIi = ppxpXIpXI->at(i);
-        auto& ppypXIpXIi = ppypXIpXI->at(i);
-        auto& pxpXIi = pxpXI->at(i);
-        auto& pypXIi = pypXI->at(i);
+        auto ppdistxypXIpXIi = ppdistxypXIpXI->at(i);
+        auto pdistxypXIi = pdistxypXI->at(i);
+        auto ppxpXIpXIi = ppxpXIpXI->at(i);
+        auto ppypXIpXIi = ppypXIpXI->at(i);
+        auto pxpXIi = pxpXI->at(i);
+        auto pypXIi = pypXI->at(i);
         for (size_t j = i; j < 3; j++)
         {
             auto pdistxypXIj = pdistxypXI->at(j);
@@ -151,6 +151,7 @@ void DistxyIeqcJec::calc_pdistxypXI()
 
 void DistxyIeqcJec::calcPostDynCorrectorIteration()
 {
+    //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
     DistxyIecJec::calcPostDynCorrectorIteration();
     calc_pdistxypXI();
     calc_pdistxypEI();

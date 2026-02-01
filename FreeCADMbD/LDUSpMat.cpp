@@ -54,7 +54,7 @@ void LDUSpMat::forwardSubstituteIntoL()
     vectorc->at(0) = rightHandSideB->at(0);
     for (size_t i = 1; i < n; i++)
     {
-        auto& rowi = matrixA->at(i);
+        auto rowi = matrixA->at(i);
         double sum = 0.0;
         for (auto const& keyValue : *rowi) {
             size_t j = keyValue.first;
@@ -79,7 +79,7 @@ void LDUSpMat::backSubstituteIntoDU()
     answerX->at(n - 1) = rightHandSideB->at(m - 1);
     for (int i = (int)n - 2; i >= 0; i--)    //Use int because of decrement
     {
-        auto& rowi = matrixU->at(i);
+        auto rowi = matrixU->at(i);
         sum = 0.0;
         for (auto const& keyValue : *rowi) {
             auto j = keyValue.first;

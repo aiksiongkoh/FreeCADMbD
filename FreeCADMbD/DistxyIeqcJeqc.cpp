@@ -44,17 +44,17 @@ void DistxyIeqcJeqc::calc_ppdistxypEIpEJ()
     auto ppypEIpEJ = yIeJeIe->ppvaluepEIpEJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypEIpEJi = ppdistxypEIpEJ->at(i);
-        auto& pdistxypEIi = pdistxypEI->at(i);
-        auto& ppxpEIpEJi = ppxpEIpEJ->at(i);
-        auto& ppypEIpEJi = ppypEIpEJ->at(i);
-        auto& pxpEIi = pxpEI->at(i);
-        auto& pypEIi = pypEI->at(i);
+        auto ppdistxypEIpEJi = ppdistxypEIpEJ->at(i);
+        auto pdistxypEIi = pdistxypEI->at(i);
+        auto ppxpEIpEJi = ppxpEIpEJ->at(i);
+        auto ppypEIpEJi = ppypEIpEJ->at(i);
+        auto pxpEIi = pxpEI->at(i);
+        auto pypEIi = pypEI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
-            auto& pdistxypEJj = pdistxypEJ->at(j);
-            auto& pxpEJj = pxpEJ->at(j);
-            auto& pypEJj = pypEJ->at(j);
+            auto pdistxypEJj = pdistxypEJ->at(j);
+            auto pxpEJj = pxpEJ->at(j);
+            auto pypEJj = pypEJ->at(j);
             auto term1 = -pdistxypEIi * pdistxypEJj;
             auto term2 = ppxpEIpEJi->at(j) * x + ppypEIpEJi->at(j) * y;
             auto term3 = pxpEIi * pxpEJj + pypEIi * pypEJj;
@@ -76,17 +76,17 @@ void DistxyIeqcJeqc::calc_ppdistxypEIpXJ()
     auto ppypEIpXJ = yIeJeIe->ppvaluepEIpXJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypEIpXJi = ppdistxypEIpXJ->at(i);
-        auto& pdistxypEIi = pdistxypEI->at(i);
-        auto& ppxpEIpXJi = ppxpEIpXJ->at(i);
-        auto& ppypEIpXJi = ppypEIpXJ->at(i);
-        auto& pxpEIi = pxpEI->at(i);
-        auto& pypEIi = pypEI->at(i);
+        auto ppdistxypEIpXJi = ppdistxypEIpXJ->at(i);
+        auto pdistxypEIi = pdistxypEI->at(i);
+        auto ppxpEIpXJi = ppxpEIpXJ->at(i);
+        auto ppypEIpXJi = ppypEIpXJ->at(i);
+        auto pxpEIi = pxpEI->at(i);
+        auto pypEIi = pypEI->at(i);
         for (size_t j = 0; j < 3; j++)
         {
-            auto& pdistxypXJj = pdistxypXJ->at(j);
-            auto& pxpXJj = pxpXJ->at(j);
-            auto& pypXJj = pypXJ->at(j);
+            auto pdistxypXJj = pdistxypXJ->at(j);
+            auto pxpXJj = pxpXJ->at(j);
+            auto pypXJj = pypXJ->at(j);
             auto term1 = -pdistxypEIi * pdistxypXJj;
             auto term2 = ppxpEIpXJi->at(j) * x + ppypEIpXJi->at(j) * y;
             auto term3 = pxpEIi * pxpXJj + pypEIi * pypXJj;
@@ -106,17 +106,17 @@ void DistxyIeqcJeqc::calc_ppdistxypEJpEJ()
     auto ppypEJpEJ = yIeJeIe->ppvaluepEJpEJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypEJpEJi = ppdistxypEJpEJ->at(i);
-        auto& pdistxypEJi = pdistxypEJ->at(i);
-        auto& ppxpEJpEJi = ppxpEJpEJ->at(i);
-        auto& ppypEJpEJi = ppypEJpEJ->at(i);
-        auto& pxpEJi = pxpEJ->at(i);
-        auto& pypEJi = pypEJ->at(i);
+        auto ppdistxypEJpEJi = ppdistxypEJpEJ->at(i);
+        auto pdistxypEJi = pdistxypEJ->at(i);
+        auto ppxpEJpEJi = ppxpEJpEJ->at(i);
+        auto ppypEJpEJi = ppypEJpEJ->at(i);
+        auto pxpEJi = pxpEJ->at(i);
+        auto pypEJi = pypEJ->at(i);
         for (size_t j = i; j < 4; j++)
         {
-            auto& pdistxypEJj = pdistxypEJ->at(j);
-            auto& pxpEJj = pxpEJ->at(j);
-            auto& pypEJj = pypEJ->at(j);
+            auto pdistxypEJj = pdistxypEJ->at(j);
+            auto pxpEJj = pxpEJ->at(j);
+            auto pypEJj = pypEJ->at(j);
             auto term1 = -pdistxypEJi * pdistxypEJj;
             auto term2 = ppxpEJpEJi->at(j) * x + ppypEJpEJi->at(j) * y;
             auto term3 = pxpEJi * pxpEJj + pypEJi * pypEJj;
@@ -139,17 +139,17 @@ void DistxyIeqcJeqc::calc_ppdistxypXIpEJ()
     auto ppypXIpEJ = yIeJeIe->ppvaluepXIpEJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypXIpEJi = ppdistxypXIpEJ->at(i);
-        auto& pdistxypXIi = pdistxypXI->at(i);
-        auto& ppxpXIpEJi = ppxpXIpEJ->at(i);
-        auto& ppypXIpEJi = ppypXIpEJ->at(i);
-        auto& pxpXIi = pxpXI->at(i);
-        auto& pypXIi = pypXI->at(i);
+        auto ppdistxypXIpEJi = ppdistxypXIpEJ->at(i);
+        auto pdistxypXIi = pdistxypXI->at(i);
+        auto ppxpXIpEJi = ppxpXIpEJ->at(i);
+        auto ppypXIpEJi = ppypXIpEJ->at(i);
+        auto pxpXIi = pxpXI->at(i);
+        auto pypXIi = pypXI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
-            auto& pdistxypEJj = pdistxypEJ->at(j);
-            auto& pxpEJj = pxpEJ->at(j);
-            auto& pypEJj = pypEJ->at(j);
+            auto pdistxypEJj = pdistxypEJ->at(j);
+            auto pxpEJj = pxpEJ->at(j);
+            auto pypEJj = pypEJ->at(j);
             auto term1 = -pdistxypXIi * pdistxypEJj;
             auto term2 = ppxpXIpEJi->at(j) * x + ppypXIpEJi->at(j) * y;
             auto term3 = pxpXIi * pxpEJj + pypXIi * pypEJj;
@@ -171,17 +171,17 @@ void DistxyIeqcJeqc::calc_ppdistxypXIpXJ()
     auto ppypXIpXJ = yIeJeIe->ppvaluepXIpXJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypXIpXJi = ppdistxypXIpXJ->at(i);
-        auto& pdistxypXIi = pdistxypXI->at(i);
-        auto& ppxpXIpXJi = ppxpXIpXJ->at(i);
-        auto& ppypXIpXJi = ppypXIpXJ->at(i);
-        auto& pxpXIi = pxpXI->at(i);
-        auto& pypXIi = pypXI->at(i);
+        auto ppdistxypXIpXJi = ppdistxypXIpXJ->at(i);
+        auto pdistxypXIi = pdistxypXI->at(i);
+        auto ppxpXIpXJi = ppxpXIpXJ->at(i);
+        auto ppypXIpXJi = ppypXIpXJ->at(i);
+        auto pxpXIi = pxpXI->at(i);
+        auto pypXIi = pypXI->at(i);
         for (size_t j = 0; j < 4; j++)
         {
-            auto& pdistxypXJj = pdistxypXJ->at(j);
-            auto& pxpXJj = pxpXJ->at(j);
-            auto& pypXJj = pypXJ->at(j);
+            auto pdistxypXJj = pdistxypXJ->at(j);
+            auto pxpXJj = pxpXJ->at(j);
+            auto pypXJj = pypXJ->at(j);
             auto term1 = -pdistxypXIi * pdistxypXJj;
             auto term2 = ppxpXIpXJi->at(j) * x + ppypXIpXJi->at(j) * y;
             auto term3 = pxpXIi * pxpXJj + pypXIi * pypXJj;
@@ -203,17 +203,17 @@ void DistxyIeqcJeqc::calc_ppdistxypXJpEJ()
     auto ppypXJpEJ = yIeJeIe->ppvaluepXJpEJ();
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppdistxypXJpEJi = ppdistxypXJpEJ->at(i);
-        auto& pdistxypXJi = pdistxypXJ->at(i);
-        auto& ppxpXJpEJi = ppxpXJpEJ->at(i);
-        auto& ppypXJpEJi = ppypXJpEJ->at(i);
-        auto& pxpXJi = pxpXJ->at(i);
-        auto& pypXJi = pypXJ->at(i);
+        auto ppdistxypXJpEJi = ppdistxypXJpEJ->at(i);
+        auto pdistxypXJi = pdistxypXJ->at(i);
+        auto ppxpXJpEJi = ppxpXJpEJ->at(i);
+        auto ppypXJpEJi = ppypXJpEJ->at(i);
+        auto pxpXJi = pxpXJ->at(i);
+        auto pypXJi = pypXJ->at(i);
         for (size_t j = 0; j < 4; j++)
         {
-            auto& pdistxypEJj = pdistxypEJ->at(j);
-            auto& pxpEJj = pxpEJ->at(j);
-            auto& pypEJj = pypEJ->at(j);
+            auto pdistxypEJj = pdistxypEJ->at(j);
+            auto pxpEJj = pxpEJ->at(j);
+            auto pypEJj = pypEJ->at(j);
             auto term1 = -pdistxypXJi * pdistxypEJj;
             auto term2 = ppxpXJpEJi->at(j) * x + ppypXJpEJi->at(j) * y;
             auto term3 = pxpXJi * pxpEJj + pypXJi * pypEJj;
@@ -233,17 +233,17 @@ void DistxyIeqcJeqc::calc_ppdistxypXJpXJ()
     auto ppypXJpXJ = yIeJeIe->ppvaluepXJpXJ();
     for (size_t i = 0; i < 3; i++)
     {
-        auto& ppdistxypXJpXJi = ppdistxypXJpXJ->at(i);
-        auto& pdistxypXJi = pdistxypXJ->at(i);
-        auto& ppxpXJpXJi = ppxpXJpXJ->at(i);
-        auto& ppypXJpXJi = ppypXJpXJ->at(i);
-        auto& pxpXJi = pxpXJ->at(i);
-        auto& pypXJi = pypXJ->at(i);
+        auto ppdistxypXJpXJi = ppdistxypXJpXJ->at(i);
+        auto pdistxypXJi = pdistxypXJ->at(i);
+        auto ppxpXJpXJi = ppxpXJpXJ->at(i);
+        auto ppypXJpXJi = ppypXJpXJ->at(i);
+        auto pxpXJi = pxpXJ->at(i);
+        auto pypXJi = pypXJ->at(i);
         for (size_t j = i; j < 3; j++)
         {
-            auto& pdistxypXJj = pdistxypXJ->at(j);
-            auto& pxpXJj = pxpXJ->at(j);
-            auto& pypXJj = pypXJ->at(j);
+            auto pdistxypXJj = pdistxypXJ->at(j);
+            auto pxpXJj = pxpXJ->at(j);
+            auto pypXJj = pypXJ->at(j);
             auto term1 = -pdistxypXJi * pdistxypXJj;
             auto term2 = ppxpXJpXJi->at(j) * x + ppypXJpXJi->at(j) * y;
             auto term3 = pxpXJi * pxpXJj + pypXJi * pypXJj;
@@ -282,6 +282,7 @@ void DistxyIeqcJeqc::calc_pdistxypXJ()
 
 void DistxyIeqcJeqc::calcPostDynCorrectorIteration()
 {
+    //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
     DistxyIeqcJec::calcPostDynCorrectorIteration();
     calc_pdistxypXJ();
     calc_pdistxypEJ();

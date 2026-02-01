@@ -151,7 +151,7 @@ void ASMTItemIJ::storeOnTimeSeries(std::ofstream& os)
     os << std::endl;
 }
 
-FMatDsptr ASMTItemIJ::aAOI(size_t i)
+FMatDsptr ASMTItemIJ::aAOI(size_t i) const
 {
     return markerI->aAOf(i);
 }

@@ -96,6 +96,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpEJpEJ()
 
 void DistancexyConstraintIqcJqc::calcPostDynCorrectorIteration()
 {
+    //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
     DistancexyConstraintIqcJc::calcPostDynCorrectorIteration();
     calc_pGpXJ();
     calc_pGpEJ();

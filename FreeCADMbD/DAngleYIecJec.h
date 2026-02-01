@@ -13,5 +13,6 @@
 namespace MbD {
     class DAngleYIecJec : public KinematicIJ
     {
+        public: 
     };
 }

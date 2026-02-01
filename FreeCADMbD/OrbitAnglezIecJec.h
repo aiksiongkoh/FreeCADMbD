@@ -16,7 +16,7 @@ namespace MbD {
     {
         //thez xIeJeIe yIeJeIe cosOverSSq sinOverSSq twoCosSinOverSSqSq dSqOverSSqSq 
     public:
-        OrbitAngleZIecJec() {};
+        OrbitAngleZIecJec() {}
         OrbitAngleZIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
         static std::shared_ptr<OrbitAngleZIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;

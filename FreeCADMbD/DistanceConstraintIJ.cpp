@@ -30,7 +30,8 @@ void DistanceConstraintIJ::initialize()
 
 void DistanceConstraintIJ::calcPostDynCorrectorIteration()
 {
-aG = distIeJe->value() - aConstant;
+    //aG = rIeJe - C;
+    aG = distIeJe->value() - aConstant;
 }
 
 void DistanceConstraintIJ::init_distIeJe()

@@ -10,16 +10,13 @@
 #include "AllowZRotation.h"
 #include "FullColumn.h"
 #include "AllowZRotationConstraintIqctJqc.h"
+#include "AllowZRotationConstraintIctJqc.h"
+#include "EndFramect.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
 #include "RedundantConstraint.h"
 
 using namespace MbD;
-
-AllowZRotation::AllowZRotation()
-{
-    //Do nothing.
-}
 
 AllowZRotation::AllowZRotation(const std::string& str) : PrescribedMotion(str) 
 {
@@ -44,7 +41,19 @@ void AllowZRotation::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        auto dirCosCon = AllowZRotationConstraintIqctJqc::With(eFrmI, eFrmJ, 1, 0);
+        std::shared_ptr<Constraint> dirCosCon;
+        auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
+        auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
+        if (eFrmIct && !eFrmIqct) {
+            dirCosCon = AllowZRotationConstraintIctJqc::With(eFrmI, eFrmJ, 1, 0);
+        }
+        else if (!eFrmIct && eFrmIqct) {
+            dirCosCon = AllowZRotationConstraintIqctJqc::With(eFrmI, eFrmJ, 1, 0);
+        }
+        else {
+            noop();
+            throw SimulationStoppingError("Check this.");
+        }
         addConstraint(dirCosCon);
         this->root()->hasChanged = true;
     }
@@ -57,7 +66,7 @@ void AllowZRotation::postPosIC()
 {
     for (size_t i = 0; i < constraints->size(); i++)
     {
-        auto& constraint = constraints->at(i);
+        auto constraint = constraints->at(i);
         auto redunCon = RedundantConstraint::With();
         redunCon->constraint = constraint;
         constraints->at(i) = redunCon;

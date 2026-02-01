@@ -28,14 +28,14 @@ Symsptr Product::differentiateWRT(Symsptr var)
     //    "(xyz)' := x'yz + xy'z + xyz'."
 
     auto derivatives = std::make_shared<std::vector<Symsptr>>();
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto deriv = term->differentiateWRT(var);
         derivatives->push_back(deriv);
     }
     auto derivativeTerms = std::make_shared<std::vector<Symsptr>>();
     for (size_t i = 0; i < terms->size(); i++)
     {
-        auto& derivative = derivatives->at(i);
+        auto derivative = derivatives->at(i);
         auto newTermFunctions = std::make_shared<std::vector<Symsptr>>(*terms);
         newTermFunctions->at(i) = derivative;
         auto newTerm = std::make_shared<Product>();
@@ -56,7 +56,7 @@ Symsptr Product::integrateWRT(Symsptr var)
     answer->integrand = simple;;
     auto newTerms = std::make_shared<std::vector<Symsptr>>();
     double factor = 1.0;
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         if (term->isConstant()) {
             factor *= term->getValue();
         }
@@ -90,7 +90,7 @@ Symsptr Product::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Sy
     }
     auto sumTerms = std::make_shared<std::vector<Symsptr>>();
     auto productTerms = std::make_shared<std::vector<Symsptr>>();
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto newTerm = term->expandUntil(term, set);
         if (newTerm->isSum()) {
             sumTerms->push_back(newTerm);
@@ -106,7 +106,7 @@ Symsptr Product::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Sy
     factor->terms = productTerms;
     //sumOfProductsOfSums = (a + b + ...)*(c + d + ...)
     auto sumOfProductsOfSums = std::make_shared<Sum>(sptrConstant(1));
-    for (const auto& term : *sumTerms) {
+    for (const auto term : *sumTerms) {
         sumOfProductsOfSums = std::static_pointer_cast<Sum>(Symbolic::times(sumOfProductsOfSums, term));
     }
     return Symbolic::times(factor, sumOfProductsOfSums);
@@ -122,7 +122,7 @@ Symsptr Product::simplifyUntil(Symsptr, std::shared_ptr<std::unordered_set<Symsp
     }
     auto newTerms = std::make_shared<std::vector<Symsptr>>();
     double factor = 1.0;
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto newTerm = term->simplifyUntil(term, set);
         if (newTerm->isConstant()) {
             factor *= term->getValue();

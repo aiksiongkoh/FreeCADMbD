@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "ConstraintIJ.h"
@@ -17,8 +17,8 @@ namespace MbD {
     {
         //xIeJeIe thezIeJe pitchRadius 
     public:
-        RackPinConstraintIJ() : pitchRadius(0.0) {}
-        RackPinConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj), pitchRadius(0.0) {}
+        RackPinConstraintIJ() {}
+        RackPinConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
         static std::shared_ptr<RackPinConstraintIJ> With();
         static std::shared_ptr<RackPinConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;

@@ -32,7 +32,7 @@ std::string ASMTRefPoint::fullName(const std::string& partialName)
 
 void ASMTRefPoint::createMbD()
 {
-    for (auto& marker : *markers) {
+    for (auto marker : *markers) {
         marker->createMbD();
     }
 }
@@ -42,7 +42,7 @@ void ASMTRefPoint::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelString(os, level, "RefPoint");
     ASMTSpatialItem::storeOnLevel(os, level);
     storeOnLevelString(os, level + 1, "Markers");
-    for (auto& marker : *markers) {
+    for (auto marker : *markers) {
         marker->storeOnLevel(os, level + 2);
     }
 }

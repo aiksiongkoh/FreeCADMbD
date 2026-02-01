@@ -27,7 +27,6 @@ namespace MbD {
         void deactivate();
         void activate();
 
-        std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> constraints;
         double limit = std::numeric_limits<double>::max();
         double tol = std::numeric_limits<double>::max();
         std::string type;

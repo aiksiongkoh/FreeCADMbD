@@ -9,24 +9,19 @@
 #include <fstream>    
 
 #include "ASMTSpatialContainer.h"
-#include "Units.h"
-#include "Part.h"
-#include "System.h"
 #include "ASMTRefPoint.h"
 #include "ASMTRefCurve.h"
 #include "ASMTRefSurface.h"
+#include "ASMTMarker.h"
+#include "ASMTMarkerTemp.h"
+#include "Units.h"
+#include "Part.h"
+#include "System.h"
 #include "PosVelAccData.h"
 #include "SimulationStoppingError.h"
 
 
 using namespace MbD;
-
-std::shared_ptr<ASMTSpatialContainer> ASMTSpatialContainer::With()
-{
-    auto inst = std::make_shared<ASMTSpatialContainer>();
-    inst->initialize();
-    return inst;
-}
 
 void ASMTSpatialContainer::initialize()
 {
@@ -52,11 +47,6 @@ void ASMTSpatialContainer::initialize()
     alpxs = FullRow<double>::With();
     alpys = FullRow<double>::With();
     alpzs = FullRow<double>::With();
-}
-
-void ASMTSpatialContainer::setPrincipalMassMarker(std::shared_ptr<ASMTPrincipalMassMarker> aJ)
-{
-    principalMassMarker = aJ;
 }
 
 void ASMTSpatialContainer::readRefPoints(std::vector<std::string>& lines)
@@ -248,84 +238,15 @@ void ASMTSpatialContainer::readAlphaZs(std::vector<std::string>& lines)
 
 void ASMTSpatialContainer::createMbD()
 {
-    //Create MbD in SI units
-    auto asmtUnts = asmtUnits();
-    auto mbdPart = Part::With();
-    mbdObject = mbdPart;
-    mbdPart->name = fullName("");
-    mbdPart->m = principalMassMarker->mass * asmtUnts->mass;
-    mbdPart->aJ = principalMassMarker->momentOfInertias->times(asmtUnts->aJ);
-    mbdPart->qX(rOcmO()->times(asmtUnts->length));
-    mbdPart->qE(qEp());
-    mbdPart->qXdot(vOcmO()->times(asmtUnts->velocity));
-    mbdPart->omeOpO(omeOpO()->times(asmtUnts->omega));
-    mbdPart->qXddot(std::make_shared<FullColumn<double>>(3, 0));
-    mbdPart->qEddot(std::make_shared<FullColumn<double>>(4, 0));
-    mbdSys()->addPart(mbdPart);
-    for (auto& refPoint : *refPoints) {
+    for (auto refPoint : *refPoints) {
         refPoint->createMbD();
     }
-    for (auto& refCurve : *refCurves) {
+    for (auto refCurve : *refCurves) {
         refCurve->createMbD();
     }
-    for (auto& refSurface : *refSurfaces) {
+    for (auto refSurface : *refSurfaces) {
         refSurface->createMbD();
     }
-}
-
-//void ASMTSpatialContainer::createMbD()
-//{
-//    auto mbdPart = Part::With();
-//    mbdObject = mbdPart;
-//    mbdPart->name = fullName("");
-//    mbdPart->m = principalMassMarker->mass / mbdUnits()->mass;
-//    mbdPart->aJ = principalMassMarker->momentOfInertias->times(1.0 / mbdUnits()->aJ);
-//    mbdPart->qX(rOcmO()->times(1.0 / mbdUnits()->length));
-//    mbdPart->qE(qEp());
-//    mbdPart->qXdot(vOcmO()->times(1.0 / mbdUnits()->velocity));
-//    mbdPart->omeOpO(omeOpO()->times(1.0 / mbdUnits()->omega));
-//    mbdPart->qXddot(std::make_shared<FullColumn<double>>(3, 0));
-//    mbdPart->qEddot(std::make_shared<FullColumn<double>>(4, 0));
-//    mbdSys()->addPart(mbdPart);
-//    for (auto& refPoint : *refPoints) {
-//        refPoint->createMbD();
-//    }
-//    for (auto& refCurve : *refCurves) {
-//        refCurve->createMbD();
-//    }
-//    for (auto& refSurface : *refSurfaces) {
-//        refSurface->createMbD();
-//    }
-//}
-
-void ASMTSpatialContainer::updateMbDFromPosition3D(FColDsptr vec)
-{
-    position3D = vec;
-    auto mbdPart = std::static_pointer_cast<Part>(mbdObject);
-    mbdPart->qX(rOcmO()->times(asmtUnits()->length));
-}
-
-FColDsptr ASMTSpatialContainer::rOcmO()
-{
-    auto& rOPO = position3D;
-    auto& aAOP = rotationMatrix;
-    auto& rPcmP = principalMassMarker->position3D;
-    auto rOcmO = rOPO->plusFullColumn(aAOP->timesFullColumn(rPcmP));
-    return rOcmO;
-}
-
-std::shared_ptr<EulerParameters<double>> ASMTSpatialContainer::qEp()
-{
-    auto& aAOP = rotationMatrix;
-    auto& aAPcm = principalMassMarker->rotationMatrix;
-    auto aAOcm = aAOP->timesFullMatrix(aAPcm);
-    return aAOcm->asEulerParameters();
-}
-
-FColDsptr ASMTSpatialContainer::vOcmO()
-{
-    throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr ASMTSpatialContainer::omeOpO()
@@ -341,19 +262,22 @@ ASMTSpatialContainer* ASMTSpatialContainer::partOrAssembly()
 
 void ASMTSpatialContainer::updateFromMbD()
 {
-    auto mbdUnts = mbdUnits();
-    auto mbdPart = std::static_pointer_cast<Part>(mbdObject);
-    auto rOcmO = mbdPart->qX()->times(mbdUnts->length);
-    auto aAOp = mbdPart->aAOp();
-    //std::cout << "aAOp" << *aAOp << std::endl;
-    auto vOcmO = mbdPart->qXdot()->times(mbdUnts->velocity);
-    auto omeOPO = mbdPart->omeOpO()->times(mbdUnts->omega);
+    auto zero = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
+    auto identityMat = FullMatrix<double>::With(ListListD{
+            {1.0, 0.0, 0.0},
+            {0.0, 1.0, 0.0},
+            {0.0, 0.0, 1.0}
+        });
+    auto rOcmO = zero;
+    auto aAOp = identityMat;
+    auto vOcmO = zero;
+    auto omeOPO = zero;
     omega3D = omeOPO;
-    auto aOcmO = mbdPart->qXddot()->times(mbdUnts->acceleration);
-    auto alpOPO = mbdPart->alpOpO()->times(mbdUnts->alpha);
+    auto aOcmO = zero;
+    auto alpOPO = zero;
     alpha3D = alpOPO;
-    auto& rPcmP = principalMassMarker->position3D;
-    auto& aAPp = principalMassMarker->rotationMatrix;
+    auto rPcmP = zero;
+    auto aAPp = identityMat;
     auto aAOP = aAOp->timesTransposeFullMatrix(aAPp);
     rotationMatrix = aAOP;
     auto rPcmO = aAOP->timesFullColumn(rPcmP);
@@ -385,7 +309,7 @@ void ASMTSpatialContainer::updateFromMbD()
     alpzs->push_back(alpOPO->at(2));
 }
 
-void ASMTSpatialContainer::compareResults(AnalysisType)
+void ASMTSpatialContainer::compareResults(AnalysisType type)
 {
     if (inxs == nullptr || inxs->empty()) return;
     auto mbdUnts = mbdUnits();
@@ -397,63 +321,44 @@ void ASMTSpatialContainer::compareResults(AnalysisType)
     auto accelerationTol = mbdUnts->acceleration * factor;
     auto alphaTol = mbdUnts->alpha * factor;
     auto i = xs->size() - 1;
+    size_t nDigit = 3;
+    auto lambda = [&](std::string name, FRowDsptr vals, FRowDsptr invals, size_t i, size_t nSig, double tol) {
+        auto val = vals->at(i);
+        auto inval = invals->at(i);
+        if (std::abs(val) < tol && std::abs(inval) < tol) return;
+        auto ratio = val / inval;
+        auto relDiff = std::abs(ratio) - 1.0;
+        if (ratio < 0.0) {
+            std::cout << "                    Sign Error ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
+        }
+        if (std::abs(relDiff) >= std::pow(10, -int(nDigit))) {
+            std::cout << "                    ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
+        }
+        };
     //Pos
-    if (!Numeric::equaltol(xs->at(i), inxs->at(i), lengthTol)) {
-        std::cout << i << " xs " << xs->at(i) << " != " << inxs->at(i) << " tol = " << lengthTol << std::endl;
-    }
-    if (!Numeric::equaltol(ys->at(i), inys->at(i), lengthTol)) {
-        std::cout << i << " ys " << ys->at(i) << " != " << inys->at(i) << " tol = " << lengthTol << std::endl;
-    }
-    if (!Numeric::equaltol(zs->at(i), inzs->at(i), lengthTol)) {
-        std::cout << i << " zs " << zs->at(i) << " != " << inzs->at(i) << " tol = " << lengthTol << std::endl;
-    }
-    if (!Numeric::equaltol(bryxs->at(i), inbryxs->at(i), angleTol)) {
-        std::cout << i << " bryxs " << bryxs->at(i) << " != " << inbryxs->at(i) << " tol = " << angleTol << std::endl;
-    }
-    if (!Numeric::equaltol(bryys->at(i), inbryys->at(i), angleTol)) {
-        std::cout << i << " bryys " << bryys->at(i) << " != " << inbryys->at(i) << " tol = " << angleTol << std::endl;
-    }
-    if (!Numeric::equaltol(bryzs->at(i), inbryzs->at(i), angleTol)) {
-        std::cout << i << " bryzs " << bryzs->at(i) << " != " << inbryzs->at(i) << " tol = " << angleTol << std::endl;
-    }
+    lambda("xs", xs, inxs, i, nDigit, lengthTol);
+    lambda("ys", ys, inys, i, nDigit, lengthTol);
+    lambda("zs", zs, inzs, i, nDigit, lengthTol);
+    lambda("bryxs", bryxs, inbryxs, i, nDigit, angleTol);
+    lambda("bryys", bryys, inbryys, i, nDigit, angleTol);
+    lambda("bryzs", bryzs, inbryzs, i, nDigit, angleTol);
     //Vel
-    if (!Numeric::equaltol(vxs->at(i), invxs->at(i), velocityTol)) {
-        std::cout << i << " vxs " << vxs->at(i) << " != " << invxs->at(i) << " tol = " << velocityTol << std::endl;
-    }
-    if (!Numeric::equaltol(vys->at(i), invys->at(i), velocityTol)) {
-        std::cout << i << " vys " << vys->at(i) << " != " << invys->at(i) << " tol = " << velocityTol << std::endl;
-    }
-    if (!Numeric::equaltol(vzs->at(i), invzs->at(i), velocityTol)) {
-        std::cout << i << " vzs " << vzs->at(i) << " != " << invzs->at(i) << " tol = " << velocityTol << std::endl;
-    }
-    if (!Numeric::equaltol(omexs->at(i), inomexs->at(i), omegaTol)) {
-        std::cout << i << " omexs " << omexs->at(i) << " != " << inomexs->at(i) << " tol = " << omegaTol << std::endl;
-    }
-    if (!Numeric::equaltol(omeys->at(i), inomeys->at(i), omegaTol)) {
-        std::cout << i << " omeys " << omeys->at(i) << " != " << inomeys->at(i) << " tol = " << omegaTol << std::endl;
-    }
-    if (!Numeric::equaltol(omezs->at(i), inomezs->at(i), omegaTol)) {
-        std::cout << i << " omezs " << omezs->at(i) << " != " << inomezs->at(i) << " tol = " << omegaTol << std::endl;
-    }
+    lambda("vxs", vxs, invxs, i, nDigit, velocityTol);
+    lambda("vys", vys, invys, i, nDigit, velocityTol);
+    lambda("vzs", vzs, invzs, i, nDigit, velocityTol);
+    lambda("omexs", omexs, inomexs, i, nDigit, omegaTol);
+    lambda("omeys", omeys, inomeys, i, nDigit, omegaTol);
+    lambda("omezs", omezs, inomezs, i, nDigit, omegaTol);
     //Acc
-    if (!Numeric::equaltol(axs->at(i), inaxs->at(i), accelerationTol)) {
-        std::cout << i << " axs " << axs->at(i) << " != " << inaxs->at(i) << " tol = " << accelerationTol << std::endl;
-    }
-    if (!Numeric::equaltol(ays->at(i), inays->at(i), accelerationTol)) {
-        std::cout << i << " ays " << ays->at(i) << " != " << inays->at(i) << " tol = " << accelerationTol << std::endl;
-    }
-    if (!Numeric::equaltol(azs->at(i), inazs->at(i), accelerationTol)) {
-        std::cout << i << " azs " << azs->at(i) << " != " << inazs->at(i) << " tol = " << accelerationTol << std::endl;
-    }
-    if (!Numeric::equaltol(alpxs->at(i), inalpxs->at(i), alphaTol)) {
-        std::cout << i << " alpxs " << alpxs->at(i) << " != " << inalpxs->at(i) << " tol = " << alphaTol << std::endl;
-    }
-    if (!Numeric::equaltol(alpys->at(i), inalpys->at(i), alphaTol)) {
-        std::cout << i << " alpys " << alpys->at(i) << " != " << inalpys->at(i) << " tol = " << alphaTol << std::endl;
-    }
-    if (!Numeric::equaltol(alpzs->at(i), inalpzs->at(i), alphaTol)) {
-        std::cout << i << " alpzs " << alpzs->at(i) << " != " << inalpzs->at(i) << " tol = " << alphaTol << std::endl;
-    }
+    if (type == AnalysisType::INPUT) return;
+    lambda("axs", axs, inaxs, i, nDigit, accelerationTol);
+    lambda("ays", ays, inays, i, nDigit, accelerationTol);
+    lambda("azs", azs, inazs, i, nDigit, accelerationTol);
+    lambda("alpxs", alpxs, inalpxs, i, nDigit, alphaTol);
+    lambda("alpys", alpys, inalpys, i, nDigit, alphaTol);
+    lambda("alpzs", alpzs, inalpzs, i, nDigit, alphaTol);
 }
 
 void ASMTSpatialContainer::outputResults(AnalysisType)
@@ -482,7 +387,7 @@ std::string ASMTSpatialContainer::generateUniqueMarkerName() const
 {
     auto aItemList = markerList();
     auto markerNames = std::vector<std::string>();
-    for (auto& mkr : *aItemList) {
+    for (auto mkr : *aItemList) {
         markerNames.push_back(mkr->name);
     }
     std::stringstream ss;
@@ -500,8 +405,8 @@ std::string ASMTSpatialContainer::generateUniqueMarkerName() const
 std::shared_ptr<std::vector<std::shared_ptr<ASMTMarker>>> ASMTSpatialContainer::markerList() const
 {
     auto markers = std::make_shared<std::vector<std::shared_ptr<ASMTMarker>>>();
-    for (auto& refPoint : *refPoints) {
-        auto& refmarkers = refPoint->markers;
+    for (auto refPoint : *refPoints) {
+        auto refmarkers = refPoint->markers;
         markers->insert(markers->end(), refmarkers->begin(), refmarkers->end());
     }
     return markers;
@@ -588,7 +493,7 @@ void ASMTSpatialContainer::storeOnLevelOmega(std::ofstream& os, size_t level)
 void ASMTSpatialContainer::storeOnLevelRefPoints(std::ofstream& os, size_t level)
 {
     storeOnLevelString(os, level, "RefPoints");
-    for (auto& refPoint : *refPoints)
+    for (auto refPoint : *refPoints)
     {
         refPoint->storeOnLevel(os, level + 1);
     }
@@ -597,7 +502,7 @@ void ASMTSpatialContainer::storeOnLevelRefPoints(std::ofstream& os, size_t level
 void ASMTSpatialContainer::storeOnLevelRefCurves(std::ofstream& os, size_t level)
 {
     storeOnLevelString(os, level, "RefCurves");
-    for (auto& refCurve : *refCurves)
+    for (auto refCurve : *refCurves)
     {
         refCurve->storeOnLevel(os, level);
     }
@@ -606,7 +511,7 @@ void ASMTSpatialContainer::storeOnLevelRefCurves(std::ofstream& os, size_t level
 void ASMTSpatialContainer::storeOnLevelRefSurfaces(std::ofstream& os, size_t level)
 {
     storeOnLevelString(os, level, "RefSurfaces");
-    for (auto& refSurface : *refSurfaces)
+    for (auto refSurface : *refSurfaces)
     {
         refSurface->storeOnLevel(os, level);
     }
@@ -748,7 +653,7 @@ void ASMTSpatialContainer::updateFromInputState()
     setRotationMatrix(getRotationMatrix(0));
     setVelocity3D(getVelocity3D(0));
     setOmega3D(getOmega3D(0));
-    for (auto& refPoint : *refPoints) {
+    for (auto refPoint : *refPoints) {
         refPoint->updateFromInputState();
     }
 

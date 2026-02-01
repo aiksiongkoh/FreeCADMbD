@@ -26,6 +26,7 @@ void DistxyIecJec::initialize()
 
 void DistxyIecJec::calcPostDynCorrectorIteration()
 {
+    //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
     distxy = std::sqrt(x * x + (y * y));
@@ -39,6 +40,7 @@ void DistxyIecJec::initializeGlobally()
 
 void DistxyIecJec::initializeLocally()
 {
+    KinematicIJ::initializeLocally();
     xIeJeIe->initializeLocally();
     yIeJeIe->initializeLocally();
 }

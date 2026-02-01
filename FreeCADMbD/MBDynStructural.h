@@ -13,7 +13,7 @@ namespace MbD {
     class MBDynStructural : public MBDynNode
     {
     public:
-		MBDynStructural() : MBDynNode() {}
+        MBDynStructural() : MBDynNode() {}
         void initialize() override;
         static std::shared_ptr<MBDynStructural> newStructural(std::string line);
 

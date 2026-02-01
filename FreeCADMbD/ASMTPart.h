@@ -23,10 +23,16 @@ namespace MbD {
         void readFeatureOrder(std::vector<std::string>& lines);
         void readPrincipalMassMarker(std::vector<std::string>& lines);
         void readPartSeries(std::vector<std::string>& lines);
-        FColDsptr vOcmO() override;
-        FColDsptr omeOpO() override;
+        void setPrincipalMassMarker(std::shared_ptr<ASMTMarkerTemp> aJ);
         ASMTPart* part() override;
         void createMbD() override;
+        void updateFromMbD() override;
+        std::shared_ptr<EulerParameters<double>> qEp();
+        FColDsptr rOcmO() override;
+        FColDsptr vOcmO() override;
+        FColDsptr omeOpO() override;
+        void initialize() override;
+
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnLevelMassMarker(std::ofstream& os, size_t level) const;
         void storeOnTimeSeries(std::ofstream& os) override;
@@ -34,6 +40,7 @@ namespace MbD {
         //std::shared_ptr<std::vector<std::shared_ptr<ASMTFeature>>> featureOrder;
         std::shared_ptr<std::vector<std::shared_ptr<PosVelAccData>>> partSeries;
         bool isFixed = false;
+        std::shared_ptr<ASMTMarkerTemp> principalMassMarker = nullptr;
 
     };
 }

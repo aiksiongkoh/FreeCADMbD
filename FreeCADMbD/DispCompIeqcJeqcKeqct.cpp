@@ -14,6 +14,9 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIeqcJeqcKeqct> DispCompIeqcJeqcKeqct::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
+    assert(frmi->has_qX());
+    assert(frmj->has_qX());
+    assert(frmk->has_qX());
     auto inst = std::make_shared<DispCompIeqcJeqcKeqct>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
@@ -36,6 +39,10 @@ void DispCompIeqcJeqcKeqct::initializeGlobally()
 
 void DispCompIeqcJeqcKeqct::calcPostDynCorrectorIteration()
 {
+    //rIeJeO = rOJeO - rOIeO
+    //rIeJeKe = aAKeO * rIeJeO
+    //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
+
     //"ppAjOIepEKpEK is not longer constant and must be set before any calculation."
     auto efrmKqc = std::static_pointer_cast<EndFrameqc>(efrmK);
     ppAjOKepEKpEK = efrmKqc->ppAjOepEpE(axisK);

@@ -15,20 +15,23 @@ namespace MbD {
     {
         //efrmK axisK riIeJeKe aAjOKe rIeJeO 
     public:
-        DispCompIecJecKec() : axisK(SIZE_MAX), riIeJeKe(0.0) {}
-        DispCompIecJecKec(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
-            : KinematicIJ(frmi, frmj), efrmK(frmk), axisK(axisk), riIeJeKe(0.0) {}
+        DispCompIecJecKec() {}
+        DispCompIecJecKec(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk) : KinematicIJ(frmi, frmj), efrmK(frmk), axisK(axisk) {}
         static std::shared_ptr<DispCompIecJecKec> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk);
         void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis) override;
+        void initializeLocally() override;
 
-        PartFrame* partFrameK();
+        void calcPostDynCorrectorIteration() override;
+        SpatialContainerFrame* partFrameK();
         double value() override;
 
         EndFrmsptr efrmK;
-        size_t axisK;
-        double riIeJeKe;
+        size_t axisK = SIZE_MAX;
+        double riIeJeKe = 0.0;
         FColDsptr aAjOKe;
         FColDsptr rIeJeO;
+
+        SpatialContainerFrame* prtFrmK = nullptr;
     };
 }
 

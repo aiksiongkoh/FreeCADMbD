@@ -23,19 +23,20 @@ namespace MbD {
         SparseVector(size_t n) : std::map<size_t, T>(), n(n) {}
         SparseVector(std::initializer_list<std::pair<const size_t, T>> list) : std::map<size_t, T>{ list } {}
         SparseVector(std::initializer_list<std::initializer_list<T>> list) {
-            for (auto& pair : list) {
+            for (auto pair : list) {
                 size_t i = 0;
                 size_t index;
                 T value;
-                for (auto& element : pair) {
+                for (auto element : pair) {
                     if (i == 0) index = std::round(element);
                     if (i == 1) value = element;
                     i++;
                 }
-                insert(std::pair<const size_t, double>(index, value));
+                this->insert(std::pair<const size_t, T>(index, value));
             }
         }
         //virtual ~SparseVector() {}
+        void noop();
         double rootMeanSquare();
         size_t numberOfElements();
         double sumOfSquares();
@@ -105,10 +106,15 @@ namespace MbD {
     }
 
     template<typename T>
+    inline void SparseVector<T>::noop()
+    {
+    }
+
+    template<typename T>
     inline double SparseVector<T>::maxMagnitude()
     {
         double max = 0.0;
-        for (const auto& keyValue : *this) {
+        for (const auto keyValue : *this) {
             auto val = keyValue.second;
             if (val < 0.0) val = -val;
             if (max < val) max = val;
@@ -119,7 +125,7 @@ namespace MbD {
     template<typename T>
     inline void SparseVector<T>::magnifySelf(T factor)
     {
-        for (const auto& keyValue : *this) {
+        for (const auto keyValue : *this) {
             auto key = keyValue.first;
             auto val = keyValue.second;
             val *= factor;
@@ -179,7 +185,7 @@ namespace MbD {
         ss << std::setprecision(std::numeric_limits<double>::max_digits10);
         ss << "{" << std::endl;
         auto index = 0;
-        for (const auto& keyValue : *this) {
+        for (const auto keyValue : *this) {
             if (index > 0) ss << ", " << std::endl;
             ss << keyValue.first;
             ss << "->";

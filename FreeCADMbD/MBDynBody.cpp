@@ -1,10 +1,11 @@
 #include "MBDynBody.h"
 #include "MBDynReference.h"
 #include "MBDynStructural.h"
-#include "SymbolicParser.h"
-#include "BasicUserFunction.h"
 #include "ASMTPart.h"
 #include "ASMTAssembly.h"
+#include "ASMTMarkerTemp.h"
+#include "SymbolicParser.h"
+#include "BasicUserFunction.h"
 #include "MomentOfInertiaSolver.h"
 
 using namespace MbD;
@@ -47,7 +48,7 @@ void MBDynBody::parseMBDyn(std::string line)
 
 void MBDynBody::readMass(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     auto userFunc = std::make_shared<BasicUserFunction>(popOffTop(args), 1.0);
     parser->parseUserFunction(userFunc);
@@ -64,7 +65,7 @@ void MBDynBody::readPositionCM(std::vector<std::string>& args)
 
 void MBDynBody::readInertiaMatrix(std::vector<std::string>& args)
 {
-    auto parser = std::make_shared<SymbolicParser>();
+    auto parser = SymbolicParser::With();
     parser->variables = mbdynVariables();
     aJmat = FullMatrix<double>::With(3, 3);
     auto str = args.at(0);    //Must copy string
@@ -104,7 +105,7 @@ void MBDynBody::readMassProps(std::vector<std::string>& args)
 
 void MBDynBody::createASMT()
 {
-    auto asmtMassMarker = ASMTPrincipalMassMarker::With();
+    auto asmtMassMarker = ASMTMarkerTemp::With();
     asmtItem = asmtMassMarker;
     asmtMassMarker->setMass(mass);
     if (aJmat->isDiagonalToWithin(1.0e-6)) {

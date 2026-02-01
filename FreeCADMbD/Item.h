@@ -33,10 +33,7 @@ namespace MbD {
         Item();
         Item(const std::string& str) : name(str) {}
         static std::shared_ptr<Item> With(const std::string& str);
-        virtual void initialize();
-
-        virtual System* root();
-        void noop();
+        static void noop();
 
         virtual void calcPostDynCorrectorIteration();
         virtual void checkForCollisionDiscontinuityBetweenand(double impulsePrevious, double impulse);
@@ -79,7 +76,11 @@ namespace MbD {
         virtual void fillStaticJacob(SpMatDsptr mat);
         virtual void fillVelICError(FColDsptr col);
         virtual void fillVelICJacob(SpMatDsptr mat);
+        virtual EndFrmsptr geteFrmI() { return nullptr; }
+        virtual EndFrmsptr geteFrmJ() { return nullptr; }
+        virtual EndFrmsptr geteFrmK() { return nullptr; }
         virtual void getString(const std::string& str);
+        virtual void initialize();
         virtual void initializeGlobally();
         virtual void initializeLocally();
         virtual bool isJointForce();
@@ -129,9 +130,11 @@ namespace MbD {
         virtual void prePosKine();
         virtual void preStatic();
         virtual void preVelIC();
+        virtual std::ostream& printOn(std::ostream& s) const;
         virtual void reactivateRedundantConstraints();
         virtual void registerName();
         virtual void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos);
+        virtual System* root();
         virtual void setpqsumu(FColDsptr col);
         virtual void setpqsumudot(FColDsptr col);
         virtual void setpqsumuddot(FColDsptr col);
@@ -152,20 +155,7 @@ namespace MbD {
         virtual double suggestSmallerOrAcceptDynStepSize(double hnew);
         virtual void useEquationNumbers();
         virtual double value();
-        virtual EndFrmsptr geteFrmI() { return nullptr; }
-        virtual EndFrmsptr geteFrmJ() { return nullptr; }
-
-        virtual std::ostream& printOn(std::ostream& s) const;
-        friend std::ostream& operator<<(std::ostream& s, const Item& item)
-        {
-            if (&item) {
-                return item.printOn(s);
-            }
-            else {
-                s << "NULL";
-            }
-            return s;
-        }
+        friend std::ostream& operator<<(std::ostream& s, const Item& item);
 
         std::string name;
         Item* owner = nullptr;    //Use raw pointer when pointing backwards.

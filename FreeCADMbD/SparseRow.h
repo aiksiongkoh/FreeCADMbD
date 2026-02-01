@@ -35,6 +35,7 @@ namespace MbD {
         void atiplusFullRow(size_t j, FRowsptr<T> fullRow);
         void atiminusFullRow(size_t j, FRowsptr<T> fullRow);
         void atiplusFullRowtimes(size_t j, FRowsptr<T> fullRow, double factor);
+        void atiplusSparseRow(size_t j, SpRowsptr<T> spRow);
         T timesFullColumn(FColsptr<T> fullCol);
         SpRowsptr<T> plusSparseRow(SpRowsptr<T> spMat);
         SpRowsptr<T> clonesptr();
@@ -98,6 +99,12 @@ namespace MbD {
         {
             (*this)[j + jj] += fullRow->at(jj) * factor;
         }
+    }
+
+    template<typename T>
+    inline void SparseRow<T>::atiplusSparseRow(size_t j, SpRowsptr<T> spRow)
+    {
+        throw SimulationStoppingError("To be implemented.");
     }
 
     template<typename T>

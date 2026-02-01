@@ -22,6 +22,8 @@ namespace MbD {
         void initialize() override;
 
         void calcPostDynCorrectorIteration() override;
+        void addToJointForceI(FColDsptr col) = 0;
+        void addToJointTorqueI(FColDsptr col) = 0;
         void initializeGlobally() override;
         void initializeLocally() override;
         virtual void initriIeJeO();

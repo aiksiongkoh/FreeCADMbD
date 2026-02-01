@@ -31,8 +31,7 @@ namespace MbD {
     {
     public:
         static std::shared_ptr<MbDMath> With();
-
-        void noop();
+        static void noop();
         static std::string xyzFromInt(int i);
         static std::string XYZFromInt(int i);
     };

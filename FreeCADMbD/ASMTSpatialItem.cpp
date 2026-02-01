@@ -61,7 +61,7 @@ void ASMTSpatialItem::readRotationMatrix(std::vector<std::string>& lines)
     rotationMatrix = FullMatrix<double>::With(3, 0);
     for (size_t i = 0; i < 3; i++)
     {
-        auto& row = rotationMatrix->at(i);
+        auto row = rotationMatrix->at(i);
         std::istringstream iss(lines[0]);
         double d;
         while (iss >> d) {

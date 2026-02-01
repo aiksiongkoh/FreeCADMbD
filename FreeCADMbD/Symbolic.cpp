@@ -169,7 +169,7 @@ bool Symbolic::isConstant()
 
 std::ostream& Symbolic::printOn(std::ostream& s) const
 {
-    std::string str = typeid(*this).name();
+    const std::string& str = typeid(*this).name();
     auto classname = str.substr(11, str.size() - 11);
     s << classname;
     return s;

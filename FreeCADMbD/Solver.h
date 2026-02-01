@@ -21,9 +21,9 @@ namespace MbD {
     public:
         //virtual ~Solver() {}
         static std::shared_ptr<Solver> With();
-        virtual void initialize();
+        static void noop();
 
-        void noop();
+        virtual void initialize();
         virtual void initializeLocally();
         virtual void initializeGlobally();
         virtual void assignEquationNumbers();

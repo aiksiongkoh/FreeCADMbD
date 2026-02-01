@@ -16,7 +16,6 @@
 #include "SimulationStoppingError.h"
 #include "TooSmallStepSizeError.h"
 #include "TooManyTriesError.h"
-#include "SingularMatrixError.h"
 #include "DiscontinuityError.h"
 
 using namespace MbD;
@@ -152,7 +151,7 @@ double QuasiIntegrator::suggestSmallerOrAcceptFirstStepSize(double hnew)
     system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { hnew2 = item->suggestSmallerOrAcceptDynFirstStepSize(hnew2); });
     if (hnew2 > hmax) {
         hnew2 = hmax;
-        std::string str = "StM: Step size is at user specified maximum.";
+        const std::string& str = "StM: Step size is at user specified maximum.";
         logString(str);
     }
     if (hnew2 < hmin) {

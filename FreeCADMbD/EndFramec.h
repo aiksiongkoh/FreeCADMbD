@@ -11,14 +11,15 @@
 #include <memory>
 
 #include "CartesianFrame.h"
+#include "MarkerFramec.h"
 #include "FullColumn.h"     //FColDsptr is defined
 #include "FullMatrix.h"     //FMatDsptr is defined
 
 namespace MbD {
-    class PartFrame;
-    class MarkerFrame;
+    class SpatialContainerFrame;
     class EndFrameqc;
     class EndFramec;
+    class EndFramect;
     using EndFrmsptr = std::shared_ptr<EndFramec>;
 
     class EndFramec : public CartesianFrame
@@ -27,39 +28,52 @@ namespace MbD {
     public:
         EndFramec() {}
         EndFramec(const std::string& str) : CartesianFrame(str) {}
+        static std::shared_ptr<EndFramec> With();
         static std::shared_ptr<EndFramec> With(const std::string& str);
-        void initialize() override;
-        System* root() override;
-        virtual void initEndFrameqct();
-        virtual void initEndFrameqct2();
 
-        FMatDsptr aAeO() const;
-        FColDsptr aAjOe(size_t j);
-        void aApm(FMatDsptr mat);
+        virtual FMatDsptr aAeO() const;
+        virtual FColDsptr aAjOe(size_t j) const;
+        virtual void aApm(FMatDsptr mat);
+        virtual FMatDsptr aBOp() const;
+        virtual FMatDsptr getaBOp() const;
+        virtual FColDsptr aOeO() const;
         void calcPostDynCorrectorIteration() override;
         virtual void fillContactEndFrames(std::set<EndFramec*> efrms);
-        FColDsptr ieO();
-        FColDsptr jeO();
-        FColDsptr keO();
-        MarkerFrame* getMarkerFrame() const;
-        void setMarkerFrame(MarkerFrame* markerFrm);
-        std::shared_ptr<EndFrameqc> newCopyEndFrameqc();
-        virtual std::shared_ptr<EndFrameqc> followEndFrame(EndFrmsptr frmi);
-        PartFrame* getPartFrame();
-        std::shared_ptr<EulerParameters<double>> qEOe();
-        double riOeO(size_t i);
-        virtual FColDsptr rpmp();
-        virtual FColDsptr rmeO();
-        virtual FColDsptr rpep();
-        virtual FColFMatDsptr pAOppE();
-        virtual FMatDsptr aBOp();
+        virtual std::shared_ptr<EndFramec> followEndFrame(EndFrmsptr frmi);
+        virtual MarkerFramec* getMarkerFrame() const;
+        virtual SpatialContainerFrame* getPartFrame() const;
+        virtual FColDsptr ieO() const;
+        void initialize() override;
+        virtual void initEndFrameqct();
+        virtual void initEndFrameqct2();
         virtual bool isEndFrameqc();
-        FColDsptr vOeO();
-        FColDsptr aOeO();
+        virtual FColDsptr jeO() const;
+        virtual FColDsptr keO() const;
+        virtual std::shared_ptr<EndFrameqc> newCopyEndFrameqc();
+        virtual FColDsptr omeOeO();
+        virtual FColFMatDsptr pAOepE() const;
+        virtual FColFMatDsptr pAOppE();
+        virtual FMatDsptr pAjOepE(size_t j) const;
+        virtual FMatDsptr pAjOepET(size_t j);
+        virtual std::shared_ptr<EulerParameters<double>> qEOe() const;
+        virtual double riOeO(size_t i) const;
+        virtual FColDsptr rmeO();
+        System* root() override;
+        virtual FColDsptr rpep();
+        virtual FColDsptr rpmp();
+        virtual void setMarkerFrame(MarkerFramec* markerFrm);
+        virtual void setTargetFrame(std::shared_ptr<EndFramec> targetFrm) {}
+        virtual FColDsptr vOeO() const;
+        virtual FMatDsptr getprOeOpE() const;
+        virtual FMatFColDsptr getpprOeOpEpE() const;
+        virtual FMatDsptr pAOepEtimesFullColumn(FColDsptr col) const;
 
-        MarkerFrame* markerFrame = nullptr; //Use raw pointer when pointing backwards.
+        FColDsptr rmem = std::make_shared<FullColumn<double>>(3);
+        FMatDsptr aAme = FullMatrix<double>::identitysptr(3);
+        MarkerFramec* markerFrame = nullptr; //Use raw pointer when pointing backwards.
         FColDsptr rOeO = std::make_shared<FullColumn<double>>(3);
         FMatDsptr aAOe = FullMatrix<double>::identitysptr(3);
+        std::shared_ptr<EndFramect> endFramect;
     };
     //using EndFrmsptr = std::shared_ptr<EndFramec>;
 }

@@ -30,7 +30,7 @@ FColDsptr BackwardDifference::derivativepresentpast(size_t deriv, FColDsptr y, s
         series->atiput(i, (ypast->at(i - 1)));
     }
 
-    auto& coeffs = operatorMatrix->at(deriv - 1);
+    auto coeffs = operatorMatrix->at(deriv - 1);
     size_t n = coeffs->size();
     auto answer = series->at(0)->times(coeffs->at(0));
     for (size_t i = 1; i < n; i++) {

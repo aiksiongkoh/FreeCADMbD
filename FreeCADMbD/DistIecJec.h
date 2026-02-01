@@ -23,6 +23,12 @@ namespace MbD {
         virtual void calcPrivate();
         double value() override;
         FColDsptr rIeJeIe();
+        virtual FMatDsptr puIeJeOpX(SpatialContainerFrame* partFrame);
+        virtual FMatDsptr puIeJeOpE(SpatialContainerFrame* partFrame);
+        FMatDsptr puIeJeOpEI() override;
+        FMatDsptr puIeJeOpXI() override;
+        FRowDsptr pvaluepEI() override;
+        FRowDsptr pvaluepXI() override;
 
         double rIeJe = 0.0;
         FColDsptr rIeJeO, uIeJeO, muIeJeO;

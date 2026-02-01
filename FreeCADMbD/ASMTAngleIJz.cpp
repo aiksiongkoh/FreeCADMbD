@@ -8,6 +8,7 @@
  
 #include "ASMTAngleIJz.h"
 #include "AngleZIeqcJeqc.h"
+#include "AngleZIecJeqc.h"
 
 using namespace MbD;
 
@@ -21,4 +22,14 @@ std::shared_ptr<ASMTAngleIJz> ASMTAngleIJz::With()
 std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdClassNew()
 {
     return AngleZIeqcJeqc::With();
+}
+
+std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    return AngleZIeqcJeqc::With(frmi, frmj);
+}
+
+std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    return AngleZIecJeqc::With(frmi, frmj);
 }

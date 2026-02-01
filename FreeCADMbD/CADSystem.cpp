@@ -19,7 +19,7 @@
 #include "CylindricalJoint.h"
 #include "SystemSolver.h"
 #include "Part.h"
-#include "MarkerFrame.h"
+#include "MarkerFramec.h"
 #include "PartFrame.h"
 #include "SymTime.h"
 #include "StateData.h"
@@ -37,6 +37,11 @@ std::shared_ptr<CADSystem> CADSystem::With()
 void CADSystem::initialize()
 {
     //Do nothing.
+}
+
+void CADSystem::noop()
+{
+    //No Operations
 }
 
 void CADSystem::outputFor(AnalysisType)
@@ -58,6 +63,7 @@ void CADSystem::logString(const std::string& str)
 
 void CADSystem::logString(double)
 {
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void CADSystem::runOndselSinglePendulum()
@@ -65,12 +71,12 @@ void CADSystem::runOndselSinglePendulum()
     //Double pendulum with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
     std::cout << "runOndselSinglePendulum" << std::endl;
-    auto& TheSystem = mbdSystem;
+    auto TheSystem = mbdSystem;
     TheSystem->clear();
     std::string name = "TheSystem";
     TheSystem->name = name;
     std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto& systemSolver = TheSystem->systemSolver;
+    auto systemSolver = TheSystem->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -113,8 +119,8 @@ void CADSystem::runOndselSinglePendulum()
     assembly1->setomeOpO(omeOpO);
     TheSystem->addPart(assembly1);
     {
-        auto& partFrame = assembly1->partFrame;
-        auto marker2 = MarkerFrame::With("/Assembly1/Marker2");
+        auto partFrame = assembly1->partFrame;
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -125,7 +131,7 @@ void CADSystem::runOndselSinglePendulum()
         marker2->setaApm(aApm);
         partFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = MarkerFrame::With("/Assembly1/Marker1");
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -156,8 +162,8 @@ void CADSystem::runOndselSinglePendulum()
     crankPart1->setomeOpO(omeOpO);
     TheSystem->addPart(crankPart1);
     {
-        auto& partFrame = crankPart1->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part1/Marker1");
+        auto partFrame = crankPart1->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.4, 0.0, 0.05 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -168,7 +174,7 @@ void CADSystem::runOndselSinglePendulum()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part1/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.4, 0.0, 0.05 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -200,12 +206,12 @@ void CADSystem::runOndselDoublePendulum()
     //Double pendulum with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
     std::cout << "runOndselDoublePendulum" << std::endl;
-    auto& TheSystem = mbdSystem;
+    auto TheSystem = mbdSystem;
     TheSystem->clear();
     std::string name = "TheSystem";
     TheSystem->name = name;
     std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto& systemSolver = TheSystem->systemSolver;
+    auto systemSolver = TheSystem->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -248,8 +254,8 @@ void CADSystem::runOndselDoublePendulum()
     assembly1->setomeOpO(omeOpO);
     TheSystem->addPart(assembly1);
     {
-        auto& partFrame = assembly1->partFrame;
-        auto marker2 = MarkerFrame::With("/Assembly1/Marker2");
+        auto partFrame = assembly1->partFrame;
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -260,7 +266,7 @@ void CADSystem::runOndselDoublePendulum()
         marker2->setaApm(aApm);
         partFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = MarkerFrame::With("/Assembly1/Marker1");
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -291,8 +297,8 @@ void CADSystem::runOndselDoublePendulum()
     crankPart1->setomeOpO(omeOpO);
     TheSystem->addPart(crankPart1);
     {
-        auto& partFrame = crankPart1->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part1/Marker1");
+        auto partFrame = crankPart1->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.4, 0.0, 0.05 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -303,7 +309,7 @@ void CADSystem::runOndselDoublePendulum()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part1/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.4, 0.0, 0.05 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -332,8 +338,8 @@ void CADSystem::runOndselDoublePendulum()
     conrodPart2->setomeOpO(omeOpO);
     TheSystem->addPart(conrodPart2);
     {
-        auto& partFrame = conrodPart2->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part2/Marker1");
+        auto partFrame = conrodPart2->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.65, 0.0, -0.05 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -344,7 +350,7 @@ void CADSystem::runOndselDoublePendulum()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part2/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.65, 0.0, -0.05 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -374,12 +380,12 @@ void CADSystem::runOndselPiston()
     //Piston with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
     std::cout << "runOndselPiston" << std::endl;
-    auto& TheSystem = mbdSystem;
+    auto TheSystem = mbdSystem;
     TheSystem->clear();
     std::string name = "TheSystem";
     TheSystem->name = name;
     std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto& systemSolver = TheSystem->systemSolver;
+    auto systemSolver = TheSystem->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -424,8 +430,8 @@ void CADSystem::runOndselPiston()
     std::cout << "assembly1->getqE() " << *assembly1->getqE() << std::endl;
     TheSystem->addPart(assembly1);
     {
-        auto& partFrame = assembly1->partFrame;
-        auto marker2 = MarkerFrame::With("/Assembly1/Marker2");
+        auto partFrame = assembly1->partFrame;
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -436,7 +442,7 @@ void CADSystem::runOndselPiston()
         marker2->setaApm(aApm);
         partFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = MarkerFrame::With("/Assembly1/Marker1");
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -467,8 +473,8 @@ void CADSystem::runOndselPiston()
     crankPart1->setqEddot(qEddot);
     TheSystem->addPart(crankPart1);
     {
-        auto& partFrame = crankPart1->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part1/Marker1");
+        auto partFrame = crankPart1->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.4, 0.0, 0.05 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -479,7 +485,7 @@ void CADSystem::runOndselPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part1/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.4, 0.0, 0.05 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -509,8 +515,8 @@ void CADSystem::runOndselPiston()
     conrodPart2->setqEddot(qEddot);
     TheSystem->addPart(conrodPart2);
     {
-        auto& partFrame = conrodPart2->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part2/Marker1");
+        auto partFrame = conrodPart2->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.65, 0.0, -0.05 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -521,7 +527,7 @@ void CADSystem::runOndselPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part2/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.65, 0.0, -0.05 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -551,8 +557,8 @@ void CADSystem::runOndselPiston()
     pistonPart3->setqEddot(qEddot);
     TheSystem->addPart(pistonPart3);
     {
-        auto& partFrame = pistonPart3->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part3/Marker1");
+        auto partFrame = pistonPart3->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.5, 0.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -563,7 +569,7 @@ void CADSystem::runOndselPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part3/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.5, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -623,12 +629,12 @@ void CADSystem::runOndselPiston()
 void CADSystem::runPiston()
 {
     std::cout << "runPiston" << std::endl;
-    auto& TheSystem = mbdSystem;
+    auto TheSystem = mbdSystem;
     TheSystem->clear();
     std::string name = "TheSystem";
     TheSystem->name = name;
     std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto& systemSolver = TheSystem->systemSolver;
+    auto systemSolver = TheSystem->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -647,7 +653,6 @@ void CADSystem::runPiston()
     systemSolver->translationLimit = 9.6058421285615e9;
     systemSolver->rotationLimit = 0.5;
 
-    std::string str;
     FColDsptr qX, qE, qXdot, omeOpO, qXddot, qEddot;
     FColDsptr rpmp;
     FMatDsptr aApm;
@@ -673,8 +678,8 @@ void CADSystem::runPiston()
     std::cout << "assembly1->getqE() " << *assembly1->getqE() << std::endl;
     TheSystem->addPart(assembly1);
     {
-        auto& partFrame = assembly1->partFrame;
-        auto marker2 = MarkerFrame::With("/Assembly1/Marker2");
+        auto partFrame = assembly1->partFrame;
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -685,7 +690,7 @@ void CADSystem::runPiston()
         marker2->setaApm(aApm);
         partFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = MarkerFrame::With("/Assembly1/Marker1");
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 2.8817526385684, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -716,8 +721,8 @@ void CADSystem::runPiston()
     crankPart1->setqEddot(qEddot);
     TheSystem->addPart(crankPart1);
     {
-        auto& partFrame = crankPart1->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part1/Marker1");
+        auto partFrame = crankPart1->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.38423368514246, -2.6661567755108e-17, 0.048029210642807 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -728,7 +733,7 @@ void CADSystem::runPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part1/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.38423368514246, -2.6661567755108e-17, 0.048029210642807 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -758,8 +763,8 @@ void CADSystem::runPiston()
     conrodPart2->setqEddot(qEddot);
     TheSystem->addPart(conrodPart2);
     {
-        auto& partFrame = conrodPart2->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part2/Marker1");
+        auto partFrame = conrodPart2->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.6243797383565, 1.1997705489799e-16, -0.048029210642807 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -770,7 +775,7 @@ void CADSystem::runPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part2/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.6243797383565, -2.1329254204087e-16, -0.048029210642807 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -800,8 +805,8 @@ void CADSystem::runPiston()
     pistonPart3->setqEddot(qEddot);
     TheSystem->addPart(pistonPart3);
     {
-        auto& partFrame = pistonPart3->partFrame;
-        auto marker1 = MarkerFrame::With("/Assembly1/Part3/Marker1");
+        auto partFrame = pistonPart3->partFrame;
+        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.48029210642807, 7.6201599718927e-18, -2.816737703896e-17 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -812,7 +817,7 @@ void CADSystem::runPiston()
         marker1->setaApm(aApm);
         partFrame->addMarkerFrame(marker1);
         //
-        auto marker2 = MarkerFrame::With("/Assembly1/Part3/Marker2");
+        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.48029210642807, 1.7618247880058e-17, 2.5155758471256e-17 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{

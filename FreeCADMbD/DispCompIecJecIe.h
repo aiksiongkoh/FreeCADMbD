@@ -15,9 +15,8 @@ namespace MbD {
     {
         //axis riIeJeIe aAjOIe rIeJeO 
     public:
-        DispCompIecJecIe() : axis(0), riIeJeIe(0.0) {}
-        DispCompIecJecIe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis)
-            : KinematicIJ(frmi, frmj), axis(axis), riIeJeIe(0.0) {}
+        DispCompIecJecIe() {}
+        DispCompIecJecIe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) : KinematicIJ(frmi, frmj), axis(axis) {}
         static std::shared_ptr<DispCompIecJecIe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) override;
 

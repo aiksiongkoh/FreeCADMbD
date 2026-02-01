@@ -62,7 +62,7 @@ void ASMTItem::noop()
 
 std::string ASMTItem::classname()
 {
-    std::string str = typeid(*this).name();
+    const std::string& str = typeid(*this).name();
     auto answer = str.substr(11, str.size() - 11);
     return answer;
 }
@@ -82,6 +82,22 @@ std::string ASMTItem::popOffTop(std::vector<std::string>& args)
     auto str = args.at(0);    //Must copy string
     args.erase(args.begin());
     return str;
+}
+
+std::string MbD::ASMTItem::readStringTrimmedOffTop(std::vector<std::string>& args)
+{
+    //Return top string without leading and trailing whitespaces.
+    std::string str = popOffTop(args);
+    auto begin = std::find_if_not(str.begin(), str.end(),
+        [](unsigned char c) { return std::isspace(c); });
+
+    auto end = std::find_if_not(str.rbegin(), str.rend(),
+        [](unsigned char c) { return std::isspace(c); }).base();
+
+    if (begin >= end)
+        return "";
+
+    return std::string(begin, end);
 }
 
 std::string ASMTItem::readStringNoSpacesOffTop(std::vector<std::string>& args)
@@ -206,7 +222,6 @@ void ASMTItem::deleteMbD()
 
 void ASMTItem::createMbD()
 {
-    noop();
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -264,7 +279,7 @@ void ASMTItem::storeOnLevelTabs(std::ofstream& os, size_t level)
     }
 }
 
-void ASMTItem::storeOnLevelString(std::ofstream& os, size_t level, std::string str)
+void ASMTItem::storeOnLevelString(std::ofstream& os, size_t level, const std::string& str)
 {
     storeOnLevelTabs(os, level);
     os << str << std::endl;

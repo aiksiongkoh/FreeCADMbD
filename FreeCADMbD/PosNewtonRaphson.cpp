@@ -59,6 +59,11 @@ void PosNewtonRaphson::postRun()
     system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->postPosIC(); });
 }
 
+void PosNewtonRaphson::run()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
 void PosNewtonRaphson::iterate()
 {
     throw SimulationStoppingError("To be implemented.");

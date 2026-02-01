@@ -25,6 +25,9 @@ std::shared_ptr<AbsConstraint> AbsConstraint::With(size_t axis)
 
 void AbsConstraint::calcPostDynCorrectorIteration()
 {
+    //qX = {0}
+    //qE = {0}
+    // Fix: qX is a method, not a member variable. Call the method to get the column.
     if (axis < 3) {
         aG = static_cast<PartFrame*>(owner)->qX->at(axis);
     }

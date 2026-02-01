@@ -39,6 +39,7 @@ FMatDsptr DirectionCosineIeqcJeqc::ppvaluepEIpEJ()
 
 void DirectionCosineIeqcJeqc::calcPostDynCorrectorIteration()
 {
+    //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     DirectionCosineIeqcJec::calcPostDynCorrectorIteration();
     pAjOJepEJT = std::static_pointer_cast<EndFrameqc>(eFrmJ)->pAjOepET(axisJ);
     for (size_t i = 0; i < 4; i++)
@@ -47,7 +48,7 @@ void DirectionCosineIeqcJeqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppAijIeJepEIipEJ = ppAijIeJepEIpEJ->at(i);
+        auto ppAijIeJepEIipEJ = ppAijIeJepEIpEJ->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             ppAijIeJepEIipEJ->at(j) = pAjOIepEIT->at(i)->dot(pAjOJepEJT->at(j));
@@ -55,8 +56,8 @@ void DirectionCosineIeqcJeqc::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppAijIeJepEJipEJ = ppAijIeJepEJpEJ->at(i);
-        auto& ppAjOJepEJipEJ = ppAjOJepEJpEJ->at(i);
+        auto ppAijIeJepEJipEJ = ppAijIeJepEJpEJ->at(i);
+        auto ppAjOJepEJipEJ = ppAjOJepEJpEJ->at(i);
         for (size_t j = 0; j < 4; j++)
         {
             ppAijIeJepEJipEJ->at(j) = aAjOIe->dot(ppAjOJepEJipEJ->at(j));

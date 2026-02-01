@@ -8,7 +8,6 @@
 
 #include <functional>
 #include <chrono>
-#include <cstdint>
 
 #include "Constraint.h"
 #include "FullColumn.h"
@@ -187,14 +186,28 @@ void Constraint::setqsuddotlam(FColDsptr col)
     lam = col->at(iG);
 }
 
-void Constraint::addToJointForceI(FColDsptr)
+void Constraint::addToJointForceI(FColDsptr col)
 {
+    //aFIeO = lam * pGpXI
     //Do nothing.
 }
 
-void Constraint::addToJointTorqueI(FColDsptr)
+void Constraint::addToJointTorqueI(FColDsptr col)
 {
-    //Do nothing.
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void Constraint::addToJointForceJ(FColDsptr col)
+{
+    //aFJeO = lam * pGpXJ
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void Constraint::addToJointTorqueJ(FColDsptr col)
+{
+    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void Constraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) {

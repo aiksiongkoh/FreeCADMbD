@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include "KinematicDotIJ.h"
+#include "EndFramec.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -25,6 +26,11 @@ std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With(EndFrmsptr frmi, EndFrmsptr
     return inst;
 }
 
+void KinematicDotIJ::calcPostDynCorrectorIteration()
+{
+    //Do nothing.
+}
+
 bool KinematicDotIJ::isKineIJ()
 {
     return false;
@@ -35,15 +41,39 @@ bool KinematicDotIJ::isKinedotIJ()
     return true;
 }
 
+FRowDsptr KinematicDotIJ::pvaluepXdot(SpatialContainerFrame* partFrame)
+{
+    if (partFrame == prtFrmI)
+    {
+        return pvaluepXdotI();
+    }
+    else if (partFrame == prtFrmJ)
+    {
+        return pvaluepXdotJ();
+    }
+    return FRowDsptr();
+}
+
+FRowDsptr KinematicDotIJ::pvaluepEdot(SpatialContainerFrame* partFrame)
+{
+    if (partFrame == prtFrmI)
+    {
+        return pvaluepEdotI();
+    }
+    else if (partFrame == prtFrmJ)
+    {
+        return pvaluepEdotJ();
+    }
+    return FRowDsptr();
+}
+
 FRowDsptr KinematicDotIJ::pvaluepEdotI()
 {
-    throw SimulationStoppingError("To be implemented.");
     return FRowDsptr();
 }
 
 FRowDsptr KinematicDotIJ::pvaluepEdotJ()
 {
-    throw SimulationStoppingError("To be implemented.");
     return FRowDsptr();
 }
 
@@ -54,13 +84,11 @@ FRowDsptr KinematicDotIJ::pvaluepEdotK()
 
 FRowDsptr KinematicDotIJ::pvaluepXdotI()
 {
-    throw SimulationStoppingError("To be implemented.");
     return FRowDsptr();
 }
 
 FRowDsptr KinematicDotIJ::pvaluepXdotJ()
 {
-    throw SimulationStoppingError("To be implemented.");
     return FRowDsptr();
 }
 

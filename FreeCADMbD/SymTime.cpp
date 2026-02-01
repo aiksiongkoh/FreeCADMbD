@@ -14,8 +14,8 @@ using namespace MbD;
 
 SymTime::SymTime()
 {
-	std::string str = "t";
-	this->setName(str);
+    std::string str = "t";
+    this->setName(str);
 }
 
 void SymTime::initialize()

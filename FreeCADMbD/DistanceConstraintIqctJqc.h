@@ -15,7 +15,7 @@ namespace MbD {
     {
         //pGpt ppGpXIpt ppGpEIpt ppGpXJpt ppGpEJpt ppGptpt 
     public:
-		DistanceConstraintIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj) : DistanceConstraintIqcJqc(frmi, frmj) {}
+        DistanceConstraintIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj) : DistanceConstraintIqcJqc(frmi, frmj) {}
         static std::shared_ptr<DistanceConstraintIqctJqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         
         void fillVelICError(FColDsptr col) override;

@@ -18,7 +18,11 @@ namespace MbD {
         CartesianFrame(const std::string& str);
         static std::shared_ptr<CartesianFrame> With(const std::string& str);
         void initialize() override;
-        
+        virtual bool has_qX() const;
+        virtual bool has_s() const;
+        virtual size_t iqX() const;
+        virtual size_t iqE() const;
+
     };
 }
 

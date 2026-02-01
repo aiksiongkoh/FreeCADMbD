@@ -26,11 +26,11 @@ void VelRadIeqcJec::calcPostDynCorrectorIteration()
     if (rIeJe == 0.0) return;
     auto muIeJeO = uIeJeO->negated();
     auto efrmqcI = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto& mprIeJeOpEI = efrmqcI->prOeOpE;
+    auto mprIeJeOpEI = efrmqcI->prOeOpE;
     auto mprIeJeOpEIT = mprIeJeOpEI->transpose();
     auto mpvIeJeOpEIT = efrmqcI->pvOeOpE()->transpose();
     auto muIeJeOT = muIeJeO->transpose();
-    auto& prIeJepXI = muIeJeOT;
+    auto prIeJepXI = muIeJeOT;
     auto prIeJepEI = muIeJeOT->timesFullMatrix(mprIeJeOpEI);
     for (size_t i = 0; i < 3; i++) {
         pvIeJepXI->atiput(i, (-vIeJe*prIeJepXI->at(i) - vIeJeO->at(i)) / rIeJe);

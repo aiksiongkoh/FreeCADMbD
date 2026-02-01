@@ -16,6 +16,7 @@ namespace MbD {
     public:
         OmeCompIecJecKec() {}
         OmeCompIecJecKec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
+        OmeCompIecJecKec(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : KinematicDotIJ(frmi, frmj), efrmK(efrmK), axisK(axisK) {}
         static std::shared_ptr<OmeCompIecJecKec> With();
         static std::shared_ptr<OmeCompIecJecKec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis) override;
@@ -24,8 +25,8 @@ namespace MbD {
         void calcPostDynCorrectorIteration() override;
 
         EndFrmsptr efrmK;
-        size_t axisK;
-        double omeiIeJeKe;
+        size_t axisK = SIZE_MAX;
+        double omeiIeJeKe = 0.0;
         FColDsptr aAjOKe;
         FColDsptr omeIeJeO;
     };

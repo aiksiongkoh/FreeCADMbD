@@ -26,6 +26,7 @@ void DirectionCosineConstraintIqcJqc::initaAijIeJe()
 
 void DirectionCosineConstraintIqcJqc::calcPostDynCorrectorIteration()
 {
+    //aG = aAijIeJe - aConstant;
     DirectionCosineConstraintIqcJc::calcPostDynCorrectorIteration();
     auto aAijIeqJqe = std::static_pointer_cast<DirectionCosineIeqcJeqc>(aAijIeJe);
     pGpEJ = aAijIeqJqe->pAijIeJepEJ;

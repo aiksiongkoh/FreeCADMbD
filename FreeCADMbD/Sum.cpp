@@ -38,7 +38,7 @@ void Sum::parse(std::istringstream& iss)
     if (c == '+') {
         parsePlusTerm(iss);
     }
-    else     if (c == '-') {
+    else    if (c == '-') {
         parseMinusTerm(iss);
     }
     else {
@@ -70,7 +70,7 @@ Symsptr Sum::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symspt
         return answer;
     }
     auto newTerms = std::make_shared<std::vector<Symsptr>>();
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto newTerm = term->expandUntil(term, set);
         if (newTerm->isSum()) {
             newTerms->insert(newTerms->end(), newTerm->getTerms()->begin(), newTerm->getTerms()->end());
@@ -103,7 +103,7 @@ Symsptr Sum::simplifyUntil(Symsptr, std::shared_ptr<std::unordered_set<Symsptr>>
     }
     auto newTerms = std::make_shared<std::vector<Symsptr>>();
     double constant = 0.0;
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto newTerm = term->simplifyUntil(term, set);
         if (newTerm->isConstant()) {
             constant += term->getValue();
@@ -146,7 +146,7 @@ Symsptr Sum::clonesptr()
 Symsptr Sum::differentiateWRT(Symsptr var)
 {
     auto derivatives = std::make_shared<std::vector<Symsptr>>();
-    for (const auto& term : *terms) {
+    for (const auto term : *terms) {
         auto deriv = term->differentiateWRT(var);
         derivatives->push_back(deriv);
     }

@@ -34,6 +34,7 @@ void AngleZConstraintIqcJqc::calc_ppGpEJpEJ()
 
 void AngleZConstraintIqcJqc::calcPostDynCorrectorIteration()
 {
+    //aG = thezIeJe - C
     AngleZConstraintIqcJc::calcPostDynCorrectorIteration();
     this->calc_pGpEJ();
     this->calc_ppGpEIpEJ();

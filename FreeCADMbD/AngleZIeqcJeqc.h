@@ -16,8 +16,8 @@ namespace MbD {
     {
         //pthezpEJ ppthezpEIpEJ ppthezpEJpEJ 
     public:
-		AngleZIeqcJeqc() {}
-		AngleZIeqcJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZIeqcJec(frmi, frmj) {}
+        AngleZIeqcJeqc() {}
+        AngleZIeqcJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZIeqcJec(frmi, frmj) {}
         static std::shared_ptr<AngleZIeqcJeqc> With();
         static std::shared_ptr<AngleZIeqcJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;

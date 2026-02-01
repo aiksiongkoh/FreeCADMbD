@@ -158,7 +158,9 @@ void MBDynInitialValue::createASMT()
         timeStep *= nstep;
     }
     simulationParameters->sethout(timeStep);
-    simulationParameters->seterrorTol(std::min(1.0e-8, tolerance));    //FreeCADMbD needs a tighter tolerance
+    //Kinematics needs errorTol = 1.0e-6 
+    //Dynamics needs errorTol = 1.0e-8
+    simulationParameters->seterrorTol(std::min(1.0e-8, tolerance));
     simulationParameters->setmaxIter(maxIterations);
     asmtAssembly()->setSimulationParameters(simulationParameters);
 }

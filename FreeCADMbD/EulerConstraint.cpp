@@ -39,7 +39,7 @@ void EulerConstraint::initialize()
 
 void EulerConstraint::calcPostDynCorrectorIteration()
 {
-    auto& qE = static_cast<PartFrame*>(owner)->qE;
+    auto qE = static_cast<PartFrame*>(owner)->qE;
     aG = qE->sumOfSquares() - 1.0;
     for (size_t i = 0; i < 4; i++)
     {

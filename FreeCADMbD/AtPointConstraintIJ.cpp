@@ -9,8 +9,12 @@
 //#include "AtPointConstraintIJ.h"
 //#include "AtPointConstraintIqcJqc.h"
 #include "AtPointConstraintIqctJqc.h"
+#include "AtPointConstraintIctJqc.h"
 #include "DispCompIecJecO.h"
 #include "EndFrameqct.h"
+#include "EndFrameqc.h"
+#include "EndFramect.h"
+#include "EndFramec.h"
 
 using namespace MbD;
 
@@ -18,11 +22,62 @@ std::shared_ptr<AtPointConstraintIJ> AtPointConstraintIJ::With(EndFrmsptr frmi, 
 {
     std::shared_ptr<AtPointConstraintIJ> inst;
     if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        inst = std::make_shared<AtPointConstraintIqctJqc>(frmi, frmj, axisO);
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AtPointConstraintIqctJqc>(frmi, frmj, axisO);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
     }
-    else {
-        inst = std::make_shared<AtPointConstraintIqcJqc>(frmi, frmj, axisO);
+    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AtPointConstraintIqcJqc>(frmi, frmj, axisO);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            inst = std::make_shared<AtPointConstraintIqcJc>(frmi, frmj, axisO);
+        }
     }
+    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AtPointConstraintIctJqc>(frmi, frmj, axisO);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+            inst = std::make_shared<AtPointConstraintIcJqc>(frmi, frmj, axisO);
+        }
+        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    assert(inst);
     inst->initialize();
     return inst;
 }
@@ -56,7 +111,9 @@ void AtPointConstraintIJ::postInput()
 
 void AtPointConstraintIJ::calcPostDynCorrectorIteration()
 {
-    aG = riIeJeO->riIeJeO - aConstant;
+    //riIeJeO = rOJeO - rOIeO;
+    //aG = riIeJeO - C;
+    aG = riIeJeO->value() - aConstant;
 }
 
 void AtPointConstraintIJ::prePosIC()

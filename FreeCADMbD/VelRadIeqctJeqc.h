@@ -16,7 +16,7 @@ namespace MbD {
         //
     public:
         VelRadIeqctJeqc() {}
-		VelRadIeqctJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : VelRadIeqcJeqc(frmi, frmj) {}
+        VelRadIeqctJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : VelRadIeqcJeqc(frmi, frmj) {}
         static std::shared_ptr<VelRadIeqctJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
     };

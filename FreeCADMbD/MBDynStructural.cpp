@@ -1,14 +1,15 @@
 #include "MBDynStructural.h"
+#include "MBDynReference.h"
+#include "MBDynStructuralDummy.h"
+#include "MBDynStructuralDynamic.h"
+#include "MBDynStructuralStatic.h"
+#include "ASMTPart.h"
+#include "ASMTAssembly.h"
+#include "ASMTMarkerTemp.h"
 #include "SymbolicParser.h"
 #include "BasicUserFunction.h"
 #include "EulerAngles.h"
 #include "Constant.h"
-#include "MBDynReference.h"
-#include "ASMTPart.h"
-#include "ASMTAssembly.h"
-#include "MBDynStructuralDummy.h"
-#include "MBDynStructuralDynamic.h"
-#include "MBDynStructuralStatic.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -49,10 +50,10 @@ void MBDynStructural::readPosition(std::vector<std::string>& args)
     if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
         baseRefName = readStringNoSpacesOffTop(args);
-        auto& ref = mbdynReferences()->at(baseRefName);
+        auto ref = mbdynReferences()->at(baseRefName);
         auto rFfF = readBasicPosition(args);
-        auto& rOFO = ref->rFfF;
-        auto& aAOF = ref->aAFf;
+        auto rOFO = ref->rFfF;
+        auto aAOF = ref->aAFf;
         rOfO = rOFO->plusFullColumn(aAOF->timesFullColumn(rFfF));
     }
     else if (args[0].find("null") != std::string::npos) {
@@ -70,9 +71,9 @@ void MBDynStructural::readOrientation(std::vector<std::string>& args)
     if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
         assert(baseRefName == readStringNoSpacesOffTop(args));
-        auto& ref = mbdynReferences()->at(baseRefName);
+        auto ref = mbdynReferences()->at(baseRefName);
         auto aAFf = readBasicOrientation(args);
-        auto& aAOF = ref->aAFf;
+        auto aAOF = ref->aAFf;
         aAOf = aAOF->timesFullMatrix(aAFf);
     }
     else if (args[0].find("position") != std::string::npos) {

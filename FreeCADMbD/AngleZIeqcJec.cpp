@@ -10,16 +10,16 @@
 
 using namespace MbD;
 
-std::shared_ptr<AngleZIeqcJec> AngleZIeqcJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<AngleZIeqcJec> AngleZIeqcJec::With()
 {
-    auto inst = std::make_shared<AngleZIeqcJec>(frmi, frmj);
+    auto inst = std::make_shared<AngleZIeqcJec>();
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<AngleZIeqcJec> AngleZIeqcJec::With()
+std::shared_ptr<AngleZIeqcJec> AngleZIeqcJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    auto inst = std::make_shared<AngleZIeqcJec>();
+    auto inst = std::make_shared<AngleZIeqcJec>(frmi, frmj);
     inst->initialize();
     return inst;
 }
@@ -33,6 +33,8 @@ void AngleZIeqcJec::initialize()
 
 void AngleZIeqcJec::calcPostDynCorrectorIteration()
 {
+    //thezIeJe = atan2(sthez, cthez)
+    //thezIeJe = atan2(aA10IeJe, aA00IeJe)
     AngleZIecJec::calcPostDynCorrectorIteration();
     pcthezpEI = aA00IeJe->pvaluepEI();
     psthezpEI = aA10IeJe->pvaluepEI();
@@ -44,9 +46,9 @@ void AngleZIeqcJec::calcPostDynCorrectorIteration()
     }
     for (size_t i = 0; i < 4; i++)
     {
-        auto& ppthezpEIpEIi = ppthezpEIpEI->at(i);
-        auto& ppcthezpEIpEIi = ppcthezpEIpEI->at(i);
-        auto& ppsthezpEIpEIi = ppsthezpEIpEI->at(i);
+        auto ppthezpEIpEIi = ppthezpEIpEI->at(i);
+        auto ppcthezpEIpEIi = ppcthezpEIpEI->at(i);
+        auto ppsthezpEIpEIi = ppsthezpEIpEI->at(i);
         auto pcthezpEIi = pcthezpEI->at(i);
         auto psthezpEIi = psthezpEI->at(i);
         auto term1 = (pcthezpEIi * pcthezpEIi - (psthezpEIi * psthezpEIi)) * twoCosSinOverSSqSq;

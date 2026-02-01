@@ -375,7 +375,7 @@ Assembly
 		hout
 			0.04 
 		errorTol
-			1.0e-6
+			1.0e-8
 	AnimationParameters
 		nframe
 			26

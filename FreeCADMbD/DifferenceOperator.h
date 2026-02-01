@@ -19,8 +19,9 @@ namespace MbD {
         //iStep order taylorMatrix operatorMatrix time timeNodes 
     public:
         //virtual ~DifferenceOperator() {}
-        virtual void initialize();
-        
+        static void noop();
+
+        virtual void initialize();        
         void calcOperatorMatrix();
         virtual void initializeLocally();
         virtual void setiStep(size_t i);
@@ -38,7 +39,6 @@ namespace MbD {
         FColDsptr valueWith(std::shared_ptr<std::vector<FColDsptr>> ypast);
         FColDsptr derivativewith(size_t deriv, std::shared_ptr<std::vector<FColDsptr>> series) const;
         virtual FColDsptr derivativeatpresentpast(size_t n, double t, FColDsptr y, std::shared_ptr<std::vector<FColDsptr>> ypast);
-        void noop();
 
         size_t iStep = 0, order = 0;
         FMatDsptr taylorMatrix, operatorMatrix;
