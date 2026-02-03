@@ -17,28 +17,28 @@ void AngleZConstraintIqcJqc::initthezIeJe()
     thezIeJe = std::make_shared<AngleZIeqcJeqc>(eFrmI, eFrmJ);
 }
 
-void AngleZConstraintIqcJqc::calc_pGpEJ()
+void AngleZConstraintIqcJqc::calcpGpEJ()
 {
     pGpEJ = thezIeJe->pvaluepEJ();
 }
 
-void AngleZConstraintIqcJqc::calc_ppGpEIpEJ()
+void AngleZConstraintIqcJqc::calcppGpEIpEJ()
 {
     ppGpEIpEJ = thezIeJe->ppvaluepEIpEJ();
 }
 
-void AngleZConstraintIqcJqc::calc_ppGpEJpEJ()
+void AngleZConstraintIqcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = thezIeJe->ppvaluepEJpEJ();
 }
 
-void AngleZConstraintIqcJqc::calcPostDynCorrectorIteration()
+void AngleZConstraintIqcJqc::simUpdateAll()
 {
     //aG = thezIeJe - C
-    AngleZConstraintIqcJc::calcPostDynCorrectorIteration();
-    this->calc_pGpEJ();
-    this->calc_ppGpEIpEJ();
-    this->calc_ppGpEJpEJ();
+    AngleZConstraintIqcJc::simUpdateAll();
+    this->calcpGpEJ();
+    this->calcppGpEIpEJ();
+    this->calcppGpEJpEJ();
 }
 
 void AngleZConstraintIqcJqc::fillAccICIterError(FColDsptr col)

@@ -28,7 +28,7 @@ void DispCompIeqctJeqcKeqct::preVelIC()
     priIeJeKept += aAjOKe->dot(prIeJeOpt);
 }
 
-void DispCompIeqctJeqcKeqct::calcPostDynCorrectorIteration()
+void DispCompIeqctJeqcKeqct::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO

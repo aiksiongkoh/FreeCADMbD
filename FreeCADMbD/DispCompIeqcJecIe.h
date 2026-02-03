@@ -20,11 +20,11 @@ namespace MbD {
         static std::shared_ptr<DispCompIeqcJecIe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         void initialize() override;
 
-        void calc_ppvaluepEIpEI() override;
-        void calc_ppvaluepXIpEI() override;
-        void calc_pvaluepEI() override;
-        void calc_pvaluepXI() override;
-        void calcPostDynCorrectorIteration() override;
+        void calcppvaluepEIpEI() override;
+        void calcppvaluepXIpEI() override;
+        void calcpvaluepEI() override;
+        void calcpvaluepXI() override;
+        void simUpdateAll() override;
         void initializeGlobally() override;
         FMatDsptr ppvaluepEIpEI() override;
         FMatDsptr ppvaluepXIpEI() override;

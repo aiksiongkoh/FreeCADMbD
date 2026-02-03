@@ -20,7 +20,7 @@ namespace MbD {
 
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void initriIeJeIe() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;

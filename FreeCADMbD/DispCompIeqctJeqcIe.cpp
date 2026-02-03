@@ -27,7 +27,7 @@ void DispCompIeqctJeqcIe::initialize()
     ppriIeJeIepEJpt = FullRow<double>::With(4);
 }
 
-void DispCompIeqctJeqcIe::calc_ppvaluepEIpt()
+void DispCompIeqctJeqcIe::calcppvaluepEIpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -46,7 +46,7 @@ void DispCompIeqctJeqcIe::calc_ppvaluepEIpt()
     }
 }
 
-void DispCompIeqctJeqcIe::calc_ppvaluepEJpt()
+void DispCompIeqctJeqcIe::calcppvaluepEJpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto frmJeqct = std::static_pointer_cast<EndFrameqct>(eFrmJ);
@@ -58,7 +58,7 @@ void DispCompIeqctJeqcIe::calc_ppvaluepEJpt()
     }
 }
 
-void DispCompIeqctJeqcIe::calc_ppvalueptpt()
+void DispCompIeqctJeqcIe::calcppvalueptpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -68,7 +68,7 @@ void DispCompIeqctJeqcIe::calc_ppvalueptpt()
     ppriIeJeIeptpt = ppAjOIeptpt->dot(rIeJeO) - pAjOIept->dot(mprIeJeOpt) - pAjOIept->dot(mprIeJeOpt) - aAjOIe->dot(mpprIeJeOptpt);
 }
 
-void DispCompIeqctJeqcIe::calc_ppvaluepXIpt()
+void DispCompIeqctJeqcIe::calcppvaluepXIpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -78,7 +78,7 @@ void DispCompIeqctJeqcIe::calc_ppvaluepXIpt()
     }
 }
 
-void DispCompIeqctJeqcIe::calc_ppvaluepXJpt()
+void DispCompIeqctJeqcIe::calcppvaluepXJpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -88,7 +88,7 @@ void DispCompIeqctJeqcIe::calc_ppvaluepXJpt()
     }
 }
 
-void DispCompIeqctJeqcIe::calc_pvaluept()
+void DispCompIeqctJeqcIe::calcpvaluept()
 {
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -96,7 +96,7 @@ void DispCompIeqctJeqcIe::calc_pvaluept()
     priIeJeIept = pAjOIept->dot(rIeJeO) - aAjOIe->dot(mprIeJeOpt);
 }
 
-void DispCompIeqctJeqcIe::calcPostDynCorrectorIteration()
+void DispCompIeqctJeqcIe::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeIe = aAIeO * rIeJeO
@@ -104,7 +104,7 @@ void DispCompIeqctJeqcIe::calcPostDynCorrectorIteration()
     //"ppAjOIepEIpEI is not longer constant and must be set before any calculation."
     auto frmIeqct = std::static_pointer_cast<EndFrameqct>(eFrmI);
     ppAjOIepEIpEI = frmIeqct->ppAjOepEpE(axis);
-    DispCompIeqcJeqcIe::calcPostDynCorrectorIteration();
+    DispCompIeqcJeqcIe::simUpdateAll();
 }
 
 void DispCompIeqctJeqcIe::initializeGlobally()
@@ -115,17 +115,17 @@ void DispCompIeqctJeqcIe::initializeGlobally()
 void DispCompIeqctJeqcIe::preAccIC()
 {
     DispCompIeqcJeqcIe::preAccIC();
-    calc_ppvaluepXIpt();
-    calc_ppvaluepEIpt();
-    calc_ppvaluepXJpt();
-    calc_ppvaluepEJpt();
-    calc_ppvalueptpt();
+    calcppvaluepXIpt();
+    calcppvaluepEIpt();
+    calcppvaluepXJpt();
+    calcppvaluepEJpt();
+    calcppvalueptpt();
 }
 
 void DispCompIeqctJeqcIe::preVelIC()
 {
     DispCompIeqcJeqcIe::preVelIC();
-    calc_pvaluept();
+    calcpvaluept();
 }
 
 FRowDsptr DispCompIeqctJeqcIe::ppvaluepEIpt()

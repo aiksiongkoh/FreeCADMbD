@@ -40,10 +40,10 @@ FRowDsptr DirectionCosineIeqcJec::pvaluepEI()
     return pAijIeJepEI;
 }
 
-void DirectionCosineIeqcJec::calcPostDynCorrectorIteration()
+void DirectionCosineIeqcJec::simUpdateAll()
 {
     //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
-    DirectionCosineIecJec::calcPostDynCorrectorIteration();
+    DirectionCosineIecJec::simUpdateAll();
     pAjOIepEIT = std::static_pointer_cast<EndFrameqc>(eFrmI)->pAjOepET(axisI);
     for (size_t i = 0; i < 4; i++)
     {

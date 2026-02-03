@@ -63,34 +63,34 @@ void RackPinConstraintIqcJc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void RackPinConstraintIqcJc::calc_pGpEI()
+void RackPinConstraintIqcJc::calcpGpEI()
 {
     pGpEI = xIeJeIe->pvaluepEI()->plusFullRow(thezIeJe->pvaluepEI()->times(pitchRadius));
 }
 
-void RackPinConstraintIqcJc::calc_pGpXI()
+void RackPinConstraintIqcJc::calcpGpXI()
 {
     pGpXI = xIeJeIe->pvaluepXI();
 }
 
-void RackPinConstraintIqcJc::calc_ppGpEIpEI()
+void RackPinConstraintIqcJc::calcppGpEIpEI()
 {
     ppGpEIpEI = xIeJeIe->ppvaluepEIpEI()
             ->plusFullMatrix(thezIeJe->ppvaluepEIpEI()->times(pitchRadius));
 }
 
-void RackPinConstraintIqcJc::calc_ppGpXIpEI()
+void RackPinConstraintIqcJc::calcppGpXIpEI()
 {
     ppGpXIpEI = xIeJeIe->ppvaluepXIpEI();
 }
 
-void RackPinConstraintIqcJc::calcPostDynCorrectorIteration()
+void RackPinConstraintIqcJc::simUpdateAll()
 {
-    RackPinConstraintIJ::calcPostDynCorrectorIteration();
-    calc_pGpXI();
-    calc_pGpEI();
-    calc_ppGpXIpEI();
-    calc_ppGpEIpEI();
+    RackPinConstraintIJ::simUpdateAll();
+    calcpGpXI();
+    calcpGpEI();
+    calcppGpXIpEI();
+    calcppGpEIpEI();
 }
 
 void RackPinConstraintIqcJc::fillAccICIterError(FColDsptr col)

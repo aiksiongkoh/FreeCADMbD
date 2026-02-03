@@ -27,7 +27,7 @@ void DispCompIecJeqcIe::initialize()
     ppriIeJeIepEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void DispCompIecJeqcIe::calc_ppvaluepEJpEJ()
+void DispCompIecJeqcIe::calcppvaluepEJpEJ()
 {
     auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto mprIeJeOpEJT = frmIeqc->prOeOpE->transpose();
@@ -49,7 +49,7 @@ void DispCompIecJeqcIe::calc_ppvaluepEJpEJ()
     ppriIeJeIepEJpEJ->symLowerWithUpper();
 }
 
-void DispCompIecJeqcIe::calc_ppvaluepXJpEJ()
+void DispCompIecJeqcIe::calcppvaluepXJpEJ()
 {
     for (size_t i = 0; i < 3; i++)
     {
@@ -61,7 +61,7 @@ void DispCompIecJeqcIe::calc_ppvaluepXJpEJ()
     }
 }
 
-void DispCompIecJeqcIe::calc_pvaluepEJ()
+void DispCompIecJeqcIe::calcpvaluepEJ()
 {
     auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
     pAjOIepEJT = frmIeqc->pAjOepET(axis);
@@ -72,7 +72,7 @@ void DispCompIecJeqcIe::calc_pvaluepEJ()
     }
 }
 
-void DispCompIecJeqcIe::calc_pvaluepXJ()
+void DispCompIecJeqcIe::calcpvaluepXJ()
 {
     for (size_t i = 0; i < 3; i++)
     {
@@ -80,17 +80,17 @@ void DispCompIecJeqcIe::calc_pvaluepXJ()
     }
 }
 
-void DispCompIecJeqcIe::calcPostDynCorrectorIteration()
+void DispCompIecJeqcIe::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeIe = aAIeO * rIeJeO
     //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
-    //Must maintain order of calc_xxx.
-    DispCompIecJecIe::calcPostDynCorrectorIteration();
-    calc_pvaluepXJ();
-    calc_pvaluepEJ();
-    calc_ppvaluepXJpEJ();
-    calc_ppvaluepEJpEJ();
+    //Must maintain order of calcxxx.
+    DispCompIecJecIe::simUpdateAll();
+    calcpvaluepXJ();
+    calcpvaluepEJ();
+    calcppvaluepXJpEJ();
+    calcppvaluepEJpEJ();
 }
 
 void DispCompIecJeqcIe::initializeGlobally()

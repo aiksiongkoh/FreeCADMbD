@@ -31,11 +31,11 @@ void AngleZIeqcJec::initialize()
     ppthezpEIpEI = FullMatrix<double>::With(4, 4);
 }
 
-void AngleZIeqcJec::calcPostDynCorrectorIteration()
+void AngleZIeqcJec::simUpdateAll()
 {
     //thezIeJe = atan2(sthez, cthez)
     //thezIeJe = atan2(aA10IeJe, aA00IeJe)
-    AngleZIecJec::calcPostDynCorrectorIteration();
+    AngleZIecJec::simUpdateAll();
     pcthezpEI = aA00IeJe->pvaluepEI();
     psthezpEI = aA10IeJe->pvaluepEI();
     auto ppcthezpEIpEI = aA00IeJe->ppvaluepEIpEI();

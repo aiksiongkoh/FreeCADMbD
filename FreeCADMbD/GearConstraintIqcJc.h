@@ -20,12 +20,12 @@ namespace MbD {
 
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
-        void calc_pGpEI();
-        void calc_pGpXI();
-        void calc_ppGpEIpEI();
-        void calc_ppGpXIpEI();
-        void calc_ppGpXIpXI();
-        void calcPostDynCorrectorIteration() override;
+        void calcpGpEI();
+        void calcpGpXI();
+        void calcppGpEIpEI();
+        void calcppGpXIpEI();
+        void calcppGpXIpXI();
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

@@ -141,11 +141,11 @@ void EndFrameqct::postInput()
     Item::postInput();
 }
 
-void EndFrameqct::calcPostDynCorrectorIteration()
+void EndFrameqct::simUpdateAll()
 {
     //rOeO = rOmO + aAOm*rmem(t)
     //aAOe = aAOm*aAme(t);
-    EndFrameqc::calcPostDynCorrectorIteration();
+    EndFrameqc::simUpdateAll();
     auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
     auto rOmO = markerFrame->rOmO;
     auto aAOm = markerFrame->aAOm;

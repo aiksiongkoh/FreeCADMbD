@@ -39,7 +39,7 @@ namespace MbD {
         void setaApm(FMatDsptr mat) const;
         virtual FMatDsptr aBOp() const;
         virtual FColDsptr aOmO() const;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void fillqsu(FColDsptr col) override;
@@ -97,7 +97,6 @@ namespace MbD {
         void setqsudotPlam(FColDsptr col) override;
         void setqsudotPlamDeriv(FColDsptr col) override;
         void setqsulam(FColDsptr col) override;
-        void simUpdateAll() override;
         void storeDynState() override;
         virtual FColDsptr vOmO() const;
         FColDsptr vOeO_of_rmem() const;

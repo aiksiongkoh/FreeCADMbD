@@ -40,7 +40,6 @@ namespace MbD {
         void preAccIC();
         void preDynOutput();
         void preStatic();
-        void simUpdateAll();
         void useEquationNumbers();
         FRowDsptr pvaluepX(SpatialContainerFrame* partFrame);
         FRowDsptr pvaluepE(SpatialContainerFrame* partFrame);

@@ -40,9 +40,9 @@ FRowDsptr DispCompIeqcJecO::pvaluepXI()
     return priIeJeOpXI;
 }
 
-void DispCompIeqcJecO::calcPostDynCorrectorIteration()
+void DispCompIeqcJecO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
-    DispCompIecJecO::calcPostDynCorrectorIteration();
+    DispCompIecJecO::simUpdateAll();
     priIeJeOpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->priOeOpE(axis)->negated();
 }

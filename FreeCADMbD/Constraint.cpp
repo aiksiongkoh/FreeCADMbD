@@ -43,39 +43,6 @@ void Constraint::prePosKine()
     lam = lamOld;
 }
 
-void Constraint::fillEssenConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
-{
-    if (type() == essential) {
-        essenConstraints->push_back(sptr);
-    }
-}
-
-void Constraint::fillDispConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
-{
-    if (type() == displacement) {
-        dispConstraints->push_back(sptr);
-    }
-}
-
-void Constraint::fillPerpenConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
-{
-    if (type() == perpendicular) {
-        perpenConstraints->push_back(sptr);
-    }
-}
-
-void Constraint::fillRedundantConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
-{
-    if (type() == redundant) {
-        redunConstraints->push_back(sptr);
-    }
-}
-
-void Constraint::fillConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
-{
-    allConstraints->push_back(sptr);
-}
-
 ConstraintType Constraint::type()
 {
     return essential;
@@ -186,46 +153,50 @@ void Constraint::setqsuddotlam(FColDsptr col)
     lam = col->at(iG);
 }
 
-void Constraint::addToJointForceI(FColDsptr col)
+void Constraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) {
+    allConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+}
+
+void Constraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) {
+    if (type() == redundant) {
+        redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+    }
+}
+
+void Constraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) {
+    if (type() == displacement) {
+        dispConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+    }
+}
+
+void Constraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) {
+    if (type() == essential) {
+        essenConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+    }
+}
+
+void Constraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) {
+    if (type() == perpendicular) {
+        perpenConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+    }
+}
+
+void MbD::Constraint::addToJointForceI(FColDsptr col)
 {
-    //aFIeO = lam * pGpXI
-    //Do nothing.
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void Constraint::addToJointTorqueI(FColDsptr col)
 {
-    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     throw SimulationStoppingError("To be implemented.");
 }
 
 void Constraint::addToJointForceJ(FColDsptr col)
 {
-    //aFJeO = lam * pGpXJ
     throw SimulationStoppingError("To be implemented.");
 }
 
 void Constraint::addToJointTorqueJ(FColDsptr col)
 {
-    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
     throw SimulationStoppingError("To be implemented.");
-}
-
-void Constraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) {
-    Item::fillConstraints(allConstraints);
-}
-
-void Constraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) {
-    Item::fillRedundantConstraints(redunConstraints);
-}
-
-void Constraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) {
-    Item::fillDispConstraints(dispConstraints);
-}
-
-void Constraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) {
-    Item::fillEssenConstraints(essenConstraints);
-}
-
-void Constraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) {
-    Item::fillPerpenConstraints(perpenConstraints);
 }

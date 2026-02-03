@@ -29,7 +29,7 @@ void ConstVelConstraintIJ::initialize()
     initA10IeJe();
 }
 
-void ConstVelConstraintIJ::calcPostDynCorrectorIteration()
+void ConstVelConstraintIJ::simUpdateAll()
 {
     //aG = aA01IeJe + aA10IeJe - aConstant;
     aG = aA01IeJe->aAijIeJe + aA10IeJe->aAijIeJe - aConstant;
@@ -90,13 +90,6 @@ void ConstVelConstraintIJ::preVelIC()
     aA01IeJe->preVelIC();
     aA10IeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void ConstVelConstraintIJ::simUpdateAll()
-{
-    aA01IeJe->simUpdateAll();
-    aA10IeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 void ConstVelConstraintIJ::postDynPredictor()

@@ -38,15 +38,15 @@ void ForceTorqueGeneral::initialize()
     }
 }
 
-void ForceTorqueGeneral::calcPostDynCorrectorIteration()
+void ForceTorqueGeneral::simUpdateAll()
 {
     //Order of functions matters here.
-    for (const auto func : *forceFunctions) func->calcPostDynCorrectorIteration();
-    for (const auto func : *torqueFunctions) func->calcPostDynCorrectorIteration();
+    for (const auto func : *forceFunctions) func->simUpdateAll();
+    for (const auto func : *torqueFunctions) func->simUpdateAll();
     calcaFIeKe();
     calcaTIeKe();
     aAOKe = eFrmK->aAOe;
-    ForceTorqueIJ::calcPostDynCorrectorIteration();
+    ForceTorqueIJ::simUpdateAll();
     calcpFIeOpEK();
     calcpFJeOpEK();
     calcpTIeOpEK();
@@ -178,11 +178,6 @@ void ForceTorqueGeneral::preDynOutput()
 }
 
 void ForceTorqueGeneral::preStatic()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void ForceTorqueGeneral::simUpdateAll()
 {
     throw SimulationStoppingError("To be implemented.");
 }

@@ -19,19 +19,19 @@ std::shared_ptr<DistancexyConstraintIqcJqc> DistancexyConstraintIqcJqc::With(End
     return inst;
 }
 
-void DistancexyConstraintIqcJqc::calc_pGpXJ()
+void DistancexyConstraintIqcJqc::calcpGpXJ()
 {
     pGpXJ = (xIeJeIe->pvaluepXJ()->times(xIeJeIe->value())->plusFullRow(yIeJeIe->pvaluepXJ()->times(yIeJeIe->value())));
     pGpXJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_pGpEJ()
+void DistancexyConstraintIqcJqc::calcpGpEJ()
 {
     pGpEJ = (xIeJeIe->pvaluepEJ()->times(xIeJeIe->value())->plusFullRow(yIeJeIe->pvaluepEJ()->times(yIeJeIe->value())));
     pGpEJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpXIpXJ()
+void DistancexyConstraintIqcJqc::calcppGpXIpXJ()
 {
     //xIeJeIe ppvaluepXIpXJ = 0
     //yIeJeIe ppvaluepXIpXJ = 0
@@ -40,7 +40,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpXIpXJ()
     ppGpXIpXJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpEIpXJ()
+void DistancexyConstraintIqcJqc::calcppGpEIpXJ()
 {
     ppGpEIpXJ = (xIeJeIe->pvaluepEI()->transposeTimesFullRow(xIeJeIe->pvaluepXJ()));
     ppGpEIpXJ = ppGpEIpXJ->plusFullMatrix(xIeJeIe->ppvaluepEIpXJ()->times(xIeJeIe->value()));
@@ -49,7 +49,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpEIpXJ()
     ppGpEIpXJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpXJpXJ()
+void DistancexyConstraintIqcJqc::calcppGpXJpXJ()
 {
     //xIeJeIe ppvaluepXJpXJ = 0
     //yIeJeIe ppvaluepXJpXJ = 0
@@ -58,7 +58,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpXJpXJ()
     ppGpXJpXJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpXIpEJ()
+void DistancexyConstraintIqcJqc::calcppGpXIpEJ()
 {
     //xIeJeIe ppvaluepXIpEJ = 0
     //yIeJeIe ppvaluepXIpEJ = 0
@@ -67,7 +67,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpXIpEJ()
     ppGpXIpEJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpEIpEJ()
+void DistancexyConstraintIqcJqc::calcppGpEIpEJ()
 {
     ppGpEIpEJ = (xIeJeIe->pvaluepEI()->transposeTimesFullRow(xIeJeIe->pvaluepEJ()));
     ppGpEIpEJ = ppGpEIpEJ->plusFullMatrix(xIeJeIe->ppvaluepEIpEJ()->times(xIeJeIe->value()));
@@ -76,7 +76,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpEIpEJ()
     ppGpEIpEJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpXJpEJ()
+void DistancexyConstraintIqcJqc::calcppGpXJpEJ()
 {
     //xIeJeIe ppvaluepXJpEJ = 0
     //yIeJeIe ppvaluepXJpEJ = 0
@@ -85,7 +85,7 @@ void DistancexyConstraintIqcJqc::calc_ppGpXJpEJ()
     ppGpXJpEJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calc_ppGpEJpEJ()
+void DistancexyConstraintIqcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = (xIeJeIe->pvaluepEJ()->transposeTimesFullRow(xIeJeIe->pvaluepEJ()));
     ppGpEJpEJ = ppGpEJpEJ->plusFullMatrix(xIeJeIe->ppvaluepEJpEJ()->times(xIeJeIe->value()));
@@ -94,19 +94,19 @@ void DistancexyConstraintIqcJqc::calc_ppGpEJpEJ()
     ppGpEJpEJ->magnifySelf(2.0);
 }
 
-void DistancexyConstraintIqcJqc::calcPostDynCorrectorIteration()
+void DistancexyConstraintIqcJqc::simUpdateAll()
 {
     //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
-    DistancexyConstraintIqcJc::calcPostDynCorrectorIteration();
-    calc_pGpXJ();
-    calc_pGpEJ();
-    calc_ppGpXIpXJ();
-    calc_ppGpEIpXJ();
-    calc_ppGpXJpXJ();
-    calc_ppGpXIpEJ();
-    calc_ppGpEIpEJ();
-    calc_ppGpXJpEJ();
-    calc_ppGpEJpEJ();
+    DistancexyConstraintIqcJc::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpXIpXJ();
+    calcppGpEIpXJ();
+    calcppGpXJpXJ();
+    calcppGpXIpEJ();
+    calcppGpEIpEJ();
+    calcppGpXJpEJ();
+    calcppGpEJpEJ();
 }
 
 void DistancexyConstraintIqcJqc::fillAccICIterError(FColDsptr col)

@@ -14,7 +14,7 @@ namespace MbD {
         static std::shared_ptr<OmeCompIecJeqcKec> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         FRowDsptr pvaluepEJ() override;
         FRowDsptr pvaluepEdotJ() override;
 

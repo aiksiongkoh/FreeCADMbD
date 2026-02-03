@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<TranslationConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) = 0;
         void addToJointTorqueI(FColDsptr col) = 0;
         void initializeGlobally() override;
@@ -31,7 +31,6 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC()override;
         void preVelIC() override;
-        void simUpdateAll() override;
         ConstraintType type() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;

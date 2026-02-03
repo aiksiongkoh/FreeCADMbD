@@ -20,12 +20,12 @@ namespace MbD {
         static std::shared_ptr<OrbitAngleZIeqcJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calc_ppthezpEIpEI();
-        void calc_ppthezpXIpEI();
-        void calc_ppthezpXIpXI();
-        void calc_pthezpEI();
-        void calc_pthezpXI();
-        void calcPostDynCorrectorIteration() override;
+        void calcppthezpEIpEI();
+        void calcppthezpXIpEI();
+        void calcppthezpXIpXI();
+        void calcpthezpEI();
+        void calcpthezpXI();
+        void simUpdateAll() override;
         void init_xyIeJeIe() override;
         FMatDsptr ppvaluepEIpEI() override;
         FMatDsptr ppvaluepXIpEI() override;

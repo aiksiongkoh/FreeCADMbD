@@ -41,7 +41,6 @@ void DifferenceOperator::calcOperatorMatrix()
     try {
         auto matrixSolver = std::make_shared<LDUFullMatParPvRobust>();
         operatorMatrix = matrixSolver->inversesaveOriginal(taylorMatrix, false);
-        noop();    //For Debug
     }
     catch (SingularMatrixError ex) {
         throw SimulationStoppingError("To be implemented.");

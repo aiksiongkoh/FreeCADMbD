@@ -28,7 +28,7 @@ void OrbitAngleZIecJec::initialize()
     init_xyIeJeIe();
 }
 
-void OrbitAngleZIecJec::calcPostDynCorrectorIteration()
+void OrbitAngleZIecJec::simUpdateAll()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -107,13 +107,6 @@ void OrbitAngleZIecJec::preVelIC()
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
     KinematicIJ::preVelIC();
-}
-
-void OrbitAngleZIecJec::simUpdateAll()
-{
-    xIeJeIe->simUpdateAll();
-    yIeJeIe->simUpdateAll();
-    KinematicIJ::simUpdateAll();
 }
 
 double OrbitAngleZIecJec::value()

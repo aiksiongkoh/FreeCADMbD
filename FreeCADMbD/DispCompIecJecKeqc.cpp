@@ -32,7 +32,7 @@ void DispCompIecJecKeqc::initializeGlobally()
     ppAjOKepEKpEK = std::static_pointer_cast<EndFrameqc>(efrmK)->ppAjOepEpE(axisK);
 }
 
-void DispCompIecJecKeqc::calcPostDynCorrectorIteration()
+void DispCompIecJecKeqc::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO

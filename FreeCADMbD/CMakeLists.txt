@@ -119,6 +119,7 @@ set(FREECADMBD_SRC
 		AtPointConstraintIqcJc.cpp
 		AtPointConstraintIqcJqc.cpp
 		AtPointConstraintIqctJqc.cpp
+		AtPointConstraintIeqJeq.cpp
 		AtPointJoint.cpp
 		BackwardDifference.cpp
 		BasicDAEIntegrator.cpp
@@ -133,6 +134,7 @@ set(FREECADMBD_SRC
 		ConstantGravity.cpp
 		ConstantVelocityJoint.cpp
 		Constraint.cpp
+		ConstraintIeJe.cpp
 		ConstraintIJ.cpp
 		ConstraintSet.cpp
 		ConstVelConstraintIJ.cpp
@@ -153,6 +155,7 @@ set(FREECADMBD_SRC
 		DifferenceOperator.cpp
 		DifferentialAlgebraicEquationSolver.cpp
 		DifferentiatedGeneralSpline.cpp
+		DirectionCosineConstraintIeqJeq.cpp
 		DirectionCosineConstraintIcJqc.cpp
 		DirectionCosineConstraintIctJqc.cpp
 		DirectionCosineConstraintIJ.cpp
@@ -574,6 +577,7 @@ set(FREECADMBD_HEADERS
 		AtPointConstraintIqcJc.h
 		AtPointConstraintIqcJqc.h
 		AtPointConstraintIqctJqc.h
+		AtPointConstraintIeqJeq.h
 		AtPointJoint.h
 		BackwardDifference.h
 		BasicDAEIntegrator.h
@@ -588,6 +592,7 @@ set(FREECADMBD_HEADERS
 		ConstantGravity.h
 		ConstantVelocityJoint.h
 		Constraint.h
+		ConstraintIeJe.h
 		ConstraintIJ.h
 		ConstraintSet.h
 		ConstVelConstraintIJ.h
@@ -608,6 +613,7 @@ set(FREECADMBD_HEADERS
 		DifferenceOperator.h
 		DifferentialAlgebraicEquationSolver.h
 		DifferentiatedGeneralSpline.h
+		DirectionCosineConstraintIeqJeq.h
 		DirectionCosineConstraintIcJqc.h
 		DirectionCosineConstraintIctJqc.h
 		DirectionCosineConstraintIJ.h

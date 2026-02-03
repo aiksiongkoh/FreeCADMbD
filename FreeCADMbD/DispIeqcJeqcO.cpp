@@ -36,9 +36,9 @@ FMatDsptr MbD::DispIeqcJeqcO::getprIeJeOpEJ()
     return prIeJeOpEJ;
 }
 
-void DispIeqcJeqcO::calcPostDynCorrectorIteration()
+void DispIeqcJeqcO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
-    DispIeqcJecO::calcPostDynCorrectorIteration();
+    DispIeqcJecO::simUpdateAll();
     prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->prOeOpE;
 }

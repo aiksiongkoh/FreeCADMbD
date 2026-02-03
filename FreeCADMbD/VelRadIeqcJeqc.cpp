@@ -27,9 +27,9 @@ void VelRadIeqcJeqc::initialize()
     pvIeJepEdotJ = FullRow<double>::With(4);
 }
 
-void VelRadIeqcJeqc::calcPostDynCorrectorIteration()
+void VelRadIeqcJeqc::simUpdateAll()
 {
-    VelRadIeqcJec::calcPostDynCorrectorIteration();
+    VelRadIeqcJec::simUpdateAll();
     if (rIeJe == 0.0) return;
     auto efrmqcJ = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto prIeJeOpEJ = efrmqcJ->prOeOpE;

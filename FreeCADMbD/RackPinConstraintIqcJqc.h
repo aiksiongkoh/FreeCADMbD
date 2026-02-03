@@ -21,12 +21,12 @@ namespace MbD {
 
         void initxIeJeIe() override;
         void initthezIeJe() override;
-        void calc_pGpEJ();
-        void calc_pGpXJ();
-        void calc_ppGpEIpEJ();
-        void calc_ppGpEIpXJ();
-        void calc_ppGpEJpEJ();
-        void calcPostDynCorrectorIteration() override;
+        void calcpGpEJ();
+        void calcpGpXJ();
+        void calcppGpEIpEJ();
+        void calcppGpEIpXJ();
+        void calcppGpEJpEJ();
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

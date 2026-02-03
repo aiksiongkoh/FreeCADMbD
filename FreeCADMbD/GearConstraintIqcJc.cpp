@@ -43,39 +43,39 @@ void GearConstraintIqcJc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void GearConstraintIqcJc::calc_pGpEI()
+void GearConstraintIqcJc::calcpGpEI()
 {
     pGpEI = orbitJeIe->pvaluepEJ()->plusFullRow(orbitIeJe->pvaluepEI()->times(ratio()));
 }
 
-void GearConstraintIqcJc::calc_pGpXI()
+void GearConstraintIqcJc::calcpGpXI()
 {
     pGpXI = orbitJeIe->pvaluepXJ()->plusFullRow(orbitIeJe->pvaluepXI()->times(ratio()));
 }
 
-void GearConstraintIqcJc::calc_ppGpEIpEI()
+void GearConstraintIqcJc::calcppGpEIpEI()
 {
     ppGpEIpEI = orbitJeIe->ppvaluepEJpEJ()->plusFullMatrix(orbitIeJe->ppvaluepEIpEI()->times(ratio()));
 }
 
-void GearConstraintIqcJc::calc_ppGpXIpEI()
+void GearConstraintIqcJc::calcppGpXIpEI()
 {
     ppGpXIpEI = orbitJeIe->ppvaluepXJpEJ()->plusFullMatrix(orbitIeJe->ppvaluepXIpEI()->times(ratio()));
 }
 
-void GearConstraintIqcJc::calc_ppGpXIpXI()
+void GearConstraintIqcJc::calcppGpXIpXI()
 {
     ppGpXIpXI = orbitJeIe->ppvaluepXJpXJ()->plusFullMatrix(orbitIeJe->ppvaluepXIpXI()->times(ratio()));
 }
 
-void GearConstraintIqcJc::calcPostDynCorrectorIteration()
+void GearConstraintIqcJc::simUpdateAll()
 {
-    GearConstraintIJ::calcPostDynCorrectorIteration();
-    calc_pGpXI();
-    calc_pGpEI();
-    calc_ppGpXIpXI();
-    calc_ppGpXIpEI();
-    calc_ppGpEIpEI();
+    GearConstraintIJ::simUpdateAll();
+    calcpGpXI();
+    calcpGpEI();
+    calcppGpXIpXI();
+    calcppGpXIpEI();
+    calcppGpEIpEI();
 }
 
 void GearConstraintIqcJc::fillAccICIterError(FColDsptr col)

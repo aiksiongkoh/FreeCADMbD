@@ -11,7 +11,7 @@ std::shared_ptr<VelRadIecJec> VelRadIecJec::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void VelRadIecJec::calcPostDynCorrectorIteration()
+void VelRadIecJec::simUpdateAll()
 {
     rIeJeO = getrIeJeO();
     rIeJe = rIeJeO->length();

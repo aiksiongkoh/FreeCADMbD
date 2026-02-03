@@ -23,7 +23,7 @@ std::shared_ptr<AbsConstraint> AbsConstraint::With(size_t axis)
     return inst;
 }
 
-void AbsConstraint::calcPostDynCorrectorIteration()
+void AbsConstraint::simUpdateAll()
 {
     //qX = {0}
     //qE = {0}

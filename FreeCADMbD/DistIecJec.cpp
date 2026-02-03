@@ -82,7 +82,7 @@ std::shared_ptr<DistIecJec> DistIecJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
-void DistIecJec::calcPostDynCorrectorIteration()
+void DistIecJec::simUpdateAll()
 {
     //rIeJe = rIeJeO->length();
     rIeJeO = getrIeJeO();

@@ -27,10 +27,10 @@ void ConstVelConstraintIqcJqc::initialize()
     ppGpEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void ConstVelConstraintIqcJqc::calcPostDynCorrectorIteration()
+void ConstVelConstraintIqcJqc::simUpdateAll()
 {
     //aG = aA01IeJe + aA10IeJe - aConstant;
-    ConstVelConstraintIqcJc::calcPostDynCorrectorIteration();
+    ConstVelConstraintIqcJc::simUpdateAll();
     auto aA01IeqcJeqc = std::dynamic_pointer_cast<DirectionCosineIeqcJeqc>(aA01IeJe);
     auto pA01IeJepEJ = aA01IeqcJeqc->pAijIeJepEJ;
     auto ppA01IeJepEIpEJ = aA01IeqcJeqc->ppAijIeJepEIpEJ;

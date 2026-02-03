@@ -32,7 +32,7 @@ void OrbitAngleZIeqcJeqc::initialize()
     ppthezpEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpEIpEJ()
+void OrbitAngleZIeqcJeqc::calcppthezpEIpEJ()
 {
     auto pxpEI = xIeJeIe->pvaluepEI();
     auto pypEI = yIeJeIe->pvaluepEI();
@@ -59,7 +59,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpEIpEJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpEIpXJ()
+void OrbitAngleZIeqcJeqc::calcppthezpEIpXJ()
 {
     //ppxpEIpXJ = 0
     //ppypEIpXJ = 0
@@ -84,7 +84,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpEIpXJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpEJpEJ()
+void OrbitAngleZIeqcJeqc::calcppthezpEJpEJ()
 {
     auto pxpEJ = xIeJeIe->pvaluepEJ();
     auto pypEJ = yIeJeIe->pvaluepEJ();
@@ -111,7 +111,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpEJpEJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpXIpEJ()
+void OrbitAngleZIeqcJeqc::calcppthezpXIpEJ()
 {
     //ppxpXIpEJ = 0
     //ppypXIpEJ = 0
@@ -136,7 +136,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpXIpEJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpXIpXJ()
+void OrbitAngleZIeqcJeqc::calcppthezpXIpXJ()
 {
     //ppxpXIpXJ = 0
     //ppypXIpXJ = 0
@@ -161,7 +161,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpXIpXJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpXJpEJ()
+void OrbitAngleZIeqcJeqc::calcppthezpXJpEJ()
 {
     //ppxpXJpEJ = 0
     //ppypXJpEJ = 0
@@ -186,7 +186,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpXJpEJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_ppthezpXJpXJ()
+void OrbitAngleZIeqcJeqc::calcppthezpXJpXJ()
 {
     //ppxpXJpXJ = 0
     //ppypXJpXJ = 0
@@ -209,7 +209,7 @@ void OrbitAngleZIeqcJeqc::calc_ppthezpXJpXJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_pthezpEJ()
+void OrbitAngleZIeqcJeqc::calcpthezpEJ()
 {
     auto pxpEJ = xIeJeIe->pvaluepEJ();
     auto pypEJ = yIeJeIe->pvaluepEJ();
@@ -219,7 +219,7 @@ void OrbitAngleZIeqcJeqc::calc_pthezpEJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calc_pthezpXJ()
+void OrbitAngleZIeqcJeqc::calcpthezpXJ()
 {
     auto pxpXJ = xIeJeIe->pvaluepXJ();
     auto pypXJ = yIeJeIe->pvaluepXJ();
@@ -229,18 +229,18 @@ void OrbitAngleZIeqcJeqc::calc_pthezpXJ()
     }
 }
 
-void OrbitAngleZIeqcJeqc::calcPostDynCorrectorIteration()
+void OrbitAngleZIeqcJeqc::simUpdateAll()
 {
-    OrbitAngleZIeqcJec::calcPostDynCorrectorIteration();
-    calc_pthezpXJ();
-    calc_pthezpEJ();
-    calc_ppthezpXIpXJ();
-    calc_ppthezpXIpEJ();
-    calc_ppthezpEIpXJ();
-    calc_ppthezpEIpEJ();
-    calc_ppthezpXJpXJ();
-    calc_ppthezpXJpEJ();
-    calc_ppthezpEJpEJ();
+    OrbitAngleZIeqcJec::simUpdateAll();
+    calcpthezpXJ();
+    calcpthezpEJ();
+    calcppthezpXIpXJ();
+    calcppthezpXIpEJ();
+    calcppthezpEIpXJ();
+    calcppthezpEIpEJ();
+    calcppthezpXJpXJ();
+    calcppthezpXJpEJ();
+    calcppthezpEJpEJ();
 }
 
 void OrbitAngleZIeqcJeqc::init_xyIeJeIe()

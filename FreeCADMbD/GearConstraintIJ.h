@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<GearConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void initializeGlobally() override;
         void initializeLocally() override;
         virtual void initorbitsIJ();
@@ -30,7 +30,6 @@ namespace MbD {
         void prePosIC() override;
         void preVelIC() override;
         double ratio();
-        void simUpdateAll() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;

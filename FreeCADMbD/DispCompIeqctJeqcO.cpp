@@ -34,11 +34,11 @@ double DispCompIeqctJeqcO::ppvalueptpt()
     return ppriIeJeOptpt;
 }
 
-void DispCompIeqctJeqcO::calcPostDynCorrectorIteration()
+void DispCompIeqctJeqcO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //"ppriIeJeOpEIpEI is not a constant now."
-    DispCompIeqcJeqcO::calcPostDynCorrectorIteration();
+    DispCompIeqcJeqcO::simUpdateAll();
     ppriIeJeOpEIpEI = std::static_pointer_cast<EndFrameqct>(eFrmI)->ppriOeOpEpE(axis)->negated();
 }
 

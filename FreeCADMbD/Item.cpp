@@ -92,10 +92,10 @@ void Item::initializeLocally()
 void Item::postInput()
 {
     //Called once after input
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
-void Item::calcPostDynCorrectorIteration()
+void Item::simUpdateAll()
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -192,7 +192,7 @@ void Item::fillStaticJacob(SpMatDsptr mat)
 
 void Item::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
 {
-    noop(); throw SimulationStoppingError("To be implemented.");
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void Item::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
@@ -228,11 +228,6 @@ void Item::fillqsulam(FColDsptr)
 void Item::setqsulam(FColDsptr)
 {
     //Do nothing.
-}
-
-void Item::simUpdateAll()
-{
-    calcPostDynCorrectorIteration();
 }
 
 void Item::preDyn()
@@ -275,7 +270,7 @@ void Item::postDynCorrectorIteration()
     //"Called after the predictor stage in the dynamic solution."
     //"Update only instance variables dependent on p,q,s,u,mu,pdot,qdot,sdot,udot,mudot (lam) that are needed for the corrector stage."
 
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 std::string Item::classname()
@@ -294,7 +289,7 @@ void Item::preDynFirstStep()
 void Item::preDynOutput()
 {
     //"Calculate all instance variables just before output."
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::preDynPredictor()
@@ -310,7 +305,7 @@ void Item::postDynFirstStep()
 void Item::postDynOutput()
 {
     //"Calculate all instance variables just after output."
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::postDynPredictor()
@@ -323,7 +318,7 @@ void Item::postDynPredictor()
     //"Default is do nothing."
     //"updateInSimulation is the interface to the old system."
 
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::preDynStep()
@@ -381,7 +376,7 @@ void Item::preVelIC()
     //been calculated in postPosIC."
     //"Variables dependent on t are updated."
 
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::postVelIC()
@@ -441,7 +436,7 @@ void Item::setqsudotPlamDeriv(FColDsptr)
 
 void Item::preAccIC()
 {
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::preCollision()
@@ -635,7 +630,7 @@ void Item::prePosIC()
     //"Update all variable dependent instance variables needed for posIC."
     //"This is a subset of update."
 
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::prePosKine()
@@ -655,7 +650,7 @@ void Item::postPosIC()
 
 void Item::postPosICIteration()
 {
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void Item::postStatic()

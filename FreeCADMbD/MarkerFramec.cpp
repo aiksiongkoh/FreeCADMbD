@@ -63,7 +63,7 @@ void MarkerFramec::postInput()
     endFramesDo([](EndFrmsptr endFrame) { endFrame->postInput(); });
 }
 
-void MarkerFramec::calcPostDynCorrectorIteration()
+void MarkerFramec::simUpdateAll()
 {
     //rOmO = rOpO + aAOp*rpmp
     //aAOm = aAOp*aApm
@@ -195,12 +195,6 @@ void MarkerFramec::setqsu(FColDsptr col)
 void MarkerFramec::setqsulam(FColDsptr col)
 {
     endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsulam(col); });
-}
-
-void MarkerFramec::simUpdateAll()
-{
-    CartesianFrame::simUpdateAll();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->simUpdateAll(); });
 }
 
 void MarkerFramec::setqsudot(FColDsptr col)

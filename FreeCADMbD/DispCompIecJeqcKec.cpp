@@ -30,7 +30,7 @@ void DispCompIecJeqcKec::initialize()
     ppriIeJeKepEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void DispCompIecJeqcKec::calcPostDynCorrectorIteration()
+void DispCompIecJeqcKec::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO

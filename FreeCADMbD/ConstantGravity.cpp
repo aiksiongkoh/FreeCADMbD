@@ -80,8 +80,3 @@ void ConstantGravity::preStatic()
 {
     //Do nothing.
 }
-
-void ConstantGravity::simUpdateAll()
-{
-    //Do nothing.
-}

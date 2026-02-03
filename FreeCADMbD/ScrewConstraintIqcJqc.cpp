@@ -43,41 +43,41 @@ void ScrewConstraintIqcJqc::initthezIeJe()
     thezIeJe = AngleZIeqcJeqc::With(eFrmI, eFrmJ);
 }
 
-void ScrewConstraintIqcJqc::calc_pGpEJ()
+void ScrewConstraintIqcJqc::calcpGpEJ()
 {
     pGpEJ = zIeJeIe->pvaluepEJ()->times(2.0 * std::numbers::pi)->minusFullRow(thezIeJe->pvaluepEJ()->times(pitch));
 }
 
-void ScrewConstraintIqcJqc::calc_pGpXJ()
+void ScrewConstraintIqcJqc::calcpGpXJ()
 {
     pGpXJ = zIeJeIe->pvaluepXJ()->times(2.0 * std::numbers::pi);
 }
 
-void ScrewConstraintIqcJqc::calc_ppGpEIpEJ()
+void ScrewConstraintIqcJqc::calcppGpEIpEJ()
 {
     ppGpEIpEJ = zIeJeIe->ppvaluepEIpEJ()->times(2.0 * std::numbers::pi)
         ->minusFullMatrix(thezIeJe->ppvaluepEIpEJ()->times(pitch));
 }
 
-void ScrewConstraintIqcJqc::calc_ppGpEIpXJ()
+void ScrewConstraintIqcJqc::calcppGpEIpXJ()
 {
     ppGpEIpXJ = zIeJeIe->ppvaluepEIpXJ()->times(2.0 * std::numbers::pi);
 }
 
-void ScrewConstraintIqcJqc::calc_ppGpEJpEJ()
+void ScrewConstraintIqcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = zIeJeIe->ppvaluepEJpEJ()->times(2.0 * std::numbers::pi)
         ->minusFullMatrix(thezIeJe->ppvaluepEJpEJ()->times(pitch));
 }
 
-void ScrewConstraintIqcJqc::calcPostDynCorrectorIteration()
+void ScrewConstraintIqcJqc::simUpdateAll()
 {
-    ScrewConstraintIqcJc::calcPostDynCorrectorIteration();
-    calc_pGpXJ();
-    calc_pGpEJ();
-    calc_ppGpEIpXJ();
-    calc_ppGpEIpEJ();
-    calc_ppGpEJpEJ();
+    ScrewConstraintIqcJc::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpEIpXJ();
+    calcppGpEIpEJ();
+    calcppGpEJpEJ();
 }
 
 void ScrewConstraintIqcJqc::fillAccICIterError(FColDsptr col)

@@ -31,12 +31,12 @@ void DispCompIeqcJecKeqc::initialize()
     ppriIeJeKepEIpEK = FullMatrix<double>::With(4, 4);
 }
 
-void DispCompIeqcJecKeqc::calcPostDynCorrectorIteration()
+void DispCompIeqcJecKeqc::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
     //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
-    DispCompIecJecKeqc::calcPostDynCorrectorIteration();
+    DispCompIecJecKeqc::simUpdateAll();
     auto frmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto mprIeJeOpEIT = frmIqc->prOeOpE->transpose();
     auto mpprIeJeOpEIpEI = frmIqc->pprOeOpEpE;

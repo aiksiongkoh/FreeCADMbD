@@ -41,7 +41,7 @@ namespace MbD {
         void initializeGlobally() override;
         void asFixed();
         void postInput() override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
 
         void setqX(FColDsptr x) const;
         FColDsptr getqX() const;

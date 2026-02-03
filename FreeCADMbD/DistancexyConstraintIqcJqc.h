@@ -18,16 +18,16 @@ namespace MbD {
         DistancexyConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : DistancexyConstraintIqcJc(frmi, frmj) {}
         static std::shared_ptr<DistancexyConstraintIqcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calc_pGpXJ();
-        void calc_pGpEJ();
-        void calc_ppGpXIpXJ();
-        void calc_ppGpEIpXJ();
-        void calc_ppGpXJpXJ();
-        void calc_ppGpXIpEJ();
-        void calc_ppGpEIpEJ();
-        void calc_ppGpXJpEJ();
-        void calc_ppGpEJpEJ();
-        void calcPostDynCorrectorIteration() override;
+        void calcpGpXJ();
+        void calcpGpEJ();
+        void calcppGpXIpXJ();
+        void calcppGpEIpXJ();
+        void calcppGpXJpXJ();
+        void calcppGpXIpEJ();
+        void calcppGpEIpEJ();
+        void calcppGpXJpEJ();
+        void calcppGpEJpEJ();
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

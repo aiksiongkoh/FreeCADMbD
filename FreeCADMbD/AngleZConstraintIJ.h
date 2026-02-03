@@ -20,7 +20,7 @@ namespace MbD {
 
         static std::shared_ptr<AngleZConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) = 0;
         virtual void initthezIeJe();
@@ -32,7 +32,6 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        void simUpdateAll() override;
         ConstraintType type() override;
         std::string constraintSpec() override;
 

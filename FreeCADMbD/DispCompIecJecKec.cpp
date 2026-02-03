@@ -35,7 +35,7 @@ void DispCompIecJecKec::initializeLocally()
     prtFrmK = efrmK->getPartFrame();
 }
 
-void DispCompIecJecKec::calcPostDynCorrectorIteration()
+void DispCompIecJecKec::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO

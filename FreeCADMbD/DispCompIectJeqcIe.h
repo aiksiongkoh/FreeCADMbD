@@ -20,10 +20,10 @@ namespace MbD {
         static std::shared_ptr<DispCompIectJeqcIe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         void initialize() override;
 
-        void calc_ppvaluepEJpt() override;
-        void calc_ppvalueptpt() override;
-        void calc_ppvaluepXJpt() override;
-        void calc_pvaluept() override;
+        void calcppvaluepEJpt() override;
+        void calcppvalueptpt() override;
+        void calcppvaluepXJpt() override;
+        void calcpvaluept() override;
         void initializeGlobally() override;
         void preAccIC() override;
         void preVelIC() override;

@@ -22,7 +22,7 @@ namespace MbD {
         void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis) override;
 
         double value() override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
 
         EndFrmsptr efrmK;
         size_t axisK = SIZE_MAX;

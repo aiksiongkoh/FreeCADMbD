@@ -129,11 +129,6 @@ void MbDSymbolicFunction::preStatic()
     mbdObject->preStatic();
 }
 
-void MbDSymbolicFunction::simUpdateAll()
-{
-    mbdObject->simUpdateAll();
-}
-
 void MbDSymbolicFunction::useEquationNumbers()
 {
     mbdObject->useEquationNumbers();

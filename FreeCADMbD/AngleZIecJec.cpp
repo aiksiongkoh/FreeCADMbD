@@ -93,7 +93,7 @@ void AngleZIecJec::initialize()
     this->init_aAijIeJe();
 }
 
-void AngleZIecJec::calcPostDynCorrectorIteration()
+void AngleZIecJec::simUpdateAll()
 {
     //thezIeJe = atan2(sthez, cthez)
     //thezIeJe = atan2(aA10IeJe, aA00IeJe)
@@ -174,13 +174,6 @@ void AngleZIecJec::preVelIC()
     aA00IeJe->preVelIC();
     aA10IeJe->preVelIC();
     KinematicIJ::preVelIC();
-}
-
-void AngleZIecJec::simUpdateAll()
-{
-    aA00IeJe->simUpdateAll();
-    aA10IeJe->simUpdateAll();
-    KinematicIJ::simUpdateAll();
 }
 
 double AngleZIecJec::value()

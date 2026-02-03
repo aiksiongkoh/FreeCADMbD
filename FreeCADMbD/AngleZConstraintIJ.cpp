@@ -22,7 +22,7 @@ std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, En
     return angleZConIJ;
 }
 
-void AngleZConstraintIJ::calcPostDynCorrectorIteration()
+void AngleZConstraintIJ::simUpdateAll()
 {
     //aG = thezIeJe - C
     auto thez = thezIeJe->value();
@@ -85,12 +85,6 @@ void AngleZConstraintIJ::preVelIC()
 {
     thezIeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void AngleZConstraintIJ::simUpdateAll()
-{
-    thezIeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 ConstraintType AngleZConstraintIJ::type()

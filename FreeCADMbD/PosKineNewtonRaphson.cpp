@@ -122,7 +122,6 @@ void PosKineNewtonRaphson::fillY()
     system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) {
         item->fillPosKineError(y);
         //std::cout << item->name << *y << std::endl;
-        //noop();
         });
     //std::cout << "Final" << *y << std::endl;
 }

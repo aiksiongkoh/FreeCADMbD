@@ -18,7 +18,7 @@ namespace MbD {
         TranslationConstraintIcJqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi) : TranslationConstraintIJ(frmi, frmj, axisi) {}
         static std::shared_ptr<TranslationConstraintIcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void initriIeJeIe() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;

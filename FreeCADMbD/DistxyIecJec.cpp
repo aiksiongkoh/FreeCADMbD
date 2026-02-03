@@ -24,7 +24,7 @@ void DistxyIecJec::initialize()
     init_xyIeJeIe();
 }
 
-void DistxyIecJec::calcPostDynCorrectorIteration()
+void DistxyIecJec::simUpdateAll()
 {
     //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
     auto x = xIeJeIe->value();
@@ -83,13 +83,6 @@ void DistxyIecJec::preVelIC()
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
     KinematicIJ::preVelIC();
-}
-
-void DistxyIecJec::simUpdateAll()
-{
-    xIeJeIe->simUpdateAll();
-    yIeJeIe->simUpdateAll();
-    KinematicIJ::simUpdateAll();
 }
 
 double DistxyIecJec::value()

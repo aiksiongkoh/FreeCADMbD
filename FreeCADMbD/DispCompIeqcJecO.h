@@ -19,7 +19,7 @@ namespace MbD {
         DispCompIeqcJecO(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO) : DispCompIecJecO(frmi, frmj, axisO) {}
         static std::shared_ptr<DispCompIeqcJecO> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void initializeGlobally() override;
         FMatDsptr ppvaluepEIpEI() override;
         FRowDsptr pvaluepEI() override;

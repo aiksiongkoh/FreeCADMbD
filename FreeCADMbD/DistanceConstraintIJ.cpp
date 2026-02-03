@@ -28,7 +28,7 @@ void DistanceConstraintIJ::initialize()
     init_distIeJe();
 }
 
-void DistanceConstraintIJ::calcPostDynCorrectorIteration()
+void DistanceConstraintIJ::simUpdateAll()
 {
     //aG = rIeJe - C;
     aG = distIeJe->value() - aConstant;
@@ -77,12 +77,6 @@ void DistanceConstraintIJ::preVelIC()
 {
     distIeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void DistanceConstraintIJ::simUpdateAll()
-{
-    distIeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 ConstraintType DistanceConstraintIJ::type()

@@ -18,7 +18,7 @@ namespace MbD {
         DirectionCosineConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineConstraintIqcJc(frmi, frmj, axisi, axisj) {}
         static std::shared_ptr<DirectionCosineConstraintIqcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

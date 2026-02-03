@@ -143,6 +143,18 @@ TEST(FreeCADMbD, wobpump) {
     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/wobpump.asmt");
     EXPECT_TRUE(true);
 }
+TEST(FreeCADMbD, mcphersonX) {
+    ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/mcphersonX.asmt");
+    EXPECT_TRUE(true);
+}
+TEST(FreeCADMbD, torsionSprDmpTol8) {
+    ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt");
+    EXPECT_TRUE(true);
+}
+TEST(FreeCADMbD, springdamper2) {
+    ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/springdamper2.asmt");
+    EXPECT_TRUE(true);
+}
 TEST(FreeCADMbD, runOndselDoublePendulum) {
     auto cadSystem = CADSystem::With();
     cadSystem->runOndselDoublePendulum();

@@ -79,7 +79,7 @@ std::shared_ptr<DispIecJecO> DispIecJecO::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
-void DispIecJecO::calcPostDynCorrectorIteration()
+void DispIecJecO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     rIeJeO = getrIeJeO();
@@ -101,6 +101,16 @@ FMatDsptr MbD::DispIecJecO::getprIeJeOpXJ()
 }
 
 FMatDsptr MbD::DispIecJecO::getprIeJeOpEJ()
+{
+    return FMatDsptr();
+}
+
+FMatDsptr MbD::DispIecJecO::getppriIeJeOpEIpEI(size_t axis)
+{
+    return FMatDsptr();
+}
+
+FMatDsptr MbD::DispIecJecO::getppriIeJeOpEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }

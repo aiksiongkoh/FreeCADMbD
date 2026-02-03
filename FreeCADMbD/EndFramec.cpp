@@ -68,7 +68,7 @@ void EndFramec::initEndFrameqct2()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void EndFramec::calcPostDynCorrectorIteration()
+void EndFramec::simUpdateAll()
 {
     //rOeO = rOmO + aAOm*rmem
     //aAOe = aAOm*aAme;

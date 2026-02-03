@@ -28,7 +28,7 @@ void GearConstraintIJ::initialize()
     initorbitsIJ();
 }
 
-void GearConstraintIJ::calcPostDynCorrectorIteration()
+void GearConstraintIJ::simUpdateAll()
 {
     aG = orbitJeIe->value() + (ratio() * orbitIeJe->value()) - aConstant;
 }
@@ -91,13 +91,6 @@ void GearConstraintIJ::preVelIC()
 double GearConstraintIJ::ratio()
 {
     return radiusI / radiusJ;
-}
-
-void GearConstraintIJ::simUpdateAll()
-{
-    orbitIeJe->simUpdateAll();
-    orbitJeIe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 void GearConstraintIJ::postDynPredictor()

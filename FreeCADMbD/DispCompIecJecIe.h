@@ -20,8 +20,8 @@ namespace MbD {
         static std::shared_ptr<DispCompIecJecIe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) override;
 
-        void calc_value() override;
-        void calcPostDynCorrectorIteration() override;
+        void calcvalue() override;
+        void simUpdateAll() override;
         double value() override;
 
         size_t axis = SIZE_MAX;

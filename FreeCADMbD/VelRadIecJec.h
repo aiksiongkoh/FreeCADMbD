@@ -19,7 +19,7 @@ namespace MbD {
         VelRadIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
         static std::shared_ptr<VelRadIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         double value() override;
 
         double rIeJe = 0.0, vIeJe = 0.0;

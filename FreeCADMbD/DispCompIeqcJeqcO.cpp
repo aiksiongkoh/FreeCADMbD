@@ -26,10 +26,10 @@ void DispCompIeqcJeqcO::initializeGlobally()
     ppriIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
 }
 
-void DispCompIeqcJeqcO::calcPostDynCorrectorIteration()
+void DispCompIeqcJeqcO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
-    DispCompIeqcJecO::calcPostDynCorrectorIteration();
+    DispCompIeqcJecO::simUpdateAll();
     priIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->priOeOpE(axis);
 }
 

@@ -19,63 +19,63 @@ std::shared_ptr<GearConstraintIqcJqc> GearConstraintIqcJqc::With(EndFrmsptr frmi
     return inst;
 }
 
-void GearConstraintIqcJqc::calc_pGpEJ()
+void GearConstraintIqcJqc::calcpGpEJ()
 {
     pGpEJ = orbitJeIe->pvaluepEI()->plusFullRow(orbitIeJe->pvaluepEJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_pGpXJ()
+void GearConstraintIqcJqc::calcpGpXJ()
 {
     pGpXJ = orbitJeIe->pvaluepXI()->plusFullRow(orbitIeJe->pvaluepXJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpEIpEJ()
+void GearConstraintIqcJqc::calcppGpEIpEJ()
 {
     ppGpEIpEJ = orbitJeIe->ppvaluepEIpEJ()->transpose()->plusFullMatrix(orbitIeJe->ppvaluepEIpEJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpEIpXJ()
+void GearConstraintIqcJqc::calcppGpEIpXJ()
 {
     ppGpEIpXJ = orbitJeIe->ppvaluepXIpEJ()->transpose()->plusFullMatrix(orbitIeJe->ppvaluepEIpXJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpEJpEJ()
+void GearConstraintIqcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = orbitJeIe->ppvaluepEIpEI()->plusFullMatrix(orbitIeJe->ppvaluepEJpEJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpXIpEJ()
+void GearConstraintIqcJqc::calcppGpXIpEJ()
 {
     ppGpXIpEJ = orbitJeIe->ppvaluepEIpXJ()->transpose()->plusFullMatrix(orbitIeJe->ppvaluepXIpEJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpXIpXJ()
+void GearConstraintIqcJqc::calcppGpXIpXJ()
 {
     ppGpXIpXJ = orbitJeIe->ppvaluepXIpXJ()->transpose()->plusFullMatrix(orbitIeJe->ppvaluepXIpXJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpXJpEJ()
+void GearConstraintIqcJqc::calcppGpXJpEJ()
 {
     ppGpXJpEJ = orbitJeIe->ppvaluepXIpEI()->plusFullMatrix(orbitIeJe->ppvaluepXJpEJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calc_ppGpXJpXJ()
+void GearConstraintIqcJqc::calcppGpXJpXJ()
 {
     ppGpXJpXJ = orbitJeIe->ppvaluepXIpXI()->plusFullMatrix(orbitIeJe->ppvaluepXJpXJ()->times(ratio()));
 }
 
-void GearConstraintIqcJqc::calcPostDynCorrectorIteration()
+void GearConstraintIqcJqc::simUpdateAll()
 {
-    GearConstraintIqcJc::calcPostDynCorrectorIteration();
-    calc_pGpXJ();
-    calc_pGpEJ();
-    calc_ppGpXIpXJ();
-    calc_ppGpXIpEJ();
-    calc_ppGpEIpXJ();
-    calc_ppGpEIpEJ();
-    calc_ppGpXJpXJ();
-    calc_ppGpXJpEJ();
-    calc_ppGpEJpEJ();
+    GearConstraintIqcJc::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpXIpXJ();
+    calcppGpXIpEJ();
+    calcppGpEIpXJ();
+    calcppGpEIpEJ();
+    calcppGpXJpXJ();
+    calcppGpXJpEJ();
+    calcppGpEJpEJ();
 }
 
 void GearConstraintIqcJqc::fillAccICIterError(FColDsptr col)

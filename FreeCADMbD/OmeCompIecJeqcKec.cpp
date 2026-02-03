@@ -31,7 +31,7 @@ void OmeCompIecJeqcKec::initialize()
     pomeiIeJeKepEdotJ = FullRow<double>::With(4);
 }
 
-void OmeCompIecJeqcKec::calcPostDynCorrectorIteration()
+void OmeCompIecJeqcKec::simUpdateAll()
 {
     //omeIeJeO = omeOJeO - omeOIeO
     //omeIeJeKe = AKeO * omeIeJeO

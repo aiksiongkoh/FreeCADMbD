@@ -18,11 +18,13 @@ namespace MbD {
         DispIecJecO(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
         static std::shared_ptr<DispIecJecO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         virtual FMatDsptr getprIeJeOpXI();
         virtual FMatDsptr getprIeJeOpEI();
         virtual FMatDsptr getprIeJeOpXJ();
         virtual FMatDsptr getprIeJeOpEJ();
+        virtual FMatDsptr getppriIeJeOpEIpEI(size_t axis);
+        virtual FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
 
         FColDsptr rIeJeO;
     };
