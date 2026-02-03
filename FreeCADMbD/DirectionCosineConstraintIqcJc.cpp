@@ -24,10 +24,10 @@ void DirectionCosineConstraintIqcJc::initaAijIeJe()
     aAijIeJe = DirectionCosineIeqcJec::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
-void DirectionCosineConstraintIqcJc::calcPostDynCorrectorIteration()
+void DirectionCosineConstraintIqcJc::simUpdateAll()
 {
     //aG = aAijIeJe - aConstant;
-    DirectionCosineConstraintIJ::calcPostDynCorrectorIteration();
+    DirectionCosineConstraintIJ::simUpdateAll();
     auto aAijIeqJe = std::static_pointer_cast<DirectionCosineIeqcJec>(aAijIeJe);
     pGpEI = aAijIeqJe->pAijIeJepEI;
     ppGpEIpEI = aAijIeqJe->ppAijIeJepEIpEI;

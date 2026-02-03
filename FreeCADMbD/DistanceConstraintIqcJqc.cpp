@@ -19,10 +19,10 @@ std::shared_ptr<DistanceConstraintIqcJqc> DistanceConstraintIqcJqc::With(EndFrms
     return inst;
 }
 
-void DistanceConstraintIqcJqc::calcPostDynCorrectorIteration()
+void DistanceConstraintIqcJqc::simUpdateAll()
 {
     //aG = rIeJe - C;
-    DistanceConstraintIqcJc::calcPostDynCorrectorIteration();
+    DistanceConstraintIqcJc::simUpdateAll();
     pGpXJ = distIeJe->pvaluepXJ();
     pGpEJ = distIeJe->pvaluepEJ();
     ppGpXIpXJ = distIeJe->ppvaluepXIpXJ();

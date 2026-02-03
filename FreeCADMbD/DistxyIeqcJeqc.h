@@ -20,16 +20,16 @@ namespace MbD {
         static std::shared_ptr<DistxyIeqcJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calc_ppdistxypEIpEJ();
-        void calc_ppdistxypEIpXJ();
-        void calc_ppdistxypEJpEJ();
-        void calc_ppdistxypXIpEJ();
-        void calc_ppdistxypXIpXJ();
-        void calc_ppdistxypXJpEJ();
-        void calc_ppdistxypXJpXJ();
-        void calc_pdistxypEJ();
-        void calc_pdistxypXJ();
-        void calcPostDynCorrectorIteration() override;
+        void calcppdistxypEIpEJ();
+        void calcppdistxypEIpXJ();
+        void calcppdistxypEJpEJ();
+        void calcppdistxypXIpEJ();
+        void calcppdistxypXIpXJ();
+        void calcppdistxypXJpEJ();
+        void calcppdistxypXJpXJ();
+        void calcpdistxypEJ();
+        void calcpdistxypXJ();
+        void simUpdateAll() override;
         void init_xyIeJeIe() override;
         FMatDsptr ppvaluepEIpEJ() override;
         FMatDsptr ppvaluepEIpXJ() override;

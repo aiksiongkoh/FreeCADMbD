@@ -91,11 +91,11 @@ FMatFColDsptr EndFrameqc::ppAjOepEpE(size_t jj) const
     return answer;
 }
 
-void EndFrameqc::calcPostDynCorrectorIteration()
+void EndFrameqc::simUpdateAll()
 {
     //rOeO = rOmO + aAOm*rmem
     //aAOe = aAOm*aAme;
-    EndFramec::calcPostDynCorrectorIteration();
+    EndFramec::simUpdateAll();
     auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
     for (size_t i = 0; i < 4; i++) {
         auto prOmOpEi = mkrFrmqc->prOmOpE->column(i);

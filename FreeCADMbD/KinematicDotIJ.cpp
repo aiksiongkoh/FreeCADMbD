@@ -26,7 +26,7 @@ std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With(EndFrmsptr frmi, EndFrmsptr
     return inst;
 }
 
-void KinematicDotIJ::calcPostDynCorrectorIteration()
+void KinematicDotIJ::simUpdateAll()
 {
     //Do nothing.
 }

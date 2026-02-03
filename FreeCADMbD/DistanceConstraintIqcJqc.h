@@ -18,7 +18,7 @@ namespace MbD {
         DistanceConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : DistanceConstraintIqcJc(frmi, frmj) {}
         static std::shared_ptr<DistanceConstraintIqcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

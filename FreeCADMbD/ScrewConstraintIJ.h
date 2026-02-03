@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<ScrewConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         virtual void initzIeJeIe();
         virtual void initthezIeJe();
         void initializeGlobally() override;
@@ -31,7 +31,6 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        void simUpdateAll() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;

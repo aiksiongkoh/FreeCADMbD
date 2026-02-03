@@ -21,7 +21,7 @@ namespace MbD {
         void initialize() override;
         FColDsptr aFX() const override;
         FColDsptr aTX() const override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
         void fillpFpy(SpMatDsptr mat) override;
@@ -41,7 +41,6 @@ namespace MbD {
         void preAccIC() override;
         void preDynOutput() override;
         void preStatic() override;
-        void simUpdateAll() override;
         void settorqueFunctions(FColsptr<Symsptr> col);
         void useEquationNumbers() override;
         void calcaFIeKe();

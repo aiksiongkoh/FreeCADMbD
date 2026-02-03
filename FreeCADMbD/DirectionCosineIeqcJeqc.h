@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<DirectionCosineIeqcJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void initializeGlobally() override;
         FMatDsptr ppvaluepEIpEJ() override;
         FMatDsptr ppvaluepEJpEJ() override;

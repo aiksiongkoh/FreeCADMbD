@@ -25,19 +25,19 @@ void DispCompIecJecIe::withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t
     axis = axs;
 }
 
-void DispCompIecJecIe::calc_value()
+void DispCompIecJecIe::calcvalue()
 {
     aAjOIe = eFrmI->aAjOe(axis);
     rIeJeO = getrIeJeO();
     riIeJeIe = aAjOIe->dot(rIeJeO);
 }
 
-void DispCompIecJecIe::calcPostDynCorrectorIteration()
+void DispCompIecJecIe::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeIe = aAIeO * rIeJeO
     //riIeJeIe = aArowiIeO dot rIeJeO = aAcoljOIe dot rIeJeO
-    calc_value();
+    calcvalue();
 }
 
 double DispCompIecJecIe::value()

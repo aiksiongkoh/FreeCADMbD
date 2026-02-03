@@ -92,7 +92,6 @@ Symsptr PiecewiseFunction::integrateWRT(Symsptr var)
         var->setValue(oldvalue);
         auto integConstant = fi - fi1;
         integrals->at(i + 1)->setIntegrationConstant(integConstant);
-        noop();
     }
     answer->expression = std::make_shared<PiecewiseFunction>(var, integrals, transitions);
     return answer;

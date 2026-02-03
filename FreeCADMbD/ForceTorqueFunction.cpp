@@ -19,7 +19,7 @@ void ForceTorqueFunction::initialize()
     jointActions = std::make_shared<std::vector<std::shared_ptr<MbDSymbolicFunction>>>();
 }
 
-void ForceTorqueFunction::calcPostDynCorrectorIteration()
+void ForceTorqueFunction::simUpdateAll()
 {
     //Do nothing.
 }
@@ -80,14 +80,6 @@ void ForceTorqueFunction::preStatic()
     for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->preStatic();
     for (const auto jointAction : *jointActions) jointAction->preStatic();
     ForceTorqueItem::preStatic();
-}
-
-void ForceTorqueFunction::simUpdateAll()
-{
-    for (const auto kineIJ : *kineIJs) kineIJ->simUpdateAll();
-    for (const auto kinedotIJ : *kinedotIJs) kinedotIJ->simUpdateAll();
-    for (const auto jointAction : *jointActions) jointAction->simUpdateAll();
-    ForceTorqueItem::simUpdateAll();
 }
 
 FColDsptr ForceTorqueFunction::pFTpkineIJs()

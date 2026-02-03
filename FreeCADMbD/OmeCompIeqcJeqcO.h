@@ -12,6 +12,6 @@
 namespace MbD {
     class OmeCompIeqcJeqcO : public OmeCompIeqcJecO
     {
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
     };
 }

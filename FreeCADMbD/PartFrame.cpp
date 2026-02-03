@@ -304,20 +304,20 @@ FMatDsptr PartFrame::aAddotOp()
 
 void PartFrame::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
-    aGeu->fillEssenConstraints(aGeu, essenConstraints);
-    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillEssenConstraints(con, essenConstraints); });
+    aGeu->fillEssenConstraints(essenConstraints);
+    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillEssenConstraints(essenConstraints); });
 }
 
 void PartFrame::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
-    aGeu->fillRedundantConstraints(aGeu, redunConstraints);
-    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillRedundantConstraints(con, redunConstraints); });
+    aGeu->fillRedundantConstraints(redunConstraints);
+    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillRedundantConstraints(redunConstraints); });
 }
 
 void PartFrame::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
-    aGeu->fillConstraints(aGeu, allConstraints);
-    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillConstraints(con, allConstraints); });
+    aGeu->fillConstraints(allConstraints);
+    aGabsDo([&](std::shared_ptr<Constraint> con) { con->fillConstraints(allConstraints); });
 }
 
 void PartFrame::fillqsu(FColDsptr col)
@@ -687,7 +687,7 @@ void PartFrame::postInput()
     aGabsDo([](std::shared_ptr<Constraint> aGab) { aGab->postInput(); });
 }
 
-void PartFrame::calcPostDynCorrectorIteration()
+void PartFrame::simUpdateAll()
 {
     //rOpO = qX
     //aAOp = qE->aA

@@ -41,10 +41,10 @@ void DirectionCosineConstraintIcJqc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void DirectionCosineConstraintIcJqc::calcPostDynCorrectorIteration()
+void DirectionCosineConstraintIcJqc::simUpdateAll()
 {
     //aG = aAijIeJe - aConstant;
-    DirectionCosineConstraintIJ::calcPostDynCorrectorIteration();
+    DirectionCosineConstraintIJ::simUpdateAll();
     auto aAijIeqJqe = std::static_pointer_cast<DirectionCosineIecJeqc>(aAijIeJe);
     pGpEJ = aAijIeqJqe->pAijIeJepEJ;
     ppGpEJpEJ = aAijIeqJqe->ppAijIeJepEJpEJ;

@@ -15,7 +15,7 @@ namespace MbD {
     public:
         void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         size_t axis = SIZE_MAX;
     };
 }

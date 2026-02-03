@@ -32,7 +32,7 @@ namespace MbD {
         void initEndFrameqct() override;
         void initEndFrameqct2() override;
         FMatFColDsptr ppAjOepEpE(size_t j) const;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         FMatDsptr pAjOepE(size_t j) const override;
         FMatDsptr pAjOepET(size_t j) const;
         FMatDsptr ppriOeOpEpE(size_t i) const;

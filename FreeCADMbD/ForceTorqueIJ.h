@@ -26,7 +26,7 @@ namespace MbD {
         ForceTorqueIJ(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), ForceTorqueItem() {}
         ForceTorqueIJ(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : eFrmI(frmi), eFrmJ(frmj), ForceTorqueItem() {}
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
         void fillDynError(FColDsptr col) override;
@@ -97,7 +97,6 @@ namespace MbD {
         void preAccIC() override;
         void preDynOutput() override;
         void preStatic() override;
-        void simUpdateAll() override;
         void useEquationNumbers() override;
 
         void calcaQXI();

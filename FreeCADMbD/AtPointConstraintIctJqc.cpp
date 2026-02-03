@@ -30,11 +30,11 @@ void AtPointConstraintIctJqc::initriIeJeO()
     riIeJeO = DispCompIectJeqcO::With(eFrmI, eFrmJ, axis);
 }
 
-void AtPointConstraintIctJqc::calcPostDynCorrectorIteration()
+void AtPointConstraintIctJqc::simUpdateAll()
 {
     //riIeJeO = rOJeO - rOIeO;
     //aG = riIeJeO - C;
-    AtPointConstraintIcJqc::calcPostDynCorrectorIteration();
+    AtPointConstraintIcJqc::simUpdateAll();
 }
 
 ConstraintType AtPointConstraintIctJqc::type()

@@ -109,7 +109,7 @@ void AtPointConstraintIJ::postInput()
     Constraint::postInput();
 }
 
-void AtPointConstraintIJ::calcPostDynCorrectorIteration()
+void AtPointConstraintIJ::simUpdateAll()
 {
     //riIeJeO = rOJeO - rOIeO;
     //aG = riIeJeO - C;

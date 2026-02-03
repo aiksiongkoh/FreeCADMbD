@@ -69,6 +69,7 @@ System* AssemblyFrame::getAssembly() const {
 
 void AssemblyFrame::setPart(Part* x)
 {
+    //Do nothing.
 }
 
 FColFMatDsptr AssemblyFrame::pAOppE()
@@ -80,26 +81,32 @@ FColFMatDsptr AssemblyFrame::pAOppE()
 
 void AssemblyFrame::removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::reactivateRedundantConstraints()
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::constraintsReport()
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::fillqsu(FColDsptr col)
@@ -290,10 +297,12 @@ void AssemblyFrame::fillDynError(FColDsptr col)
 
 void AssemblyFrame::fillpFpy(SpMatDsptr mat)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::fillpFpydot(SpMatDsptr mat)
 {
+    //Do nothing.
 }
 
 void AssemblyFrame::postDynCorrectorIteration()
@@ -320,7 +329,7 @@ void AssemblyFrame::postInput()
     markerFramesDo([](std::shared_ptr<MarkerFramec> markerFrame) { markerFrame->postInput(); });
 }
 
-void AssemblyFrame::calcPostDynCorrectorIteration()
+void AssemblyFrame::simUpdateAll()
 {
     //Do nothing.
 }

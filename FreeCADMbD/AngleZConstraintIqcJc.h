@@ -21,9 +21,9 @@ namespace MbD {
 
         void initthezIeJe() override;
         void addToJointTorqueI(FColDsptr col) override;
-        void calc_pGpEI();
-        void calc_ppGpEIpEI();
-        void calcPostDynCorrectorIteration() override;
+        void calcpGpEI();
+        void calcppGpEIpEI();
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

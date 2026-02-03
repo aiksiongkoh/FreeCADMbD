@@ -21,7 +21,7 @@ namespace MbD {
         void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis) override;
         void initializeLocally() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         SpatialContainerFrame* partFrameK();
         double value() override;
 

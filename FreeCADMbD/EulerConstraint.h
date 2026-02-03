@@ -25,7 +25,7 @@ namespace MbD {
         static std::shared_ptr<EulerConstraint> With(const std::string& str);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void useEquationNumbers() override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

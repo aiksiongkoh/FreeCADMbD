@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<VelRadIeqcJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         FRowDsptr pvaluepEdotJ() override;
         FRowDsptr pvaluepEJ() override;
         FRowDsptr pvaluepXdotJ() override;

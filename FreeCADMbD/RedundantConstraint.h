@@ -21,17 +21,17 @@ namespace MbD {
         bool isRedundant() override;
         std::string classname() override;
         ConstraintType type() override;
+        void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
+        void fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) override;
+        void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
+        void fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) override;
+        void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillqsuddotlam(FColDsptr col) override;
         void fillqsulam(FColDsptr col) override;
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void postInput() override;
         void prePosIC() override;
-        void fillEssenConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
-        void fillDispConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) override;
-        void fillPerpenConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) override;
-        void fillConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
-        void fillRedundantConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
         void setqsulam(FColDsptr col) override;
         void setqsudotlam(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
@@ -53,7 +53,10 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
+        void addToJointForceJ(FColDsptr col) override;
+        void addToJointTorqueJ(FColDsptr col) override;
         std::string constraintSpec() override;
 
         std::shared_ptr<Constraint> constraint;

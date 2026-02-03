@@ -18,16 +18,16 @@ namespace MbD {
         GearConstraintIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : GearConstraintIqcJc(frmi, frmj) {}
         static std::shared_ptr<GearConstraintIqcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calc_pGpEJ();
-        void calc_pGpXJ();
-        void calc_ppGpEIpEJ();
-        void calc_ppGpEIpXJ();
-        void calc_ppGpEJpEJ();
-        void calc_ppGpXIpEJ();
-        void calc_ppGpXIpXJ();
-        void calc_ppGpXJpEJ();
-        void calc_ppGpXJpXJ();
-        void calcPostDynCorrectorIteration() override;
+        void calcpGpEJ();
+        void calcpGpXJ();
+        void calcppGpEIpEJ();
+        void calcppGpEIpXJ();
+        void calcppGpEJpEJ();
+        void calcppGpXIpEJ();
+        void calcppGpXIpXJ();
+        void calcppGpXJpEJ();
+        void calcppGpXJpXJ();
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

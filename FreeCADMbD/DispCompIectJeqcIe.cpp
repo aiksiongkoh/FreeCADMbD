@@ -26,7 +26,7 @@ void DispCompIectJeqcIe::initialize()
     ppriIeJeIepEJpt = FullRow<double>::With(4);
 }
 
-void DispCompIectJeqcIe::calc_ppvaluepEJpt()
+void DispCompIectJeqcIe::calcppvaluepEJpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFramect>(eFrmI);
     auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
@@ -38,7 +38,7 @@ void DispCompIectJeqcIe::calc_ppvaluepEJpt()
     }
 }
 
-void DispCompIectJeqcIe::calc_ppvalueptpt()
+void DispCompIectJeqcIe::calcppvalueptpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFramect>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -48,7 +48,7 @@ void DispCompIectJeqcIe::calc_ppvalueptpt()
     ppriIeJeIeptpt = ppAjOIeptpt->dot(rIeJeO) - pAjOIept->dot(mprIeJeOpt) - pAjOIept->dot(mprIeJeOpt) - aAjOIe->dot(mpprIeJeOptpt);
 }
 
-void DispCompIectJeqcIe::calc_ppvaluepXJpt()
+void DispCompIectJeqcIe::calcppvaluepXJpt()
 {
     auto frmIeqct = std::static_pointer_cast<EndFramect>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -58,7 +58,7 @@ void DispCompIectJeqcIe::calc_ppvaluepXJpt()
     }
 }
 
-void DispCompIectJeqcIe::calc_pvaluept()
+void DispCompIectJeqcIe::calcpvaluept()
 {
     auto frmIeqct = std::static_pointer_cast<EndFramect>(eFrmI);
     auto pAjOIept = frmIeqct->pAjOept(axis);
@@ -74,15 +74,15 @@ void DispCompIectJeqcIe::initializeGlobally()
 void DispCompIectJeqcIe::preAccIC()
 {
     Item::preAccIC();
-    calc_ppvaluepXJpt();
-    calc_ppvaluepEJpt();
-    calc_ppvalueptpt();
+    calcppvaluepXJpt();
+    calcppvaluepEJpt();
+    calcppvalueptpt();
 }
 
 void DispCompIectJeqcIe::preVelIC()
 {
     Item::preVelIC();
-    calc_pvaluept();
+    calcpvaluept();
 }
 
 FRowDsptr DispCompIectJeqcIe::ppvaluepEJpt()

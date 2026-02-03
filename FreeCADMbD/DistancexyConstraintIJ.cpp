@@ -28,7 +28,7 @@ void DistancexyConstraintIJ::initialize()
     init_xyIeJeIe();
 }
 
-void DistancexyConstraintIJ::calcPostDynCorrectorIteration()
+void DistancexyConstraintIJ::simUpdateAll()
 {
     //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
     auto x = xIeJeIe->value();
@@ -86,13 +86,6 @@ void DistancexyConstraintIJ::preVelIC()
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void DistancexyConstraintIJ::simUpdateAll()
-{
-    xIeJeIe->simUpdateAll();
-    yIeJeIe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 ConstraintType DistancexyConstraintIJ::type()

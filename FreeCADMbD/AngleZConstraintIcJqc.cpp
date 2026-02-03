@@ -17,12 +17,12 @@ void AngleZConstraintIcJqc::initthezIeJe()
     thezIeJe = std::make_shared<AngleZIeqcJeqc>(eFrmI, eFrmJ);
 }
 
-void AngleZConstraintIcJqc::calc_pGpEJ()
+void AngleZConstraintIcJqc::calcpGpEJ()
 {
     pGpEJ = thezIeJe->pvaluepEJ();
 }
 
-void AngleZConstraintIcJqc::calc_ppGpEJpEJ()
+void AngleZConstraintIcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = thezIeJe->ppvaluepEJpEJ();
 }
@@ -43,12 +43,12 @@ void MbD::AngleZConstraintIcJqc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void AngleZConstraintIcJqc::calcPostDynCorrectorIteration()
+void AngleZConstraintIcJqc::simUpdateAll()
 {
     //aG = thezIeJe - C
-    AngleZConstraintIJ::calcPostDynCorrectorIteration();
-    this->calc_pGpEJ();
-    this->calc_ppGpEJpEJ();
+    AngleZConstraintIJ::simUpdateAll();
+    this->calcpGpEJ();
+    this->calcppGpEJpEJ();
 }
 
 void AngleZConstraintIcJqc::fillAccICIterError(FColDsptr col)

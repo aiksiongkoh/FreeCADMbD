@@ -2,7 +2,7 @@
 
 namespace MbD {
 
-    void OmeCompIeqcJecO::calcPostDynCorrectorIteration()
+    void OmeCompIeqcJecO::simUpdateAll()
     {
         //omeIeJeO = omeOJeO - omeOIeO
         throw SimulationStoppingError("To be implemented.");

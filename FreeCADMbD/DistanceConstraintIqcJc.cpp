@@ -43,10 +43,10 @@ void DistanceConstraintIqcJc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void DistanceConstraintIqcJc::calcPostDynCorrectorIteration()
+void DistanceConstraintIqcJc::simUpdateAll()
 {
     //aG = rIeJe - C;
-    DistanceConstraintIJ::calcPostDynCorrectorIteration();
+    DistanceConstraintIJ::simUpdateAll();
     pGpXI = distIeJe->pvaluepXI();
     pGpEI = distIeJe->pvaluepEI();
     ppGpXIpXI = distIeJe->ppvaluepXIpXI();

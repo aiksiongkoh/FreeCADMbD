@@ -470,7 +470,9 @@ void ASMTAssembly::readWriteKineFile(const std::string& fileName)
         assembly->parseASMT(lines);
         assembly->runKINEMATIC();
         assembly->outputFile("assemblyKine.asmt");
+#ifndef NDEBUG
         ASMTAssembly::runKineFile("assemblyKine.asmt");
+#endif
     }
 }
 
@@ -496,7 +498,9 @@ void ASMTAssembly::readWriteDynFile(const std::string& fileName)
         assembly->parseASMT(lines);
         assembly->runDYNAMIC();
         assembly->outputFile("tempAssembly.asmt");
+#ifndef NDEBUG
         ASMTAssembly::runDynFile("tempAssembly.asmt");
+#endif
     }
 }
 

@@ -36,7 +36,7 @@ void RackPinConstraintIJ::initialize()
     initthezIeJe();
 }
 
-void RackPinConstraintIJ::calcPostDynCorrectorIteration()
+void RackPinConstraintIJ::simUpdateAll()
 {
     auto x = xIeJeIe->value();
     auto thez = thezIeJe->value();
@@ -101,13 +101,6 @@ void RackPinConstraintIJ::preVelIC()
     xIeJeIe->preVelIC();
     thezIeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void RackPinConstraintIJ::simUpdateAll()
-{
-    xIeJeIe->simUpdateAll();
-    thezIeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 void RackPinConstraintIJ::postDynPredictor()

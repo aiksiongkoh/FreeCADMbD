@@ -37,7 +37,7 @@ void EulerConstraint::initialize()
     pGpE = FullRow<double>::With(4);
 }
 
-void EulerConstraint::calcPostDynCorrectorIteration()
+void EulerConstraint::simUpdateAll()
 {
     auto qE = static_cast<PartFrame*>(owner)->qE;
     aG = qE->sumOfSquares() - 1.0;

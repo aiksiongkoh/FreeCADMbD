@@ -30,7 +30,7 @@ double OmeCompIecJecKec::value()
     return omeiIeJeKe;
 }
 
-void OmeCompIecJecKec::calcPostDynCorrectorIteration()
+void OmeCompIecJecKec::simUpdateAll()
 {
     //omeIeJeO = omeOJeO - omeOIeO
     //omeIeJeKe = AKeO * omeIeJeO

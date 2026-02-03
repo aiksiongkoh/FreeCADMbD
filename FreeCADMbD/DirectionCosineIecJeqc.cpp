@@ -31,10 +31,10 @@ void DirectionCosineIecJeqc::initializeGlobally()
     ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppAjOepEpE(axisJ);
 }
 
-void DirectionCosineIecJeqc::calcPostDynCorrectorIteration()
+void DirectionCosineIecJeqc::simUpdateAll()
 {
     //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
-    DirectionCosineIecJec::calcPostDynCorrectorIteration();
+    DirectionCosineIecJec::simUpdateAll();
     pAjOJepEJT = std::static_pointer_cast<EndFrameqc>(eFrmJ)->pAjOepET(axisJ);
     for (size_t i = 0; i < 4; i++)
     {

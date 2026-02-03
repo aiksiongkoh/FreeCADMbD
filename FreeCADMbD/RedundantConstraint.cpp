@@ -39,6 +39,31 @@ ConstraintType RedundantConstraint::type()
     return redundant;
 }
 
+void MbD::RedundantConstraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
+{
+    //Do nothing.
+}
+
 void RedundantConstraint::fillqsuddotlam(FColDsptr)
 {
     //Do nothing.
@@ -67,31 +92,6 @@ void RedundantConstraint::postInput()
 void RedundantConstraint::prePosIC()
 {
     //Do nothing.
-}
-
-void RedundantConstraint::fillEssenConstraints(std::shared_ptr<Constraint>, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
-{
-    //Do nothing.
-}
-
-void RedundantConstraint::fillDispConstraints(std::shared_ptr<Constraint>, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
-{
-    //Do nothing.
-}
-
-void RedundantConstraint::fillPerpenConstraints(std::shared_ptr<Constraint>, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
-{
-    //Do nothing.
-}
-
-void RedundantConstraint::fillConstraints(std::shared_ptr<Constraint>, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
-{
-    //Do nothing.
-}
-
-void RedundantConstraint::fillRedundantConstraints(std::shared_ptr<Constraint> sptr, std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
-{
-    redunConstraints->push_back(sptr);
 }
 
 void RedundantConstraint::setqsulam(FColDsptr)
@@ -204,7 +204,22 @@ void RedundantConstraint::postDynOutput()
     //Do nothing.
 }
 
+void MbD::RedundantConstraint::addToJointForceI(FColDsptr col)
+{
+    //Do nothing.
+}
+
 void RedundantConstraint::addToJointTorqueI(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::addToJointForceJ(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::RedundantConstraint::addToJointTorqueJ(FColDsptr col)
 {
     //Do nothing.
 }

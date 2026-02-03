@@ -37,7 +37,7 @@ void DispCompIeqcJeqcKeqct::initializeGlobally()
     //Do nothing.
 }
 
-void DispCompIeqcJeqcKeqct::calcPostDynCorrectorIteration()
+void DispCompIeqcJeqcKeqct::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
@@ -46,7 +46,7 @@ void DispCompIeqcJeqcKeqct::calcPostDynCorrectorIteration()
     //"ppAjOIepEKpEK is not longer constant and must be set before any calculation."
     auto efrmKqc = std::static_pointer_cast<EndFrameqc>(efrmK);
     ppAjOKepEKpEK = efrmKqc->ppAjOepEpE(axisK);
-    DispCompIeqcJeqcKeqc::calcPostDynCorrectorIteration();
+    DispCompIeqcJeqcKeqc::simUpdateAll();
 }
 
 void DispCompIeqcJeqcKeqct::preVelIC()

@@ -29,7 +29,6 @@ namespace MbD {
         void preAccIC() override;
         void preDynOutput() override;
         void preStatic() override;
-        void simUpdateAll() override;
 
         FColDsptr gXYZ;
     };

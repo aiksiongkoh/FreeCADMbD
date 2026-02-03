@@ -32,7 +32,7 @@ void ScrewConstraintIJ::initialize()
     initthezIeJe();
 }
 
-void ScrewConstraintIJ::calcPostDynCorrectorIteration()
+void ScrewConstraintIJ::simUpdateAll()
 {
     auto z = zIeJeIe->value();
     auto thez = thezIeJe->thez;
@@ -95,13 +95,6 @@ void ScrewConstraintIJ::preVelIC()
     zIeJeIe->preVelIC();
     thezIeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void ScrewConstraintIJ::simUpdateAll()
-{
-    zIeJeIe->simUpdateAll();
-    thezIeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 void ScrewConstraintIJ::postDynPredictor()

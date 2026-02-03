@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<DistancexyConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         virtual void init_xyIeJeIe();
         void initializeGlobally() override;
         void initializeLocally() override;
@@ -29,7 +29,6 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        void simUpdateAll() override;
         ConstraintType type() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;

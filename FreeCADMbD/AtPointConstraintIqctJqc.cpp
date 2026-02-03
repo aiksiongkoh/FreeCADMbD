@@ -30,14 +30,14 @@ void AtPointConstraintIqctJqc::initriIeJeO()
     riIeJeO = DispCompIeqctJeqcO::With(eFrmI, eFrmJ, axis);
 }
 
-void AtPointConstraintIqctJqc::calcPostDynCorrectorIteration()
+void AtPointConstraintIqctJqc::simUpdateAll()
 {
     //riIeJeO = rOJeO - rOIeO;
     //aG = riIeJeO - C;
     //"ppGpEIpEI is no longer constant."
 
     ppGpEIpEI = std::static_pointer_cast<DispCompIeqctJeqcO>(riIeJeO)->ppriIeJeOpEIpEI;
-    AtPointConstraintIqcJqc::calcPostDynCorrectorIteration();
+    AtPointConstraintIqcJqc::simUpdateAll();
 }
 
 ConstraintType AtPointConstraintIqctJqc::type()

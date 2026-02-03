@@ -233,10 +233,10 @@ FColDsptr ForceTorqueIJ::aTX() const
     return aTJeO->negated();
 }
 
-void ForceTorqueIJ::calcPostDynCorrectorIteration()
+void ForceTorqueIJ::simUpdateAll()
 {
     //Order of functions matters here.
-    dispIeJeO->calcPostDynCorrectorIteration();
+    dispIeJeO->simUpdateAll();
     if (has_qI) {
         auto eFrmqcI = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
         prOIeOpEIT = eFrmqcI->prOeOpE->transpose();
@@ -614,11 +614,6 @@ void ForceTorqueIJ::preDynOutput()
 }
 
 void ForceTorqueIJ::preStatic()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void ForceTorqueIJ::simUpdateAll()
 {
     throw SimulationStoppingError("To be implemented.");
 }

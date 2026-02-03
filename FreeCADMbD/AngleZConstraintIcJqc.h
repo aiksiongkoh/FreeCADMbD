@@ -20,10 +20,10 @@ namespace MbD {
         AngleZConstraintIcJqc(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZConstraintIJ(frmi, frmj) {}
 
         void initthezIeJe() override;
-        void calc_pGpEJ();
-        void calc_ppGpEJpEJ();
+        void calcpGpEJ();
+        void calcppGpEJpEJ();
         void addToJointTorqueI(FColDsptr col) override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;

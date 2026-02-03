@@ -36,9 +36,19 @@ FMatDsptr MbD::DispIeqcJecO::getprIeJeOpEI()
     return prIeJeOpEI;
 }
 
-void DispIeqcJecO::calcPostDynCorrectorIteration()
+FMatDsptr MbD::DispIeqcJecO::getppriIeJeOpEIpEI(size_t axis)
+{
+    return std::static_pointer_cast<EndFrameqc>(eFrmI)->ppriOeOpEpE(axis)->negated();
+}
+
+FMatDsptr MbD::DispIeqcJecO::getppriIeJeOpEJpEJ(size_t axis)
+{
+    return std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
+}
+
+void DispIeqcJecO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
-    DispIecJecO::calcPostDynCorrectorIteration();
+    DispIecJecO::simUpdateAll();
     prIeJeOpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->prOeOpE->negated();
 }

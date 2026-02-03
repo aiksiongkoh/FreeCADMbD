@@ -243,15 +243,15 @@ void ForceTorqueInLine::setTwist(Symsptr formula)
     torqueFunctions->front()->setformula(formula);
 }
 
-void ForceTorqueInLine::calcPostDynCorrectorIteration()
+void ForceTorqueInLine::simUpdateAll()
 {
-    distIeJe->calcPostDynCorrectorIteration();
+    distIeJe->simUpdateAll();
     calcuIeJeO();
-    for (const auto func : *forceFunctions) func->calcPostDynCorrectorIteration();
-    for (const auto func : *torqueFunctions) func->calcPostDynCorrectorIteration();
+    for (const auto func : *forceFunctions) func->simUpdateAll();
+    for (const auto func : *torqueFunctions) func->simUpdateAll();
     calctension();
     calctwist();
-    ForceTorqueIJ::calcPostDynCorrectorIteration();
+    ForceTorqueIJ::simUpdateAll();
 }
 
 void ForceTorqueInLine::calcuIeJeO()

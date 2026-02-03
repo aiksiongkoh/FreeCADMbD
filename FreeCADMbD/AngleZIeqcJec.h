@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<AngleZIeqcJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void init_aAijIeJe() override;
         FMatDsptr ppvaluepEIpEI() override;
         FRowDsptr pvaluepEI() override;

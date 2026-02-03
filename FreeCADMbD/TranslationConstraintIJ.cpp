@@ -107,7 +107,7 @@ void TranslationConstraintIJ::postInput()
     Constraint::postInput();
 }
 
-void TranslationConstraintIJ::calcPostDynCorrectorIteration()
+void TranslationConstraintIJ::simUpdateAll()
 {
     aG = riIeJeIe->value() - aConstant;
 }
@@ -157,12 +157,6 @@ void TranslationConstraintIJ::preVelIC()
 {
     riIeJeIe->preVelIC();
     Item::preVelIC();
-}
-
-void TranslationConstraintIJ::simUpdateAll()
-{
-    riIeJeIe->simUpdateAll();
-    Constraint::simUpdateAll();
 }
 
 void TranslationConstraintIJ::preAccIC()

@@ -81,22 +81,22 @@ void ConstraintSet::prePosKine()
 
 void ConstraintSet::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillEssenConstraints(con, essenConstraints); });
+    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillEssenConstraints(essenConstraints); });
 }
 
 void ConstraintSet::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillDispConstraints(con, dispConstraints); });
+    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillDispConstraints(dispConstraints); });
 }
 
 void ConstraintSet::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillPerpenConstraints(con, perpenConstraints); });
+    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillPerpenConstraints(perpenConstraints); });
 }
 
 void ConstraintSet::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillConstraints(con, allConstraints); });
+    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillConstraints(allConstraints); });
 }
 
 void ConstraintSet::fillqsulam(FColDsptr col)
@@ -240,7 +240,7 @@ FColDsptr ConstraintSet::aFIeJtO() const
 
 void ConstraintSet::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillRedundantConstraints(con, redunConstraints); });
+    constraintsDo([&](std::shared_ptr<Constraint> con) { con->fillRedundantConstraints(redunConstraints); });
 }
 
 void ConstraintSet::fillpqsumu(FColDsptr col)

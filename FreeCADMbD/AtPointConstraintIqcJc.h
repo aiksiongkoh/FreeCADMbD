@@ -20,7 +20,7 @@ namespace MbD {
 
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         std::string constraintSpec() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillpFpy(SpMatDsptr mat) override;

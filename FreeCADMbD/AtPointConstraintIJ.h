@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<AtPointConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) = 0;
         void addToJointTorqueI(FColDsptr col) = 0;
         void initializeGlobally() override;

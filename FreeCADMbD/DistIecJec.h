@@ -19,7 +19,7 @@ namespace MbD {
         DistIecJec(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
         static std::shared_ptr<DistIecJec> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         virtual void calcPrivate();
         double value() override;
         FColDsptr rIeJeIe();

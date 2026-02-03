@@ -40,41 +40,41 @@ void RackPinConstraintIqcJqc::initthezIeJe()
     thezIeJe = AngleZIeqcJeqc::With(eFrmI, eFrmJ);
 }
 
-void RackPinConstraintIqcJqc::calc_pGpEJ()
+void RackPinConstraintIqcJqc::calcpGpEJ()
 {
     pGpEJ = xIeJeIe->pvaluepEJ()->plusFullRow(thezIeJe->pvaluepEJ()->times(pitchRadius));
 }
 
-void RackPinConstraintIqcJqc::calc_pGpXJ()
+void RackPinConstraintIqcJqc::calcpGpXJ()
 {
     pGpXJ = xIeJeIe->pvaluepXJ();
 }
 
-void RackPinConstraintIqcJqc::calc_ppGpEIpEJ()
+void RackPinConstraintIqcJqc::calcppGpEIpEJ()
 {
     ppGpEIpEJ = xIeJeIe->ppvaluepEIpEJ()
             ->plusFullMatrix(thezIeJe->ppvaluepEIpEJ()->times(pitchRadius));
 }
 
-void RackPinConstraintIqcJqc::calc_ppGpEIpXJ()
+void RackPinConstraintIqcJqc::calcppGpEIpXJ()
 {
     ppGpEIpXJ = xIeJeIe->ppvaluepEIpXJ();
 }
 
-void RackPinConstraintIqcJqc::calc_ppGpEJpEJ()
+void RackPinConstraintIqcJqc::calcppGpEJpEJ()
 {
     ppGpEJpEJ = xIeJeIe->ppvaluepEJpEJ()
             ->plusFullMatrix(thezIeJe->ppvaluepEJpEJ()->times(pitchRadius));
 }
 
-void RackPinConstraintIqcJqc::calcPostDynCorrectorIteration()
+void RackPinConstraintIqcJqc::simUpdateAll()
 {
-    RackPinConstraintIqcJc::calcPostDynCorrectorIteration();
-    calc_pGpXJ();
-    calc_pGpEJ();
-    calc_ppGpEIpXJ();
-    calc_ppGpEIpEJ();
-    calc_ppGpEJpEJ();
+    RackPinConstraintIqcJc::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpEIpXJ();
+    calcppGpEIpEJ();
+    calcppGpEJpEJ();
 }
 
 void RackPinConstraintIqcJqc::fillAccICIterError(FColDsptr col)

@@ -37,7 +37,7 @@ namespace MbD {
         virtual FMatDsptr aBOp() const;
         virtual FMatDsptr getaBOp() const;
         virtual FColDsptr aOeO() const;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         virtual void fillContactEndFrames(std::set<EndFramec*> efrms);
         virtual std::shared_ptr<EndFramec> followEndFrame(EndFrmsptr frmi);
         virtual MarkerFramec* getMarkerFrame() const;

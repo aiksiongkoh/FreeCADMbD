@@ -32,152 +32,152 @@ bool KinematicIJ::isKineIJ()
     return true;
 }
 
-void KinematicIJ::calc_pvaluepXI()
+void KinematicIJ::calcpvaluepXI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluepEI()
+void KinematicIJ::calcpvaluepEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpXI()
+void KinematicIJ::calcppvaluepXIpXI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpEI()
+void KinematicIJ::calcppvaluepXIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEIpEI()
+void KinematicIJ::calcppvaluepEIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluepXJ()
+void KinematicIJ::calcpvaluepXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluepEJ()
+void KinematicIJ::calcpvaluepEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpXJ()
+void KinematicIJ::calcppvaluepXIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpEJ()
+void KinematicIJ::calcppvaluepXIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEIpXJ()
+void KinematicIJ::calcppvaluepEIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEIpEJ()
+void KinematicIJ::calcppvaluepEIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXJpXJ()
+void KinematicIJ::calcppvaluepXJpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXJpEJ()
+void KinematicIJ::calcppvaluepXJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEJpEJ()
+void KinematicIJ::calcppvaluepEJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluepXK()
+void KinematicIJ::calcpvaluepXK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluepEK()
+void KinematicIJ::calcpvaluepEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpEK()
+void KinematicIJ::calcppvaluepXIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEIpEK()
+void KinematicIJ::calcppvaluepEIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXJpEK()
+void KinematicIJ::calcppvaluepXJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEJpEK()
+void KinematicIJ::calcppvaluepEJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEKpEK()
+void KinematicIJ::calcppvaluepEKpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_pvaluept()
+void KinematicIJ::calcpvaluept()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvalueptpt()
+void KinematicIJ::calcppvalueptpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_value()
+void KinematicIJ::calcvalue()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXIpt()
+void KinematicIJ::calcppvaluepXIpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEIpt()
+void KinematicIJ::calcppvaluepEIpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXJpt()
+void KinematicIJ::calcppvaluepXJpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEJpt()
+void KinematicIJ::calcppvaluepEJpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepXKpt()
+void KinematicIJ::calcppvaluepXKpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIJ::calc_ppvaluepEKpt()
+void KinematicIJ::calcppvaluepEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }

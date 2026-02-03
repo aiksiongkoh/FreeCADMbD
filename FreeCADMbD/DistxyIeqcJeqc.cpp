@@ -32,7 +32,7 @@ void DistxyIeqcJeqc::initialize()
     ppdistxypEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypEIpEJ()
+void DistxyIeqcJeqc::calcppdistxypEIpEJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -64,7 +64,7 @@ void DistxyIeqcJeqc::calc_ppdistxypEIpEJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypEIpXJ()
+void DistxyIeqcJeqc::calcppdistxypEIpXJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -96,7 +96,7 @@ void DistxyIeqcJeqc::calc_ppdistxypEIpXJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypEJpEJ()
+void DistxyIeqcJeqc::calcppdistxypEJpEJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -127,7 +127,7 @@ void DistxyIeqcJeqc::calc_ppdistxypEJpEJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypXIpEJ()
+void DistxyIeqcJeqc::calcppdistxypXIpEJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -159,7 +159,7 @@ void DistxyIeqcJeqc::calc_ppdistxypXIpEJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypXIpXJ()
+void DistxyIeqcJeqc::calcppdistxypXIpXJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -191,7 +191,7 @@ void DistxyIeqcJeqc::calc_ppdistxypXIpXJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypXJpEJ()
+void DistxyIeqcJeqc::calcppdistxypXJpEJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -223,7 +223,7 @@ void DistxyIeqcJeqc::calc_ppdistxypXJpEJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_ppdistxypXJpXJ()
+void DistxyIeqcJeqc::calcppdistxypXJpXJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -254,7 +254,7 @@ void DistxyIeqcJeqc::calc_ppdistxypXJpXJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_pdistxypEJ()
+void DistxyIeqcJeqc::calcpdistxypEJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -267,7 +267,7 @@ void DistxyIeqcJeqc::calc_pdistxypEJ()
     }
 }
 
-void DistxyIeqcJeqc::calc_pdistxypXJ()
+void DistxyIeqcJeqc::calcpdistxypXJ()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -280,19 +280,19 @@ void DistxyIeqcJeqc::calc_pdistxypXJ()
     }
 }
 
-void DistxyIeqcJeqc::calcPostDynCorrectorIteration()
+void DistxyIeqcJeqc::simUpdateAll()
 {
     //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
-    DistxyIeqcJec::calcPostDynCorrectorIteration();
-    calc_pdistxypXJ();
-    calc_pdistxypEJ();
-    calc_ppdistxypXIpXJ();
-    calc_ppdistxypXIpEJ();
-    calc_ppdistxypEIpXJ();
-    calc_ppdistxypEIpEJ();
-    calc_ppdistxypXJpXJ();
-    calc_ppdistxypXJpEJ();
-    calc_ppdistxypEJpEJ();
+    DistxyIeqcJec::simUpdateAll();
+    calcpdistxypXJ();
+    calcpdistxypEJ();
+    calcppdistxypXIpXJ();
+    calcppdistxypXIpEJ();
+    calcppdistxypEIpXJ();
+    calcppdistxypEIpEJ();
+    calcppdistxypXJpXJ();
+    calcppdistxypXJpEJ();
+    calcppdistxypEJpEJ();
 }
 
 void DistxyIeqcJeqc::init_xyIeJeIe()

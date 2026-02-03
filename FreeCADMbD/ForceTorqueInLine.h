@@ -20,7 +20,7 @@ namespace MbD {
         ForceTorqueInLine(EndFrmsptr frmi, EndFrmsptr frmj) : ForceTorqueIJ(frmi, frmj) {}
         static std::shared_ptr<ForceTorqueInLine> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void calcuIeJeO();
         void calctension();
         void calctwist();

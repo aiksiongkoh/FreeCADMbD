@@ -23,7 +23,7 @@ void ForceTorqueItem::fillStaticJacob(SpMatDsptr mat)
 
 void ForceTorqueItem::postAccICIteration()
 {
-    calcPostDynCorrectorIteration();
+    simUpdateAll();
 }
 
 void ForceTorqueItem::postCollisionCorrectorIteration()

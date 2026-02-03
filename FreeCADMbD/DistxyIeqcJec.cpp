@@ -29,7 +29,7 @@ void DistxyIeqcJec::initialize()
     ppdistxypEIpEI = FullMatrix<double>::With(4, 4);
 }
 
-void DistxyIeqcJec::calc_ppdistxypEIpEI()
+void DistxyIeqcJec::calcppdistxypEIpEI()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -60,7 +60,7 @@ void DistxyIeqcJec::calc_ppdistxypEIpEI()
     }
 }
 
-void DistxyIeqcJec::calc_ppdistxypXIpEI()
+void DistxyIeqcJec::calcppdistxypXIpEI()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -92,7 +92,7 @@ void DistxyIeqcJec::calc_ppdistxypXIpEI()
     }
 }
 
-void DistxyIeqcJec::calc_ppdistxypXIpXI()
+void DistxyIeqcJec::calcppdistxypXIpXI()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -123,7 +123,7 @@ void DistxyIeqcJec::calc_ppdistxypXIpXI()
     }
 }
 
-void DistxyIeqcJec::calc_pdistxypEI()
+void DistxyIeqcJec::calcpdistxypEI()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -136,7 +136,7 @@ void DistxyIeqcJec::calc_pdistxypEI()
     }
 }
 
-void DistxyIeqcJec::calc_pdistxypXI()
+void DistxyIeqcJec::calcpdistxypXI()
 {
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
@@ -149,15 +149,15 @@ void DistxyIeqcJec::calc_pdistxypXI()
     }
 }
 
-void DistxyIeqcJec::calcPostDynCorrectorIteration()
+void DistxyIeqcJec::simUpdateAll()
 {
     //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
-    DistxyIecJec::calcPostDynCorrectorIteration();
-    calc_pdistxypXI();
-    calc_pdistxypEI();
-    calc_ppdistxypXIpXI();
-    calc_ppdistxypXIpEI();
-    calc_ppdistxypEIpEI();
+    DistxyIecJec::simUpdateAll();
+    calcpdistxypXI();
+    calcpdistxypEI();
+    calcppdistxypXIpXI();
+    calcppdistxypXIpEI();
+    calcppdistxypEIpEI();
 }
 
 void DistxyIeqcJec::init_xyIeJeIe()

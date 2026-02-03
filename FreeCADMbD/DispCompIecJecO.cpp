@@ -25,7 +25,7 @@ void DispCompIecJecO::withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t 
     axis = axs;
 }
 
-void DispCompIecJecO::calcPostDynCorrectorIteration()
+void DispCompIecJecO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     riIeJeO = eFrmJ->riOeO(axis) - eFrmI->riOeO(axis);

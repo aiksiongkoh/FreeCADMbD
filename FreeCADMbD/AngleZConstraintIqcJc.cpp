@@ -28,22 +28,22 @@ void AngleZConstraintIqcJc::addToJointTorqueI(FColDsptr col)
     col->equalSelfPlus(aTIeO);
 }
 
-void AngleZConstraintIqcJc::calc_pGpEI()
+void AngleZConstraintIqcJc::calcpGpEI()
 {
     pGpEI = thezIeJe->pvaluepEI();
 }
 
-void AngleZConstraintIqcJc::calc_ppGpEIpEI()
+void AngleZConstraintIqcJc::calcppGpEIpEI()
 {
     ppGpEIpEI = thezIeJe->ppvaluepEIpEI();
 }
 
-void AngleZConstraintIqcJc::calcPostDynCorrectorIteration()
+void AngleZConstraintIqcJc::simUpdateAll()
 {
     //aG = thezIeJe - C
-    AngleZConstraintIJ::calcPostDynCorrectorIteration();
-    this->calc_pGpEI();
-    this->calc_ppGpEIpEI();
+    AngleZConstraintIJ::simUpdateAll();
+    this->calcpGpEI();
+    this->calcppGpEIpEI();
 }
 
 void AngleZConstraintIqcJc::fillAccICIterError(FColDsptr col)

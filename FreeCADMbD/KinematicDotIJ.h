@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<KinematicDotIJ> With();
         static std::shared_ptr<KinematicDotIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         bool isKineIJ() override;
         bool isKinedotIJ() override;
         virtual FRowDsptr pvaluepXdot(SpatialContainerFrame* partFrame);

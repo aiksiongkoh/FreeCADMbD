@@ -24,9 +24,9 @@ void TranslationConstraintIqcJc::initriIeJeIe()
     riIeJeIe = DispCompIeqcJecKeqc::With(eFrmI, eFrmJ, eFrmI, axisI);
 }
 
-void TranslationConstraintIqcJc::calcPostDynCorrectorIteration()
+void TranslationConstraintIqcJc::simUpdateAll()
 {
-    TranslationConstraintIJ::calcPostDynCorrectorIteration();
+    TranslationConstraintIJ::simUpdateAll();
     auto riIeqJeIeq = std::static_pointer_cast<DispCompIeqcJecKeqc>(riIeJeIe);
     pGpXI = riIeqJeIeq->pvaluepXI();
     pGpEI = (riIeqJeIeq->pvaluepEI())->plusFullRow(riIeqJeIeq->pvaluepEK());

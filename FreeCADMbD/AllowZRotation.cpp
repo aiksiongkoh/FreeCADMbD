@@ -51,7 +51,6 @@ void AllowZRotation::initializeGlobally()
             dirCosCon = AllowZRotationConstraintIqctJqc::With(eFrmI, eFrmJ, 1, 0);
         }
         else {
-            noop();
             throw SimulationStoppingError("Check this.");
         }
         addConstraint(dirCosCon);

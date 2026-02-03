@@ -108,7 +108,7 @@ void DirectionCosineConstraintIJ::postInput()
     ConstraintIJ::postInput();
 }
 
-void DirectionCosineConstraintIJ::calcPostDynCorrectorIteration()
+void DirectionCosineConstraintIJ::simUpdateAll()
 {
     //aG = aAijIeJe - aConstant;
     aG = aAijIeJe->aAijIeJe - aConstant;
@@ -166,12 +166,6 @@ void DirectionCosineConstraintIJ::preVelIC()
 {
     aAijIeJe->preVelIC();
     ConstraintIJ::preVelIC();
-}
-
-void DirectionCosineConstraintIJ::simUpdateAll()
-{
-    aAijIeJe->simUpdateAll();
-    ConstraintIJ::simUpdateAll();
 }
 
 void DirectionCosineConstraintIJ::preAccIC()

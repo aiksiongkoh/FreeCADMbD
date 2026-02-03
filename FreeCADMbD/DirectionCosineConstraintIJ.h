@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<DirectionCosineConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) = 0;
         virtual void initaAijIeJe();
@@ -32,7 +32,6 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        void simUpdateAll() override;
         ConstraintType type() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;

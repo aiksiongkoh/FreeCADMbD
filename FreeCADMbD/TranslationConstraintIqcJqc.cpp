@@ -24,9 +24,9 @@ void TranslationConstraintIqcJqc::initriIeJeIe()
     riIeJeIe = DispCompIeqcJeqcKeqc::With(eFrmI, eFrmJ, eFrmI, axisI);
 }
 
-void TranslationConstraintIqcJqc::calcPostDynCorrectorIteration()
+void TranslationConstraintIqcJqc::simUpdateAll()
 {
-    TranslationConstraintIqcJc::calcPostDynCorrectorIteration();
+    TranslationConstraintIqcJc::simUpdateAll();
     pGpXJ = riIeJeIe->pvaluepXJ();
     pGpEJ = riIeJeIe->pvaluepEJ();
     ppGpEIpXJ = riIeJeIe->ppvaluepXJpEK()->transpose();

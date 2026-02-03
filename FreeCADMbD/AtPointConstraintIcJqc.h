@@ -18,7 +18,7 @@ namespace MbD {
         AtPointConstraintIcJqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO) : AtPointConstraintIJ(frmi, frmj, axisO) {}
         static std::shared_ptr<AtPointConstraintIcJqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO);
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;

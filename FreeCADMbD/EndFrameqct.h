@@ -35,7 +35,7 @@ namespace MbD {
         virtual void initpPhiThePsiptBlks();
         virtual void initppPhiThePsiptptBlks();
         void postInput() override;
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         FRowDsptr ppriOeOpEpt(size_t i) const;
         FMatDsptr ppAjOepETpt(size_t j) const;
         void prePosIC() override;

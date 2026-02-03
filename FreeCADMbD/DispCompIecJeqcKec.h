@@ -20,7 +20,7 @@ namespace MbD {
         static std::shared_ptr<DispCompIecJeqcKec> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk);
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         FRowDsptr pvaluepXJ() override;
         FRowDsptr pvaluepEJ() override;
         FMatDsptr ppvaluepEJpEJ() override;

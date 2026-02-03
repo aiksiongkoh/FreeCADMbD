@@ -19,7 +19,7 @@ namespace MbD {
         static std::shared_ptr<ForceTorqueFunction> With();
         void initialize() override;
 
-        void calcPostDynCorrectorIteration() override;
+        void simUpdateAll() override;
         Symsptr getformula();
         void setformula(Symsptr function);
         double forTor();
@@ -41,7 +41,6 @@ namespace MbD {
         void preAccIC() override;
         void preDynOutput() override;
         void preStatic() override;
-        void simUpdateAll() override;
         FColDsptr pFTpkineIJs();
         FColDsptr pFTpkinedotIJs();
         FColDsptr pFTpJtActs();

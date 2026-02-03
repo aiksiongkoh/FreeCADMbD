@@ -30,11 +30,11 @@ void AtPointConstraintIqcJc::initriIeJeO()
     riIeJeO = DispCompIeqcJecO::With(eFrmI, eFrmJ, axis);
 }
 
-void AtPointConstraintIqcJc::calcPostDynCorrectorIteration()
+void AtPointConstraintIqcJc::simUpdateAll()
 {
     //riIeJeO = rOJeO - rOIeO;
     //aG = riIeJeO - C;
-    AtPointConstraintIJ::calcPostDynCorrectorIteration();
+    AtPointConstraintIJ::simUpdateAll();
     pGpEI = std::static_pointer_cast<DispCompIeqcJecO>(riIeJeO)->priIeJeOpEI;
 }
 
