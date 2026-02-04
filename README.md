@@ -47,6 +47,24 @@ In Visual Studio
         RightClick/Debug/
             Step through code to learn the solver
 
+Additionally, In Visual Studio
+    In Solution Explorer
+        Select/FreeCADMbDMain/
+		RightClick/Set as Startup Project/
+		Click/Local Windows Debugger/
+			to start main program in FreeCADMbD.cpp
+			Output is to a separate terminal window
+
+When new *.cpp and *.h files are added in the directory
+	C:\Users\...\FreeCADMbD\FreeCADMbD
+	In Solution Explorer treeview
+        Select/FreeCADMbD/Source Files/CmakeLists.txt
+			Edit CMakeLists.txt to include *.cpp and *.h files
+	Save CMakeLists.txt
+Do the converse when *.cpp and *.h files are removed.
+
+Shutdown any Visual Studio window.
+Repeat CMake procedure above to create new Visual Studio *.sln which have the files changes.
 
 For GUI version and documentation
     Download at
