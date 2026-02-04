@@ -25,6 +25,8 @@ namespace MbD {
         virtual FMatDsptr getprIeJeOpEJ();
         virtual FMatDsptr getppriIeJeOpEIpEI(size_t axis);
         virtual FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
+        virtual FColDsptr getprIeJeOpt();
+        virtual FColDsptr getpprIeJeOptpt();
 
         FColDsptr rIeJeO;
     };

@@ -138,16 +138,11 @@ void AtPointConstraintIeqJeq::useEquationNumbers()
 void AtPointConstraintIeqJeq::fillpFpy(SpMatDsptr mat)
 {
     ConstraintIeJe::fillpFpy(mat);
-    mat->atijplusNumber(iG, iqXJ + axis, 1.0);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 
 void AtPointConstraintIeqJeq::fillpFpydot(SpMatDsptr mat)
 {
     ConstraintIeJe::fillpFpydot(mat);
-    mat->atijplusNumber(iqXJ + axis, iG, 1.0);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
 std::string AtPointConstraintIeqJeq::constraintSpec()
@@ -158,45 +153,24 @@ std::string AtPointConstraintIeqJeq::constraintSpec()
 void AtPointConstraintIeqJeq::fillPosICError(FColDsptr col)
 {
     ConstraintIeJe::fillPosICError(col);
-    col->atiplusNumber(iqXJ + axis, lam);
-    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
 }
 
 void AtPointConstraintIeqJeq::fillPosICJacob(SpMatDsptr mat)
 {
     ConstraintIeJe::fillPosICJacob(mat);
-    mat->atijplusNumber(iG, iqXJ + axis, 1.0);
-    mat->atijplusNumber(iqXJ + axis, iG, 1.0);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 
 void AtPointConstraintIeqJeq::fillPosKineJacob(SpMatDsptr mat)
 {
     ConstraintIeJe::fillPosKineJacob(mat);
-    mat->atijplusNumber(iG, iqXJ + axis, 1.0);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
 }
 
 void AtPointConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
 {
     ConstraintIeJe::fillVelICJacob(mat);
-    mat->atijplusNumber(iG, iqXJ + axis, 1.0);
-    mat->atijplusNumber(iqXJ + axis, iG, 1.0);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
 void AtPointConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     ConstraintIeJe::fillAccICIterError(col);
-    col->atiplusNumber(iqXJ + axis, lam);
-    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(frmJe);
-    auto qEdotJ = eFrmJqc->qEdot();
-    auto sum = eFrmJqc->qXddot()->at(axis);
-    sum += pGpEJ->timesFullColumn(eFrmJqc->qEddot());
-    sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
-    col->atiplusNumber(iG, sum);
 }
