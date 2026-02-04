@@ -27,48 +27,32 @@ namespace MbD {
         void initialize() override;
         void initializeLocally() override;
         void initializeGlobally() override;
-        void useEquationNumbers() override;
-        void simUpdateAll() override;
-        void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
-        void fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) override;
-        void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
-        void fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) override;
-        void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
-        void prePosIC() override;
-        void prePosKine() override;
-        void preVelIC() override;
-        void preAccIC() override;
-        void preDyn() override;
-        void preDynOutput() override;
+
         void postInput() override;
-        void postPosICIteration() override;
-        void postDynPredictor() override;
-        void postDynCorrectorIteration() override;
-        void postDynOutput() override;
+        void simUpdateAll() override;
+        void useEquationNumbers() override;
+
+        void prePosIC() override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;
-        void fillPosKineError(FColDsptr col) override;
-        void fillPosKineJacob(SpMatDsptr mat) override;
-        void fillVelICError(FColDsptr col) override;
+        void postPosICIteration() override;
+
+        void preVelIC() override;
         void fillVelICJacob(SpMatDsptr mat) override;
+
+        void preAccIC() override;
         void fillAccICIterError(FColDsptr col) override;
-        void fillAccICIterJacob(SpMatDsptr mat) override;
-        void fillDynError(FColDsptr col) override;
+
+        void preDyn() override;
+        void preDynOutput() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
-        void fillqsuddotlam(FColDsptr col) override;
-        void fillqsulam(FColDsptr col) override;
-        void fillpqsumu(FColDsptr col) override;
-        void fillpqsumudot(FColDsptr col) override;
-        void reactivateRedundantConstraints() override;
-        void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;
         void setConstant(double value);
-        void setqsudotlam(FColDsptr col) override;
-        void setqsuddotlam(FColDsptr col) override;
-        void setqsulam(FColDsptr col) override;
-        void setpqsumu(FColDsptr col) override;
-        void setpqsumudot(FColDsptr col) override;
-        void setpqsumuddot(FColDsptr col) override;
+        void addToJointForceI(FColDsptr col) override;
+        void addToJointTorqueI(FColDsptr col) override;
+        void addToJointForceJ(FColDsptr col) override;
+        void addToJointTorqueJ(FColDsptr col) override;
+
         virtual void calcG() = 0;
         virtual void calcpGpXI() = 0;
         virtual void calcpGpEI() = 0;
@@ -84,10 +68,6 @@ namespace MbD {
         virtual void calcppGpXJpXJ() = 0;
         virtual void calcppGpXJpEJ() = 0;
         virtual void calcppGpEJpEJ() = 0;
-        void addToJointForceI(FColDsptr col) override;
-        void addToJointTorqueI(FColDsptr col) override;
-        void addToJointForceJ(FColDsptr col) override;
-        void addToJointTorqueJ(FColDsptr col) override;
         EndFrmsptr getfrmIe() { return frmIe; }
         EndFrmsptr getfrmJe() { return frmJe; }
         FColDsptr getrIeJeO();

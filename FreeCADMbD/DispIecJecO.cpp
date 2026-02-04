@@ -114,3 +114,13 @@ FMatDsptr MbD::DispIecJecO::getppriIeJeOpEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
+
+FColDsptr MbD::DispIecJecO::getprIeJeOpt()
+{
+    return FColDsptr();
+}
+
+FColDsptr MbD::DispIecJecO::getpprIeJeOptpt()
+{
+    return FColDsptr();
+}

@@ -119,6 +119,8 @@ set(FREECADMBD_SRC
 		AtPointConstraintIqcJc.cpp
 		AtPointConstraintIqcJqc.cpp
 		AtPointConstraintIqctJqc.cpp
+		AtPointConstraintIeJeq.cpp
+		AtPointConstraintIetJeq.cpp
 		AtPointConstraintIeqJeq.cpp
 		AtPointJoint.cpp
 		BackwardDifference.cpp
@@ -191,6 +193,7 @@ set(FREECADMBD_SRC
 		DispCompIeqctJeqcO.cpp
 		DispIecJecO.cpp
 		DispIecJeqcO.cpp
+		DispIetJeqO.cpp
 		DispIeqcJecO.cpp
 		DispIeqcJeqcO.cpp
 		DistanceConstraintIJ.cpp
@@ -577,6 +580,8 @@ set(FREECADMBD_HEADERS
 		AtPointConstraintIqcJc.h
 		AtPointConstraintIqcJqc.h
 		AtPointConstraintIqctJqc.h
+		AtPointConstraintIeJeq.h
+		AtPointConstraintIetJeq.h
 		AtPointConstraintIeqJeq.h
 		AtPointJoint.h
 		BackwardDifference.h
@@ -649,6 +654,7 @@ set(FREECADMBD_HEADERS
 		DispCompIeqctJeqcO.h
 		DispIecJecO.h
 		DispIecJeqcO.h
+		DispIetJeqO.h
 		DispIeqcJecO.h
 		DispIeqcJeqcO.h
 		DistanceConstraintIJ.h

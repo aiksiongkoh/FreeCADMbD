@@ -304,8 +304,7 @@ void Item::postDynFirstStep()
 
 void Item::postDynOutput()
 {
-    //"Calculate all instance variables just after output."
-    simUpdateAll();
+    //"Do nothing"
 }
 
 void Item::postDynPredictor()
@@ -456,6 +455,7 @@ void Item::preCollisionCorrectorIteration()
 
 void Item::preCollisionDerivativeIC()
 {
+    //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -491,6 +491,7 @@ void Item::postCollisionCorrectorIteration()
 
 void Item::postCollisionDerivativeIC()
 {
+    //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -521,11 +522,13 @@ void Item::fillAccICIterJacob(SpMatDsptr)
 
 void Item::fillCollisionDerivativeICError(FColDsptr)
 {
+    //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
 void Item::fillCollisionDerivativeICJacob(SpMatDsptr)
 {
+    //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -572,6 +575,7 @@ void Item::discontinuityAtaddTypeTo(double, std::shared_ptr<std::vector<Disconti
 
 void Item::discontinuityAtICAddTo(std::shared_ptr<std::vector<DiscontinuityType>>)
 {
+    //Used by CurveCurveContactJoint
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -579,7 +583,6 @@ double Item::checkForDynDiscontinuityBetweenand(double, double t)
 {
     //"Check for discontinuity in the last step defined by the interval (tprevious,t]."
     //"Default is assume no discontinuity and return t."
-
     return t;
 }
 
