@@ -22,18 +22,18 @@ void DispIetJeqO::initializeGlobally()
 {
     //Variables are constants.
     prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
-    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->pprOeOpEpE;
+    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->pprOeOpEpE;
 }
 
 void MbD::DispIetJeqO::preVelIC()
 {
-    DispIecJeqcO::preVelIC();
+    DispIeJeqO::preVelIC();
     calcpvaluept();
 }
 
 void MbD::DispIetJeqO::preAccIC()
 {
-    DispIecJeqcO::preAccIC();
+    DispIeJeqO::preAccIC();
     calcppvaluepXJpt();
     calcppvaluepEJpt();
     calcppvalueptpt();
@@ -62,6 +62,6 @@ FColDsptr MbD::DispIetJeqO::getpprIeJeOptpt()
 void DispIetJeqO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
-    DispIecJecO::simUpdateAll();
-    prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->prOeOpE;
+    DispIeJeqO::simUpdateAll();
+    prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->prOeOpE;
 }

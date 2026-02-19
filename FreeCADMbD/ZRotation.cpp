@@ -9,7 +9,7 @@
 #include "System.h"
 #include "ZRotation.h"
 #include "FullColumn.h"
-#include "DirectionCosineConstraintIJ.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
 
@@ -33,7 +33,7 @@ void ZRotation::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        auto dirCosCon = DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 1, 0);
+        auto dirCosCon = DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 1, 0);
         addConstraint(dirCosCon);
         root()->hasChanged = true;
     }

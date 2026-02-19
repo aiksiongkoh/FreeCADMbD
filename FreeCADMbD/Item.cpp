@@ -110,19 +110,19 @@ void Item::removeRedundantConstraints(std::shared_ptr<std::vector<size_t>>)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::setpqsumu(FColDsptr)
+void Item::setpqsumu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::setpqsumuddot(FColDsptr)
+void Item::setpqsumuddot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::setpqsumudot(FColDsptr)
+void Item::setpqsumudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void Item::reactivateRedundantConstraints()
@@ -135,24 +135,24 @@ void Item::registerName()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillPosKineError(FColDsptr)
+void Item::fillPosKineError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillPosKineJacob(SpMatDsptr)
+void Item::fillPosKineJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
-void Item::fillpqsumu(FColDsptr)
+void Item::fillpqsumu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillpqsumudot(FColDsptr)
+void Item::fillpqsumudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void Item::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
@@ -165,14 +165,14 @@ void Item::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Con
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillpFpy(SpMatDsptr)
+void Item::fillpFpy(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
-void Item::fillpFpydot(SpMatDsptr)
+void Item::fillpFpydot(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
 void Item::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
@@ -180,7 +180,7 @@ void Item::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillStaticError(FColDsptr)
+void Item::fillStaticError(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -200,34 +200,34 @@ void Item::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Const
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillDynError(FColDsptr)
+void Item::fillDynError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillqsu(FColDsptr)
+void Item::fillqsu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillqsuWeights(DiagMatDsptr)
+void Item::fillqsuWeights(DiagMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
-void Item::fillqsuWeightsSmall(FColDsptr)
+void Item::fillqsuWeightsSmall(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillqsulam(FColDsptr)
+void Item::fillqsulam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::setqsulam(FColDsptr)
+void Item::setqsulam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void Item::preDyn()
@@ -383,34 +383,34 @@ void Item::postVelIC()
     //Do nothing.
 }
 
-void Item::fillqsudot(FColDsptr)
+void Item::fillqsudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillqsudotPlam(FColDsptr)
+void Item::fillqsudotPlam(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillqsudotPlamDeriv(FColDsptr)
+void Item::fillqsudotPlamDeriv(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillqsudotWeights(DiagMatDsptr)
+void Item::fillqsudotWeights(DiagMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
-void Item::fillVelICError(FColDsptr)
+void Item::fillVelICError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillVelICJacob(SpMatDsptr)
+void Item::fillVelICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;   // suppress unused parameter warning
 }
 
 void Item::getString(const std::string& str)
@@ -418,17 +418,17 @@ void Item::getString(const std::string& str)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::setqsudotlam(FColDsptr)
+void Item::setqsudotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::setqsudotPlam(FColDsptr)
+void Item::setqsudotPlam(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::setqsudotPlamDeriv(FColDsptr)
+void Item::setqsudotPlamDeriv(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -505,56 +505,56 @@ void Item::postCollisionStep()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillqsuddotlam(FColDsptr)
+void Item::fillqsuddotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillAccICIterError(FColDsptr)
+void Item::fillAccICIterError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillAccICIterJacob(SpMatDsptr)
+void Item::fillAccICIterJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
-void Item::fillCollisionDerivativeICError(FColDsptr)
+void Item::fillCollisionDerivativeICError(FColDsptr col)
 {
     //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillCollisionDerivativeICJacob(SpMatDsptr)
+void Item::fillCollisionDerivativeICJacob(SpMatDsptr mat)
 {
     //Solve for collision derivative initial conditions.
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillCollisionError(FColDsptr)
+void Item::fillCollisionError(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillCollisionpFpy(SpMatDsptr)
+void Item::fillCollisionpFpy(SpMatDsptr mat)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillCollisionpFpydot(SpMatDsptr)
+void Item::fillCollisionpFpydot(SpMatDsptr mat)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::setqsudot(FColDsptr)
+void Item::setqsudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::setqsuddotlam(FColDsptr)
+void Item::setqsuddotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 std::shared_ptr<StateData> Item::stateData()
@@ -591,9 +591,9 @@ void Item::constraintsReport()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::setqsu(FColDsptr)
+void Item::setqsu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void Item::useEquationNumbers()
@@ -666,14 +666,14 @@ void Item::postStaticIteration()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void Item::fillPosICError(FColDsptr)
+void Item::fillPosICError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void Item::fillPosICJacob(SpMatDsptr)
+void Item::fillPosICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
 std::ostream& MbD::operator<<(std::ostream& s, const Item& item)

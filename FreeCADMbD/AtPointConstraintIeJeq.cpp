@@ -24,106 +24,23 @@ void AtPointConstraintIeJeq::initializeGlobally()
     ConstraintIeJe::initializeGlobally();
 }
 
-void AtPointConstraintIeJeq::simUpdateAll()
-{
-    //riIeJeO = rOJeO - rOIeO;
-    //aG = riIeJeO - C;
-    ConstraintIeJe::simUpdateAll();
-}
-
-void MbD::AtPointConstraintIeJeq::calcG()
-{
-    auto rIeJeO = dispIeJeO->rIeJeO;
-    aG = rIeJeO->at(axis) - aConstant;
-}
-
-void MbD::AtPointConstraintIeJeq::calcpGpXI()
-{
-    //pGpXI = [0];
-    assert(!pGpXI);
-}
-
-void MbD::AtPointConstraintIeJeq::calcpGpEI()
-{
-    //pGpEI = [0];
-    assert(!pGpEI);
-}
-
 void MbD::AtPointConstraintIeJeq::calcpGpXJ()
 {
     //pGpXJ = [I];
-    pGpXJ = dispIeJeO->getprIeJeOpXJ()->at(axis);
+    auto prIeJeOpXJ = dispIeJeO->getprIeJeOpXJ();
+    pGpXJ = prIeJeOpXJ->at(axis);
 }
 
 void MbD::AtPointConstraintIeJeq::calcpGpEJ()
 {
-    pGpEJ = dispIeJeO->getprIeJeOpEJ()->at(axis);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXIpXI()
-{
-    //ppGpXIpXI = [0];
-    assert(!ppGpXIpXI);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXIpEI()
-{
-    //ppGpXIpEI = [0];
-    assert(!ppGpXIpEI);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXIpXJ()
-{
-    //ppGpXIpXJ = [0];
-    assert(!ppGpXIpXJ);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXIpEJ()
-{
-    //ppGpXIpEJ = [0];
-    assert(!ppGpXIpEJ);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpEIpEI()
-{
-    //ppGpEIpEI = [0];
-    assert(!ppGpEIpEI);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpEIpXJ()
-{
-    //ppGpEIpXJ = [0];
-    assert(!ppGpEIpXJ);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpEIpEJ()
-{
-    //ppGpEIpEJ = [0];
-    assert(!ppGpEIpEJ);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXJpXJ()
-{
-    //ppGpXJpXJ = [0];
-    assert(!ppGpXJpXJ);
-}
-
-void MbD::AtPointConstraintIeJeq::calcppGpXJpEJ()
-{
-    //ppGpXJpEJ = [0];
-    assert(!ppGpXJpEJ);
+    auto prIeJeOpEJ = dispIeJeO->getprIeJeOpEJ();
+    pGpEJ = prIeJeOpEJ->at(axis);
 }
 
 void MbD::AtPointConstraintIeJeq::calcppGpEJpEJ()
 {
     //ppGpEJpEJ is constant for EndFrameqc, but not for EndFrameqct.
     ppGpEJpEJ = dispIeJeO->getppriIeJeOpEJpEJ(axis);
-}
-
-void MbD::AtPointConstraintIeJeq::initialize()
-{
-    ConstraintIeJe::initialize();
-    initriIeJeO();
 }
 
 void MbD::AtPointConstraintIeJeq::initializeLocally()
@@ -133,7 +50,9 @@ void MbD::AtPointConstraintIeJeq::initializeLocally()
 
 void AtPointConstraintIeJeq::useEquationNumbers()
 {
-    ConstraintIeJe::useEquationNumbers();
+    AtPointConstraintIeJe::useEquationNumbers();
+    iqXJ = frmJe->iqX();
+    iqEJ = frmJe->iqE();
 }
 
 void AtPointConstraintIeJeq::fillpFpy(SpMatDsptr mat)
@@ -141,11 +60,6 @@ void AtPointConstraintIeJeq::fillpFpy(SpMatDsptr mat)
     mat->atijplusFullRow(iG, iqXJ, pGpXJ);
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
 
-    auto ppGpXJpEJlam = ppGpXJpEJ->times(lam);
-
-    mat->atijplusFullMatrixtimes(iqXJ, iqXJ, ppGpXJpXJ, lam);
-    mat->atijplusFullMatrix(iqXJ, iqEJ, ppGpXJpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXJ, ppGpXJpEJlam);
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 
@@ -155,14 +69,48 @@ void AtPointConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
-std::string AtPointConstraintIeJeq::constraintSpec()
+void MbD::AtPointConstraintIeJeq::addToJointForceI(FColDsptr col)
 {
-    return "AtPointConstraintIJ";
+    //aFIeO = lam * pGpXI
+    //frmIec does not have q, we use frmJeq
+    //aFJeO = lam * pGpXJ
+    //aFIeO = -aFJeO
+    auto aFJeO = pGpXJ->transpose()->times(lam);
+    col->equalSelfMinus(aFJeO);
+}
+
+void MbD::AtPointConstraintIeJeq::addToJointTorqueI(FColDsptr col)
+{
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    //frmIe does not have q, we use frmJeq
+    //aFJeO = lam * pGpXJ
+    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
+    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - p(aAOJp * rJpJeJp)pEJT * aFJeO)
+    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - (pAOJppEJ * rJpJeJp)T * aFJeO)
+    //aTJeO = rIeJeO cross aFIeO - aTIeO
+    //aTIeO = rJeIeO cross aFJeO - aTJeO
+
+    auto aFJeOT = pGpXJ->times(lam);
+    auto rJpJeJp = frmJe->rpep();
+    auto pAOJppEJ = frmJe->pAOppE();
+    auto aBOJp = frmJe->aBOp();
+    auto prOJeOpEJTaFJeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOJeOpEJT * aFJeO
+    for (size_t i = 0; i < 4; i++)
+    {
+        auto prOJeOpEJTaFJeOi = aFJeOT->timesFullColumn(pAOJppEJ->at(i)->timesFullColumn(rJpJeJp));
+        prOJeOpEJTaFJeO->atiput(i, prOJeOpEJTaFJeOi);
+    }
+    auto lampGpEJ = pGpEJ->transpose()->times(lam);  //lam * pGpEJ
+    auto aTJeO = aBOJp->timesFullColumn(lampGpEJ->minusFullColumn(prOJeOpEJTaFJeO))->times(0.5);
+    auto rJeIeO = getrIeJeO()->negated();
+    auto aFJeO = aFJeOT->transpose();
+    auto aTIeO = rJeIeO->cross(aFJeO)->minusFullColumn(aTJeO);
+    col->equalSelfPlus(aTIeO);
 }
 
 void AtPointConstraintIeJeq::fillPosICError(FColDsptr col)
 {
-    Constraint::fillPosICError(col);
+    AtPointConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
 }
@@ -174,11 +122,6 @@ void AtPointConstraintIeJeq::fillPosICJacob(SpMatDsptr mat)
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 
-    auto ppGpXJpEJlam = ppGpXJpEJ->times(lam);
-
-    mat->atijplusFullMatrixtimes(iqXJ, iqXJ, ppGpXJpXJ, lam);
-    mat->atijplusFullMatrix(iqXJ, iqEJ, ppGpXJpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXJ, ppGpXJpEJlam);
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 

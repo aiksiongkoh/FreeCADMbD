@@ -149,7 +149,7 @@ bool SystemSolver::needToRedoPosIC()
         }
     }
     setsOfRedundantConstraints->push_back(newSet);
-    partsJointsMotionsLimitsDo([](auto item) { item->reactivateRedundantConstraints(); });
+    partsJointsMotionsLimitsDo([&](auto item) { item->reactivateRedundantConstraints(); });
     return true;
 }
 

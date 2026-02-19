@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "Orientation.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "System.h"
 #include "SimulationStoppingError.h"
 
@@ -28,9 +29,9 @@ void Orientation::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 1, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 1, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

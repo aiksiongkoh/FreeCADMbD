@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "PerpendicularJoint.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -29,7 +30,7 @@ void PerpendicularJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 2));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 2));
         root()->hasChanged = true;
     }
     else {

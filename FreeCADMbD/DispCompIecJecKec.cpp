@@ -13,6 +13,7 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIecJecKec> DispCompIecJecKec::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
+    throw SimulationStoppingError("To be implemented.");
     assert(!frmi->has_qX());
     assert(!frmj->has_qX());
     assert(!frmk->has_qX());

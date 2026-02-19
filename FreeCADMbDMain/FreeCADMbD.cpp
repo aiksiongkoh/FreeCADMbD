@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
         }
         return 0;
     }
+    ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
     auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/runPreDragBackhoe1.asmt");
     assembly->runDraggingLog(std::string(TEST_DATA_PATH) + "/ASMT/draggingBackhoe1.log");
 

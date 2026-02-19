@@ -27,13 +27,13 @@ namespace MbD {
         void initialize() override;
         void initializeLocally() override;
         void initializeGlobally() override;
+        virtual void useUniqueDispIeJeO();
+        virtual void useUniqueDispIeJeKe();
 
         void postInput() override;
         void simUpdateAll() override;
-        void useEquationNumbers() override;
 
         void prePosIC() override;
-        void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;
         void postPosICIteration() override;
 
@@ -47,7 +47,6 @@ namespace MbD {
         void preDynOutput() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
-        void setConstant(double value);
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
         void addToJointForceJ(FColDsptr col) override;
@@ -71,9 +70,8 @@ namespace MbD {
         EndFrmsptr getfrmIe() { return frmIe; }
         EndFrmsptr getfrmJe() { return frmJe; }
         FColDsptr getrIeJeO();
-        virtual ConstraintType type();
+        virtual ConstraintType type() = 0;
         virtual std::string constraintSpec() = 0;
-        virtual bool isRedundant();
 
 
 

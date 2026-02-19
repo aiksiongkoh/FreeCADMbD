@@ -41,12 +41,16 @@ void DAEIntegrator::initializeGlobally()
 {
     IntegratorInterface::initializeGlobally();
     assignEquationNumbers();
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->useEquationNumbers(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->useEquationNumbers(); 
+        });
 }
 
 void DAEIntegrator::preFirstStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynFirstStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynFirstStep(); 
+        });
 }
 
 void DAEIntegrator::checkForOutputThrough(double t)
@@ -61,7 +65,9 @@ void DAEIntegrator::preRun()
 
 void DAEIntegrator::preStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynStep(); 
+        });
 }
 
 double DAEIntegrator::suggestSmallerOrAcceptStepSize(double hnew)

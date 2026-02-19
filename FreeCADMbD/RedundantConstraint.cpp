@@ -64,24 +64,24 @@ void MbD::RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vec
     //Do nothing.
 }
 
-void RedundantConstraint::fillqsuddotlam(FColDsptr)
+void RedundantConstraint::fillqsuddotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::fillqsulam(FColDsptr)
+void RedundantConstraint::fillqsulam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::fillpqsumu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::fillpqsumudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::postInput()
@@ -94,29 +94,29 @@ void RedundantConstraint::prePosIC()
     //Do nothing.
 }
 
-void RedundantConstraint::setqsulam(FColDsptr)
+void RedundantConstraint::setqsulam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::setqsudotlam(FColDsptr)
+void RedundantConstraint::setqsudotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::fillPosICError(FColDsptr)
+void RedundantConstraint::fillPosICError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::fillPosKineError(FColDsptr)
+void RedundantConstraint::fillPosKineError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::fillPosKineJacob(SpMatDsptr)
+void RedundantConstraint::fillPosKineJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
 void RedundantConstraint::preVelIC()
@@ -129,14 +129,14 @@ void RedundantConstraint::preAccIC()
     //Do nothing.
 }
 
-void RedundantConstraint::fillAccICIterError(FColDsptr)
+void RedundantConstraint::fillAccICIterError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
-void RedundantConstraint::setqsuddotlam(FColDsptr)
+void RedundantConstraint::setqsuddotlam(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::discontinuityAtaddTypeTo(double, std::shared_ptr<std::vector<DiscontinuityType>>)
@@ -151,17 +151,17 @@ void RedundantConstraint::discontinuityAtaddTypeTo(double, std::shared_ptr<std::
 
 void RedundantConstraint::setpqsumu(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::setpqsumudot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::setpqsumuddot(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::postDynPredictor()
@@ -176,17 +176,17 @@ void RedundantConstraint::postPosICIteration()
 
 void RedundantConstraint::fillDynError(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::fillpFpy(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
 void RedundantConstraint::fillpFpydot(SpMatDsptr mat)
 {
-    //Do nothing.
+    (void)mat;
 }
 
 void RedundantConstraint::postDynCorrectorIteration()
@@ -206,22 +206,22 @@ void RedundantConstraint::postDynOutput()
 
 void MbD::RedundantConstraint::addToJointForceI(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void RedundantConstraint::addToJointTorqueI(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void MbD::RedundantConstraint::addToJointForceJ(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 void MbD::RedundantConstraint::addToJointTorqueJ(FColDsptr col)
 {
-    //Do nothing.
+    (void)col;
 }
 
 std::string RedundantConstraint::constraintSpec()

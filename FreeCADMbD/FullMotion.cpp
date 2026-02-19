@@ -8,8 +8,8 @@
  
 #include "FullMotion.h"
 #include "System.h"
-#include "TranslationConstraintIJ.h"
-#include "DirectionCosineConstraintIJ.h"
+#include "TranslationConstraintIeJe.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "EndFrameqct.h"
 #include "SimulationStoppingError.h"
 
@@ -44,12 +44,12 @@ void FullMotion::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 0));
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 1));
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 2));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 1, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 0));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 1));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 1, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

@@ -24,7 +24,9 @@ namespace MbD {
         void createMbD() override;
         void storeOnLevel(std::ofstream& os, size_t level) override;
 
-        double radiusI = 0.0, radiusJ = 0.0, aConstant = 0.0;
+        double radiusI = std::numeric_limits<double>::min();
+        double radiusJ = std::numeric_limits<double>::min();
+        double aConstant = std::numeric_limits<double>::min();
     };
 }
 

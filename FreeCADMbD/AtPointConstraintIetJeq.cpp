@@ -21,14 +21,7 @@ std::shared_ptr<AtPointConstraintIetJeq> AtPointConstraintIetJeq::With(EndFrmspt
 
 void AtPointConstraintIetJeq::initializeGlobally()
 {
-    AtPointConstraintIeJeq:initializeGlobally();
-}
-
-void AtPointConstraintIetJeq::simUpdateAll()
-{
-    //riIeJeO = rOJeO - rOIeO;
-    //aG = riIeJeO - C;
-    AtPointConstraintIeJeq::simUpdateAll();
+    AtPointConstraintIeJeq::initializeGlobally();
 }
 
 ConstraintType AtPointConstraintIetJeq::type()

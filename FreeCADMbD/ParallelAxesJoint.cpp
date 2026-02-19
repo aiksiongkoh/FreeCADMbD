@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "ParallelAxesJoint.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -29,8 +30,8 @@ void ParallelAxesJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

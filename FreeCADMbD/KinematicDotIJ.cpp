@@ -21,6 +21,7 @@ std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With()
 
 std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
+    throw SimulationStoppingError("To be implemented.");
     auto inst = std::make_shared<KinematicDotIJ>(frmi, frmj);
     inst->initialize();
     return inst;

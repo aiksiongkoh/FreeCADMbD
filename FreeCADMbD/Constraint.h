@@ -58,10 +58,11 @@ namespace MbD {
         virtual void addToJointTorqueJ(FColDsptr col);
 
         size_t iG = SIZE_MAX;
-        double aG = 0.0;        //Constraint function
-        double aConstant = 0.0;
-        double lam = 0.0;        //Lambda is Lagrange Multiplier
-        double mu = 0.0, lamDeriv = 0.0;
+        double aG = std::numeric_limits<double>::min();         //Constraint function
+        double aConstant = std::numeric_limits<double>::min();
+        double lam = std::numeric_limits<double>::min();        //Lambda is Lagrange Multiplier
+        double mu = std::numeric_limits<double>::min();
+        double lamDeriv = std::numeric_limits<double>::min();
     };
 }
 

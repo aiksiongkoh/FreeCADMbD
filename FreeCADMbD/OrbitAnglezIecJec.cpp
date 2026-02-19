@@ -17,6 +17,7 @@ using namespace MbD;
 
 std::shared_ptr<OrbitAngleZIecJec> OrbitAngleZIecJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
+    throw SimulationStoppingError("To be implemented.");
     auto inst = std::make_shared<OrbitAngleZIecJec>(frmi, frmj);
     inst->initialize();
     return inst;

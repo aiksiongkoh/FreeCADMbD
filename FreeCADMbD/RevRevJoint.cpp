@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include "RevRevJoint.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "DistancexyConstraintIJ.h"
 #include "System.h"
 
@@ -33,9 +34,9 @@ void RevRevJoint::initializeGlobally()
         auto distxyIJ = DistancexyConstraintIJ::With(eFrmI, eFrmJ);
         distxyIJ->setConstant(distanceIJ);
         addConstraint(distxyIJ);
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 2));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

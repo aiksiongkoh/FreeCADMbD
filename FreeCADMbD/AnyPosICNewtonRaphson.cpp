@@ -65,7 +65,9 @@ void AnyPosICNewtonRaphson::fillPyPx()
 
 void AnyPosICNewtonRaphson::passRootToSystem()
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setqsulam(x); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->setqsulam(x); 
+        });
 }
 
 void AnyPosICNewtonRaphson::assignEquationNumbers()

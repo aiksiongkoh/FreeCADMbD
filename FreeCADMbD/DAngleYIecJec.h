@@ -9,10 +9,10 @@
 #pragma once
 #include "KinematicIJ.h"
 
-//Small angle rotation
+ //Small angle rotation
 namespace MbD {
     class DAngleYIecJec : public KinematicIJ
     {
-        public: 
+    public:
     };
 }

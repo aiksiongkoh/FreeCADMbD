@@ -50,11 +50,6 @@ void DirectionCosineConstraintIqcJc::fillpFpydot(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
 }
 
-std::string DirectionCosineConstraintIqcJc::constraintSpec()
-{
-    return "DirectionCosineConstraintIJ";
-}
-
 void DirectionCosineConstraintIqcJc::fillPosICError(FColDsptr col)
 {
     Constraint::fillPosICError(col);

@@ -14,3 +14,8 @@ void Kinematic::initialize()
 {
     Item::initialize();
 }
+
+void MbD::Kinematic::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
+{
+    //Do nothing.
+}

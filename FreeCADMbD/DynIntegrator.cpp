@@ -85,7 +85,9 @@ void DynIntegrator::checkForDiscontinuity()
         epsilon = std::abs(t) * epsilon;
         tstartNew = ((direction * t) + epsilon) / direction;
     }
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { tstartNew = item->checkForDynDiscontinuityBetweenand(tprevious, tstartNew); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        tstartNew = item->checkForDynDiscontinuityBetweenand(tprevious, tstartNew); 
+        });
     if ((direction * tstartNew) > (direction * t)) {
         //"No discontinuity in step"
         return;
@@ -97,7 +99,9 @@ void DynIntegrator::checkForDiscontinuity()
         system->tstart = tstartNew;
         system->toutFirst = tout;
         auto discontinuityTypes = std::make_shared<std::vector<DiscontinuityType>>();
-        system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->discontinuityAtaddTypeTo(tstartNew, discontinuityTypes); });
+        system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+            item->discontinuityAtaddTypeTo(tstartNew, discontinuityTypes); 
+            });
         throwDiscontinuityError("", discontinuityTypes);
     }
 }
@@ -143,24 +147,32 @@ void DynIntegrator::checkForOutputThrough(double t)
 
 void DynIntegrator::fillF(FColDsptr col)
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->fillDynError(col); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->fillDynError(col); 
+        });
 }
 
 void DynIntegrator::fillpFpy(SpMatDsptr mat)
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->fillpFpy(mat); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->fillpFpy(mat); 
+        });
 }
 
 void DynIntegrator::fillpFpydot(SpMatDsptr mat)
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->fillpFpydot(mat); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->fillpFpydot(mat); 
+        });
 }
 
 void DynIntegrator::preRun()
 {
     const std::string& str("MbD: Starting dynamic analysis.");
     system->logString(str);
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->preDyn(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDyn(); 
+        });
 }
 
 void DynIntegrator::run()
@@ -204,17 +216,23 @@ void DynIntegrator::run()
 
 void DynIntegrator::fillY(FColDsptr y)
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillpqsumu(y); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->fillpqsumu(y); 
+        });
 }
 
 void DynIntegrator::fillYdot(FColDsptr ydot)
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillpqsumudot(ydot); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->fillpqsumudot(ydot); 
+        });
 }
 
 void DynIntegrator::incrementTime(double aDouble)
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->storeDynState(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->storeDynState(); 
+        });
     system->time(aDouble);
 }
 
@@ -230,7 +248,9 @@ size_t DynIntegrator::iterMax()
 
 void DynIntegrator::postDAECorrector()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynCorrector(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynCorrector(); 
+        });
 }
 
 void DynIntegrator::postDAECorrectorIteration()
@@ -240,7 +260,9 @@ void DynIntegrator::postDAECorrectorIteration()
 
 void DynIntegrator::postDAEFirstStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynFirstStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynFirstStep(); 
+        });
     if (integrator->istep >= 0) {
         //"Noise make checking at the start unreliable."
         checkForDiscontinuity();
@@ -250,20 +272,26 @@ void DynIntegrator::postDAEFirstStep()
 
 void DynIntegrator::postDAEOutput()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynOutput(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynOutput(); 
+        });
 }
 
 double DynIntegrator::suggestSmallerOrAcceptFirstStepSize(double hnew)
 {
     auto hnew2 = hnew;
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { hnew2 = item->suggestSmallerOrAcceptDynFirstStepSize(hnew2); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        hnew2 = item->suggestSmallerOrAcceptDynFirstStepSize(hnew2); 
+        });
     return hnew2;
 }
 
 double DynIntegrator::suggestSmallerOrAcceptStepSize(double hnew)
 {
     auto hnew2 = hnew;
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { hnew2 = item->suggestSmallerOrAcceptDynStepSize(hnew2); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        hnew2 = item->suggestSmallerOrAcceptDynStepSize(hnew2); 
+        });
     if (hnew2 > hmax) {
         hnew2 = hmax;
         system->logString("MbD: Step size is at user specified maximum.");
@@ -280,17 +308,23 @@ double DynIntegrator::suggestSmallerOrAcceptStepSize(double hnew)
 
 void DynIntegrator::updateForDAECorrector()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynCorrectorIteration(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynCorrectorIteration(); 
+        });
 }
 
 void DynIntegrator::y(FColDsptr col)
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setpqsumu(col); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->setpqsumu(col); 
+        });
 }
 
 void DynIntegrator::ydot(FColDsptr col)
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setpqsumudot(col); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->setpqsumudot(col); 
+        });
 }
 
 void DynIntegrator::throwDiscontinuityError(const std::string& str, std::shared_ptr<std::vector<DiscontinuityType>> discontinuityTypes)
@@ -315,12 +349,16 @@ void DynIntegrator::reportStats()
 
 void DynIntegrator::postDAEPredictor()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynPredictor(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynPredictor(); 
+        });
 }
 
 void DynIntegrator::postDAEStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynStep(); 
+        });
     if (integrator->istep >= 0) {
         //"Noise make checking at the start unreliable."
         checkForDiscontinuity();
@@ -330,12 +368,16 @@ void DynIntegrator::postDAEStep()
 
 void DynIntegrator::postRun()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->postDyn(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDyn(); 
+        });
 }
 
 void DynIntegrator::preDAECorrector()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynCorrector(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynCorrector(); 
+        });
 }
 
 void DynIntegrator::preDAECorrectorIteration()
@@ -350,12 +392,16 @@ void DynIntegrator::preDAEFirstStep()
 
 void DynIntegrator::preDAEOutput()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynOutput(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynOutput(); 
+        });
 }
 
 void DynIntegrator::preDAEPredictor()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynPredictor(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynPredictor(); 
+        });
 }
 
 void DynIntegrator::preDAEStep()

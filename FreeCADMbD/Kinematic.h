@@ -18,6 +18,7 @@ namespace MbD {
         Kinematic() : Item() {}
         Kinematic(const std::string& str) : Item(str) {}
         void initialize() override;
+        void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
     };
 
 }

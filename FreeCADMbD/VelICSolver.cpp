@@ -62,24 +62,40 @@ void VelICSolver::run()
 void VelICSolver::runBasic()
 {
     //| qsudotOld qsudotWeights qsudotlam |
-        system->partsJointsMotionsLimitsDo([](std::shared_ptr<Item> item) { item->preVelIC(); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->preVelIC(); 
+        });
         assignEquationNumbers();
-        system->partsJointsMotionsLimitsDo([](std::shared_ptr<Item> item) { item->useEquationNumbers(); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->useEquationNumbers(); 
+            });
         auto qsudotOld = std::make_shared<FullColumn<double>>(nqsu);
         auto qsudotWeights = DiagonalMatrix<double>::With(nqsu);
         errorVector = std::make_shared<FullColumn<double>>(n);
         jacobian = std::make_shared<SparseMatrix<double>>(n, n);
-        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillqsudot(qsudotOld); });
-        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillqsudotWeights(qsudotWeights); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->fillqsudot(qsudotOld); 
+            });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->fillqsudotWeights(qsudotWeights); 
+            });
         errorVector->zeroSelf();
         errorVector->atiplusFullColumn(0, qsudotWeights->timesFullColumn(qsudotOld));
-        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillVelICError(errorVector); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->fillVelICError(errorVector); 
+            });
         jacobian->zeroSelf();
         jacobian->atijplusDiagonalMatrix(0, 0, qsudotWeights);
-        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillVelICJacob(jacobian); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->fillVelICJacob(jacobian); 
+            });
         matrixSolver = matrixSolverClassNew();
         solveEquations();
         auto qsudotlam = x;
-        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setqsudotlam(qsudotlam); });
-        system->partsJointsMotionsLimitsDo([](std::shared_ptr<Item> item) { item->postVelIC(); });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->setqsudotlam(qsudotlam); 
+            });
+        system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+            item->postVelIC(); 
+            });
 }

@@ -14,7 +14,7 @@
 
 #include "Item.h"
 #include "EndFrameqc.h"
-#include "TranslationConstraintIJ.h"
+#include "TranslationConstraintIeJe.h"
 #include "DirectionCosineConstraintIJ.h"
 #include "ConstraintSet.h"
 #include "ConstraintIJ.h"
@@ -60,7 +60,7 @@ namespace MbD {
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void fillqsudot(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr diagMat) override;
+        void fillqsudotWeights(DiagMatDsptr mat) override;
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillVelICError(FColDsptr col) override;
         void fillVelICJacob(SpMatDsptr mat) override;

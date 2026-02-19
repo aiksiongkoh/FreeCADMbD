@@ -56,7 +56,9 @@ void PosKineNewtonRaphson::iterate()
 void PosKineNewtonRaphson::initializeGlobally()
 {
     SystemNewtonRaphson::initializeGlobally();
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillqsu(x); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->fillqsu(x); 
+        });
     iterMax = system->iterMaxPosKine;
     dxTol = system->errorTolPosKine;
 }
@@ -71,7 +73,9 @@ void PosKineNewtonRaphson::fillPyPx()
 
 void PosKineNewtonRaphson::passRootToSystem()
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setqsu(x); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->setqsu(x); 
+        });
 }
 
 void PosKineNewtonRaphson::assignEquationNumbers()
@@ -113,7 +117,9 @@ void PosKineNewtonRaphson::preRun()
 {
     const std::string& str = "MbD: Solving for kinematic position.";
     system->logString(str);
-    system->partsJointsMotionsLimitsDo([](std::shared_ptr<Item> item) { item->prePosKine(); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->prePosKine(); 
+        }); 
 }
 
 void PosKineNewtonRaphson::fillY()

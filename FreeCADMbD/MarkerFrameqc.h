@@ -46,9 +46,9 @@ namespace MbD {
         void fillqsudot(FColDsptr col) override;
         void fillqsudotPlam(FColDsptr col) override;
         void fillqsudotPlamDeriv(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr diagMat) override;
+        void fillqsudotWeights(DiagMatDsptr mat) override;
         void fillqsulam(FColDsptr col) override;
-        void fillqsuWeights(DiagMatDsptr diagMat) override;
+        void fillqsuWeights(DiagMatDsptr mat) override;
         void initializeGlobally() override;
         void initializeLocally() override;
         size_t iqE() const override;

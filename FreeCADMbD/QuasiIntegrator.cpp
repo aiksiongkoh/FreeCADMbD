@@ -36,7 +36,9 @@ void QuasiIntegrator::initialize()
 
 void QuasiIntegrator::preRun()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDyn(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDyn(); 
+        });
 }
 
 void QuasiIntegrator::run()
@@ -94,12 +96,16 @@ void QuasiIntegrator::reportStats()
 
 void QuasiIntegrator::preFirstStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynFirstStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynFirstStep(); 
+        });
 }
 
 void QuasiIntegrator::postFirstStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynFirstStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynFirstStep(); 
+        });
     if (integrator->istep > 0) {
         //"Noise make checking at the start unreliable."
         checkForDiscontinuity();
@@ -109,7 +115,9 @@ void QuasiIntegrator::postFirstStep()
 
 void QuasiIntegrator::preStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->preDynStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preDynStep(); 
+        });
 }
 
 void QuasiIntegrator::checkForDiscontinuity()
@@ -128,7 +136,9 @@ void QuasiIntegrator::checkForDiscontinuity()
         epsilon = std::abs(t) * epsilon;
         tstartNew = ((direction * t) + epsilon) / direction;
     }
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { tstartNew = item->checkForDynDiscontinuityBetweenand(tprevious, tstartNew); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        tstartNew = item->checkForDynDiscontinuityBetweenand(tprevious, tstartNew); 
+        });
     if ((direction * tstartNew) > (direction * t)) {
         //"No discontinuity in step"
         return;
@@ -140,7 +150,9 @@ void QuasiIntegrator::checkForDiscontinuity()
         system->tstart = tstartNew;
         system->toutFirst = tout;
         auto discontinuityTypes = std::make_shared<std::vector<DiscontinuityType>>();
-        system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->discontinuityAtaddTypeTo(tstartNew, discontinuityTypes); });
+        system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+            item->discontinuityAtaddTypeTo(tstartNew, discontinuityTypes); 
+            });
         throwDiscontinuityError("", discontinuityTypes);
     }
 }
@@ -148,7 +160,9 @@ void QuasiIntegrator::checkForDiscontinuity()
 double QuasiIntegrator::suggestSmallerOrAcceptFirstStepSize(double hnew)
 {
     auto hnew2 = hnew;
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { hnew2 = item->suggestSmallerOrAcceptDynFirstStepSize(hnew2); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        hnew2 = item->suggestSmallerOrAcceptDynFirstStepSize(hnew2); 
+        });
     if (hnew2 > hmax) {
         hnew2 = hmax;
         const std::string& str = "StM: Step size is at user specified maximum.";
@@ -167,7 +181,9 @@ double QuasiIntegrator::suggestSmallerOrAcceptFirstStepSize(double hnew)
 double QuasiIntegrator::suggestSmallerOrAcceptStepSize(double hnew)
 {
     auto hnew2 = hnew;
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { hnew2 = item->suggestSmallerOrAcceptDynStepSize(hnew2); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        hnew2 = item->suggestSmallerOrAcceptDynStepSize(hnew2); 
+        });
     if (hnew2 > hmax) {
         hnew2 = hmax;
         system->logString("StM: Step size is at user specified maximum.");
@@ -184,7 +200,9 @@ double QuasiIntegrator::suggestSmallerOrAcceptStepSize(double hnew)
 
 void QuasiIntegrator::incrementTime(double tnew)
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->storeDynState(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->storeDynState(); 
+        });
     IntegratorInterface::incrementTime(tnew);
 }
 
@@ -216,7 +234,9 @@ void QuasiIntegrator::interpolateAt(double tArg)
 
 void QuasiIntegrator::postStep()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDynStep(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDynStep(); 
+        });
 
     if (integrator->istep > 0) {
         //"Noise make checking at the start unreliable."
@@ -227,7 +247,9 @@ void QuasiIntegrator::postStep()
 
 void QuasiIntegrator::postRun()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postDyn(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->postDyn(); 
+        });
 }
 
 void QuasiIntegrator::useTrialStepStats(std::shared_ptr<SolverStatistics> stats)

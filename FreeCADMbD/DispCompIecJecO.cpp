@@ -13,6 +13,7 @@ using namespace MbD;
 
 std::shared_ptr<DispCompIecJecO> DispCompIecJecO::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis)
 {
+    throw SimulationStoppingError("To be implemented.");
     auto inst = std::make_shared<DispCompIecJecO>(frmi, frmj, axis);
     inst->initialize();
     return inst;

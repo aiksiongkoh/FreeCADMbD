@@ -8,15 +8,15 @@
 
 #pragma once
 
-#include "DispIecJeqcO.h"
+#include "DispIeJeqO.h"
 
 namespace MbD {
-    class DispIetJeqO : public DispIecJeqcO
+    class DispIetJeqO : public DispIeJeqO
     {
         //prIeJeOpXJ prIeJeOpEJ pprIeJeOpEJpEJ 
     public:
         DispIetJeqO() {}
-        DispIetJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIecJeqcO(frmi, frmj) {}
+        DispIetJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeJeqO(frmi, frmj) {}
         static std::shared_ptr<DispIetJeqO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;

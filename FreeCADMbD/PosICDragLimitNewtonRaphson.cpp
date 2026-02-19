@@ -26,7 +26,9 @@ void PosICDragLimitNewtonRaphson::preRun()
 {
     std::string str("MbD: Assembling system with limits. ");
     system->logString(str);
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->prePosIC(); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->prePosIC(); 
+        });
 
 }
 

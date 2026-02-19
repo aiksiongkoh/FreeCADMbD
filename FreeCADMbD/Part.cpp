@@ -265,7 +265,7 @@ void Part::fillqsu(FColDsptr col)
     partFrame->fillqsu(col);
 }
 
-void Part::fillqsuWeights(DiagMatDsptr diagMat)
+void Part::fillqsuWeights(DiagMatDsptr mat)
 {
     //"Map wqX and wqE according to inertias. (0 to maximum inertia) map to (minw to maxw)"
     //"When the inertias are zero, they are set to a small number for positive definiteness."
@@ -292,9 +292,9 @@ void Part::fillqsuWeights(DiagMatDsptr diagMat)
         wqE->at(i) = (maxw * aJi / aJiMax) + minw;
     }
     wqE->at(3) = minw;
-    diagMat->atiputDiagonalMatrix(partFrame->iqX, wqX);
-    diagMat->atiputDiagonalMatrix(partFrame->iqE, wqE);
-    partFrame->fillqsuWeights(diagMat);
+    mat->atiputDiagonalMatrix(partFrame->iqX, wqX);
+    mat->atiputDiagonalMatrix(partFrame->iqE, wqE);
+    partFrame->fillqsuWeights(mat);
 }
 
 void Part::fillqsuddotlam(FColDsptr col)
@@ -326,7 +326,7 @@ void Part::fillqsudot(FColDsptr col)
     partFrame->fillqsudot(col);
 }
 
-void Part::fillqsudotWeights(DiagMatDsptr diagMat)
+void Part::fillqsudotWeights(DiagMatDsptr mat)
 {
     //"wqXdot and wqEdot are set to their respective inertias."
     //"When the inertias are zero, they are set to a small number for positive definiteness."
@@ -349,9 +349,9 @@ void Part::fillqsudotWeights(DiagMatDsptr diagMat)
         wqEdot->at(i) = (maxw * aJi / maxInertia) + minw;
     }
     wqEdot->at(3) = minw;
-    diagMat->atiputDiagonalMatrix(partFrame->iqX, wqXdot);
-    diagMat->atiputDiagonalMatrix(partFrame->iqE, wqEdot);
-    partFrame->fillqsudotWeights(diagMat);
+    mat->atiputDiagonalMatrix(partFrame->iqX, wqXdot);
+    mat->atiputDiagonalMatrix(partFrame->iqE, wqEdot);
+    partFrame->fillqsudotWeights(mat);
 }
 
 void Part::useEquationNumbers()

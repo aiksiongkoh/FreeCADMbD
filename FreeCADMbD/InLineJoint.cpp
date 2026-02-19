@@ -19,6 +19,6 @@ void InLineJoint::initializeGlobally()
 
 void InLineJoint::createInLineConstraints()
 {
-    addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 0));
-    addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 1));
+    addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 0));
+    addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 1));
 }

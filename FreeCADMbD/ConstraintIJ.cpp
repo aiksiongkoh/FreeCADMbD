@@ -22,7 +22,6 @@ std::shared_ptr<ConstraintIJ> ConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frm
 void ConstraintIJ::initialize()
 {
     Constraint::initialize();
-    aConstant = 0.0;
 }
 
 std::string ConstraintIJ::constraintSpec()

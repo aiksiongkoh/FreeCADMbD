@@ -52,7 +52,7 @@ namespace MbD {
         virtual void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints);
         virtual void fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints);
         virtual void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints);
-        virtual void fillqsuWeights(DiagMatDsptr diagMat);
+        virtual void fillqsuWeights(DiagMatDsptr mat);
         virtual void fillqsuWeightsSmall(FColDsptr col);
         virtual void fillqsu(FColDsptr col);
         virtual void fillqsulam(FColDsptr col);
@@ -73,7 +73,7 @@ namespace MbD {
         virtual void preVelIC();
         virtual void fillVelICError(FColDsptr col);
         virtual void fillVelICJacob(SpMatDsptr mat);
-        virtual void fillqsudotWeights(DiagMatDsptr diagMat);
+        virtual void fillqsudotWeights(DiagMatDsptr mat);
         virtual void fillqsudot(FColDsptr col);
         virtual void setqsudot(FColDsptr col);
         virtual void setqsudotlam(FColDsptr col);

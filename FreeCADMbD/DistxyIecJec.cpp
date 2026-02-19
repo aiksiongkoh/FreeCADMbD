@@ -13,6 +13,7 @@ using namespace MbD;
 
 std::shared_ptr<DistxyIecJec> DistxyIecJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
+    throw SimulationStoppingError("To be implemented.");
     auto inst = std::make_shared<DistxyIecJec>(frmi, frmj);
     inst->initialize();
     return inst;

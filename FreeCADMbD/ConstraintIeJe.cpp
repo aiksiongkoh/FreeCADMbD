@@ -9,6 +9,7 @@
 #include "ConstraintIeJe.h"
 #include "EndFrameqc.h"
 #include "SimulationStoppingError.h"
+#include "System.h"
 
 using namespace MbD;
 
@@ -23,7 +24,6 @@ void ConstraintIeJe::initialize()
 {
     Constraint::initialize();
     dispIeJeO = DispIecJecO::With(frmIe, frmJe);
-    aConstant = 0.0;
 }
 
 void MbD::ConstraintIeJe::initializeLocally()
@@ -36,12 +36,21 @@ void MbD::ConstraintIeJe::initializeGlobally()
     dispIeJeO->initializeGlobally();
 }
 
-void MbD::ConstraintIeJe::useEquationNumbers()
+void ConstraintIeJe::useUniqueDispIeJeO()
 {
-    iqXI = frmIe->iqX();
-    iqEI = frmIe->iqE();
-    iqXJ = frmJe->iqX();
-    iqEJ = frmJe->iqE();
+    auto dispIeJeOs = root()->dispIeJeOs;
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
+    if (it == dispIeJeOs->end()) {
+        dispIeJeOs->push_back(dispIeJeO);
+    }
+    else {
+        dispIeJeO = *it;
+    }
+}
+
+void MbD::ConstraintIeJe::useUniqueDispIeJeKe()
+{
+    //Do nothing.
 }
 
 void MbD::ConstraintIeJe::prePosIC()
@@ -50,15 +59,6 @@ void MbD::ConstraintIeJe::prePosIC()
     lam = 0.0;
     iG = SIZE_MAX;
     Constraint::prePosIC();
-}
-
-void MbD::ConstraintIeJe::fillPosICError(FColDsptr col)
-{
-    Constraint::fillPosICError(col);
-    col->atiplusFullVectortimes(iqXI, pGpXI, lam);
-    col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
-    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
 }
 
 void MbD::ConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
@@ -226,6 +226,7 @@ void MbD::ConstraintIeJe::postInput()
 void MbD::ConstraintIeJe::simUpdateAll()
 {
     //Update locally only.
+    //Objects that Constraints depend on have already executed simUpdateAll().
     calcG();
     calcpGpXI();
     calcpGpEI();
@@ -251,13 +252,28 @@ std::string ConstraintIeJe::constraintSpec()
 void ConstraintIeJe::addToJointForceI(FColDsptr col)
 {
     //aFIeO = lam * pGpXI
-    throw SimulationStoppingError("To be implemented.");
+    //auto aFIeO = pGpXI->transpose()->times(lam);
+    //col->equalSelfPlus(aFIeO);
+    col->equalSelfPlusFullVectortimes(pGpXI, lam);
 }
 
 void ConstraintIeJe::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    throw SimulationStoppingError("To be implemented.");
+    auto aFIeOT = pGpXI->times(lam);
+    auto rIpIeIp = frmIe->rpep();
+    auto pAOIppEI = frmIe->pAOppE();
+    auto aBOIp = frmIe->aBOp();
+    auto prOIeOpEITaFIeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOIeOpEIT * aFIeO
+    for (size_t i = 0; i < 4; i++)
+    {
+        auto prOIeOpEIi = pAOIppEI->at(i)->timesFullColumn(rIpIeIp);
+        auto prOIeOpEITaFIeOi = aFIeOT->timesFullColumn(prOIeOpEIi);
+        prOIeOpEITaFIeO->atiput(i, prOIeOpEITaFIeOi);
+    }
+    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
+    auto aTIeO = aBOIp->timesFullColumn(lampGpEI->minusFullColumn(prOIeOpEITaFIeO))->times(0.5);
+    col->equalSelfPlus(aTIeO);
 }
 
 void ConstraintIeJe::addToJointForceJ(FColDsptr col)

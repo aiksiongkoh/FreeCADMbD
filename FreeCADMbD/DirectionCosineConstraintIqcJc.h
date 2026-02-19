@@ -29,7 +29,6 @@ namespace MbD {
         void useEquationNumbers() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
-        std::string constraintSpec() override;
 
         FRowDsptr pGpEI;
         FMatDsptr ppGpEIpEI;

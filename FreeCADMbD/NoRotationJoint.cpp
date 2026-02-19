@@ -8,7 +8,7 @@
  
 #include "NoRotationJoint.h"
 #include "System.h"
-#include "DirectionCosineConstraintIJ.h"
+#include "DirectionCosineConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -30,9 +30,9 @@ void NoRotationJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 1, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 1, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

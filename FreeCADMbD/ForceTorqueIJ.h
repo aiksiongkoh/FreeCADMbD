@@ -136,6 +136,8 @@ namespace MbD {
         void calcpQEJpEdotI();
         void calcpQEJpXdotJ();
         void calcpQEJpEdotJ();
+        virtual void useUniqueDispIeJeO();
+        virtual void useUniqueDispIeJeKe();
 
         EndFrmsptr eFrmI, eFrmJ;
         SpatialContainerFrame* prtFrmI = nullptr;

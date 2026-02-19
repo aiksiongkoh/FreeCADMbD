@@ -48,7 +48,7 @@ void CADSystem::outputFor(AnalysisType)
 {
     auto str = std::to_string(mbdSystem->mbdTimeValue());
     logString(str);
-    mbdSystem->partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) {
+    mbdSystem->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
         std::cout << std::endl;
         std::cout << item->classname() << " " << item->name << std::endl;
         auto data = item->stateData();
