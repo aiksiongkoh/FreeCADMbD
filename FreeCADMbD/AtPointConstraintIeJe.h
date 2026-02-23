@@ -17,23 +17,15 @@ namespace MbD {
         AtPointConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO) : axis(axisO), ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<AtPointConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO);
 
+        void simUpdateAll() override;
         void calcG() override;
-        void calcpGpXI() override;
-        void calcpGpEI() override;
-        void calcpGpXJ() override;
-        void calcpGpEJ() override;
-        void calcppGpXIpXI() override;
-        void calcppGpXIpEI() override;
-        void calcppGpXIpXJ() override;
-        void calcppGpXIpEJ() override;
-        void calcppGpEIpEI() override;
-        void calcppGpEIpXJ() override;
-        void calcppGpEIpEJ() override;
-        void calcppGpXJpXJ() override;
-        void calcppGpXJpEJ() override;
-        void calcppGpEJpEJ() override;
         ConstraintType type() override;
         std::string constraintSpec() override;
+        void fillPosICJacob(SpMatDsptr mat) override;
+        void fillVelICJacob(SpMatDsptr mat);
+        void fillAccICIterError(FColDsptr col) override;
+        void fillpFpy(SpMatDsptr mat) override;
+        void fillpFpydot(SpMatDsptr mat) override;
 
         size_t axis = SIZE_MAX;
 		//Reuse rIeJeO in ConstraintIeJe

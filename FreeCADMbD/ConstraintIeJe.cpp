@@ -23,7 +23,7 @@ std::shared_ptr<ConstraintIeJe> ConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr
 void ConstraintIeJe::initialize()
 {
     Constraint::initialize();
-    dispIeJeO = DispIecJecO::With(frmIe, frmJe);
+    dispIeJeO = DispIeJeO::With(frmIe, frmJe);
 }
 
 void MbD::ConstraintIeJe::initializeLocally()
@@ -61,45 +61,6 @@ void MbD::ConstraintIeJe::prePosIC()
     Constraint::prePosIC();
 }
 
-void MbD::ConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
-{
-    mat->atijplusFullRow(iG, iqXI, pGpXI);
-    mat->atijplusFullColumn(iqXI, iG, pGpXI->transpose());
-    mat->atijplusFullRow(iG, iqEI, pGpEI);
-    mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
-    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
-    mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-
-    auto ppGpXIpEIlam = ppGpXIpEI->times(lam);
-    auto ppGpXIpXJlam = ppGpXIpXJ->times(lam);
-    auto ppGpXIpEJlam = ppGpXIpEJ->times(lam);
-    auto ppGpEIpXJlam = ppGpEIpXJ->times(lam);
-    auto ppGpEIpEJlam = ppGpEIpEJ->times(lam);
-    auto ppGpXJpEJlam = ppGpXJpEJ->times(lam);
-
-    mat->atijplusFullMatrixtimes(iqXI, iqXI, ppGpXIpXI, lam);
-    mat->atijplusFullMatrix(iqXI, iqEI, ppGpXIpEIlam);
-    mat->atijplusFullMatrix(iqXI, iqXJ, ppGpXIpXJlam);
-    mat->atijplusFullMatrix(iqXI, iqEJ, ppGpXIpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqEI, iqXI, ppGpXIpEIlam);
-    mat->atijplusFullMatrixtimes(iqEI, iqEI, ppGpEIpEI, lam);
-    mat->atijplusFullMatrix(iqEI, iqXJ, ppGpEIpXJlam);
-    mat->atijplusFullMatrix(iqEI, iqEJ, ppGpEIpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqXJ, iqXI, ppGpXIpXJlam);
-    mat->atijplusTransposeFullMatrix(iqXJ, iqEI, ppGpEIpXJlam);
-    mat->atijplusFullMatrixtimes(iqXJ, iqXJ, ppGpXJpXJ, lam);
-    mat->atijplusFullMatrix(iqXJ, iqEJ, ppGpXJpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXI, ppGpXIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqEI, ppGpEIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXJ, ppGpXJpEJlam);
-    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
-}
-
 void MbD::ConstraintIeJe::postPosICIteration()
 {
     dispIeJeO->postPosICIteration();
@@ -112,53 +73,10 @@ void MbD::ConstraintIeJe::preVelIC()
     Constraint::preVelIC();
 }
 
-void MbD::ConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
-{
-    mat->atijplusFullRow(iG, iqXI, pGpXI);
-    mat->atijplusFullColumn(iqXI, iG, pGpXI->transpose());
-    mat->atijplusFullRow(iG, iqEI, pGpEI);
-    mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
-    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
-    mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-}
-
 void MbD::ConstraintIeJe::preAccIC()
 {
     dispIeJeO->preAccIC();
     Constraint::preAccIC();
-}
-
-void MbD::ConstraintIeJe::fillAccICIterError(FColDsptr col)
-{
-    Constraint::fillAccICIterError(col);
-    col->atiplusFullVectortimes(iqXI, pGpXI, lam);
-    col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
-    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
-    auto qXdotI = frmIeq->qXdot();
-    auto qEdotI = frmIeq->qEdot();
-    auto qXdotJ = frmJeq->qXdot();
-    auto qEdotJ = frmJeq->qEdot();
-    auto sum = 0.0;
-    sum += pGpXI->timesFullColumn(frmIeq->qXddot());
-    sum += pGpEI->timesFullColumn(frmIeq->qEddot());
-    sum += pGpXJ->timesFullColumn(frmJeq->qXddot());
-    sum += pGpEJ->timesFullColumn(frmJeq->qEddot());
-    sum += qXdotI->transposeTimesFullColumn(ppGpXIpXI->timesFullColumn(qXdotI));
-    sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpEI->timesFullColumn(qEdotI)));
-    sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpXJ->timesFullColumn(qXdotJ)));
-    sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpEJ->timesFullColumn(qEdotJ)));
-    sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));
-    sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpXJ->timesFullColumn(qXdotJ)));
-    sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ)));
-    sum += qXdotJ->transposeTimesFullColumn(ppGpXJpXJ->timesFullColumn(qXdotJ));
-    sum += 2.0 * (qXdotJ->transposeTimesFullColumn(ppGpXJpEJ->timesFullColumn(qEdotJ)));
-    sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
-    col->atiplusNumber(iG, sum);
 }
 
 void MbD::ConstraintIeJe::preDyn()
@@ -173,49 +91,6 @@ void MbD::ConstraintIeJe::preDynOutput()
     Constraint::preDynOutput();
 }
 
-void MbD::ConstraintIeJe::fillpFpy(SpMatDsptr mat)
-{
-    mat->atijplusFullRow(iG, iqXI, pGpXI);
-    mat->atijplusFullRow(iG, iqEI, pGpEI);
-    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-
-    auto ppGpXIpEIlam = ppGpXIpEI->times(lam);
-    auto ppGpXIpXJlam = ppGpXIpXJ->times(lam);
-    auto ppGpXIpEJlam = ppGpXIpEJ->times(lam);
-    auto ppGpEIpXJlam = ppGpEIpXJ->times(lam);
-    auto ppGpEIpEJlam = ppGpEIpEJ->times(lam);
-    auto ppGpXJpEJlam = ppGpXJpEJ->times(lam);
-
-    mat->atijplusFullMatrixtimes(iqXI, iqXI, ppGpXIpXI, lam);
-    mat->atijplusFullMatrix(iqXI, iqEI, ppGpXIpEIlam);
-    mat->atijplusFullMatrix(iqXI, iqXJ, ppGpXIpXJlam);
-    mat->atijplusFullMatrix(iqXI, iqEJ, ppGpXIpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqEI, iqXI, ppGpXIpEIlam);
-    mat->atijplusFullMatrixtimes(iqEI, iqEI, ppGpEIpEI, lam);
-    mat->atijplusFullMatrix(iqEI, iqXJ, ppGpEIpXJlam);
-    mat->atijplusFullMatrix(iqEI, iqEJ, ppGpEIpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqXJ, iqXI, ppGpXIpXJlam);
-    mat->atijplusTransposeFullMatrix(iqXJ, iqEI, ppGpEIpXJlam);
-    mat->atijplusFullMatrixtimes(iqXJ, iqXJ, ppGpXJpXJ, lam);
-    mat->atijplusFullMatrix(iqXJ, iqEJ, ppGpXJpEJlam);
-
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXI, ppGpXIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqEI, ppGpEIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXJ, ppGpXJpEJlam);
-    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
-}
-
-void MbD::ConstraintIeJe::fillpFpydot(SpMatDsptr mat)
-{
-    mat->atijplusFullColumn(iqXI, iG, pGpXI->transpose());
-    mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
-    mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-}
-
 void MbD::ConstraintIeJe::postInput()
 {
     dispIeJeO->postInput();
@@ -228,52 +103,95 @@ void MbD::ConstraintIeJe::simUpdateAll()
     //Update locally only.
     //Objects that Constraints depend on have already executed simUpdateAll().
     calcG();
-    calcpGpXI();
-    calcpGpEI();
-    calcpGpXJ();
-    calcpGpEJ();
-    calcppGpXIpXI();
-    calcppGpXIpEI();
-    calcppGpXIpXJ();
-    calcppGpXIpEJ();
-    calcppGpEIpEI();
-    calcppGpEIpXJ();
-    calcppGpEIpEJ();
-    calcppGpXJpXJ();
-    calcppGpXJpEJ();
-    calcppGpEJpEJ();
+    // calcpGpXI();
+    // calcpGpEI();
+    // calcpGpXJ();
+    // calcpGpEJ();
+    // calcppGpXIpXI();
+    // calcppGpXIpEI();
+    // calcppGpXIpXJ();
+    // calcppGpXIpEJ();
+    // calcppGpEIpEI();
+    // calcppGpEIpXJ();
+    // calcppGpEIpEJ();
+    // calcppGpXJpXJ();
+    // calcppGpXJpEJ();
+    // calcppGpEJpEJ();
+}
+
+void MbD::ConstraintIeJe::calcpGpXI()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcpGpXI is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcpGpEI()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcpGpEI is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcpGpXJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcpGpXJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcpGpEJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcpGpEJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXIpXI()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpXI is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXIpEI()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpEI is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXIpXJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpXJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXIpEJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpEJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpEIpEI()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpEI is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpEIpXJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpXJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpEIpEJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpEJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXJpXJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXJpXJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpXJpEJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpXJpEJ is not implemented.");
+}
+
+void MbD::ConstraintIeJe::calcppGpEJpEJ()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcppGpEJpEJ is not implemented.");
 }
 
 std::string ConstraintIeJe::constraintSpec()
 {
     return "ConstraintIeJe";
-}
-
-void ConstraintIeJe::addToJointForceI(FColDsptr col)
-{
-    //aFIeO = lam * pGpXI
-    //auto aFIeO = pGpXI->transpose()->times(lam);
-    //col->equalSelfPlus(aFIeO);
-    col->equalSelfPlusFullVectortimes(pGpXI, lam);
-}
-
-void ConstraintIeJe::addToJointTorqueI(FColDsptr col)
-{
-    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    auto aFIeOT = pGpXI->times(lam);
-    auto rIpIeIp = frmIe->rpep();
-    auto pAOIppEI = frmIe->pAOppE();
-    auto aBOIp = frmIe->aBOp();
-    auto prOIeOpEITaFIeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOIeOpEIT * aFIeO
-    for (size_t i = 0; i < 4; i++)
-    {
-        auto prOIeOpEIi = pAOIppEI->at(i)->timesFullColumn(rIpIeIp);
-        auto prOIeOpEITaFIeOi = aFIeOT->timesFullColumn(prOIeOpEIi);
-        prOIeOpEITaFIeO->atiput(i, prOIeOpEITaFIeOi);
-    }
-    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
-    auto aTIeO = aBOIp->timesFullColumn(lampGpEI->minusFullColumn(prOIeOpEITaFIeO))->times(0.5);
-    col->equalSelfPlus(aTIeO);
 }
 
 void ConstraintIeJe::addToJointForceJ(FColDsptr col)

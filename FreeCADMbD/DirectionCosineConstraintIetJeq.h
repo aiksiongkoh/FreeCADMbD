@@ -9,7 +9,6 @@
 #pragma once
 
 #include "DirectionCosineConstraintIeJeq.h"
-#include "DirectionCosineIecJec.h"
 
 namespace MbD {
     class DirectionCosineConstraintIetJeq : public DirectionCosineConstraintIeJeq
@@ -18,14 +17,14 @@ namespace MbD {
         DirectionCosineConstraintIetJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineConstraintIeJeq(frmi, frmj, axisi, axisj) {}
         static std::shared_ptr<DirectionCosineConstraintIetJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
-        void initializeLocally() override;
-        void initializeGlobally() override;
-        void fillAccICIterError(FColDsptr col) override;
-        void fillPosKineJacob(SpMatDsptr mat) override;
-        void fillVelICJacob(SpMatDsptr mat) override;
-        void fillpFpy(SpMatDsptr mat) override;
-        void fillpFpydot(SpMatDsptr mat) override;
-        virtual void initaAijIeJe();
+        void preAccIC() override;
+        void preVelIC() override;
+        void fillVelICError(FColDsptr col) override;
+        ConstraintType type() override;
+        void initaAijIeJe() override;
+        double pGpt = std::numeric_limits<double>::min(); 
+        FRowDsptr ppGpEJpt;
+        double ppGptpt = std::numeric_limits<double>::min();
 
     };
 }

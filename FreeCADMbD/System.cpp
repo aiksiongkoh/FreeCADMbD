@@ -48,7 +48,7 @@ void System::initialize()
     time = std::make_shared<SymTime>();
     createAssemblyFrame();
     parts = std::make_shared<std::vector<std::shared_ptr<Part>>>();
-    dispIeJeOs = std::make_shared<std::vector<std::shared_ptr<DispIecJecO>>>();
+    dispIeJeOs = std::make_shared<std::vector<std::shared_ptr<DispIeJeO>>>();
     joints = std::make_shared<std::vector<std::shared_ptr<JointIJ>>>();
     motions = std::make_shared<std::vector<std::shared_ptr<PrescribedMotion>>>();
     limits = std::make_shared<std::vector<std::shared_ptr<LimitIJ>>>();

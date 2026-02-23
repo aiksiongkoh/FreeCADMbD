@@ -15,6 +15,9 @@ namespace MbD {
 
     class EndFramect : public EndFramec
     {
+        //rOeO = rOpO + aAOp * rpep
+        //rOeO = rOpO(qX) + aAOp(qE) * (rpmp + aApm * (rmem(t)))
+        //aAOe = aAOp(qE) * aApm * aAme(t)
         //time rmemBlks prmemptBlks pprmemptptBlks phiThePsiBlks pPhiThePsiptBlks ppPhiThePsiptptBlks 
         //rmem prmempt pprmemptpt aAme pAmept ppAmeptpt prOeOpt pprOeOpEpt pprOeOptpt pAOept ppAOepEpt ppAOeptpt 
     public:

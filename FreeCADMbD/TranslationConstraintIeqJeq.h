@@ -18,6 +18,7 @@ namespace MbD {
         TranslationConstraintIeqJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi) : TranslationConstraintIeqJe(frmi, frmj, axisi) {}
         static std::shared_ptr<TranslationConstraintIeqJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
 
+        void simUpdateAll() override;
         void initriIeJeIe() override;
         void calcpGpXJ() override;
         void calcpGpEJ() override;
@@ -32,6 +33,13 @@ namespace MbD {
         void useEquationNumbers() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
+        size_t iqXJ = SIZE_MAX;
+        size_t iqEJ = SIZE_MAX;
+        FRowDsptr pGpXJ;
+        FRowDsptr pGpEJ;
+        FMatDsptr ppGpEIpXJ;
+        FMatDsptr ppGpEIpEJ;
+        FMatDsptr ppGpEJpEJ;
 
     };
 }

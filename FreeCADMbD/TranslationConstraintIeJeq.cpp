@@ -20,6 +20,14 @@ std::shared_ptr<TranslationConstraintIeJeq> TranslationConstraintIeJeq::With(End
     return inst;
 }
 
+void TranslationConstraintIeJeq::simUpdateAll()
+{
+    TranslationConstraintIeJe::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpEJpEJ();
+}
+
 void TranslationConstraintIeJeq::initriIeJeIe()
 {
     riIeJeIe = DispCompIecJeqcKec::With(frmIe, frmJe, frmIe, axisI);
@@ -100,7 +108,6 @@ void TranslationConstraintIeJeq::fillPosICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-    assert(!ppGpXJpXJ);
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 

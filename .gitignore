@@ -48,3 +48,9 @@ temp/
 *.mp4
 /testapp/draggingBackhoe.log
 /testapp/runPreDragBackhoe.asmt
+
+# Local editor/cache/build artifacts
+.cache/
+build-ninja/
+build-vs/
+tempAssembly.asmt

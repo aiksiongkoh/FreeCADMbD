@@ -82,7 +82,7 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 
 void MbD::DispIeJeKe::initialize()
 {
-    dispIeJeO = DispIecJecO::With(geteFrmI(), geteFrmJ());
+    dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
 }
 
 void DispIeJeKe::simUpdateAll()
@@ -95,6 +95,18 @@ void MbD::DispIeJeKe::calcvalue()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
+    //prIeJeKepXI = aAOKeT * prIeJeOpXI
+    //prIeJeKepEI = aAOKeT * prIeJeOpEI
+    //prIeJeKepXJ = aAOKeT * prIeJeOpXJ
+    //prIeJeKepEJ = aAOKeT * prIeJeOpEJ
+    //prIeJeKepEK = pAOKeTpEK * rIeJeO
+    //pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
+    //pprIeJeKepEIpEI = aAOKeT * pprIeJeOpEIpEI
+    //pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
+    //pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
+    //pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
+    //pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
+
     aAOKe = frmKe->aAOe;
     rIeJeO = dispIeJeO->rIeJeO;
     rIeJeKe = aAOKe->transposeTimesFullColumn(rIeJeO);

@@ -13,7 +13,10 @@
 namespace MbD {
     class DispIeqJeO : public DispIeJeO
     {
-        //prIeJeOpXI prIeJeOpEI pprIeJeOpEIpEI 
+        //rIeJeO = rOJeO - rOIeO
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * rJpJeJp) - (rOIpO(qXI) + aAOIp(qEI) * rIpIeIp)
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * (rJpJmJp + aAJpJm * rJmJeJm(t))) 
+        //         - (rOIpO(qXI) + aAOIp(qEI) * (rIpImIp + aAIpIm * rImIeIm(t)))
     public:
         DispIeqJeO() {}
         DispIeqJeO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeJeO(frmi, frmj) {}
@@ -24,7 +27,6 @@ namespace MbD {
         FMatDsptr getprIeJeOpXI() override;
         FMatDsptr getprIeJeOpEI() override;
         FMatDsptr getppriIeJeOpEIpEI(size_t axis) override;
-        FMatDsptr getppriIeJeOpEJpEJ(size_t axis) override;
 
         FMatDsptr prIeJeOpXI;
         FMatDsptr prIeJeOpEI;

@@ -560,7 +560,7 @@ void ForceTorqueIJ::initialize()
 {
     forceFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
     torqueFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
-    dispIeJeO = DispIecJecO::With(geteFrmI(), geteFrmJ());
+    dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
 }
 
 void ForceTorqueIJ::initializeGlobally()

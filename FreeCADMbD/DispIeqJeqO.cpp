@@ -42,3 +42,8 @@ void DispIeqJeqO::simUpdateAll()
     DispIeqJeO::simUpdateAll();
     prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->prOeOpE;
 }
+
+FMatDsptr MbD::DispIeqJeqO::getppriIeJeOpEJpEJ(size_t axis)
+{
+    return std::static_pointer_cast<EndFrameqc>(frmJe)->ppriOeOpEpE(axis);
+}

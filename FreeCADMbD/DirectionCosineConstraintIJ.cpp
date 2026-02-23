@@ -9,7 +9,7 @@
 //#include "DirectionCosineConstraintIJ.h"
 #include "DirectionCosineConstraintIqctJqc.h"
 #include "DirectionCosineConstraintIctJqc.h"
-#include "DirectionCosineIeqctJeqc.h"
+#include "DirectionCosineIecJec.h"
 #include "EndFrameqct.h"
 #include "EndFrameqc.h"
 #include "EndFramect.h"

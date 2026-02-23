@@ -17,6 +17,7 @@ namespace MbD {
         AtPointConstraintIeqJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO) : AtPointConstraintIeqJe(frmi, frmj, axisO) {}
         static std::shared_ptr<AtPointConstraintIeqJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO);
 
+        void simUpdateAll() override;
         void initializeLocally() override;
         void initializeGlobally() override;
         void calcpGpXJ() override;
@@ -29,6 +30,11 @@ namespace MbD {
         void fillVelICJacob(SpMatDsptr mat) override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
+        size_t iqXJ = SIZE_MAX;
+        size_t iqEJ = SIZE_MAX;
+        FRowDsptr pGpXJ;
+        FRowDsptr pGpEJ;
+        FMatDsptr ppGpEJpEJ;
     };
 }
 

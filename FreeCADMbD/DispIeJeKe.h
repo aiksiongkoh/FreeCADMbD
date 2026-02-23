@@ -9,7 +9,7 @@
 #pragma once
 
 #include "KinematicIeJe.h"
-#include "DispIecJecO.h"
+#include "DispIeJeO.h"
 
 namespace MbD {
     class DispIeJeKe : public KinematicIeJe
@@ -43,12 +43,12 @@ namespace MbD {
         void calcppvaluepEJpEJ() override;
         void calcppvaluepEJpEK() override;
         void calcppvaluepEKpEK() override;
-        FMatDsptr getprIeJeOpXI();
-        FMatDsptr getprIeJeOpEI();
-        FMatDsptr getprIeJeOpXJ();
-        FMatDsptr getprIeJeOpEJ();
-        FMatDsptr getppriIeJeOpEIpEI(size_t axis);
-        FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
+        virtual FMatDsptr getprIeJeOpXI();
+        virtual FMatDsptr getprIeJeOpEI();
+        virtual FMatDsptr getprIeJeOpXJ();
+        virtual FMatDsptr getprIeJeOpEJ();
+        virtual FMatDsptr getppriIeJeOpEIpEI(size_t axis);
+        virtual FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
         FColDsptr getprIeJeOpt();
         virtual FColDsptr getpprIeJeOptpt();
         bool hasSameEndFrms(const std::shared_ptr<DispIeJeKe> other) const;
@@ -57,7 +57,7 @@ namespace MbD {
         bool has_qK = false;
 
         EndFrmsptr frmKe;
-        std::shared_ptr<DispIecJecO> dispIeJeO;
+        std::shared_ptr<DispIeJeO> dispIeJeO;
         FMatDsptr aAOKe;
         FColDsptr rIeJeO;
         FColDsptr rIeJeKe;

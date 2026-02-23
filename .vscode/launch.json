@@ -1,0 +1,97 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug FreeCADMbDMain (no args, fast no build)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug FreeCADMbDMain (no args, build first)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main"
+    },
+    {
+      "name": "Debug FreeCADMbDMain (.asmt, fast no build)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [
+        "${input:asmtFile}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug FreeCADMbDMain (.asmt, build first)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [
+        "${input:asmtFile}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main"
+    },
+    {
+      "name": "Debug FreeCADMbDMain (.mbd, fast no build)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [
+        "${input:mbdFile}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug FreeCADMbDMain (.mbd, build first)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "args": [
+        "${input:mbdFile}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "asmtFile",
+      "type": "promptString",
+      "description": "Path to .asmt file (relative to workspace or absolute)",
+      "default": "testapp/ASMT/piston.asmt"
+    },
+    {
+      "id": "mbdFile",
+      "type": "promptString",
+      "description": "Path to .mbd file (relative to workspace or absolute)",
+      "default": "testapp/MBDyn/CrankSlider2.mbd"
+    }
+  ]
+}
+

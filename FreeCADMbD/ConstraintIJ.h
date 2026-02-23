@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Constraint.h"
-#include "EndFrameqc.h"
  //#include "EndFramec.h"  //EndFrmsptr is defined
 
 namespace MbD {

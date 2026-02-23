@@ -19,3 +19,28 @@ void MbD::Kinematic::fillEssenConstraints(std::shared_ptr<std::vector<std::share
 {
     //Do nothing.
 }
+
+void Kinematic::removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos)
+{
+    //Do nothing.
+}
+
+void Kinematic::constraintsReport()
+{
+    //Do nothing.
+}
+
+void Kinematic::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
+{
+    //Do nothing.
+}
+
+void Kinematic::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
+{
+    //Do nothing.
+}
+
+void Kinematic::reactivateRedundantConstraints()
+{
+    //Do nothing.
+}

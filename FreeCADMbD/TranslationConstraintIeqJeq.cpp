@@ -19,6 +19,16 @@ std::shared_ptr<TranslationConstraintIeqJeq> TranslationConstraintIeqJeq::With(E
     return inst;
 }
 
+void TranslationConstraintIeqJeq::simUpdateAll()
+{
+    TranslationConstraintIeqJe::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpEIpXJ();
+    calcppGpEIpEJ();
+    calcppGpEJpEJ();
+}
+
 void TranslationConstraintIeqJeq::initriIeJeIe()
 {
     riIeJeIe = DispCompIeqcJeqcKeqc::With(frmIe, frmJe, frmIe, axisI);
@@ -86,32 +96,22 @@ void TranslationConstraintIeqJeq::fillPosICError(FColDsptr col)
 
 void TranslationConstraintIeqJeq::fillPosICJacob(SpMatDsptr mat)
 {
+    //aG = aAIeOT * (rOJeO - rOIeO)
     TranslationConstraintIeqJe::fillPosICJacob(mat);
     mat->atijplusFullRow(iG, iqXJ, pGpXJ);
     mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 
-    auto ppGpXIpXJlam = ppGpXIpXJ->times(lam);
-    auto ppGpXIpEJlam = ppGpXIpEJ->times(lam);
     auto ppGpEIpXJlam = ppGpEIpXJ->times(lam);
     auto ppGpEIpEJlam = ppGpEIpEJ->times(lam);
-    auto ppGpXJpEJlam = ppGpXJpEJ->times(lam);
-
-    mat->atijplusFullMatrix(iqXI, iqXJ, ppGpXIpXJlam);
-    mat->atijplusFullMatrix(iqXI, iqEJ, ppGpXIpEJlam);
 
     mat->atijplusFullMatrix(iqEI, iqXJ, ppGpEIpXJlam);
     mat->atijplusFullMatrix(iqEI, iqEJ, ppGpEIpEJlam);
 
-    mat->atijplusTransposeFullMatrix(iqXJ, iqXI, ppGpXIpXJlam);
     mat->atijplusTransposeFullMatrix(iqXJ, iqEI, ppGpEIpXJlam);
-    mat->atijplusFullMatrixtimes(iqXJ, iqXJ, ppGpXJpXJ, lam);
-    mat->atijplusFullMatrix(iqXJ, iqEJ, ppGpXJpEJlam);
 
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXI, ppGpXIpEJlam);
     mat->atijplusTransposeFullMatrix(iqEJ, iqEI, ppGpEIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqXJ, ppGpXJpEJlam);
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 

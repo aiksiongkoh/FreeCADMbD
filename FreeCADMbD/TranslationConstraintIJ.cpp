@@ -8,7 +8,6 @@
  
 #include "TranslationConstraintIqctJqc.h"
 #include "TranslationConstraintIctJqc.h"
-#include "DispCompIeqctJeqcKeqct.h"
 #include "EndFrameqct.h"
 #include "EndFrameqc.h"
 #include "EndFramect.h"

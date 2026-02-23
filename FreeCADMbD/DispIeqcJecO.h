@@ -24,7 +24,6 @@ namespace MbD {
         FMatDsptr getprIeJeOpXI() override;
         FMatDsptr getprIeJeOpEI() override;
         FMatDsptr getppriIeJeOpEIpEI(size_t axis) override;
-        FMatDsptr getppriIeJeOpEJpEJ(size_t axis) override;
 
         FMatDsptr prIeJeOpXI;
         FMatDsptr prIeJeOpEI;

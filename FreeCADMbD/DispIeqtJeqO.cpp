@@ -8,6 +8,7 @@
 
 #include "DispIeqtJeqO.h"
 #include "EndFrameqc.h"
+#include "EndFrameqct.h"
 
 using namespace MbD;
 
@@ -34,8 +35,7 @@ void MbD::DispIeqtJeqO::preVelIC()
 void MbD::DispIeqtJeqO::preAccIC()
 {
     DispIeqJeqO::preAccIC();
-    calcppvaluepXJpt();
-    calcppvaluepEJpt();
+    calcppvaluepEIpt();
     calcppvalueptpt();
 }
 
@@ -54,7 +54,27 @@ FColDsptr MbD::DispIeqtJeqO::getprIeJeOpt()
     return prIeJeOpt;
 }
 
+FMatDsptr MbD::DispIeqtJeqO::getpprIeJeOpEIpt()
+{
+    return pprIeJeOpEIpt;
+}
+
 FColDsptr MbD::DispIeqtJeqO::getpprIeJeOptpt()
 {
     return pprIeJeOptpt;
+}
+
+void DispIeqtJeqO::calcpvaluept()
+{
+    prIeJeOpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->prOeOpt->negated();
+}
+
+void DispIeqtJeqO::calcppvalueptpt()
+{
+    pprIeJeOptpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOptpt->negated();
+}
+
+void DispIeqtJeqO::calcppvaluepEIpt()
+{
+    pprIeJeOpEIpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpt->negated();
 }

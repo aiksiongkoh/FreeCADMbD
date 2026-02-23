@@ -9,7 +9,6 @@
 #pragma once
 
 #include "DirectionCosineConstraintIeJe.h"
-#include "DirectionCosineIecJec.h"
 
 namespace MbD {
     class DirectionCosineConstraintIeJeq : public DirectionCosineConstraintIeJe
@@ -18,8 +17,7 @@ namespace MbD {
         DirectionCosineConstraintIeJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineConstraintIeJe(frmi, frmj, axisi, axisj) {}
         static std::shared_ptr<DirectionCosineConstraintIeJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
-        void initializeLocally() override;
-        void initializeGlobally() override;
+        void simUpdateAll() override;
         void calcpGpEJ() override;
         void calcppGpEJpEJ() override;
         void fillAccICIterError(FColDsptr col) override;
@@ -31,8 +29,11 @@ namespace MbD {
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
         void addToJointTorqueI(FColDsptr col) override;
+        void initaAijIeJe() override;
 
-        virtual void initaAijIeJe();
+        size_t iqEJ = SIZE_MAX;
+        FRowDsptr pGpEJ;
+        FMatDsptr ppGpEJpEJ;
 
     };
 }

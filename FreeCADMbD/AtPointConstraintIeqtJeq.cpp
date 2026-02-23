@@ -50,5 +50,7 @@ void AtPointConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 void AtPointConstraintIeqtJeq::preAccIC()
 {
     AtPointConstraintIeqJeq::preAccIC();
+    ppGpEIpt = dispIeJeO->getpprIeJeOpEIpt()->at(axis);
     ppGptpt = dispIeJeO->getpprIeJeOptpt()->at(axis);
 }
+

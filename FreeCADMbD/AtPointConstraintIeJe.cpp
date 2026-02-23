@@ -7,7 +7,6 @@
  ***************************************************************************/
  
 #include "AtPointConstraintIeJe.h"
-#include "DispCompIeqcJeqcO.h"
 #include "EndFramect.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
@@ -81,94 +80,15 @@ std::shared_ptr<AtPointConstraintIeJe> AtPointConstraintIeJe::With(EndFrmsptr fr
     return inst;
 }
 
+void AtPointConstraintIeJe::simUpdateAll()
+{
+    ConstraintIeJe::simUpdateAll();
+}
+
 void MbD::AtPointConstraintIeJe::calcG()
 {
     auto rIeJeO = dispIeJeO->rIeJeO;
     aG = rIeJeO->at(axis) - aConstant;
-}
-
-void MbD::AtPointConstraintIeJe::calcpGpXI()
-{
-    //pGpXI = [0];
-    assert(!pGpXI);
-}
-
-void MbD::AtPointConstraintIeJe::calcpGpEI()
-{
-    //pGpEI = [0];
-    assert(!pGpEI);
-}
-
-void MbD::AtPointConstraintIeJe::calcpGpXJ()
-{
-    //pGpXJ = [0];
-    assert(!pGpXJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcpGpEJ()
-{
-    //pGpEJ = [0];
-    assert(!pGpEJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXIpXI()
-{
-    //ppGpXIpXI = [0];
-    assert(!ppGpXIpXI);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXIpEI()
-{
-    //ppGpXIpEI = [0];
-    assert(!ppGpXIpEI);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXIpXJ()
-{
-    //ppGpXIpXJ = [0];
-    assert(!ppGpXIpXJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXIpEJ()
-{
-    //ppGpXIpEJ = [0];
-    assert(!ppGpXIpEJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpEIpEI()
-{
-    //ppGpEIpEI = [0];
-    assert(!ppGpEIpEI);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpEIpXJ()
-{
-    //ppGpEIpXJ = [0];
-    assert(!ppGpEIpXJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpEIpEJ()
-{
-    //ppGpEIpEJ = [0];
-    assert(!ppGpEIpEJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXJpXJ()
-{
-    //ppGpXJpXJ = [0];
-    assert(!ppGpXJpXJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpXJpEJ()
-{
-    //ppGpXJpEJ = [0];
-    assert(!ppGpXJpEJ);
-}
-
-void MbD::AtPointConstraintIeJe::calcppGpEJpEJ()
-{
-    //ppGpEJpEJ = [0];
-    assert(!ppGpEJpEJ);
 }
 
 ConstraintType MbD::AtPointConstraintIeJe::type()
@@ -179,4 +99,29 @@ ConstraintType MbD::AtPointConstraintIeJe::type()
 std::string MbD::AtPointConstraintIeJe::constraintSpec()
 {
     return "AtPointConstraintIeJe";
+}
+
+void MbD::AtPointConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::AtPointConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::AtPointConstraintIeJe::fillAccICIterError(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::AtPointConstraintIeJe::fillpFpy(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::AtPointConstraintIeJe::fillpFpydot(SpMatDsptr mat)
+{
+    //Do nothing.
 }

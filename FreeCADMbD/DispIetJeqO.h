@@ -13,16 +13,20 @@
 namespace MbD {
     class DispIetJeqO : public DispIeJeqO
     {
-        //prIeJeOpXJ prIeJeOpEJ pprIeJeOpEJpEJ 
+        //rIeJeO = rOJeO - rOIeO
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * rJpJeJp) - (rOIpO(qXI) + aAOIp(qEI) * rIpIeIp)
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * (rJpJmJp + aAJpJm * rJmJeJm(t))) 
+        //         - (rOIpO(qXI) + aAOIp(qEI) * (rIpImIp + aAIpIm * rImIeIm(t)))
     public:
         DispIetJeqO() {}
         DispIetJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeJeqO(frmi, frmj) {}
         static std::shared_ptr<DispIetJeqO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void simUpdateAll() override;
         void initializeGlobally() override;
         void preVelIC() override;
         void preAccIC() override;
+        void calcpvaluept() override;
+        void calcppvalueptpt() override;
         FMatDsptr getprIeJeOpXJ() override;
         FMatDsptr getprIeJeOpEJ() override;
         FColDsptr getprIeJeOpt() override;

@@ -6,8 +6,6 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-#include <functional>
-#include <chrono>
 
 #include "Constraint.h"
 #include "FullColumn.h"

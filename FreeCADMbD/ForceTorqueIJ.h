@@ -11,7 +11,7 @@
 #include "ForceTorqueItem.h"
 #include "DistIecJec.h"
 #include "ForceTorqueFunction.h"
-#include "DispIecJecO.h"
+#include "DispIeJeO.h"
 #include "SpatialContainerFrame.h"
 
 namespace MbD {
@@ -224,7 +224,7 @@ namespace MbD {
         FMatDsptr pQEJpEdotI;
         FMatDsptr pQEJpXdotJ;
         FMatDsptr pQEJpEdotJ;
-        std::shared_ptr<DispIecJecO> dispIeJeO;
+        std::shared_ptr<DispIeJeO> dispIeJeO;
         std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>> forceFunctions;
         std::shared_ptr < std::vector<std::shared_ptr<ForceTorqueFunction>>> torqueFunctions;
 

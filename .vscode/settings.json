@@ -1,0 +1,17 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.generator": "Visual Studio 17 2022",
+  "cmake.buildDirectory": "${workspaceFolder}/build-vs",
+  "cmake.configureSettings": {
+    "CMAKE_GENERATOR_PLATFORM": "x64"
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.intelliSenseMode": "windows-msvc-x64",
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "[cpp]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+  "C_Cpp.intelliSenseEngine": "default"
+}

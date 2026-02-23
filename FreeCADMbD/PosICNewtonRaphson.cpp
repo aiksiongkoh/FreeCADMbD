@@ -7,7 +7,6 @@
  ***************************************************************************/
 
 #include <assert.h>
-#include <exception>
 
 #include "PosICNewtonRaphson.h"
 #include "SingularMatrixError.h"

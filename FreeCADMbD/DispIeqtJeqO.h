@@ -13,7 +13,10 @@
 namespace MbD {
     class DispIeqtJeqO : public DispIeqJeqO
     {
-        //prIeJeOpXJ prIeJeOpEJ pprIeJeOpEJpEJ 
+        //rIeJeO = rOJeO - rOIeO
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * rJpJeJp) - (rOIpO(qXI) + aAOIp(qEI) * rIpIeIp)
+        //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * (rJpJmJp + aAJpJm * rJmJeJm(t))) 
+        //         - (rOIpO(qXI) + aAOIp(qEI) * (rIpImIp + aAIpIm * rImIeIm(t)))
     public:
         DispIeqtJeqO() {}
         DispIeqtJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeqO(frmi, frmj) {}
@@ -22,12 +25,17 @@ namespace MbD {
         void initializeGlobally() override;
         void preVelIC() override;
         void preAccIC() override;
+        void calcpvaluept() override;
+        void calcppvaluepEIpt();
+        void calcppvalueptpt() override;
         FMatDsptr getprIeJeOpXJ() override;
         FMatDsptr getprIeJeOpEJ() override;
         FColDsptr getprIeJeOpt() override;
+        FMatDsptr getpprIeJeOpEIpt() override;
         FColDsptr getpprIeJeOptpt() override;
 
         FColDsptr prIeJeOpt;
+        FMatDsptr pprIeJeOpEIpt;
         FColDsptr pprIeJeOptpt;
     };
 }

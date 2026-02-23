@@ -8,13 +8,12 @@
 
 #include<algorithm>
 #include <memory>
-#include <typeinfo>
 
 #include "ConstraintSet.h"
 #include "Constraint.h"
 #include "EndFramec.h"
-#include "EndFramect.h"
 #include "EndFrameqc.h"
+#include "EndFramect.h"
 #include "EndFrameqct.h"
 #include "RedundantConstraint.h"
 #include "MarkerFramec.h"

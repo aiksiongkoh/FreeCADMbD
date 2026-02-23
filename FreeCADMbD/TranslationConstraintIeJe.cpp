@@ -9,12 +9,10 @@
 #include "TranslationConstraintIeJe.h"
 #include "TranslationConstraintIeqtJeq.h"
 #include "TranslationConstraintIetJeq.h"
-#include "DispCompIeqctJeqcKeqct.h"
 #include "EndFrameqct.h"
 #include "EndFrameqc.h"
 #include "EndFramect.h"
 #include "EndFramec.h"
-#include "System.h"
 
 using namespace MbD;
 
@@ -82,6 +80,11 @@ std::shared_ptr<TranslationConstraintIeJe> TranslationConstraintIeJe::With(EndFr
     return inst;
 }
 
+void TranslationConstraintIeJe::simUpdateAll()
+{
+    ConstraintIeJe::simUpdateAll();
+}
+
 void TranslationConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
@@ -103,26 +106,10 @@ void TranslationConstraintIeJe::initriIeJeIe()
     riIeJeIe = DispCompIecJecKec::With(frmIe, frmJe, frmIe, axisI);
 }
 
-void MbD::TranslationConstraintIeJe::useUniqueDispIeJeO()
-{
-    auto dispIeJeOs = root()->dispIeJeOs;
-    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
-    if (it == dispIeJeOs->end()) {
-        dispIeJeOs->push_back(dispIeJeO);
-    }
-    else {
-        dispIeJeO = *it;
-    }
-}
-
-void MbD::TranslationConstraintIeJe::useUniqueDispIeJeKe()
-{
-}
-
 void TranslationConstraintIeJe::postInput()
 {
     riIeJeIe->postInput();
-    Constraint::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void MbD::TranslationConstraintIeJe::calcG()
@@ -130,94 +117,20 @@ void MbD::TranslationConstraintIeJe::calcG()
     aG = riIeJeIe->value() - aConstant;
 }
 
-void MbD::TranslationConstraintIeJe::calcpGpXI()
-{
-    //pGpXI = [0];
-    assert(!pGpXI);
-}
-
-void MbD::TranslationConstraintIeJe::calcpGpEI()
-{
-    //pGpEI = [0];
-    assert(!pGpEI);
-}
-
-void MbD::TranslationConstraintIeJe::calcpGpXJ()
-{
-    //pGpXJ = [0];
-    assert(!pGpXJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcpGpEJ()
-{
-    //pGpEJ = [0];
-    assert(!pGpEJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXIpXI()
-{
-    //ppGpXIpXI = [0];
-    assert(!ppGpXIpXI);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXIpEI()
-{
-    //ppGpXIpEI = [0];
-    assert(!ppGpXIpEI);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXIpXJ()
-{
-    //ppGpXIpXJ = [0];
-    assert(!ppGpXIpXJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXIpEJ()
-{
-    //ppGpXIpEJ = [0];
-    assert(!ppGpXIpEJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpEIpEI()
-{
-    //ppGpEIpEI = [0];
-    assert(!ppGpEIpEI);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpEIpXJ()
-{
-    //ppGpEIpXJ = [0];
-    assert(!ppGpEIpXJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpEIpEJ()
-{
-    //ppGpEIpEJ = [0];
-    assert(!ppGpEIpEJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXJpXJ()
-{
-    //ppGpXJpXJ = [0];
-    assert(!ppGpXJpXJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpXJpEJ()
-{
-    //ppGpXJpEJ = [0];
-    assert(!ppGpXJpEJ);
-}
-
-void MbD::TranslationConstraintIeJe::calcppGpEJpEJ()
-{
-    //ppGpEJpEJ = [0];
-    assert(!ppGpEJpEJ);
-}
-
 void TranslationConstraintIeJe::prePosIC()
 {
     riIeJeIe->prePosIC();
-    Constraint::prePosIC();
+    ConstraintIeJe::prePosIC();
+}
+
+void MbD::TranslationConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::fillAccICIterError(FColDsptr col)
+{
+    //Do nothing.
 }
 
 ConstraintType TranslationConstraintIeJe::type()
@@ -228,25 +141,30 @@ ConstraintType TranslationConstraintIeJe::type()
 void TranslationConstraintIeJe::postDynPredictor()
 {
     riIeJeIe->postDynPredictor();
-    Constraint::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void TranslationConstraintIeJe::postDynCorrectorIteration()
 {
     riIeJeIe->postDynCorrectorIteration();
-    Constraint::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void TranslationConstraintIeJe::preDynOutput()
 {
     riIeJeIe->preDynOutput();
-    Constraint::preDynOutput();
+    ConstraintIeJe::preDynOutput();
+}
+
+void MbD::TranslationConstraintIeJe::preDyn()
+{
+    //Do nothing.
 }
 
 void TranslationConstraintIeJe::postDynOutput()
 {
     riIeJeIe->postDynOutput();
-    Constraint::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }
 
 void TranslationConstraintIeJe::postPosICIteration()
@@ -264,10 +182,45 @@ void TranslationConstraintIeJe::preVelIC()
 void TranslationConstraintIeJe::preAccIC()
 {
     riIeJeIe->preAccIC();
-    Constraint::preAccIC();
+    ConstraintIeJe::preAccIC();
+}
+
+void MbD::TranslationConstraintIeJe::fillpFpy(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::fillpFpydot(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::addToJointForceI(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::addToJointTorqueI(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::addToJointForceJ(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::TranslationConstraintIeJe::addToJointTorqueJ(FColDsptr col)
+{
+    //Do nothing.
 }
 
 std::string TranslationConstraintIeJe::constraintSpec()
 {
     return "TranslationConstraintIeJe";
+}
+
+void MbD::TranslationConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
 }

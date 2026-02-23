@@ -58,11 +58,11 @@ namespace MbD {
         virtual void addToJointTorqueJ(FColDsptr col);
 
         size_t iG = SIZE_MAX;
-        double aG = std::numeric_limits<double>::min();         //Constraint function
-        double aConstant = std::numeric_limits<double>::min();
+        double aG = std::numeric_limits<double>::min();         //Constraint equation
+        double aConstant = std::numeric_limits<double>::min();	//Constant in constraint equation
         double lam = std::numeric_limits<double>::min();        //Lambda is Lagrange Multiplier
-        double mu = std::numeric_limits<double>::min();
-        double lamDeriv = std::numeric_limits<double>::min();
+        double mu = std::numeric_limits<double>::min();			//lam = muderiv to reduce DAE index
+        double lamDeriv = std::numeric_limits<double>::min();	//Used in collision dynamics
     };
 }
 

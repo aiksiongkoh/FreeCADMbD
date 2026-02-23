@@ -19,62 +19,31 @@ std::shared_ptr<DirectionCosineConstraintIetJeq> DirectionCosineConstraintIetJeq
     return inst;
 }
 
+void MbD::DirectionCosineConstraintIetJeq::preAccIC()
+{
+    DirectionCosineConstraintIeJeq::preAccIC();
+    ppGpEJpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->ppAijIeJepEJpt;
+    ppGptpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->ppAijIeJeptpt;
+}
+
+void MbD::DirectionCosineConstraintIetJeq::preVelIC()
+{
+    DirectionCosineConstraintIeJeq::preVelIC();
+    pGpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->pAijIeJept;
+}
+
 void DirectionCosineConstraintIetJeq::initaAijIeJe()
 {
     aAijIeJe = DirectionCosineIectJeqc::With(frmIe, frmJe, axisI, axisJ);
 }
 
-void DirectionCosineConstraintIetJeq::fillpFpy(SpMatDsptr mat)
+void MbD::DirectionCosineConstraintIetJeq::fillVelICError(FColDsptr col)
 {
-    ConstraintIeJe::fillpFpy(mat);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    auto ppGpEIpEJlam = ppGpEIpEJ->times(lam);
-    mat->atijplusFullMatrix(iqEI, iqEJ, ppGpEIpEJlam);
-    mat->atijplusTransposeFullMatrix(iqEJ, iqEI, ppGpEIpEJlam);
-    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
+    col->atiminusNumber(iG, pGpt);
 }
 
-void DirectionCosineConstraintIetJeq::fillpFpydot(SpMatDsptr mat)
+ConstraintType MbD::DirectionCosineConstraintIetJeq::type()
 {
-    ConstraintIeJe::fillpFpydot(mat);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
+    return essential;
 }
 
-void DirectionCosineConstraintIetJeq::fillPosKineJacob(SpMatDsptr mat)
-{
-    ConstraintIeJe::fillPosKineJacob(mat);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-}
-
-void DirectionCosineConstraintIetJeq::fillVelICJacob(SpMatDsptr mat)
-{
-    ConstraintIeJe::fillVelICJacob(mat);
-    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
-    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
-}
-
-void DirectionCosineConstraintIetJeq::fillAccICIterError(FColDsptr col)
-{
-    ConstraintIeJe::fillAccICIterError(col);
-    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(frmJe);
-    auto qEdotI = eFrmIqc->qEdot();
-    auto qEdotJ = eFrmJqc->qEdot();
-    double sum = pGpEJ->timesFullColumn(eFrmJqc->qEddot());
-    sum += (qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ))) * 2.0;
-    sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
-    col->atiplusNumber(iG, sum);
-}
-
-void MbD::DirectionCosineConstraintIetJeq::initializeLocally()
-{
-    ConstraintIeJe::initializeLocally();
-    aAijIeJe->initializeLocally();
-}
-
-void MbD::DirectionCosineConstraintIetJeq::initializeGlobally()
-{
-    ConstraintIeJe::initializeGlobally();
-    aAijIeJe->initializeGlobally();
-}

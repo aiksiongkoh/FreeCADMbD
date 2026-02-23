@@ -18,8 +18,7 @@ namespace MbD {
         DirectionCosineConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineConstraintIeJe(frmi, frmj, axisi, axisj) {}
         static std::shared_ptr<DirectionCosineConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
-        void initializeLocally() override;
-        void initializeGlobally() override;
+        void simUpdateAll() override;
         void calcpGpEI() override;
         void calcppGpEIpEI() override;
         void fillAccICIterError(FColDsptr col) override;
@@ -30,8 +29,12 @@ namespace MbD {
         void useEquationNumbers() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
-        virtual void initaAijIeJe();
+        void initaAijIeJe() override;
+        void addToJointTorqueI(FColDsptr col);
 
+        size_t iqEI = SIZE_MAX;
+        FRowDsptr pGpEI;
+        FMatDsptr ppGpEIpEI;
     };
 }
 

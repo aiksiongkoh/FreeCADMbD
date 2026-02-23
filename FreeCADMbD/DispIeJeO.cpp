@@ -121,6 +121,11 @@ FColDsptr MbD::DispIeJeO::getprIeJeOpt()
     return FColDsptr();
 }
 
+FMatDsptr MbD::DispIeJeO::getpprIeJeOpEIpt()
+{
+    return FMatDsptr();
+}
+
 FColDsptr MbD::DispIeJeO::getpprIeJeOptpt()
 {
     return FColDsptr();

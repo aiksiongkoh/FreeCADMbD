@@ -34,8 +34,6 @@ void MbD::DispIectJeqcO::preVelIC()
 void MbD::DispIectJeqcO::preAccIC()
 {
     DispIecJeqcO::preAccIC();
-    calcppvaluepXJpt();
-    calcppvaluepEJpt();
     calcppvalueptpt();
 }
 

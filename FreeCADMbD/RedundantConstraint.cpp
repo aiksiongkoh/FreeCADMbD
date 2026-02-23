@@ -61,7 +61,7 @@ void MbD::RedundantConstraint::fillPerpenConstraints(std::shared_ptr<std::vector
 
 void MbD::RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
-    //Do nothing.
+        redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
 }
 
 void RedundantConstraint::fillqsuddotlam(FColDsptr col)

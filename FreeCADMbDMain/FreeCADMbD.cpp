@@ -12,7 +12,6 @@
   * @brief Program to assemble a piston crank system.
   *********************************************************************/
 
-#include <filesystem>
 
 #include "../FreeCADMbD/CADSystem.h"
 #include "../FreeCADMbD/GESpMatParPvPrecise.h"

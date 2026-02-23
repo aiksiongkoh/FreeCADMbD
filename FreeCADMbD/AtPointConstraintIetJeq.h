@@ -26,7 +26,6 @@ namespace MbD {
         ConstraintType type() override;
 
         double pGpt = std::numeric_limits<double>::min();
-        //ppGpEIpt = 0 row vector
         double ppGptpt = std::numeric_limits<double>::min();
 
     };

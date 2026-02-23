@@ -18,6 +18,7 @@ namespace MbD {
         TranslationConstraintIeJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi) : TranslationConstraintIeJe(frmi, frmj, axisi) {}
         static std::shared_ptr<TranslationConstraintIeJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
 
+        void simUpdateAll() override;
         void initriIeJeIe() override;
         void calcpGpXJ() override;
         void calcpGpEJ() override;
@@ -32,6 +33,11 @@ namespace MbD {
         void fillpFpydot(SpMatDsptr mat) override;
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;
+        size_t iqXJ = SIZE_MAX;
+        size_t iqEJ = SIZE_MAX;
+        FRowDsptr pGpXJ;
+        FRowDsptr pGpEJ;
+        FMatDsptr ppGpEJpEJ;
 
     };
 }

@@ -41,11 +41,6 @@ FMatDsptr MbD::DispIeqJeO::getppriIeJeOpEIpEI(size_t axis)
     return std::static_pointer_cast<EndFrameqc>(frmIe)->ppriOeOpEpE(axis)->negated();
 }
 
-FMatDsptr MbD::DispIeqJeO::getppriIeJeOpEJpEJ(size_t axis)
-{
-    return std::static_pointer_cast<EndFrameqc>(frmJe)->ppriOeOpEpE(axis);
-}
-
 void DispIeqJeO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO

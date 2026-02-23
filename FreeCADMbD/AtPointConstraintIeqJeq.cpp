@@ -19,9 +19,17 @@ std::shared_ptr<AtPointConstraintIeqJeq> AtPointConstraintIeqJeq::With(EndFrmspt
     return inst;
 }
 
+void AtPointConstraintIeqJeq::simUpdateAll()
+{
+    AtPointConstraintIeqJe::simUpdateAll();
+    calcpGpXJ();
+    calcpGpEJ();
+    calcppGpEJpEJ();
+}
+
 void AtPointConstraintIeqJeq::initializeGlobally()
 {
-    ConstraintIeJe::initializeGlobally();
+    AtPointConstraintIeqJe::initializeGlobally();
 }
 
 void AtPointConstraintIeqJeq::calcpGpXJ()
@@ -52,17 +60,22 @@ void AtPointConstraintIeqJeq::useEquationNumbers()
 
 void AtPointConstraintIeqJeq::initializeLocally()
 {
-    ConstraintIeJe::initializeLocally();
+    AtPointConstraintIeqJe::initializeLocally();
 }
 
 void AtPointConstraintIeqJeq::fillpFpy(SpMatDsptr mat)
 {
-    ConstraintIeJe::fillpFpy(mat);
+    AtPointConstraintIeqJe::fillpFpy(mat);
+    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
+    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
+    mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 
 void AtPointConstraintIeqJeq::fillpFpydot(SpMatDsptr mat)
 {
-    ConstraintIeJe::fillpFpydot(mat);
+    AtPointConstraintIeqJe::fillpFpydot(mat);
+    mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
+    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
 void AtPointConstraintIeqJeq::fillPosICError(FColDsptr col)
@@ -85,10 +98,25 @@ void AtPointConstraintIeqJeq::fillPosICJacob(SpMatDsptr mat)
 
 void AtPointConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
 {
-    ConstraintIeJe::fillVelICJacob(mat);
+    AtPointConstraintIeqJe::fillVelICJacob(mat);
+    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
+    mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
+    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
+    mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
 void AtPointConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
-    ConstraintIeJe::fillAccICIterError(col);
+    AtPointConstraintIeqJe::fillAccICIterError(col);
+    col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
+    col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto qEdotI = frmIeq->qEdot();
+    auto qXdotJ = frmJeq->qXdot();
+    auto qEdotJ = frmJeq->qEdot();
+    double sum = pGpXJ->timesFullColumn(frmJeq->qXddot());
+    sum += pGpEJ->timesFullColumn(frmJeq->qEddot());
+    sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
+    col->atiplusNumber(iG, sum);
 }

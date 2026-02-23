@@ -7,12 +7,12 @@
  ***************************************************************************/
 
 #include "DirectionCosineConstraintIeqJeq.h"
-#include "DirectionCosineIeqcJeqc.h"
 #include "EndFramect.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
 #include "DirectionCosineConstraintIeqtJeq.h"
 #include "DirectionCosineConstraintIetJeq.h"
+#include "DirectionCosineConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -80,94 +80,15 @@ std::shared_ptr<DirectionCosineConstraintIeJe> DirectionCosineConstraintIeJe::Wi
     return inst;
 }
 
+void MbD::DirectionCosineConstraintIeJe::simUpdateAll()
+{
+    ConstraintIeJe::simUpdateAll();
+}
+
 void MbD::DirectionCosineConstraintIeJe::calcG()
 {
     //aG = aAijIeJe - aConstant;
     aG = aAijIeJe->value() - aConstant;
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcpGpXI()
-{
-    //pGpXI = [0];
-    assert(!pGpXI);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcpGpEI()
-{
-    //pGpEI = [0];
-    assert(!pGpEI);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcpGpXJ()
-{
-    //pGpXJ = [0];
-    assert(!pGpXJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcpGpEJ()
-{
-    //pGpEJ = [0];
-    assert(!pGpEJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXIpXI()
-{
-    //ppGpXIpXI = [0];
-    assert(!ppGpXIpXI);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXIpEI()
-{
-    //ppGpXIpEI = [0];
-    assert(!ppGpXIpEI);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXIpXJ()
-{
-    //ppGpXIpXJ = [0];
-    assert(!ppGpXIpXJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXIpEJ()
-{
-    //ppGpXIpEJ = [0];
-    assert(!ppGpXIpEJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpEIpEI()
-{
-    //ppGpEIpEI = [0];
-    assert(!ppGpEIpEI);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpEIpXJ()
-{
-    //ppGpEIpXJ = [0];
-    assert(!ppGpEIpXJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpEIpEJ()
-{
-    //ppGpEIpEJ = [0];
-    assert(!ppGpEIpEJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXJpXJ()
-{
-    //ppGpXJpXJ = [0];
-    assert(!ppGpXJpXJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpXJpEJ()
-{
-    //ppGpXJpEJ = [0];
-    assert(!ppGpXJpEJ);
-}
-
-void MbD::DirectionCosineConstraintIeJe::calcppGpEJpEJ()
-{
-    //ppGpEJpEJ = [0];
-    assert(!ppGpEJpEJ);
 }
 
 void MbD::DirectionCosineConstraintIeJe::addToJointForceI(FColDsptr col)
@@ -175,18 +96,23 @@ void MbD::DirectionCosineConstraintIeJe::addToJointForceI(FColDsptr col)
     //aFIeO = lam * pGpXI
     //aFIeO = lam * zero
     //Do nothing.
-    assert(!pGpXI);
+}
+
+void MbD::DirectionCosineConstraintIeJe::addToJointForceJ(FColDsptr col)
+{
+    //aFJeO = lam * pGpXJ
+    //aFJeO = lam * zero
+    //Do nothing.
 }
 
 void MbD::DirectionCosineConstraintIeJe::addToJointTorqueI(FColDsptr col)
 {
-    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    //aFIeO = zero
-    //aTIeO = 0.5 * aBOIp * lam * pGpEI
-    auto aBOIp = frmIe->aBOp();
-    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
-    auto aTIeO = aBOIp->timesFullColumn(lampGpEI)->times(0.5);
-    col->equalSelfPlus(aTIeO);
+    //Do nothing.
+}
+
+void MbD::DirectionCosineConstraintIeJe::addToJointTorqueJ(FColDsptr col)
+{
+    //Do nothing.
 }
 
 ConstraintType MbD::DirectionCosineConstraintIeJe::type()
@@ -203,4 +129,101 @@ void MbD::DirectionCosineConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     aAijIeJe = DirectionCosineIecJec::With(frmIe, frmJe, axisI, axisJ);
+}
+
+void MbD::DirectionCosineConstraintIeJe::initializeLocally()
+{
+    ConstraintIeJe::initializeLocally();
+    aAijIeJe->initializeLocally();
+}
+
+void MbD::DirectionCosineConstraintIeJe::initializeGlobally()
+{
+    ConstraintIeJe::initializeGlobally();
+    aAijIeJe->initializeGlobally();
+}
+
+void MbD::DirectionCosineConstraintIeJe::postInput()
+{
+    aAijIeJe->postInput();
+    ConstraintIeJe::postInput();
+}
+
+void MbD::DirectionCosineConstraintIeJe::prePosIC()
+{
+    aAijIeJe->prePosIC();
+    ConstraintIeJe::prePosIC();
+}
+
+void MbD::DirectionCosineConstraintIeJe::postPosICIteration()
+{
+    aAijIeJe->postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
+}
+
+void MbD::DirectionCosineConstraintIeJe::preVelIC()
+{
+    aAijIeJe->preVelIC();
+    ConstraintIeJe::preVelIC();
+}
+
+void MbD::DirectionCosineConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::DirectionCosineConstraintIeJe::preAccIC()
+{
+    aAijIeJe->preAccIC();
+    ConstraintIeJe::preAccIC();
+}
+
+void MbD::DirectionCosineConstraintIeJe::fillAccICIterError(FColDsptr col)
+{
+    //Do nothing.
+}
+
+void MbD::DirectionCosineConstraintIeJe::preDyn()
+{
+    aAijIeJe->preDyn();
+    ConstraintIeJe::preDyn();
+}
+
+void MbD::DirectionCosineConstraintIeJe::preDynOutput()
+{
+    aAijIeJe->preDynOutput();
+    ConstraintIeJe::preDynOutput();
+}
+
+void MbD::DirectionCosineConstraintIeJe::postDynOutput()
+{
+    aAijIeJe->postDynOutput();
+    ConstraintIeJe::postDynOutput();
+}
+
+void MbD::DirectionCosineConstraintIeJe::postDynPredictor()
+{
+    aAijIeJe->postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
+}
+
+void DirectionCosineConstraintIeJe::postDynCorrectorIteration()
+{
+    aAijIeJe->postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
+}
+
+void MbD::DirectionCosineConstraintIeJe::fillpFpy(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::DirectionCosineConstraintIeJe::fillpFpydot(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
+void MbD::DirectionCosineConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
+{
+    //Do nothing.
 }
