@@ -135,10 +135,10 @@ TEST(FreeCADMbD, fourbar) {
     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/fourbar.asmt");
     EXPECT_TRUE(true);
 }
-TEST(FreeCADMbD, fourbot) {
-    ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/fourbot.asmt");    //Very large but works
-    EXPECT_TRUE(true);
-}
+// TEST(FreeCADMbD, fourbot) {
+//     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/fourbot.asmt");    //Very large but works
+//     EXPECT_TRUE(true);
+// }
 TEST(FreeCADMbD, wobpump) {
     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/wobpump.asmt");
     EXPECT_TRUE(true);

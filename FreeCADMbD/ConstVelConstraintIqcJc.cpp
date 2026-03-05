@@ -123,3 +123,14 @@ std::string ConstVelConstraintIqcJc::constraintSpec()
 {
     return "ConstVelConstraintIJ";
 }
+
+void MbD::ConstVelConstraintIqcJc::addToJointTorqueI(FColDsptr col)
+{
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    //aFIeO = zero;
+    //aTIeO = 0.5 * aBOIp * (lam * pGpEI)
+    auto aBOIp = eFrmI->aBOp();
+    auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
+    auto aTIeO = aBOIp->timesFullColumn(lampGpEI)->times(0.5);
+    col->equalSelfPlus(aTIeO);
+}

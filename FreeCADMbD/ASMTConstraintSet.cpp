@@ -14,6 +14,8 @@
 #include "EndFrameqc.h"
 #include "Part.h"
 #include "SimulationStoppingError.h"
+#include "ForceTorqueData.h"
+#include "ConstraintSet.h"
 
 using namespace MbD;
 
@@ -36,7 +38,7 @@ void ASMTConstraintSet::createMbD()
 
 std::shared_ptr<ConstraintSet> ASMTConstraintSet::mbdClassNew()
 {
-    //Should not create abstract class.
+    // Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
     return std::shared_ptr<ConstraintSet>();
 }
@@ -44,12 +46,15 @@ std::shared_ptr<ConstraintSet> ASMTConstraintSet::mbdClassNew()
 void ASMTConstraintSet::updateFromMbD()
 {
     //"
-    //MbD returns aFIeO and aTIeO.
-    //GEO needs aFImO and aTImO.
-    //For Motion rImIeO is not zero and is changing.
-    //aFImO = aFIeO.
-    //aTImO = aTIeO + (rImIeO cross : aFIeO).
+    // MbD returns aFIeO and aTIeO.
+    // GEO needs aFImO and aTImO.
+    // For Motion rImIeO is not zero and is changing.
+    // aFImO = aFIeO.
+    // aTImO = aTIeO + (rImIeO cross : aFIeO).
     //"
+    auto data = dataFromMbD();
+    dataSeries->push_back(data);
+
     auto mbdUnts = mbdUnits();
     auto mbdJoint = std::static_pointer_cast<JointIJ>(mbdObject);
     auto aFIeO = mbdJoint->aFX()->times(mbdUnts->force);
@@ -61,38 +66,114 @@ void ASMTConstraintSet::updateFromMbD()
     cTIO->push_back(aTIO);
 }
 
+std::shared_ptr<StateData> MbD::ASMTConstraintSet::dataFromMbD()
+{
+    auto mbdUnts = mbdUnits();
+    auto aConstraintSet = std::static_pointer_cast<ConstraintSet>(mbdObject);
+    auto answer = ForceTorqueData::With();
+    answer->aFIO = aConstraintSet->aFIeO()->times(mbdUnts->force);
+    answer->aTIO = aConstraintSet->aTIeO()->times(mbdUnts->torque);
+    return answer;
+}
+
 void ASMTConstraintSet::compareResults(AnalysisType)
 {
-    if (infxs == nullptr || infxs->empty()) return;
+    // Redundant constraint removal is very sensitive to numerical noise.
+    // Joint ForceTorque can change a lot when new and old redundant constraints are not the same.
+    if (infxs == nullptr || infxs->empty())
+        return;
+    auto lambda = [&](std::string name, std::shared_ptr<std::vector<FColDsptr>> cols, size_t icomp, FRowDsptr invals, size_t i, size_t nSig, double tol)
+    {
+        auto val = cols->at(i)->at(icomp);
+        auto inval = invals->at(i);
+        auto tol2 = tol / 10.0;
+        if (std::abs(val) < tol2 && std::abs(inval) < tol2)
+            return;
+        auto ratio = val / inval;
+        auto relDiff = std::abs(ratio) - 1.0;
+        if (ratio < 0.0)
+        {
+            std::cout << "                    Sign Error ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
+            std::cout << " Redundant Constraint Differences??? ";
+            std::cout << std::endl;
+        }
+        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
+        {
+            std::cout << "                    ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
+            std::cout << " Redundant Constraint Differences??? ";
+            std::cout << std::endl;
+        }
+    };
+
     auto mbdUnts = mbdUnits();
-    auto factor = 1.0e-6;
+    size_t nDigit = 3;
+    auto factor = std::pow(10, -int(nDigit));
     auto forceTol = mbdUnts->force * factor;
     auto torqueTol = mbdUnts->torque * factor;
     auto i = cFIO->size() - 1;
-    size_t nDigit = 3;
-    auto lambda = [&](std::string name, std::shared_ptr<std::vector<FColDsptr>> cols, size_t icomp, FRowDsptr invals, size_t i, size_t nSig, double tol) {
-        auto val = cols->at(i)->at(icomp);
-        auto inval = invals->at(i);
-        if (std::abs(val) < tol && std::abs(inval) < tol) return;
-        auto ratio = val / inval;
-        auto relDiff = std::abs(ratio) - 1.0;
-        if (ratio < 0.0) {
-            std::cout << "                    Sign Error ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
-        }
-        if (std::abs(relDiff) >= std::pow(10, -int(nDigit))) {
-            std::cout << "                    ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff) << std::endl;
-        }
-        };
-    //Force
+    // Force
     lambda("FIOx", cFIO, 0, infxs, i, nDigit, forceTol);
     lambda("FIOy", cFIO, 1, infys, i, nDigit, forceTol);
     lambda("FIOz", cFIO, 2, infzs, i, nDigit, forceTol);
-    //Torque
+    // Torque
     lambda("TIOx", cTIO, 0, intxs, i, nDigit, torqueTol);
     lambda("TIOy", cTIO, 1, intys, i, nDigit, torqueTol);
     lambda("TIOz", cTIO, 2, intzs, i, nDigit, torqueTol);
+}
+
+void MbD::ASMTConstraintSet::compareResults2(AnalysisType type)
+{
+    // Redundant constraint removal is very sensitive to numerical noise.
+    // Joint ForceTorque can change a lot when new and old redundant constraints are not the same.
+    if (dataSeriesIn == nullptr || dataSeriesIn->empty())
+        return;
+    auto lambda = [&](std::string name, size_t i, FColDsptr col, FColDsptr incol, size_t nSig, double tol)
+    {
+        auto val = col->at(i);
+        auto inval = incol->at(i);
+        auto tol2 = tol / 10.0;
+        if (std::abs(val) < tol2 && std::abs(inval) < tol2)
+            return;
+        auto ratio = val / inval;
+        auto relDiff = std::abs(ratio) - 1.0;
+        if (ratio < 0.0)
+        {
+            std::cout << "                    Sign Error ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
+            std::cout << " Redundant Constraint Differences??? ";
+            std::cout << std::endl;
+        }
+        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
+        {
+            std::cout << "                    ";
+            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
+            std::cout << " Redundant Constraint Differences??? ";
+            std::cout << std::endl;
+        }
+    };
+
+    auto mbdUnts = mbdUnits();
+    size_t nDigit = 3;
+    auto factor = std::pow(10, -int(nDigit));
+    auto forceTol = mbdUnts->force * factor;
+    auto torqueTol = mbdUnts->torque * factor;
+    auto i = dataSeries->size() - 1;
+    auto forceTorqueData = std::dynamic_pointer_cast<ForceTorqueData>(dataSeries->at(i));
+    auto forceTorqueDataIn = std::dynamic_pointer_cast<ForceTorqueData>(dataSeriesIn->at(i));
+    auto aFIeO = forceTorqueData->aFIO;
+    auto inFIeO = forceTorqueDataIn->aFIO;
+    // Force
+    lambda("FIOx", 0, aFIeO, inFIeO, nDigit, forceTol);
+    lambda("FIOy", 1, aFIeO, inFIeO, nDigit, forceTol);
+    lambda("FIOz", 2, aFIeO, inFIeO, nDigit, forceTol);
+    // Torque
+    auto aTIeO = forceTorqueData->aTIO;
+    auto inTIeO = forceTorqueDataIn->aTIO;
+    lambda("TIOx", 0, aTIeO, inTIeO, nDigit, torqueTol);
+    lambda("TIOy", 1, aTIeO, inTIeO, nDigit, torqueTol);
+    lambda("TIOz", 2, aTIeO, inTIeO, nDigit, torqueTol);
 }
 
 void ASMTConstraintSet::outputResults(AnalysisType)
@@ -102,5 +183,5 @@ void ASMTConstraintSet::outputResults(AnalysisType)
 
 void ASMTConstraintSet::updateFromInputState()
 {
-    //Do nothing.
+    // Do nothing.
 }

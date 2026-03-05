@@ -10,6 +10,7 @@
 #include "System.h"
 #include "TranslationConstraintIeJe.h"
 #include "DirectionCosineConstraintIeJe.h"
+#include "EndFramect.h"
 #include "EndFrameqct.h"
 #include "SimulationStoppingError.h"
 
@@ -59,7 +60,14 @@ void FullMotion::initializeGlobally()
 
 void FullMotion::initMotions()
 {
-    auto eFrmIt = std::static_pointer_cast<EndFrameqct>(eFrmI);
-    eFrmIt->rmemBlks = frIJI;
-    eFrmIt->phiThePsiBlks = fangIJJ;
+    auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
+    auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
+    if (eFrmIct && !eFrmIqct) {
+        eFrmIct->rmemBlks = frIJI;
+        eFrmIct->phiThePsiBlks = fangIJJ;
+    }
+    else if (!eFrmIct && eFrmIqct) {
+        eFrmIqct->rmemBlks = frIJI;
+        eFrmIqct->phiThePsiBlks = fangIJJ;
+    }
 }

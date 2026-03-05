@@ -142,6 +142,13 @@ void AtPointConstraintIeJeq::fillVelICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
+void MbD::AtPointConstraintIeJeq::fillPosKineJacob(SpMatDsptr mat)
+{
+    AtPointConstraintIeJe::fillPosKineJacob(mat);
+    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
+    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
+}
+
 void AtPointConstraintIeJeq::fillAccICIterError(FColDsptr col)
 {
     AtPointConstraintIeJe::fillAccICIterError(col);

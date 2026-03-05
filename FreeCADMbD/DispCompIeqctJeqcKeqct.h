@@ -19,7 +19,6 @@ namespace MbD {
         DispCompIeqctJeqcKeqct(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk) : DispCompIeqcJeqcKeqct(frmi, frmj, frmk, axisk) {}
         static std::shared_ptr<DispCompIeqctJeqcKeqct> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk);
 
-        void simUpdateAll() override;
         void preAccIC() override;
         void preVelIC() override;
 

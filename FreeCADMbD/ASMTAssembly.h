@@ -42,12 +42,13 @@ namespace MbD {
         static void runSinglePendulumSimplified();
         static void runSinglePendulum();
         static std::shared_ptr<ASMTAssembly> assemblyFromFile(const std::string& str);
-        static void runDynFile(const std::string& str);
-        static void runKineFile(const std::string& str);
+        static void runDynFile(const std::string& fileName);
+        static void runKineFile(const std::string& fileName);
         static void runDraggingTest();
-        static std::vector<std::string> linesFromFile(const std::string& str);
-        static void readWriteKineFile(const std::string& str);
-        static void readWriteDynFile(const std::string& str);
+        static std::vector<std::string> linesFromFile(const std::string& fileName);
+        static void readWriteKineFile(const std::string& fileName);
+        static void readWriteDynFile(const std::string& fileName);
+        static void readWriteReadDynFile(const std::string& fileName);
 
         ASMTAssembly* root() override;
         void setNotes(const std::string& str);
@@ -107,7 +108,9 @@ namespace MbD {
         std::shared_ptr<ASMTForceTorque> forceTorqueAt(std::string& longname) const;
         std::shared_ptr<ASMTTime> geoTime() const;
         void updateFromMbD() override;
+        std::shared_ptr<StateData> dataFromMbD() override;
         void compareResults(AnalysisType type) override;
+        void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void addTime(std::shared_ptr<ASMTTime> time);
         void addPart(std::shared_ptr<ASMTPart> part);

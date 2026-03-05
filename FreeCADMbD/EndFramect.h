@@ -51,6 +51,7 @@ namespace MbD {
         void postDynPredictor() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void simUpdateAll() override;
 
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
         std::shared_ptr<FullColumn<Symsptr>> phiThePsiBlks, pPhiThePsiptBlks, ppPhiThePsiptptBlks;

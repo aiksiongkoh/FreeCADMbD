@@ -25,6 +25,7 @@ namespace MbD {
         void fillY() override;
         void passRootToSystem() override;
         void basicSolveEquations() override;
+        void solveEquations() override;
         void initializeGlobally() override;
         void calcdxNorm() override;
         void handleSingularMatrix() override;

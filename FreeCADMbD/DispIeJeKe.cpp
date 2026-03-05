@@ -259,5 +259,6 @@ FColDsptr MbD::DispIeJeKe::getpprIeJeOptpt()
 
 bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<DispIeJeKe> other) const
 {
-    return frmIe == other->frmIe && frmJe == other->frmJe && frmKe == other->frmKe;
+    auto sameClass = typeid(*this).name() == typeid(*other).name();
+    return sameClass && frmIe == other->frmIe && frmJe == other->frmJe && frmKe == other->frmKe;
 }

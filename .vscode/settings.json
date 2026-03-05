@@ -1,5 +1,6 @@
 {
   "cmake.configureOnOpen": true,
+  "cmake.testExplorerIntegrationEnabled": true,
   "cmake.generator": "Visual Studio 17 2022",
   "cmake.buildDirectory": "${workspaceFolder}/build-vs",
   "cmake.configureSettings": {
@@ -13,5 +14,12 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true
   },
-  "C_Cpp.intelliSenseEngine": "default"
+  "C_Cpp.intelliSenseEngine": "default",
+  "cmake.ctest.debugLaunchTarget": "CMake Tools: Debug CTest (Selected Test)",
+  "cmake.buildBeforeRun": true,
+  "cmake.ctestArgs": [
+    "-C",
+    "Debug",
+    "--output-on-failure"
+  ]
 }

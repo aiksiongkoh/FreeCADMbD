@@ -20,7 +20,9 @@ namespace MbD {
         static std::shared_ptr<ASMTForceTorque> With();
 
         void updateFromMbD() override;
+        std::shared_ptr<StateData> dataFromMbD() override;
         void compareResults(AnalysisType type) override;
+        void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void readForceTorqueSeries(std::vector<std::string>& lines);
         void storeOnLevel(std::ofstream& os, size_t level) override;
@@ -28,7 +30,6 @@ namespace MbD {
         void createMbD() override;
         std::shared_ptr<ForceFunctionParser> functionParser();
         bool isForceTorque() override;
-        std::shared_ptr<StateData> dataFromMbD() override;
 
     };
 }

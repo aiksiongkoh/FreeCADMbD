@@ -35,6 +35,8 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void addToJointForceI(FColDsptr col);
+        void addToJointTorqueI(FColDsptr col) override;
 
         std::shared_ptr<DirectionCosineIecJec> aA01IeJe, aA10IeJe;
     };

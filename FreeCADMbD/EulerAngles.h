@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "EulerArray.h"
@@ -13,32 +13,35 @@
 #include "EulerAnglesDot.h"
 #include "Symbolic.h"
 
-namespace MbD {
-    //template<typename T>
-    //class EulerAnglesDot;
+namespace MbD
+{
+    // template<typename T>
+    // class EulerAnglesDot;
 
-    template<typename T>
+    template <typename T>
     class EulerAngles : public EulerArray<T>
     {
-        //rotOrder cA aA 
-        //Used for user input.
+        // rotOrder cA aA
+        // Used for user input.
     public:
         EulerAngles() : EulerArray<T>(3) {}
-        EulerAngles(std::initializer_list<T> list) : EulerArray<T>{ list } {}
+        EulerAngles(size_t count, const T& value) : EulerArray<T>(count, value) {}
+        EulerAngles(std::initializer_list<T> list) : EulerArray<T>{list} {}
         static std::shared_ptr<EulerAngles<T>> With();
+        static std::shared_ptr<EulerAngles<T>> With(size_t count, const T &value);
+        static std::shared_ptr<EulerAngles<T>> With(FColsptr<T> col);
         void initialize() override;
-        
+
         void calc() override;
         std::shared_ptr<EulerAnglesDot<T>> differentiateWRT(T var);
         void setRotOrder(size_t i, size_t j, size_t k);
 
-        std::shared_ptr<std::vector<size_t>> rotOrder;
+        std::shared_ptr<std::vector<size_t>> axisOrder;
         FColFMatDsptr cA;
         FMatDsptr aA;
-
     };
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<EulerAngles<T>> EulerAngles<T>::With()
     {
         auto inst = std::make_shared<EulerAngles<T>>();
@@ -46,88 +49,111 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> EulerAngles<T>::With(size_t count, const T &value)
+    {
+        auto inst = std::make_shared<EulerAngles<T>>(count, value);
+        inst->initialize();
+        return inst;
+    }
+
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> EulerAngles<T>::With(FColsptr<T> col)
+    {
+        auto inst = EulerAngles<T>::With();
+        inst->equalFullColumn(col);
+        return inst;
+    }
+
+    template <typename T>
     inline void EulerAngles<T>::initialize()
     {
         EulerArray<T>::initialize();
-        rotOrder = std::make_shared<std::vector<size_t>>(3);
-        rotOrder->at(0) = 1;
-        rotOrder->at(1) = 2;
-        rotOrder->at(2) = 3;
+        axisOrder = std::make_shared<std::vector<size_t>>(3);
+        axisOrder->at(0) = 1;
+        axisOrder->at(1) = 2;
+        axisOrder->at(2) = 3;
     }
 
-    template<>
+    template <>
     inline void EulerAngles<Symsptr>::calc()
     {
         cA = std::make_shared<FullColumn<FMatDsptr>>(3);
         for (size_t i = 0; i < 3; i++)
         {
-            auto axis = rotOrder->at(i);
+            auto axis = axisOrder->at(i);
             auto angle = this->at(i)->getValue();
-            if (axis == 1) {
+            if (axis == 1)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatex(angle));
             }
-            else if (axis == 2) {
+            else if (axis == 2)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatey(angle));
             }
-            else if (axis == 3) {
+            else if (axis == 3)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatez(angle));
             }
-            else {
+            else
+            {
                 throw std::runtime_error("Euler angle rotation order must be any permutation of 1,2,3 without consecutive repeats.");
             }
         }
         aA = cA->at(0)->timesFullMatrix(cA->at(1)->timesFullMatrix(cA->at(2)));
     }
 
-    template<>
+    template <>
     inline void EulerAngles<double>::calc()
     {
         cA = std::make_shared<FullColumn<FMatDsptr>>(3);
         for (size_t i = 0; i < 3; i++)
         {
-            auto axis = rotOrder->at(i);
+            auto axis = axisOrder->at(i);
             auto angle = this->at(i);
-            if (axis == 1) {
+            if (axis == 1)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatex(angle));
             }
-            else if (axis == 2) {
+            else if (axis == 2)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatey(angle));
             }
-            else if (axis == 3) {
+            else if (axis == 3)
+            {
                 cA->atiput(i, FullMatrix<double>::rotatez(angle));
             }
-            else {
+            else
+            {
                 throw std::runtime_error("Euler angle rotation order must be any permutation of 1,2,3 without consecutive repeats.");
             }
         }
         aA = cA->at(0)->timesFullMatrix(cA->at(1)->timesFullMatrix(cA->at(2)));
     }
 
-    template<typename T>
+    template <typename T>
     inline void EulerAngles<T>::calc()
     {
         throw SimulationStoppingError("To be implemented.");
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<EulerAnglesDot<T>> EulerAngles<T>::differentiateWRT(T var)
     {
         auto derivatives = std::make_shared<EulerAnglesDot<T>>();
         std::transform(this->begin(), this->end(), derivatives->begin(),
-            [var](T term) { return term->differentiateWRT(var); }
-        );
+                       [var](T term)
+                       { return term->differentiateWRT(var); });
         derivatives->aEulerAngles = this;
         return derivatives;
     }
 
-    template<typename T>
+    template <typename T>
     inline void EulerAngles<T>::setRotOrder(size_t i, size_t j, size_t k)
     {
-        rotOrder = std::make_shared<std::vector<size_t>>(3);
-        rotOrder->at(0) = i;
-        rotOrder->at(1) = j;
-        rotOrder->at(2) = k;
+        axisOrder = std::make_shared<std::vector<size_t>>(3);
+        axisOrder->at(0) = i;
+        axisOrder->at(1) = j;
+        axisOrder->at(2) = k;
     }
 }
-

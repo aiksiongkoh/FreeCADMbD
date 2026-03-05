@@ -20,9 +20,6 @@ namespace MbD {
         std::shared_ptr<ConstraintSet> mbdClassNew() override;
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnTimeSeries(std::ofstream& os) override;
-        void updateFromMbD() override;
-
-
     };
 }
 

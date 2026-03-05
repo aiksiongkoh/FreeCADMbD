@@ -30,6 +30,11 @@ void DirectionCosineIectJeqc::initializeGlobally()
     ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppAjOepEpE(axisJ);
 }
 
+void MbD::DirectionCosineIectJeqc::simUpdateAll()
+{
+    DirectionCosineIecJeqc::simUpdateAll();
+}
+
 FRowDsptr DirectionCosineIectJeqc::ppvaluepEJpt()
 {
     return ppAijIeJepEJpt;

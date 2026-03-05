@@ -28,14 +28,6 @@ void DispCompIeqctJeqcKeqct::preVelIC()
     priIeJeKept += aAjOKe->dot(prIeJeOpt);
 }
 
-void DispCompIeqctJeqcKeqct::simUpdateAll()
-{
-    //rIeJeO = rOJeO - rOIeO
-    //rIeJeKe = aAKeO * rIeJeO
-    //riIeJeKe = aArowiKeO dot rIeJeO = aAcoljOKe dot rIeJeO
-    throw SimulationStoppingError("To be implemented.");
-}
-
 void DispCompIeqctJeqcKeqct::preAccIC()
 {
     DispCompIeqcJeqcKeqct::preAccIC();

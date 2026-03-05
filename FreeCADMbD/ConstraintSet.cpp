@@ -67,7 +67,8 @@ void ConstraintSet::addConstraint(std::shared_ptr<Constraint> con)
 {
     con->owner = this;
     constraints->push_back(con);
-    std::dynamic_pointer_cast<ConstraintIeJe>(con)->useUniqueDispIeJeO();
+    auto conIeJe = std::dynamic_pointer_cast<ConstraintIeJe>(con);
+    if (conIeJe) conIeJe->useUniqueDispIeJeO();
 }
 
 void ConstraintSet::postInput()
@@ -285,21 +286,21 @@ void ConstraintSet::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
     eFrmJ = frmj;
 }
 
-FColDsptr ConstraintSet::aFIeJtIe() const
+FColDsptr ConstraintSet::aFIeIe() const
 {
-    //"aFIeJtIe is joint force on end frame Ie expresses in Ie components."
+    //"aFIeIe is joint force on end frame Ie expresses in Ie components."
     auto frmIqc = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
-    return frmIqc->aAeO()->timesFullColumn(aFIeJtO());
+    return frmIqc->aAeO()->timesFullColumn(aFIeO());
 }
 
-FColDsptr ConstraintSet::aFIeJtO() const
+FColDsptr ConstraintSet::aFIeO() const
 {
-    //"aFIeJtO is joint force on end frame Ie expresses in O components."
-    auto aFIeJtO = std::make_shared <FullColumn<double>>(3);
+    //"aFIeO is joint force on end frame Ie expresses in O components."
+    auto aFIeO = std::make_shared <FullColumn<double>>(3);
     constraintsDo([&](std::shared_ptr<Constraint> con) {
-        con->addToJointForceI(aFIeJtO);
+        con->addToJointForceI(aFIeO);
         });
-    return aFIeJtO;
+    return aFIeO;
 }
 
 void ConstraintSet::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
@@ -459,20 +460,20 @@ FColDsptr ConstraintSet::aFX() const
     return jointForceI();
 }
 
-FColDsptr ConstraintSet::aTIeJtIe() const
+FColDsptr ConstraintSet::aTIeIe() const
 {
-    //"aTIeJtIe is torque on part containing end frame Ie expressed in Ie components."
-    return eFrmI->aAeO()->timesFullColumn(aTIeJtO());
+    //"aTIeIe is torque on part containing end frame Ie expressed in Ie components."
+    return eFrmI->aAeO()->timesFullColumn(aTIeO());
 }
 
-FColDsptr ConstraintSet::aTIeJtO() const
+FColDsptr ConstraintSet::aTIeO() const
 {
-    //"aTIeJtO is torque on part containing end frame Ie expressed in O components."
-    auto aTIeJtO = std::make_shared <FullColumn<double>>(3);
+    //"aTIeO is torque on part containing end frame Ie expressed in O components."
+    auto aTIeO = std::make_shared <FullColumn<double>>(3);
     constraintsDo([&](std::shared_ptr<Constraint> con) {
-        con->addToJointTorqueI(aTIeJtO);
+        con->addToJointTorqueI(aTIeO);
         });
-    return aTIeJtO;
+    return aTIeO;
 }
 
 FColDsptr ConstraintSet::jointForceI() const

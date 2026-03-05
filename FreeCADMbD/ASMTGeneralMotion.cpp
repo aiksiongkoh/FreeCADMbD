@@ -135,7 +135,7 @@ void ASMTGeneralMotion::createMbD()
 
     auto xyzRotBlkList = std::initializer_list<Symsptr>{ phiBlk, theBlk, psiBlk };
     auto fangIJJ = std::make_shared<EulerAngles<Symsptr>>(xyzRotBlkList);
-    fangIJJ->rotOrder = rotationOrder;
+    fangIJJ->axisOrder = rotationOrder;
     fullMotion->fangIJJ = fangIJJ;
 }
 
@@ -145,6 +145,20 @@ void ASMTGeneralMotion::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelString(os, level + 1, "Name");
     storeOnLevelString(os, level + 2, name);
     ASMTItemIJ::storeOnLevel(os, level);
+    storeOnLevelString(os, level + 1, "rIJI1");
+    storeOnLevelString(os, level + 2, rIJI->at(0));
+    storeOnLevelString(os, level + 1, "rIJI2");
+    storeOnLevelString(os, level + 2, rIJI->at(1));
+    storeOnLevelString(os, level + 1, "rIJI3");
+    storeOnLevelString(os, level + 2, rIJI->at(2));
+    storeOnLevelString(os, level + 1, "angIJJ1");
+    storeOnLevelString(os, level + 2, angIJJ->at(0));
+    storeOnLevelString(os, level + 1, "angIJJ2");
+    storeOnLevelString(os, level + 2, angIJJ->at(1));
+    storeOnLevelString(os, level + 1, "angIJJ3");
+    storeOnLevelString(os, level + 2, angIJJ->at(2));
+    storeOnLevelString(os, level + 1, "RotationOrder");
+    storeOnLevelArray(os, level + 1, *rotationOrder);
 }
 
 void ASMTGeneralMotion::storeOnTimeSeries(std::ofstream& os)

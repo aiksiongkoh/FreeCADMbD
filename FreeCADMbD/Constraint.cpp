@@ -6,7 +6,6 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-
 #include "Constraint.h"
 #include "FullColumn.h"
 #include "enum.h"
@@ -58,7 +57,7 @@ void Constraint::setpqsumudot(FColDsptr col)
 
 void Constraint::setpqsumuddot(FColDsptr col)
 {
-    //Do nothing
+    // Do nothing
 }
 
 void Constraint::fillDynError(FColDsptr col)
@@ -99,7 +98,7 @@ void Constraint::fillPosICError(FColDsptr col)
 
 void Constraint::removeRedundantConstraints(std::shared_ptr<std::vector<size_t>>)
 {
-    //My owner should handle this.
+    // My owner should handle this.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -110,7 +109,7 @@ void Constraint::setConstant(double value)
 
 void Constraint::reactivateRedundantConstraints()
 {
-    //My owner should handle this.
+    // My owner should handle this.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -151,30 +150,39 @@ void Constraint::setqsuddotlam(FColDsptr col)
     lam = col->at(iG);
 }
 
-void Constraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) {
+void Constraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
+{
     allConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
 }
 
-void Constraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) {
-    if (type() == redundant) {
+void Constraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
+{
+    if (type() == redundant)
+    {
         redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
     }
 }
 
-void Constraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints) {
-    if (type() == displacement) {
+void Constraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
+{
+    if (type() == displacement)
+    {
         dispConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
     }
 }
 
-void Constraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) {
-    if (type() == essential) {
+void Constraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
+{
+    if (type() == essential)
+    {
         essenConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
     }
 }
 
-void Constraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints) {
-    if (type() == perpendicular) {
+void Constraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
+{
+    if (type() == perpendicular)
+    {
         perpenConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
     }
 }

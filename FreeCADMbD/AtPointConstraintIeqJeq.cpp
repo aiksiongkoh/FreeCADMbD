@@ -22,14 +22,16 @@ std::shared_ptr<AtPointConstraintIeqJeq> AtPointConstraintIeqJeq::With(EndFrmspt
 void AtPointConstraintIeqJeq::simUpdateAll()
 {
     AtPointConstraintIeqJe::simUpdateAll();
-    calcpGpXJ();
+    // calcpGpXJ(); //Constant
     calcpGpEJ();
-    calcppGpEJpEJ();
+    // calcppGpEJpEJ(); //Constant
 }
 
 void AtPointConstraintIeqJeq::initializeGlobally()
 {
     AtPointConstraintIeqJe::initializeGlobally();
+    calcpGpXJ();    //Constant
+    calcppGpEJpEJ();    //Constant
 }
 
 void AtPointConstraintIeqJeq::calcpGpXJ()
@@ -103,6 +105,13 @@ void AtPointConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqXJ, iG, pGpXJ->transpose());
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
+}
+
+void MbD::AtPointConstraintIeqJeq::fillPosKineJacob(SpMatDsptr mat)
+{
+    AtPointConstraintIeqJe::fillPosKineJacob(mat);
+    mat->atijplusFullRow(iG, iqXJ, pGpXJ);
+    mat->atijplusFullRow(iG, iqEJ, pGpEJ);
 }
 
 void AtPointConstraintIeqJeq::fillAccICIterError(FColDsptr col)

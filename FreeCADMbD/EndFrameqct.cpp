@@ -19,9 +19,9 @@
 #include "Symbolic.h"
 #include "SymTime.h"
 #include "EulerParameters.h"
-#include "EulerAngleszxz.h"
-#include "EulerAngleszxzDot.h"
-#include "EulerAngleszxzDDot.h"
+#include "EulerAngles.h"
+#include "EulerAnglesDot.h"
+#include "EulerAnglesDDot.h"
 
 using namespace MbD;
 
@@ -56,6 +56,7 @@ void EndFrameqct::initialize()
 
 void EndFrameqct::initializeLocally()
 {
+    EndFrameqc::initializeLocally();
     if (!rmemBlks) {
         rmem->zeroSelf();
         prmempt->zeroSelf();
@@ -70,6 +71,7 @@ void EndFrameqct::initializeLocally()
 
 void EndFrameqct::initializeGlobally()
 {
+    EndFrameqc::initializeGlobally();
     if (rmemBlks) {
         initprmemptBlks();
         initpprmemptptBlks();
@@ -217,7 +219,7 @@ void EndFrameqct::evalrmem() const
 void EndFrameqct::evalAme()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
+        auto phiThePsi = EulerAngles<double>::With();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);
@@ -317,9 +319,9 @@ void EndFrameqct::evalprmempt() const
 void EndFrameqct::evalpAmept()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
-        auto phiThePsiDot = EulerAngleszxzDot<double>::With();
-        phiThePsiDot->phiThePsi = phiThePsi;
+        auto phiThePsi = EulerAngles<double>::With();
+        auto phiThePsiDot = EulerAnglesDot<double>::With();
+        phiThePsiDot->aEulerAngles = phiThePsi.get();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);
@@ -350,11 +352,11 @@ void EndFrameqct::evalpprmemptpt() const
 void EndFrameqct::evalppAmeptpt()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
-        auto phiThePsiDot = EulerAngleszxzDot<double>::With();
-        phiThePsiDot->phiThePsi = phiThePsi;
-        auto phiThePsiDDot = EulerAngleszxzDDot<double>::With();
-        phiThePsiDDot->phiThePsiDot = phiThePsiDot;
+        auto phiThePsi = EulerAngles<double>::With();
+        auto phiThePsiDot = EulerAnglesDot<double>::With();
+        phiThePsiDot->aEulerAngles = phiThePsi.get();
+        auto phiThePsiDDot = EulerAnglesDDot<double>::With();
+        phiThePsiDDot->aEulerAnglesDot = phiThePsiDot.get();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);

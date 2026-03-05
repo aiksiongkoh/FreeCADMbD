@@ -128,5 +128,6 @@ FColDsptr MbD::DispIecJecO::getpprIeJeOptpt()
 
 bool MbD::DispIecJecO::hasSameEndFrms(const std::shared_ptr<DispIecJecO> other) const
 {
-    return eFrmI == other->eFrmI && eFrmJ == other->eFrmJ;
+    auto sameClass = typeid(*this).name() == typeid(*other).name();
+    return sameClass && eFrmI == other->eFrmI && eFrmJ == other->eFrmJ;
 }

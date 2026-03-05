@@ -22,7 +22,8 @@ namespace MbD {
         void fillVelICError(FColDsptr col) override;
         ConstraintType type() override;
         void initaAijIeJe() override;
-        double pGpt = std::numeric_limits<double>::min(); 
+        void fillAccICIterError(FColDsptr col);
+        double pGpt = std::numeric_limits<double>::min();
         FRowDsptr ppGpEJpt;
         double ppGptpt = std::numeric_limits<double>::min();
 

@@ -19,13 +19,6 @@ std::shared_ptr<DispIetJeqO> DispIetJeqO::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
-void DispIetJeqO::initializeGlobally()
-{
-    //Variables are constants.
-    prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
-    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->pprOeOpEpE;
-}
-
 void MbD::DispIetJeqO::preVelIC()
 {
     DispIeJeqO::preVelIC();

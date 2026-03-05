@@ -22,7 +22,7 @@ namespace MbD {
         DispIeqtJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeqO(frmi, frmj) {}
         static std::shared_ptr<DispIeqtJeqO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void initializeGlobally() override;
+        void simUpdateAll() override;
         void preVelIC() override;
         void preAccIC() override;
         void calcpvaluept() override;

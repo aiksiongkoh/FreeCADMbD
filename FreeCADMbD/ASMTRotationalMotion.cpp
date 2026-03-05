@@ -63,7 +63,7 @@ void ASMTRotationalMotion::createMbD()
     //std::cout << *geoPhi << std::endl;
     auto simple = geoPhi->simplified(geoPhi);
     //std::cout << *simple << std::endl;
-    std::static_pointer_cast<ZRotation>(mbdObject)->phiBlk = simple;
+    std::static_pointer_cast<ZRotation>(mbdObject)->psiBlk = simple;
 }
 
 std::shared_ptr<ConstraintSet> ASMTRotationalMotion::mbdClassNew()

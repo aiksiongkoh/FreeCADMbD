@@ -32,7 +32,7 @@ namespace MbD {
         virtual FColDsptr getprIeJeOpt();
         virtual FMatDsptr getpprIeJeOpEIpt();
         virtual FColDsptr getpprIeJeOptpt();
-        bool hasSameEndFrms(const std::shared_ptr<DispIeJeO> other) const;
+        virtual bool hasSameEndFrms(const std::shared_ptr<DispIeJeO> other) const;
 
         FColDsptr rIeJeO;
     };

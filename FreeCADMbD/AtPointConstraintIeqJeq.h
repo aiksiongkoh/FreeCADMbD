@@ -28,6 +28,7 @@ namespace MbD {
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;
         void fillVelICJacob(SpMatDsptr mat) override;
+        void fillPosKineJacob(SpMatDsptr mat) override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
         size_t iqXJ = SIZE_MAX;

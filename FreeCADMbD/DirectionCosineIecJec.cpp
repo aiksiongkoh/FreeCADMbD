@@ -27,7 +27,7 @@ std::shared_ptr<DirectionCosineIecJec> DirectionCosineIecJec::With(EndFrmsptr fr
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            inst = std::make_shared<DirectionCosineIeqctJeqc>(frmi, frmj, axisi, axisj);
         }
         else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
             throw SimulationStoppingError("To be implemented.");

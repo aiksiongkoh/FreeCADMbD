@@ -13,7 +13,6 @@ using namespace MbD;
 
 AnyGeneralSpline::AnyGeneralSpline(Symsptr arg) : FunctionFromData(arg)
 {
-    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<AnyGeneralSpline> AnyGeneralSpline::With()

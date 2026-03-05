@@ -28,6 +28,10 @@ std::shared_ptr<ASMTTranslationalMotion> ASMTTranslationalMotion::With()
 void ASMTTranslationalMotion::parseASMT(std::vector<std::string>& lines)
 {
     readName(lines);
+    if (lines[0].find("MarkerI") != std::string::npos) {
+        readMarkerI(lines);
+        readMarkerJ(lines);
+    }
     readMotionJoint(lines);
     readTranslationZ(lines);
 }
@@ -70,6 +74,10 @@ void ASMTTranslationalMotion::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelString(os, level + 1, "Name");
     storeOnLevelString(os, level + 2, name);
     ASMTItemIJ::storeOnLevel(os, level);
+    storeOnLevelString(os, level + 1, "MotionJoint");
+    storeOnLevelString(os, level + 2, motionJoint);
+    storeOnLevelString(os, level + 1, "TranslationZ");
+    storeOnLevelString(os, level + 2, translationZ);
 }
 
 void ASMTTranslationalMotion::storeOnTimeSeries(std::ofstream& os)

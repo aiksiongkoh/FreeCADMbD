@@ -31,6 +31,7 @@ namespace MbD {
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
         std::string constraintSpec() override;
+        void addToJointTorqueI(FColDsptr col) override;
 
         FRowDsptr pGpEI;
         FMatDsptr ppGpEIpEI;

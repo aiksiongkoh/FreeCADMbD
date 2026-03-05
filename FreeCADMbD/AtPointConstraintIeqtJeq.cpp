@@ -19,6 +19,12 @@ std::shared_ptr<AtPointConstraintIeqtJeq> AtPointConstraintIeqtJeq::With(EndFrms
     return inst;
 }
 
+void AtPointConstraintIeqtJeq::simUpdateAll()
+{
+    AtPointConstraintIeqJeq::simUpdateAll();
+    calcppGpEIpEI(); //Now an explicit function of time
+}
+
 void AtPointConstraintIeqtJeq::initializeGlobally()
 {
     AtPointConstraintIeqJeq::initializeGlobally();
@@ -43,7 +49,10 @@ void AtPointConstraintIeqtJeq::fillVelICError(FColDsptr col)
 void AtPointConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     AtPointConstraintIeqJeq::fillAccICIterError(col);
-    double sum = ppGptpt;
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto qEdotI = frmIeq->qEdot();
+    double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;
+    sum += ppGptpt;
     col->atiplusNumber(iG, sum);
 }
 

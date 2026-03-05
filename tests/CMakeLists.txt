@@ -63,6 +63,7 @@ target_link_libraries(test_run
 
 include(GoogleTest)
 # discovers tests by asking the compiled test executable to enumerate its tests
-set(CMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE PRE_TEST)
+set(CMAKE_GTEST_DISCOVER_TESTS_DISCOVERY_MODE POST_BUILD)
 
 gtest_discover_tests(test_run)
+

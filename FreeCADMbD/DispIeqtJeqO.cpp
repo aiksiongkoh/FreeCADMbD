@@ -19,11 +19,19 @@ std::shared_ptr<DispIeqtJeqO> DispIeqtJeqO::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void DispIeqtJeqO::initializeGlobally()
+void MbD::DispIeqtJeqO::simUpdateAll()
 {
-    //Variables are constants.
-    prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
-    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->pprOeOpEpE;
+    //rIeJeO = rOJeO(q,t) - rOIeO(q)
+    //rIeJeO = rOJpO + aAOJp * rJpJeJp - (rOIpO + aAOIp * rIpIeIp(t))
+    //prIeJeOpXI = -[I]
+    //prIeJeOpEI = -pAOIppEI * rIpIeIp(t)       Not a constant
+    //prIeJeOpXJ = [I]
+    //prIeJeOpEJ = pAOJppEJ * rJpJeJp       Not a constant
+    //pprIeJeOpEIpEI = -ppAOIppEIpEI * rIpIeIp(t)       Not a constant
+    //pprIeJeOpEJpEJ = ppAOJppEJpEJ * rJpJeJp   =    Constant * Constant
+
+    DispIeqJeqO::simUpdateAll();
+    pprIeJeOpEIpEI = std::static_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpE->negated();
 }
 
 void MbD::DispIeqtJeqO::preVelIC()

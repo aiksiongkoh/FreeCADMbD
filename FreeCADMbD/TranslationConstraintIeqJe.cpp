@@ -118,6 +118,7 @@ void TranslationConstraintIeqJe::fillPosICJacob(SpMatDsptr mat)
 
 void TranslationConstraintIeqJe::fillPosKineJacob(SpMatDsptr mat)
 {
+    TranslationConstraintIeJe::fillPosKineJacob(mat);
     mat->atijplusFullRow(iG, iqXI, pGpXI);
     mat->atijplusFullRow(iG, iqEI, pGpEI);
 }

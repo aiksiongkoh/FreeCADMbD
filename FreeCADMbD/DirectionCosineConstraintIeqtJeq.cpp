@@ -48,3 +48,16 @@ ConstraintType MbD::DirectionCosineConstraintIeqtJeq::type()
     return essential;
 }
 
+void DirectionCosineConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
+{
+    DirectionCosineConstraintIeqJeq::fillAccICIterError(col);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto qEdotI = frmIeq->qEdot();
+    auto qEdotJ = frmJeq->qEdot();
+    double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;
+    sum += (ppGpEJpt->timesFullColumn(qEdotJ)) * 2.0;
+    sum += ppGptpt;
+    col->atiplusNumber(iG, sum);
+}
+

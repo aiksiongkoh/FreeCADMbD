@@ -194,8 +194,8 @@ void CADSystem::runOndselSinglePendulum()
     auto rotMotion1 = ZRotation::With("/Assembly1/Motion1");
     rotMotion1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
     std::cout << "rotMotion1->name " << rotMotion1->name << std::endl;
-    rotMotion1->phiBlk = std::make_shared<Constant>(1.0);
-    std::cout << "rotMotion1->phiBlk " << *(rotMotion1->phiBlk) << std::endl;
+    rotMotion1->psiBlk = std::make_shared<Constant>(1.0);
+    std::cout << "rotMotion1->psiBlk " << *(rotMotion1->psiBlk) << std::endl;
     TheSystem->addMotion(rotMotion1);
     //
     TheSystem->runKINEMATIC(TheSystem);
@@ -607,8 +607,8 @@ void CADSystem::runOndselPiston()
     auto omega = std::make_shared<Constant>(6.2831853071796);
     auto timeScale = std::make_shared<Constant>(1.0);
     auto time = std::make_shared<Product>(timeScale, TheSystem->time);
-    rotMotion1->phiBlk = std::make_shared<Product>(omega, time);
-    std::cout << "rotMotion1->phiBlk " << *(rotMotion1->phiBlk) << std::endl;
+    rotMotion1->psiBlk = std::make_shared<Product>(omega, time);
+    std::cout << "rotMotion1->psiBlk " << *(rotMotion1->psiBlk) << std::endl;
     TheSystem->addMotion(rotMotion1);
     //
     TheSystem->runKINEMATIC(TheSystem);
@@ -855,8 +855,8 @@ void CADSystem::runPiston()
     auto omega = std::make_shared<Constant>(6.2831853071796);
     auto timeScale = std::make_shared<Constant>(0.04);
     auto time = std::make_shared<Product>(timeScale, TheSystem->time);
-    rotMotion1->phiBlk = std::make_shared<Product>(omega, time);
-    std::cout << "rotMotion1->phiBlk " << *(rotMotion1->phiBlk) << std::endl;
+    rotMotion1->psiBlk = std::make_shared<Product>(omega, time);
+    std::cout << "rotMotion1->psiBlk " << *(rotMotion1->psiBlk) << std::endl;
     TheSystem->addMotion(rotMotion1);
     //
     TheSystem->runKINEMATIC(TheSystem);

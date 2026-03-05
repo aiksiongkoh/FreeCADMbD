@@ -77,6 +77,32 @@
       "environment": [],
       "console": "integratedTerminal",
       "preLaunchTask": "cmake-build-debug-main"
+    },
+    {
+      "name": "Debug test_run fourbot",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-vs/tests/Debug/test_run.exe",
+      "args": [
+        "--gtest_filter=FreeCADMbD.fourbot"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "CMake Tools: Debug CTest (Selected Test)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${cmake.testProgram}",
+      "args": [
+        "${cmake.testArgs}"
+      ],
+      "cwd": "${cmake.testWorkingDirectory}",
+      "stopAtEntry": false,
+      "environment": [],
+      "console": "integratedTerminal"
     }
   ],
   "inputs": [
@@ -94,4 +120,3 @@
     }
   ]
 }
-

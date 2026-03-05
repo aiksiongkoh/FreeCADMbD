@@ -22,7 +22,9 @@ namespace MbD {
         void createMbD() override;
         virtual std::shared_ptr<ConstraintSet> mbdClassNew();
         void updateFromMbD() override;
+        std::shared_ptr<StateData> dataFromMbD() override;
         void compareResults(AnalysisType type) override;
+        void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void updateFromInputState();
 

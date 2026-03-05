@@ -27,6 +27,7 @@ namespace MbD {
         ASMTPart* part() override;
         void createMbD() override;
         void updateFromMbD() override;
+        std::shared_ptr<StateData> dataFromMbD() override;
         std::shared_ptr<EulerParameters<double>> qEp();
         FColDsptr rOcmO() override;
         FColDsptr vOcmO() override;

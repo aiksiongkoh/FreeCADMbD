@@ -119,3 +119,14 @@ void ConstVelConstraintIJ::postDynOutput()
     aA10IeJe->postDynOutput();
     ConstraintIJ::postDynOutput();
 }
+
+void ConstVelConstraintIJ::addToJointForceI(FColDsptr col)
+{
+    //aFIeO = lam * pGpXI
+    //aFIeO = lam * zero
+    //Do nothing.
+}
+
+void MbD::ConstVelConstraintIJ::addToJointTorqueI(FColDsptr col)
+{
+}

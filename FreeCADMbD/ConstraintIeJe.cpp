@@ -33,7 +33,8 @@ void MbD::ConstraintIeJe::initializeLocally()
 
 void MbD::ConstraintIeJe::initializeGlobally()
 {
-    dispIeJeO->initializeGlobally();
+    // Not needed. Done by System.dispIeJeOs
+    // dispIeJeO->initializeGlobally();
 }
 
 void ConstraintIeJe::useUniqueDispIeJeO()
