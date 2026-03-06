@@ -74,7 +74,7 @@
      #Forces/couples: 
 
          #structural internal force: 1
-             set: integer structural_internal_force_1 = 1; #structural interal force label
+             set: integer structural_internal_force_1 = 1; #structural internal force label
 
      #Nodes: initial conditions
 
