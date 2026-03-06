@@ -395,7 +395,7 @@ std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &
     bool bool1 = str == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
     bool bool2 = str == "OndselSolver";
     assert(bool1 || bool2);
-    assert(assembly->readStringNoSpacesOffTop(lines) == "Assembly");
+    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->setFilename(fileName);
     assembly->parseASMT(lines);
     return assembly;
@@ -408,7 +408,7 @@ void ASMTAssembly::runDynFile(const std::string &fileName)
     const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
     assembly->setFilename(fileName);
-    assert(assembly->readStringNoSpacesOffTop(lines) == "Assembly");
+    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->parseASMT(lines);
     assembly->runDYNAMIC();
 }
@@ -420,7 +420,7 @@ void ASMTAssembly::runKineFile(const std::string &fileName)
     const std::string &str("\n\n\nStarting KINEMATIC simulation");
     assembly->logString(str);
     assembly->setFilename(fileName);
-    assert(assembly->readStringNoSpacesOffTop(lines) == "Assembly");
+    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->parseASMT(lines);
     assembly->runKINEMATIC();
 }
@@ -949,7 +949,7 @@ void ASMTAssembly::readTimeSeries(std::vector<std::string> &lines)
 {
     if (lines.empty())
         return;
-    assert(readStringNoSpacesOffTop(lines) == "TimeSeries");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "TimeSeries");
     assert(lines[0].find("Number\tInput") != std::string::npos);
     lines.erase(lines.begin());
     readTimes(lines);
@@ -1166,23 +1166,23 @@ void ASMTAssembly::runDraggingLog(const std::string &fileName)
     {
         lines.push_back(line);
     }
-    assert(readStringNoSpacesOffTop(lines) == "runPreDrag");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "runPreDrag");
     runPreDrag();
     while (lines[0].find("runDragStep") != std::string::npos)
     {
-        assert(readStringNoSpacesOffTop(lines) == "runDragStep");
+        readStringNoSpacesOffTopEqualOrThrow(lines, "runDragStep");
         auto dragParts = std::make_shared<std::vector<std::shared_ptr<ASMTPart>>>();
         while (lines[0].find("Name") != std::string::npos)
         {
-            assert(readStringNoSpacesOffTop(lines) == "Name");
+            readStringNoSpacesOffTopEqualOrThrow(lines, "Name");
             auto dragPartName = readStringNoSpacesOffTop(lines);
             std::string longerName = "/" + name + "/" + dragPartName;
             auto dragPart = partAt(longerName);
             dragParts->push_back(dragPart);
-            assert(readStringNoSpacesOffTop(lines) == "Position3D");
+            readStringNoSpacesOffTopEqualOrThrow(lines, "Position3D");
             auto dragPartPosition3D = readColumnOfDoublesOffTop(lines);
             dragPart->setPosition3D(dragPartPosition3D);
-            assert(readStringNoSpacesOffTop(lines) == "RotationMatrix");
+            readStringNoSpacesOffTopEqualOrThrow(lines, "RotationMatrix");
             auto dragPartRotationMatrix = std::make_shared<FullMatrix<double>>(3);
             for (size_t i = 0; i < 3; i++)
             {
@@ -1193,7 +1193,7 @@ void ASMTAssembly::runDraggingLog(const std::string &fileName)
         }
         runDragStep(dragParts);
     }
-    assert(readStringNoSpacesOffTop(lines) == "runPostDrag");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "runPostDrag");
     runPostDrag();
 }
 

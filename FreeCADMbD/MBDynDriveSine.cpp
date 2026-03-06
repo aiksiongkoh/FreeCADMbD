@@ -12,7 +12,7 @@ std::shared_ptr<MBDynDriveSine> MBDynDriveSine::With()
 
 void MBDynDriveSine::readFunction(std::vector<std::string>& args)
 {
-    assert(readStringNoSpacesOffTop(args) == "sine");
+    readStringNoSpacesOffTopEqualOrThrow(args, "sine");
     std::string initial_time, angular_velocity, amplitude, number_of_cycles, initial_value;
     initial_time = popOffTop(args);
     angular_velocity = popOffTop(args);
@@ -24,7 +24,7 @@ void MBDynDriveSine::readFunction(std::vector<std::string>& args)
     amplitude.erase(remove_if(amplitude.begin(), amplitude.end(), isspace), amplitude.end());
     number_of_cycles.erase(remove_if(number_of_cycles.begin(), number_of_cycles.end(), isspace), number_of_cycles.end());
     initial_value.erase(remove_if(initial_value.begin(), initial_value.end(), isspace), initial_value.end());
-    //f(t) = initial_value + amplitude · sin (angular_velocity · (t - initial_time))
+    //f(t) = initial_value + amplitude ï¿½ sin (angular_velocity ï¿½ (t - initial_time))
 
     double nCycle;
     if (number_of_cycles.find("forever") != std::string::npos) {

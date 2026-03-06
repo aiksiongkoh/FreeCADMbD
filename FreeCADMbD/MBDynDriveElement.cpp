@@ -12,7 +12,7 @@ std::shared_ptr<MBDynDriveElement> MBDynDriveElement::With()
 
 void MBDynDriveElement::readFunction(std::vector<std::string>& args)
 {
-    assert(readStringNoSpacesOffTop(args) == "element");
+    readStringNoSpacesOffTopEqualOrThrow(args, "element");
     elementLabel = readStringNoSpacesOffTop(args);
     elementType = readStringNoSpacesOffTop(args);
     str = readStringNoSpacesOffTop(args);

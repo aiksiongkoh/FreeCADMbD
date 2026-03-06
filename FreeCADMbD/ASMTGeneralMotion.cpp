@@ -39,11 +39,11 @@ void ASMTGeneralMotion::readrIJI(std::vector<std::string>& lines)
 {
     rIJI = std::make_shared<FullColumn<std::string>>(3);
 
-    assert(readStringNoSpacesOffTop(lines) == "rIJI1");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "rIJI1");
     rIJI->at(0) = readStringTrimmedOffTop(lines);
-    assert(readStringNoSpacesOffTop(lines) == "rIJI2");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "rIJI2");
     rIJI->at(1) = readStringTrimmedOffTop(lines);
-    assert(readStringNoSpacesOffTop(lines) == "rIJI3");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "rIJI3");
     rIJI->at(2) = readStringTrimmedOffTop(lines);
 }
 
@@ -51,17 +51,17 @@ void ASMTGeneralMotion::readangIJJ(std::vector<std::string>& lines)
 {
     angIJJ = std::make_shared<FullColumn<std::string>>(3);
 
-    assert(readStringNoSpacesOffTop(lines) == "angIJJ1");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "angIJJ1");
     angIJJ->at(0) = readStringTrimmedOffTop(lines);
-    assert(readStringNoSpacesOffTop(lines) == "angIJJ2");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "angIJJ2");
     angIJJ->at(1) = readStringTrimmedOffTop(lines);
-    assert(readStringNoSpacesOffTop(lines) == "angIJJ3");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "angIJJ3");
     angIJJ->at(2) = readStringTrimmedOffTop(lines);
 }
 
 void ASMTGeneralMotion::readRotationOrder(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RotationOrder");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RotationOrder");
     std::istringstream iss(lines[0]);
     rotationOrder = std::make_shared<std::vector<size_t>>();
     size_t i;

@@ -33,7 +33,7 @@ void ASMTPointInPlaneJoint::parseASMT(std::vector<std::string>& lines)
 
 void ASMTPointInPlaneJoint::readOffset(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "offset");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "offset");
     offset = readDouble(lines[0]);
     lines.erase(lines.begin());
 

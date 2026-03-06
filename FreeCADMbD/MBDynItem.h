@@ -84,6 +84,7 @@ namespace MbD {
         FMatDsptr readBasicOrientation(std::vector<std::string>& args);
         std::string popOffTop(std::vector<std::string>& args);
         std::string readStringNoSpacesOffTop(std::vector<std::string>& args);
+        void readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string>& lines, std::string str);
         void readLabel(std::vector<std::string>& args);
         std::string readJointTypeOffTop(std::vector<std::string>& args);
         std::string readToken(const std::string& line);

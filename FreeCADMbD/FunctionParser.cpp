@@ -119,11 +119,11 @@ bool FunctionParser::velocity()
                     funcIJ->markerKSign = token;
                     assert(token == "I");    //ToDo: J and O
                     scanToken();
-                    assert(peekForTypeNoPush(","));
+                    peekForTypeNoPush(",");
                     assert(tokenType == "number");
                     funcIJ->axisK = (size_t)tokenNum - 1;    //convert to zero index
                     scanToken();
-                    assert(peekForTypeNoPush(")"));
+                    peekForTypeNoPush(")");
                     return true;
                 }
                 else {

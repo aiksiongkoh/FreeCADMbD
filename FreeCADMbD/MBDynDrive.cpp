@@ -50,7 +50,7 @@ void MBDynDrive::parseMBDyn(std::string line)
     //auto iss = std::istringstream(arguments.at(0));
     //iss >> name;
     //arguments.erase(arguments.begin());
-    //assert(readStringNoSpacesOffTop(arguments) == "name");
+    //readStringNoSpacesOffTopEqualOrThrow(arguments, "name");
     //iss = std::istringstream(arguments.at(0));
     //iss >> driveName;
     //driveName = std::regex_replace(driveName, std::regex("\""), "");
@@ -140,7 +140,7 @@ void MBDynDrive::readFunction(std::vector<std::string>& args)
         amplitude.erase(remove_if(amplitude.begin(), amplitude.end(), isspace), amplitude.end());
         number_of_cycles.erase(remove_if(number_of_cycles.begin(), number_of_cycles.end(), isspace), number_of_cycles.end());
         initial_value.erase(remove_if(initial_value.begin(), initial_value.end(), isspace), initial_value.end());
-        //f(t) = initial_value + amplitude · sin (angular_velocity · (t - initial_time))
+        //f(t) = initial_value + amplitude ï¿½ sin (angular_velocity ï¿½ (t - initial_time))
 
         double nCycle;
         if (number_of_cycles.find("forever") != std::string::npos) {

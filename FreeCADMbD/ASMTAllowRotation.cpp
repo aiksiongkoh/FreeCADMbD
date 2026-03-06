@@ -20,29 +20,32 @@ std::shared_ptr<ASMTAllowRotation> ASMTAllowRotation::With()
     return inst;
 }
 
-void ASMTAllowRotation::parseASMT(std::vector<std::string>& lines)
+void ASMTAllowRotation::parseASMT(std::vector<std::string> &lines)
 {
     readName(lines);
-    if (lines[0].find("MarkerI") != std::string::npos) {
+    if (lines[0].find("MarkerI") != std::string::npos)
+    {
         readMarkerI(lines);
         readMarkerJ(lines);
     }
     readMotionJoint(lines);
 }
 
-void ASMTAllowRotation::readMotionJoint(std::vector<std::string>& lines)
+void ASMTAllowRotation::readMotionJoint(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "MotionJoint");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "MotionJoint");
     motionJoint = readStringNoSpacesOffTop(lines);
 }
 
 void ASMTAllowRotation::initMarkers()
 {
-    if (motionJoint == "") {
+    if (motionJoint == "")
+    {
         assert(markerI->name != "");
         assert(markerJ->name != "");
     }
-    else {
+    else
+    {
         auto jt = root()->jointAt(motionJoint);
         markerI = jt->markerI;
         markerJ = jt->markerJ;
@@ -54,12 +57,12 @@ std::shared_ptr<ConstraintSet> ASMTAllowRotation::mbdClassNew()
     return AllowZRotation::With();
 }
 
-void ASMTAllowRotation::setMotionJoint(const std::string& motionJoint)
+void ASMTAllowRotation::setMotionJoint(const std::string &motionJoint)
 {
-    (void) motionJoint;
+    (void)motionJoint;
 }
 
-void ASMTAllowRotation::storeOnLevel(std::ofstream& os, size_t level)
+void ASMTAllowRotation::storeOnLevel(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "AllowRotation");
     storeOnLevelString(os, level + 1, "Name");
@@ -69,7 +72,7 @@ void ASMTAllowRotation::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelString(os, level + 2, motionJoint);
 }
 
-void ASMTAllowRotation::storeOnTimeSeries(std::ofstream& os)
+void ASMTAllowRotation::storeOnTimeSeries(std::ofstream &os)
 {
     os << "AllowRotationSeries\t" << fullName("") << std::endl;
     ASMTItemIJ::storeOnTimeSeries(os);

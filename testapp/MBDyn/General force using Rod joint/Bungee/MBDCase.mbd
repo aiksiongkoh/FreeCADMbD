@@ -238,7 +238,7 @@
              -7.949781095530902e-19, -1.3748434703159951e-18, 4.365574568510056e-19, #<absolute_pin_position> [m]
              3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #<absolute_orientation_matrix> 
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_2->ACTIVATION: Inconditional during assembly and simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_2->ACTIVATION: Unconditonal during assembly and simulation
      joint: joint_2,
          rod,
          structural_node_1, #<base_entity_label>

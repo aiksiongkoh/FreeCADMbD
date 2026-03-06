@@ -12,7 +12,7 @@ std::shared_ptr<MBDynDriveRamp> MBDynDriveRamp::With()
 
 void MBDynDriveRamp::readFunction(std::vector<std::string>& args)
 {
-    assert(readStringNoSpacesOffTop(args) == "ramp");
+    readStringNoSpacesOffTopEqualOrThrow(args, "ramp");
     std::string slope, initValue, initTime, finalTime;
     slope = popOffTop(args);
     initTime = popOffTop(args);

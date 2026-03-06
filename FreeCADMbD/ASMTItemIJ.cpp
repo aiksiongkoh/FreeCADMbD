@@ -47,14 +47,14 @@ void ASMTItemIJ::setMarkerJ(std::shared_ptr<ASMTMarker> mkrJ)
 
 void ASMTItemIJ::readMarkerI(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "MarkerI");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "MarkerI");
     auto markerName = readStringNoSpacesOffTop(lines);
     markerI = root()->markerAt(markerName);
 }
 
 void ASMTItemIJ::readMarkerJ(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "MarkerJ");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "MarkerJ");
     auto markerName = readStringNoSpacesOffTop(lines);
     markerJ = root()->markerAt(markerName);
 }

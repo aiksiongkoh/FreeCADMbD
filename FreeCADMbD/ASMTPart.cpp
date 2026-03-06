@@ -41,7 +41,7 @@ void ASMTPart::parseASMT(std::vector<std::string> &lines)
 
 void ASMTPart::readFeatureOrder(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "FeatureOrder");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "FeatureOrder");
     // featureOrder = std::make_shared<std::vector<std::shared_ptr<ASMTRefPoint>>>();
     auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
                            { return s.find("PrincipalMassMarker") != std::string::npos; });
@@ -63,7 +63,7 @@ void ASMTPart::readFeatureOrder(std::vector<std::string> &lines)
 
 void ASMTPart::readPrincipalMassMarker(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "PrincipalMassMarker");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "PrincipalMassMarker");
     principalMassMarker = ASMTMarkerTemp::With();
     principalMassMarker->owner = this;
     principalMassMarker->parseASMT(lines);

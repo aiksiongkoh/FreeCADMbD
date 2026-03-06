@@ -108,6 +108,16 @@ std::string ASMTItem::readStringNoSpacesOffTop(std::vector<std::string>& args)
     return str;
 }
 
+void MbD::ASMTItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
+{
+    auto topString = readStringNoSpacesOffTop(lines);
+    if (topString != str)
+    {
+        auto errstr = topString + " != " + str;
+        throw SimulationStoppingError(errstr);
+    };
+}
+
 FRowDsptr ASMTItem::readRowOfDoubles(const std::string& line)
 {
     std::istringstream iss(line);
@@ -201,7 +211,7 @@ std::string ASMTItem::readString(const std::string& line)
 
 void ASMTItem::readName(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Name");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Name");
     name = readStringNoSpacesOffTop(lines);
 }
 
