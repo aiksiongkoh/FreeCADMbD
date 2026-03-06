@@ -70,6 +70,6 @@ For GUI version and documentation
     Download at
         https://www.ar-cad.com/freecad/download.html
     Inside freecad9a.exe
-        Follow instrutions of Explain/Quick Start/
+        Follow instructions of Explain/Quick Start/
 ```
 	
