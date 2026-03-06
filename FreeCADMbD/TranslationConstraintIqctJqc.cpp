@@ -8,6 +8,7 @@
  
 #include "TranslationConstraintIqctJqc.h"
 #include "DispCompIeqctJeqcKeqct.h"
+#include "EndFrameqc.h"
 
 using namespace MbD;
 

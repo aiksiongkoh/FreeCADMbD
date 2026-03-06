@@ -73,13 +73,13 @@ namespace MbD {
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
         void fillqsu(FColDsptr col) override;
-        void fillqsuWeights(DiagMatDsptr diagMat) override;
+        void fillqsuWeights(DiagMatDsptr mat) override;
         void fillqsuddotlam(FColDsptr col) override;
         void fillqsulam(FColDsptr col) override;
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void fillqsudot(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr diagMat) override;
+        void fillqsudotWeights(DiagMatDsptr mat) override;
         void useEquationNumbers() override;
         void setqsu(FColDsptr col) override;
         void setqsulam(FColDsptr col) override;

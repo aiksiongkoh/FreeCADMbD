@@ -8,7 +8,7 @@
  
 #include "AtPointJoint.h"
 #include "System.h"
-#include "AtPointConstraintIJ.h"
+#include "AtPointConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -28,7 +28,7 @@ std::shared_ptr<AtPointJoint> AtPointJoint::With(const std::string& str)
 
 void AtPointJoint::createAtPointConstraints()
 {
-    addConstraint(AtPointConstraintIJ::With(eFrmI, eFrmJ, 0));
-    addConstraint(AtPointConstraintIJ::With(eFrmI, eFrmJ, 1));
-    addConstraint(AtPointConstraintIJ::With(eFrmI, eFrmJ, 2));
+    addConstraint(AtPointConstraintIeJe::With(eFrmI, eFrmJ, 0));
+    addConstraint(AtPointConstraintIeJe::With(eFrmI, eFrmJ, 1));
+    addConstraint(AtPointConstraintIeJe::With(eFrmI, eFrmJ, 2));
 }

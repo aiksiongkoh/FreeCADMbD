@@ -17,34 +17,35 @@
 #include "FullRow.h"
 #include "SimulationStoppingError.h"
 
-namespace MbD {
-    template<typename T>
+namespace MbD
+{
+    template <typename T>
     class FullMatrix;
-    template<typename T>
+    template <typename T>
     using FMatsptr = std::shared_ptr<FullMatrix<T>>;
     using FMatDsptr = std::shared_ptr<FullMatrix<double>>;
-    template<typename T>
+    template <typename T>
     class FullColumn;
     using FColDsptr = std::shared_ptr<FullColumn<double>>;
-    template<typename T>
+    template <typename T>
     class SparseMatrix;
-    template<typename T>
+    template <typename T>
     using SpMatsptr = std::shared_ptr<SparseMatrix<T>>;
-    template<typename T>
+    template <typename T>
     class FullRow;
     using FRowDsptr = std::shared_ptr<FullRow<double>>;
-    template<typename T>
+    template <typename T>
     class EulerParameters;
-    template<typename T>
-    class EulerAngleszxz;
-    template<typename T>
+    template <typename T>
+    class EulerAngles;
+    template <typename T>
     class DiagonalMatrix;
 
     using FMatFColDsptr = std::shared_ptr<FullMatrix<FColDsptr>>;
     using FMatFMatDsptr = std::shared_ptr<FullMatrix<FMatDsptr>>;
     using FColFMatDsptr = std::shared_ptr<FullColumn<FMatDsptr>>;
 
-    template<typename T>
+    template <typename T>
     class FullMatrix : public RowTypeMatrix<FRowsptr<T>>
     {
     public:
@@ -52,19 +53,23 @@ namespace MbD {
         FullMatrix(size_t m) : RowTypeMatrix<FRowsptr<T>>(m)
         {
         }
-        FullMatrix(size_t m, size_t n) {
-            for (size_t i = 0; i < m; i++) {
+        FullMatrix(size_t m, size_t n)
+        {
+            for (size_t i = 0; i < m; i++)
+            {
                 auto row = FullRow<T>::With(n);
                 this->push_back(row);
             }
         }
-        FullMatrix(std::initializer_list<FRowsptr<T>> listOfRows) {
+        FullMatrix(std::initializer_list<FRowsptr<T>> listOfRows)
+        {
             for (auto row : listOfRows)
             {
                 this->push_back(row);
             }
         }
-        FullMatrix(std::initializer_list<std::initializer_list<T>> list2D) {
+        FullMatrix(std::initializer_list<std::initializer_list<T>> list2D)
+        {
             for (auto rowList : list2D)
             {
                 auto row = std::make_shared<FullRow<T>>(rowList);
@@ -92,7 +97,7 @@ namespace MbD {
         void identity();
         FColsptr<T> column(size_t j);
         FColsptr<T> timesFullColumn(FColsptr<T> fullCol);
-        FColsptr<T> timesFullColumn(FullColumn<T>* fullCol);
+        FColsptr<T> timesFullColumn(FullColumn<T> *fullCol);
         FMatsptr<T> timesFullMatrix(FMatsptr<T> fullMat);
         FMatsptr<T> timesTransposeFullMatrix(FMatsptr<T> fullMat);
         SpMatsptr<T> timesSparseMatrix(SpMatsptr<T> spMat);
@@ -120,8 +125,9 @@ namespace MbD {
         std::shared_ptr<EulerParameters<T>> asEulerParameters();
         T trace();
         double maxMagnitude() override;
-        FColsptr<T> bryantAngles();
-        std::shared_ptr<EulerAngleszxz<T>> eulerAngleszxz();
+        std::shared_ptr<EulerAngles<T>> bryantAngles();
+        std::shared_ptr<EulerAngles<T>> eulerAngleszxz();
+        std::shared_ptr<EulerAngles<T>> eulerAngles();
         bool isDiagonal();
         bool isDiagonalToWithin(double ratio);
         bool equaltol(FMatsptr<T> mat, double ratio);
@@ -129,14 +135,14 @@ namespace MbD {
         void conditionSelfWithTol(double tol);
         FRowsptr<T> dot(FColsptr<T> col);
         FMatsptr<double> elementsTransposeTimesFullColumn(FColsptr<double> col);
-        std::ostream& printOn(std::ostream& s) const override;
+        std::ostream &printOn(std::ostream &s) const override;
 
         std::shared_ptr<FullMatrix<T>> cross(FColsptr<T> col);
         void equalSelfPlus(FMatsptr<T> fullMat);
         void equalSelfMinus(FMatsptr<T> fullMat);
     };
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::With()
     {
         auto inst = std::make_shared<FullMatrix<T>>();
@@ -144,7 +150,7 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::With(size_t m)
     {
         auto inst = std::make_shared<FullMatrix<T>>(m);
@@ -152,7 +158,7 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::With(size_t m, size_t n)
     {
         auto inst = std::make_shared<FullMatrix<T>>(m, n);
@@ -160,7 +166,7 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::With(std::initializer_list<FRowsptr<T>> listOfRows)
     {
         auto inst = std::make_shared<FullMatrix<T>>(listOfRows);
@@ -168,7 +174,7 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::With(std::initializer_list<std::initializer_list<T>> list2D)
     {
         auto inst = std::make_shared<FullMatrix<T>>(list2D);
@@ -176,7 +182,7 @@ namespace MbD {
         return inst;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatex(T the)
     {
         auto sthe = std::sin(the);
@@ -197,7 +203,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatey(T the)
     {
         auto sthe = std::sin(the);
@@ -218,7 +224,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatez(T the)
     {
         auto sthe = std::sin(the);
@@ -239,7 +245,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatexrotDot(T the, T thedot)
     {
         auto sthe = std::sin(the);
@@ -262,7 +268,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotateyrotDot(T the, T thedot)
     {
         auto sthe = std::sin(the);
@@ -285,7 +291,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatezrotDot(T the, T thedot)
     {
         auto sthe = std::sin(the);
@@ -308,7 +314,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatexrotDotrotDDot(T the, T thedot, T theddot)
     {
         auto sthe = std::sin(the);
@@ -333,7 +339,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotateyrotDotrotDDot(T the, T thedot, T theddot)
     {
         auto sthe = std::sin(the);
@@ -358,7 +364,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::rotatezrotDotrotDDot(T the, T thedot, T theddot)
     {
         auto sthe = std::sin(the);
@@ -383,7 +389,7 @@ namespace MbD {
         return rotMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::identitysptr(size_t n)
     {
         auto mat = FullMatrix<T>::With(n, n);
@@ -391,11 +397,12 @@ namespace MbD {
         return mat;
     }
 
-    template<>
+    template <>
     inline FMatDsptr FullMatrix<double>::tildeMatrix(FColDsptr col)
     {
         //"tildeMatrix is skew symmetric matrix related to angular velocity and cross product."
-        if (col->size() != 3) throw std::runtime_error("Column is not of dimension 3");
+        if (col->size() != 3)
+            throw std::runtime_error("Column is not of dimension 3");
         auto tilde = FullMatrix<double>::With(3, 3);
         auto c0 = col->at(0);
         auto c1 = col->at(1);
@@ -412,109 +419,119 @@ namespace MbD {
         return tilde;
     }
 
-    template<>
+    template <>
     inline FMatDsptr FullMatrix<double>::colTimesRowTimesScalar(FColDsptr col, FRowDsptr row, double a)
     {
         //"a*b*scalar = a(i)b(j)*scalar"
 
         auto nrow = col->size();
         auto answer = FullMatrix<double>::With(nrow);
-        for (size_t i = 0; i < nrow; i++) {
+        for (size_t i = 0; i < nrow; i++)
+        {
             answer->atiput(i, row->times(a * col->at(i)));
         }
         return answer;
     }
 
-    template<>
+    template <>
     inline void FullMatrix<double>::zeroSelf()
     {
-        for (size_t i = 0; i < this->size(); i++) {
+        for (size_t i = 0; i < this->size(); i++)
+        {
             this->at(i)->zeroSelf();
         }
     }
 
-    template<>
-    inline void FullMatrix<double>::identity() {
+    template <>
+    inline void FullMatrix<double>::identity()
+    {
         zeroSelf();
-        for (size_t i = 0; i < this->size(); i++) {
+        for (size_t i = 0; i < this->size(); i++)
+        {
             this->at(i)->at(i) = 1.0;
         }
     }
 
-    template<typename T>
-    inline FColsptr<T> FullMatrix<T>::column(size_t j) {
+    template <typename T>
+    inline FColsptr<T> FullMatrix<T>::column(size_t j)
+    {
         auto n = this->size();
         auto answer = std::make_shared<FullColumn<T>>(n);
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++)
+        {
             answer->at(i) = this->at(i)->at(j);
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::timesFullMatrix(FMatsptr<T> fullMat)
     {
         size_t m = this->nrow();
         auto answer = FullMatrix<T>::With(m);
-        for (size_t i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++)
+        {
             answer->at(i) = this->at(i)->timesFullMatrix(fullMat);
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::timesTransposeFullMatrix(FMatsptr<T> fullMat)
     {
         size_t nrow = this->nrow();
         auto answer = FullMatrix<T>::With(nrow);
-        for (size_t i = 0; i < nrow; i++) {
+        for (size_t i = 0; i < nrow; i++)
+        {
             answer->at(i) = this->at(i)->timesTransposeFullMatrix(fullMat);
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline SpMatsptr<T> FullMatrix<T>::timesSparseMatrix(SpMatsptr<T> spMat)
     {
         throw SimulationStoppingError("To be implemented.");
         return SpMatsptr<T>();
     }
 
-    template<>
+    template <>
     inline FMatDsptr FullMatrix<double>::times(double a)
     {
         size_t m = this->nrow();
         auto answer = FullMatrix<double>::With(m);
-        for (size_t i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++)
+        {
             answer->at(i) = this->at(i)->times(a);
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::times(T)
     {
         throw SimulationStoppingError("To be implemented.");
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::transposeTimesFullMatrix(FMatsptr<T> fullMat)
     {
         return this->transpose()->timesFullMatrix(fullMat);
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::plusFullMatrix(FMatsptr<T> fullMat)
     {
         auto n = this->size();
         auto answer = FullMatrix<T>::With(n);
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++)
+        {
             answer->at(i) = this->at(i)->plusFullRow(fullMat->at(i));
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::plusFullMatrixtimes(FMatsptr<T> mat, double factor)
     {
         auto m = mat->nrow();
@@ -533,7 +550,7 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     void FullMatrix<T>::atijplusFullMatrix(size_t i, size_t j, FMatsptr<T> fullMat)
     {
         auto m = fullMat->nrow();
@@ -549,46 +566,53 @@ namespace MbD {
         }
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::minusFullMatrix(FMatsptr<T> fullMat)
     {
         auto n = this->size();
         auto answer = FullMatrix<T>::With(n);
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++)
+        {
             answer->at(i) = this->at(i)->minusFullRow(fullMat->at(i));
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::transpose()
     {
         size_t nrow = this->nrow();
         auto ncol = this->ncol();
         auto answer = FullMatrix<T>::With(ncol, nrow);
-        for (size_t i = 0; i < nrow; i++) {
+        for (size_t i = 0; i < nrow; i++)
+        {
             auto row = this->at(i);
-            for (size_t j = 0; j < ncol; j++) {
+            for (size_t j = 0; j < ncol; j++)
+            {
                 answer->at(j)->at(i) = row->at(j);
             }
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::negated()
     {
         size_t m = this->nrow();
         size_t n = this->ncol();
         auto answer = FullMatrix<T>::With(m, n);
-        for (size_t i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++)
+        {
             auto thisi = this->at(i);
             auto answeri = answer->at(i);
-            for (size_t j = 0; j < n; j++) {
-                if constexpr (std::is_same_v<T, double>) {
+            for (size_t j = 0; j < n; j++)
+            {
+                if constexpr (std::is_same_v<T, double>)
+                {
                     answeri->at(j) = -thisi->at(j);
                 }
-                else {
+                else
+                {
                     answeri->at(j) = thisi->at(j)->negated();
                 }
             }
@@ -596,30 +620,32 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::symLowerWithUpper()
     {
         auto n = this->size();
-        for (size_t i = 0; i < n; i++) {
-            for (size_t j = i + 1; j < n; j++) {
+        for (size_t i = 0; i < n; i++)
+        {
+            for (size_t j = i + 1; j < n; j++)
+            {
                 this->at(j)->at(i) = this->at(i)->at(j);
             }
         }
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atiput(size_t i, FRowsptr<T> fullRow)
     {
         this->at(i) = fullRow;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atijput(size_t i, size_t j, T value)
     {
         this->at(i)->atiput(j, value);
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atijputFullColumn(size_t i1, size_t j1, FColsptr<T> fullCol)
     {
         for (size_t ii = 0; ii < fullCol->size(); ii++)
@@ -628,27 +654,27 @@ namespace MbD {
         }
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atijplusFullRow(size_t i, size_t j, FRowsptr<T> fullRow)
     {
         this->at(i)->atiplusFullRow(j, fullRow);
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atijplusNumber(size_t i, size_t j, T value)
     {
         auto rowi = this->at(i);
         rowi->at(j) += value;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::atijminusNumber(size_t i, size_t j, T value)
     {
         auto rowi = this->at(i);
         rowi->at(j) -= value;
     }
 
-    template<>
+    template <>
     inline double FullMatrix<double>::sumOfSquares()
     {
         double sum = 0.0;
@@ -659,20 +685,20 @@ namespace MbD {
         return sum;
     }
 
-    template<typename T>
+    template <typename T>
     inline double FullMatrix<T>::sumOfSquares()
     {
         throw SimulationStoppingError("To be implemented.");
         return 0.0;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::zeroSelf()
     {
         throw SimulationStoppingError("To be implemented.");
     }
 
-    template<typename T>
+    template <typename T>
     inline FMatsptr<T> FullMatrix<T>::copy()
     {
         auto m = this->size();
@@ -684,34 +710,36 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FullMatrix<T> FullMatrix<T>::operator+(const FullMatrix<T> fullMat)
     {
         auto n = this->size();
         auto answer = FullMatrix<T>(n);
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < n; i++)
+        {
             answer.at(i) = this->at(i)->plusFullRow(fullMat.at(i));
         }
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FColsptr<T> FullMatrix<T>::transposeTimesFullColumn(FColsptr<T> fullCol)
     {
         auto sptr = std::make_shared<FullMatrix<T>>(*this);
         return fullCol->transpose()->timesFullMatrix(sptr)->transpose();
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::magnifySelf(T factor)
     {
-        for (size_t i = 0; i < this->size(); i++) {
+        for (size_t i = 0; i < this->size(); i++)
+        {
             this->at(i)->magnifySelf(factor);
         }
     }
 
-    template<typename T>
-    inline std::ostream& FullMatrix<T>::printOn(std::ostream& s) const
+    template <typename T>
+    inline std::ostream &FullMatrix<T>::printOn(std::ostream &s) const
     {
         s << "FullMat[" << std::endl;
         for (size_t i = 0; i < this->size(); i++)
@@ -722,7 +750,7 @@ namespace MbD {
         return s;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<EulerParameters<T>> FullMatrix<T>::asEulerParameters()
     {
         //"Given [A], compute Euler parameter."
@@ -747,31 +775,36 @@ namespace MbD {
         for (size_t i = 0; i < 4; i++)
         {
             auto num = qE->at(i);
-            if (max < num) {
+            if (max < num)
+            {
                 max = num;
                 maxE = i;
             }
         }
 
-        if (maxE == 0) {
+        if (maxE == 0)
+        {
             auto FourE = 4.0 * qE->at(0);
             qE->atiput(1, (this->at(0)->at(1) + this->at(1)->at(0)) / FourE);
             qE->atiput(2, (this->at(0)->at(2) + this->at(2)->at(0)) / FourE);
             qE->atiput(3, (this->at(2)->at(1) - this->at(1)->at(2)) / FourE);
         }
-        else if (maxE == 1) {
+        else if (maxE == 1)
+        {
             auto FourE = 4.0 * qE->at(1);
             qE->atiput(0, (this->at(0)->at(1) + this->at(1)->at(0)) / FourE);
             qE->atiput(2, (this->at(1)->at(2) + this->at(2)->at(1)) / FourE);
             qE->atiput(3, (this->at(0)->at(2) - this->at(2)->at(0)) / FourE);
         }
-        else if (maxE == 2) {
+        else if (maxE == 2)
+        {
             auto FourE = 4.0 * qE->at(2);
             qE->atiput(0, (this->at(0)->at(2) + this->at(2)->at(0)) / FourE);
             qE->atiput(1, (this->at(1)->at(2) + this->at(2)->at(1)) / FourE);
             qE->atiput(3, (this->at(1)->at(0) - this->at(0)->at(1)) / FourE);
         }
-        else if (maxE == 3) {
+        else if (maxE == 3)
+        {
             auto FourE = 4.0 * qE->at(3);
             qE->atiput(0, (this->at(2)->at(1) - this->at(1)->at(2)) / FourE);
             qE->atiput(1, (this->at(0)->at(2) - this->at(2)->at(0)) / FourE);
@@ -782,7 +815,7 @@ namespace MbD {
         return qE;
     }
 
-    template<typename T>
+    template <typename T>
     inline T FullMatrix<T>::trace()
     {
         T trace = 0.0;
@@ -793,45 +826,52 @@ namespace MbD {
         return trace;
     }
 
-    template<typename T>
+    template <typename T>
     inline double FullMatrix<T>::maxMagnitude()
     {
         double max = 0.0;
         for (size_t i = 0; i < this->size(); i++)
         {
             double element = this->at(i)->maxMagnitude();
-            if (max < element) max = element;
+            if (max < element)
+                max = element;
         }
         return max;
     }
 
-    template<typename T>
-    inline FColsptr<T> FullMatrix<T>::bryantAngles()
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> FullMatrix<T>::bryantAngles()
     {
-        auto answer = std::make_shared<FullColumn<T>>(3);
+        auto answer = EulerAngles<T>::With();
         auto sthe1y = this->at(0)->at(2);
         T the0x, the1y, the2z, cthe0x, sthe0x, y, x;
-        if (std::abs(sthe1y) > 0.9999) {
-            if (sthe1y > 0.0) {
+        if (std::abs(sthe1y) > 0.9999)
+        {
+            if (sthe1y > 0.0)
+            {
                 the0x = std::atan2(this->at(1)->at(0), this->at(1)->at(1));
                 the1y = std::numbers::pi_v<T> / 2.0;
                 the2z = 0.0;
             }
-            else {
+            else
+            {
                 the0x = std::atan2(this->at(2)->at(1), this->at(2)->at(0));
                 the1y = std::numbers::pi_v<T> / -2.0;
                 the2z = 0.0;
             }
         }
-        else {
+        else
+        {
             the0x = std::atan2(-this->at(1)->at(2), this->at(2)->at(2));
             cthe0x = std::cos(the0x);
             sthe0x = std::sin(the0x);
             y = sthe1y;
-            if (std::abs(cthe0x) > std::abs(sthe0x)) {
+            if (std::abs(cthe0x) > std::abs(sthe0x))
+            {
                 x = this->at(2)->at(2) / cthe0x;
             }
-            else {
+            else
+            {
                 x = this->at(1)->at(2) / -sthe0x;
             }
             the1y = std::atan2(y, x);
@@ -843,35 +883,42 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
-    inline std::shared_ptr<EulerAngleszxz<T>> FullMatrix<T>::eulerAngleszxz()
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> FullMatrix<T>::eulerAngleszxz()
     {
-        auto answer = EulerAngleszxz<T>::With();
+        auto answer = EulerAngles<T>::With();
+        answer->setRotOrder(3, 1, 3);
         T cthe1x, the0z, the1x, the2z, cthe2z, sthe2z;
         cthe1x = this->at(2)->at(2);
-        if (Numeric::equaltol(std::abs(cthe1x), 1.0, 1.0e-6)) {
+        if (Numeric::equaltol(std::abs(cthe1x), 1.0, 1.0e-6))
+        {
             the0z = std::atan2(this->at(1)->at(0), this->at(0)->at(0));
-            if (cthe1x > 0.0) {
+            if (cthe1x > 0.0)
+            {
                 the1x = 0.0;
                 the2z = 0.0;
             }
-            else {
+            else
+            {
                 the1x = std::numbers::pi_v<T>;
                 the2z = 0.0;
             }
         }
-        else {
+        else
+        {
             the2z = std::atan2(this->at(2)->at(0), this->at(2)->at(1));
             cthe2z = std::cos(the2z);
             sthe2z = std::sin(the2z);
-            if (std::abs(cthe2z) > std::abs(sthe2z)) {
+            if (std::abs(cthe2z) > std::abs(sthe2z))
+            {
                 the1x = std::atan2(this->at(2)->at(1), cthe2z * this->at(2)->at(2));
             }
-            else {
+            else
+            {
                 the1x = std::atan2(this->at(2)->at(0), sthe2z * this->at(2)->at(2));
             }
             the0z = std::atan2(this->at(0)->at(2), this->at(1)->at(2));
-            auto aaaa = std::atan2(this->at(0)->at(2), -this->at(1)->at(2));    //Check missing minus is needed above. Smalltalk has missing minus too.
+            auto aaaa = std::atan2(this->at(0)->at(2), -this->at(1)->at(2)); // Check missing minus is needed above. Smalltalk has missing minus too.
             assert(Numeric::equaltol(the0z, aaaa, 1.0e-9));
         }
         answer->atiput(0, the0z);
@@ -880,63 +927,115 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> FullMatrix<T>::eulerAngles()
+    {
+        auto answer = EulerAngles<T>::With();
+        T cthe1x, the0z, the1x, the2z, cthe2z, sthe2z;
+        cthe1x = this->at(2)->at(2);
+        if (Numeric::equaltol(std::abs(cthe1x), 1.0, 1.0e-6))
+        {
+            the0z = std::atan2(this->at(1)->at(0), this->at(0)->at(0));
+            if (cthe1x > 0.0)
+            {
+                the1x = 0.0;
+                the2z = 0.0;
+            }
+            else
+            {
+                the1x = std::numbers::pi_v<T>;
+                the2z = 0.0;
+            }
+        }
+        else
+        {
+            the2z = std::atan2(this->at(2)->at(0), this->at(2)->at(1));
+            cthe2z = std::cos(the2z);
+            sthe2z = std::sin(the2z);
+            if (std::abs(cthe2z) > std::abs(sthe2z))
+            {
+                the1x = std::atan2(this->at(2)->at(1), cthe2z * this->at(2)->at(2));
+            }
+            else
+            {
+                the1x = std::atan2(this->at(2)->at(0), sthe2z * this->at(2)->at(2));
+            }
+            the0z = std::atan2(this->at(0)->at(2), this->at(1)->at(2));
+            auto aaaa = std::atan2(this->at(0)->at(2), -this->at(1)->at(2)); // Check missing minus is needed above. Smalltalk has missing minus too.
+            assert(Numeric::equaltol(the0z, aaaa, 1.0e-9));
+        }
+        answer->atiput(0, the0z);
+        answer->atiput(1, the1x);
+        answer->atiput(2, the2z);
+        return answer;
+    }
+
+    template <typename T>
     inline bool FullMatrix<T>::isDiagonal()
     {
         auto m = this->nrow();
         auto n = this->ncol();
-        if (m != n) return false;
+        if (m != n)
+            return false;
         for (size_t i = 0; i < m; i++)
         {
             auto rowi = this->at(i);
             for (size_t j = 0; j < n; j++)
             {
-                if (i != j && rowi->at(j) != 0) return false;
+                if (i != j && rowi->at(j) != 0)
+                    return false;
             }
         }
         return true;
     }
 
-    template<typename T>
+    template <typename T>
     inline bool FullMatrix<T>::isDiagonalToWithin(double ratio)
     {
         double maxMag = this->maxMagnitude();
         auto tol = ratio * maxMag;
         auto nrow = this->nrow();
-        if (nrow == this->ncol()) {
+        if (nrow == this->ncol())
+        {
             for (size_t i = 0; i < 3; i++)
             {
                 for (size_t j = i + 1; j < 3; j++)
                 {
-                    if (std::abs(this->at(i)->at(j)) > tol) return false;
-                    if (std::abs(this->at(j)->at(i)) > tol) return false;
+                    if (std::abs(this->at(i)->at(j)) > tol)
+                        return false;
+                    if (std::abs(this->at(j)->at(i)) > tol)
+                        return false;
                 }
             }
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
 
-    template<typename T>
+    template <typename T>
     inline bool FullMatrix<T>::equaltol(FMatsptr<T> mat2, double tol)
     {
-        if (this->size() != mat2->size()) return false;
+        if (this->size() != mat2->size())
+            return false;
         for (size_t i = 0; i < this->size(); i++)
         {
             auto rowi = this->at(i);
             auto rowi2 = mat2->at(i);
-            if (rowi->size() != rowi2->size()) return false;
+            if (rowi->size() != rowi2->size())
+                return false;
             for (size_t j = 0; j < rowi->size(); j++)
             {
-                if (!Array<double>::equaltol((double)rowi->at(j), (double)rowi2->at(j), tol)) return false;
+                if (!Array<double>::equaltol((double)rowi->at(j), (double)rowi2->at(j), tol))
+                    return false;
             }
         }
         return true;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<DiagonalMatrix<T>> FullMatrix<T>::asDiagonalMatrix()
     {
         size_t nrow = this->nrow();
@@ -948,15 +1047,16 @@ namespace MbD {
         return diagMat;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::conditionSelfWithTol(double tol)
     {
-        for (auto row : *this) {
+        for (auto row : *this)
+        {
             row->conditionSelfWithTol(tol);
         }
     }
 
-    template<typename T>
+    template <typename T>
     inline FRowsptr<T> FullMatrix<T>::dot(FColsptr<T> col)
     {
         auto answer = FullRow<T>::With(this->ncol());
@@ -967,7 +1067,7 @@ namespace MbD {
         return answer;
     }
 
-    template<>
+    template <>
     inline FMatsptr<double> FullMatrix<FColsptr<double>>::elementsTransposeTimesFullColumn(FColsptr<double> col)
     {
         auto m = this->nrow();
@@ -985,14 +1085,14 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline FColsptr<T> FullMatrix<T>::timesFullColumn(FColsptr<T> fullCol)
     {
         return this->timesFullColumn(fullCol.get());
     }
 
-    template<typename T>
-    inline FColsptr<T> FullMatrix<T>::timesFullColumn(FullColumn<T>* fullCol)
+    template <typename T>
+    inline FColsptr<T> FullMatrix<T>::timesFullColumn(FullColumn<T> *fullCol)
     {
         //"a*b = a(i,j)b(j) sum j."
         auto nrow = this->nrow();
@@ -1004,7 +1104,7 @@ namespace MbD {
         return answer;
     }
 
-    template<typename T>
+    template <typename T>
     inline std::shared_ptr<FullMatrix<T>> FullMatrix<T>::cross(FColsptr<T> col)
     {
         auto m = this->nrow();
@@ -1020,19 +1120,21 @@ namespace MbD {
         return result;
     }
 
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::equalSelfPlus(FMatsptr<T> fullMat)
     {
         size_t nrow = this->nrow();
-        for (size_t i = 0; i < nrow; i++) {
+        for (size_t i = 0; i < nrow; i++)
+        {
             this->at(i)->equalSelfPlus(fullMat->at(i));
         }
     }
-    template<typename T>
+    template <typename T>
     inline void FullMatrix<T>::equalSelfMinus(FMatsptr<T> fullMat)
     {
         size_t nrow = this->nrow();
-        for (size_t i = 0; i < nrow; i++) {
+        for (size_t i = 0; i < nrow; i++)
+        {
             this->at(i)->equalSelfMinus(fullMat->at(i));
         }
     }

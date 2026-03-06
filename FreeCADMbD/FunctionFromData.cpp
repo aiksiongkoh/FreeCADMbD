@@ -17,7 +17,6 @@ using namespace MbD;
 
 FunctionFromData::FunctionFromData(Symsptr arg) : FunctionXcParameter(arg)
 {
-    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<FunctionFromData> FunctionFromData::With()

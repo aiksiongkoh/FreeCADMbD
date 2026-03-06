@@ -13,6 +13,7 @@
 #include "GESpMatParPvMarkoFast.h"
 #include "GESpMatParPvPrecise.h"
 #include "SystemSolver.h"
+#include "SingularMatrixError.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -76,16 +77,25 @@ void DAECorrector::basicSolveEquations()
     dx = matrixSolver->solvewithsaveOriginal(pypx, y->negated(), false);
 }
 
+void MbD::DAECorrector::solveEquations()
+{
+    try {
+        basicSolveEquations();
+    }
+    catch (const SingularMatrixError& ex) {
+        handleSingularMatrix();
+    }
+}
+
 void DAECorrector::handleSingularMatrix()
 {    
     std::string str = typeid(*matrixSolver).name();
-    if (str == "class GESpMatParPvMarkoFast") {
+    if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
         matrixSolver = GESpMatParPvPrecise::With();
         solveEquations();
     }
     else {
-        str = typeid(*matrixSolver).name();
-        if (str == "class GESpMatParPvPrecise") {
+        if (str.find("GESpMatParPvPrecise") != std::string::npos) {
             matrixSolver->throwSingularMatrixError("");
         }
         else {

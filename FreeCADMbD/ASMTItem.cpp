@@ -125,6 +125,15 @@ FRowDsptr ASMTItem::readRowOfDoublesOffTop(std::vector<std::string>& lines)
     return readRowOfDoubles(str);
 }
 
+FRowDsptr ASMTItem::readSeriesOf(std::vector<std::string>& lines, std::string str)
+{
+    std::string line = lines.at(0);
+    FRowDsptr row;
+    readDoublesInto(line, str, row);
+    lines.erase(lines.begin());
+    return row;
+}
+
 FColDsptr ASMTItem::readColumnOfDoubles(const std::string& line)
 {
     std::istringstream iss(line);
@@ -241,6 +250,10 @@ void ASMTItem::compareResults(AnalysisType)
     throw SimulationStoppingError("To be implemented.");
 }
 
+void MbD::ASMTItem::compareResults2(AnalysisType type)
+{
+}
+
 void ASMTItem::outputResults(AnalysisType)
 {
     throw SimulationStoppingError("To be implemented.");
@@ -312,16 +325,6 @@ void ASMTItem::storeOnLevelBool(std::ofstream& os, size_t level, bool value)
     else {
         os << "false" << std::endl;
     }
-}
-
-void ASMTItem::storeOnLevelArray(std::ofstream& os, size_t level, std::vector<double> array)
-{
-    storeOnLevelTabs(os, level);
-    for (size_t i = 0; i < array.size(); i++)
-    {
-        os << array[i] << '\t';
-    }
-    os << std::endl;
 }
 
 void ASMTItem::storeOnLevelName(std::ofstream& os, size_t level)

@@ -11,9 +11,9 @@
 #include "System.h"
 #include "Symbolic.h"
 #include "SymTime.h"
-#include "EulerAngleszxz.h"
-#include "EulerAngleszxzDot.h"
-#include "EulerAngleszxzDDot.h"
+#include "EulerAngles.h"
+#include "EulerAnglesDot.h"
+#include "EulerAnglesDDot.h"
 
 using namespace MbD;
 
@@ -141,7 +141,7 @@ void EndFramect::evalrmem() const
 void EndFramect::evalAme()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
+        auto phiThePsi = EulerAngles<double>::With();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);
@@ -201,9 +201,9 @@ void EndFramect::evalprmempt() const
 void EndFramect::evalpAmept()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
-        auto phiThePsiDot = EulerAngleszxzDot<double>::With();
-        phiThePsiDot->phiThePsi = phiThePsi;
+        auto phiThePsi = EulerAngles<double>::With();
+        auto phiThePsiDot = EulerAnglesDot<double>::With();
+        phiThePsiDot->aEulerAngles = phiThePsi.get();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);
@@ -234,11 +234,11 @@ void EndFramect::evalpprmemptpt() const
 void EndFramect::evalppAmeptpt()
 {
     if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngleszxz<double>::With();
-        auto phiThePsiDot = EulerAngleszxzDot<double>::With();
-        phiThePsiDot->phiThePsi = phiThePsi;
-        auto phiThePsiDDot = EulerAngleszxzDDot<double>::With();
-        phiThePsiDDot->phiThePsiDot = phiThePsiDot;
+        auto phiThePsi = EulerAngles<double>::With();
+        auto phiThePsiDot = EulerAnglesDot<double>::With();
+        phiThePsiDot->aEulerAngles = phiThePsi.get();
+        auto phiThePsiDDot = EulerAnglesDDot<double>::With();
+        phiThePsiDDot->aEulerAnglesDot = phiThePsiDot.get();
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = phiThePsiBlks->at(i);
@@ -304,4 +304,16 @@ void EndFramect::postDynOutput()
     evalrmem();
     evalAme();
     EndFramec::postDynOutput();
+}
+
+void EndFramect::simUpdateAll()
+{
+    //rOeO = rOmO + aAOm*rmem(t)
+    //aAOe = aAOm*aAme(t);
+    EndFramec::simUpdateAll();
+    auto mkrFrmqc = static_cast<MarkerFramec*>(markerFrame);
+    auto rOmO = markerFrame->rOmO;
+    auto aAOm = markerFrame->aAOm;
+    rOeO = rOmO->plusFullColumn(aAOm->timesFullColumn(rmem));
+    aAOe = aAOm->timesFullMatrix(aAme);
 }

@@ -23,6 +23,7 @@ namespace MbD {
         void createMbD() override;
         void storeOnLevel(std::ofstream& os, size_t level) override;
 
-        double pitch = 0.0, aConstant = 0.0;
+        double pitch = std::numeric_limits<double>::min();
+        double aConstant = std::numeric_limits<double>::min();
     };
 }

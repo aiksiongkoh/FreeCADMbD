@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "RevCylJoint.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "DistancexyConstraintIJ.h"
 #include "System.h"
 
@@ -33,8 +34,8 @@ void RevCylJoint::initializeGlobally()
         auto distxyIJ = DistancexyConstraintIJ::With(eFrmI, eFrmJ);
         distxyIJ->setConstant(distanceIJ);
         addConstraint(distxyIJ);
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

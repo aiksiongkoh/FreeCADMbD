@@ -18,12 +18,18 @@ using namespace MbD;
 
 GeneralSpline::GeneralSpline(Symsptr arg) : AnyGeneralSpline(arg)
 {
-    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<GeneralSpline> GeneralSpline::With()
 {
     auto inst = std::make_shared<GeneralSpline>();
+    inst->initialize();
+    return inst;
+}
+
+std::shared_ptr<GeneralSpline> MbD::GeneralSpline::With(Symsptr arg)
+{
+    auto inst = std::make_shared<GeneralSpline>(arg);
     inst->initialize();
     return inst;
 }
@@ -233,6 +239,11 @@ Symsptr GeneralSpline::clonesptr()
     return std::make_shared<GeneralSpline>(*this);
 }
 
+Symsptr MbD::GeneralSpline::copyWith(Symsptr arg)
+{
+    return GeneralSpline::With(arg);
+}
+
 double GeneralSpline::y(double xxx)
 {
     //"y(x) := yi + dydxi*hi + d2ydx2i*hi^2/2! + d3ydx3i*hi^3/3! +"
@@ -245,6 +256,16 @@ double GeneralSpline::y(double xxx)
         sum = (sum + derivsi->at((size_t)j - 1)) * delta / j;
     }
     return ys->at(index) + sum;
+}
+
+Symsptr MbD::GeneralSpline::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
+{
+    return sptr;
+}
+
+Symsptr MbD::GeneralSpline::simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
+{
+    return sptr;
 }
 
 std::ostream& GeneralSpline::printOn(std::ostream& s) const

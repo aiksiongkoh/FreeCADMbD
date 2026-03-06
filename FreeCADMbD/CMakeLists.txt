@@ -119,9 +119,12 @@ set(FREECADMBD_SRC
 		AtPointConstraintIqcJc.cpp
 		AtPointConstraintIqcJqc.cpp
 		AtPointConstraintIqctJqc.cpp
+		AtPointConstraintIeJe.cpp
 		AtPointConstraintIeJeq.cpp
 		AtPointConstraintIetJeq.cpp
+		AtPointConstraintIeqJe.cpp
 		AtPointConstraintIeqJeq.cpp
+		AtPointConstraintIeqtJeq.cpp
 		AtPointJoint.cpp
 		BackwardDifference.cpp
 		BasicDAEIntegrator.cpp
@@ -157,7 +160,12 @@ set(FREECADMBD_SRC
 		DifferenceOperator.cpp
 		DifferentialAlgebraicEquationSolver.cpp
 		DifferentiatedGeneralSpline.cpp
+		DirectionCosineConstraintIeJe.cpp
+		DirectionCosineConstraintIeJeq.cpp
+		DirectionCosineConstraintIetJeq.cpp
+		DirectionCosineConstraintIeqJe.cpp
 		DirectionCosineConstraintIeqJeq.cpp
+		DirectionCosineConstraintIeqtJeq.cpp
 		DirectionCosineConstraintIcJqc.cpp
 		DirectionCosineConstraintIctJqc.cpp
 		DirectionCosineConstraintIJ.cpp
@@ -193,9 +201,25 @@ set(FREECADMBD_SRC
 		DispCompIeqctJeqcO.cpp
 		DispIecJecO.cpp
 		DispIecJeqcO.cpp
-		DispIetJeqO.cpp
+		DispIectJeqcO.cpp
 		DispIeqcJecO.cpp
 		DispIeqcJeqcO.cpp
+		DispIeJeO.cpp
+		DispIeJeqO.cpp
+		DispIetJeqO.cpp
+		DispIeqJeO.cpp
+		DispIeqJeqO.cpp
+		DispIeqtJeqO.cpp
+		DispIeJeKe.cpp
+		DispIeqJeKe.cpp
+		DispIeqJeqKe.cpp
+		DispIeqJeKeq.cpp
+		DispIeqJeqKeq.cpp
+		DispIeJeqKe.cpp
+		DispIeJeqKeq.cpp
+		DispIeJeKeq.cpp
+		DispIetJeqKet.cpp
+		DispIeqtJeqKeqt.cpp
 		DistanceConstraintIJ.cpp
 		DistanceConstraintIqcJc.cpp
 		DistanceConstraintIqcJqc.cpp
@@ -287,6 +311,7 @@ set(FREECADMBD_SRC
 		Kinematic.cpp
 		KinematicDotIJ.cpp
 		KinematicIJ.cpp
+		KinematicIeJe.cpp
 		LDUFullMat.cpp
 		LDUFullMatParPv.cpp
 		LDUFullMatParPvRobust.cpp
@@ -448,6 +473,12 @@ set(FREECADMBD_SRC
 		TranslationConstraintIqcJqc.cpp
 		TranslationConstraintIqctJqc.cpp
 		TranslationLimitIJ.cpp
+		TranslationConstraintIeJe.cpp
+		TranslationConstraintIeJeq.cpp
+		TranslationConstraintIetJeq.cpp
+		TranslationConstraintIeqJe.cpp
+		TranslationConstraintIeqJeq.cpp
+		TranslationConstraintIeqtJeq.cpp
 		Units.cpp
 		UniversalJoint.cpp
 		UserFunction.cpp
@@ -580,9 +611,12 @@ set(FREECADMBD_HEADERS
 		AtPointConstraintIqcJc.h
 		AtPointConstraintIqcJqc.h
 		AtPointConstraintIqctJqc.h
+		AtPointConstraintIeJe.h
 		AtPointConstraintIeJeq.h
 		AtPointConstraintIetJeq.h
+		AtPointConstraintIeqJe.h
 		AtPointConstraintIeqJeq.h
+		AtPointConstraintIeqtJeq.h
 		AtPointJoint.h
 		BackwardDifference.h
 		BasicDAEIntegrator.h
@@ -618,7 +652,12 @@ set(FREECADMBD_HEADERS
 		DifferenceOperator.h
 		DifferentialAlgebraicEquationSolver.h
 		DifferentiatedGeneralSpline.h
+		DirectionCosineConstraintIeJe.h
+		DirectionCosineConstraintIeJeq.h
+		DirectionCosineConstraintIetJeq.h
+		DirectionCosineConstraintIeqJe.h
 		DirectionCosineConstraintIeqJeq.h
+		DirectionCosineConstraintIeqtJeq.h
 		DirectionCosineConstraintIcJqc.h
 		DirectionCosineConstraintIctJqc.h
 		DirectionCosineConstraintIJ.h
@@ -654,9 +693,25 @@ set(FREECADMBD_HEADERS
 		DispCompIeqctJeqcO.h
 		DispIecJecO.h
 		DispIecJeqcO.h
-		DispIetJeqO.h
+		DispIectJeqcO.h
 		DispIeqcJecO.h
 		DispIeqcJeqcO.h
+		DispIeJeO.h
+		DispIeJeqO.h
+		DispIetJeqO.h
+		DispIeqJeO.h
+		DispIeqJeqO.h
+		DispIeqtJeqO.h
+		DispIeJeKe.h
+		DispIeqJeKe.h
+		DispIeqJeqKe.h
+		DispIeqJeKeq.h
+		DispIeqJeqKeq.h
+		DispIeJeqKe.h
+		DispIeJeqKeq.h
+		DispIeJeKeq.h
+		DispIetJeqKet.h
+		DispIeqtJeqKeqt.h
 		DistanceConstraintIJ.h
 		DistanceConstraintIqcJc.h
 		DistanceConstraintIqcJqc.h
@@ -749,6 +804,7 @@ set(FREECADMBD_HEADERS
 		Kinematic.h
 		KinematicDotIJ.h
 		KinematicIJ.h
+		KinematicIeJe.h
 		LDUFullMat.h
 		LDUFullMatParPv.h
 		LDUFullMatParPvRobust.h
@@ -911,6 +967,12 @@ set(FREECADMBD_HEADERS
 		TranslationConstraintIqcJqc.h
 		TranslationConstraintIqctJqc.h
 		TranslationLimitIJ.h
+		TranslationConstraintIeJe.h
+		TranslationConstraintIeJeq.h
+		TranslationConstraintIetJeq.h
+		TranslationConstraintIeqJe.h
+		TranslationConstraintIeqJeq.h
+		TranslationConstraintIeqtJeq.h
 		Units.h
 		UniversalJoint.h
 		UserFunction.h

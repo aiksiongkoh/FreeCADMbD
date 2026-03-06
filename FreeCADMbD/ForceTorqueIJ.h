@@ -11,7 +11,7 @@
 #include "ForceTorqueItem.h"
 #include "DistIecJec.h"
 #include "ForceTorqueFunction.h"
-#include "DispIecJecO.h"
+#include "DispIeJeO.h"
 #include "SpatialContainerFrame.h"
 
 namespace MbD {
@@ -136,6 +136,8 @@ namespace MbD {
         void calcpQEJpEdotI();
         void calcpQEJpXdotJ();
         void calcpQEJpEdotJ();
+        virtual void useUniqueDispIeJeO();
+        virtual void useUniqueDispIeJeKe();
 
         EndFrmsptr eFrmI, eFrmJ;
         SpatialContainerFrame* prtFrmI = nullptr;
@@ -222,7 +224,7 @@ namespace MbD {
         FMatDsptr pQEJpEdotI;
         FMatDsptr pQEJpXdotJ;
         FMatDsptr pQEJpEdotJ;
-        std::shared_ptr<DispIecJecO> dispIeJeO;
+        std::shared_ptr<DispIeJeO> dispIeJeO;
         std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>> forceFunctions;
         std::shared_ptr < std::vector<std::shared_ptr<ForceTorqueFunction>>> torqueFunctions;
 

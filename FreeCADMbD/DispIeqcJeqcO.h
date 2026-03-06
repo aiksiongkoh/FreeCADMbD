@@ -23,6 +23,7 @@ namespace MbD {
         void initializeGlobally() override;
         FMatDsptr getprIeJeOpXJ() override;
         FMatDsptr getprIeJeOpEJ() override;
+        FMatDsptr getppriIeJeOpEJpEJ(size_t axis) override;
 
         FMatDsptr prIeJeOpXJ;
         FMatDsptr prIeJeOpEJ;

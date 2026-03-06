@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "DistancexyConstraintIqcJc.h"
+#include "EndFrameqc.h"
 //#include "EndFramec.h"
 #include "DispCompIeqcJecIe.h"
 
@@ -176,3 +177,5 @@ std::string DistancexyConstraintIqcJc::constraintSpec()
 {
     return "DistancexyConstraintIJ";
 }
+
+

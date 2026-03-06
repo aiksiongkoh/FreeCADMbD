@@ -10,17 +10,19 @@
 
 #include "DirectionCosineIecJeqc.h"
 
-namespace MbD {
+namespace MbD
+{
     class DirectionCosineIectJeqc : public DirectionCosineIecJeqc
     {
-        //pAijIeJept ppAijIeJepEIpt ppAijIeJepEJpt ppAijIeJeptpt 
+        // pAijIeJept ppAijIeJepEIpt ppAijIeJepEJpt ppAijIeJeptpt
     public:
         DirectionCosineIectJeqc() {}
         DirectionCosineIectJeqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineIecJeqc(frmi, frmj, axisi, axisj) {}
         static std::shared_ptr<DirectionCosineIectJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
         void initialize() override;
-
         void initializeGlobally() override;
+        void simUpdateAll() override;
+
         FRowDsptr ppvaluepEJpt() override;
         double ppvalueptpt() override;
         void preAccIC() override;
@@ -32,4 +34,3 @@ namespace MbD {
         double ppAijIeJeptpt = 0.0;
     };
 }
-

@@ -14,33 +14,34 @@
 
 #include "Item.h"
 #include "EndFrameqc.h"
-#include "TranslationConstraintIJ.h"
+#include "TranslationConstraintIeJe.h"
 #include "DirectionCosineConstraintIJ.h"
 #include "ConstraintSet.h"
-#include "ConstraintIJ.h"
 
 namespace MbD {
     class Constraint;
     class EndFramec;
     using EndFrmsptr = std::shared_ptr<EndFramec>;
 
-    class ConstraintSet : public ConstraintIJ
+    class ConstraintSet : public Item
     {
         //
     public:
         ConstraintSet() {}
-        ConstraintSet(const std::string& str) : ConstraintIJ(str) {}
-        ConstraintSet(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        ConstraintSet(const std::string& str) : Item(str) {}
+        ConstraintSet(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), Item() {}
 
         void initialize() override;
         void initializeGlobally() override;
         void initializeLocally() override;
         void addConstraint(std::shared_ptr<Constraint> con);
-        FColDsptr aFIeJtIe() const;
-        FColDsptr aFIeJtO() const;
+        EndFrmsptr geteFrmI() override { return eFrmI; }
+        EndFrmsptr geteFrmJ() override { return eFrmJ; }
+        FColDsptr aFIeIe() const;
+        FColDsptr aFIeO() const;
         FColDsptr aFX() const;
-        FColDsptr aTIeJtIe() const;
-        FColDsptr aTIeJtO() const;
+        FColDsptr aTIeIe() const;
+        FColDsptr aTIeO() const;
         FColDsptr aTX() const;
         virtual void connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj);
         void constraintsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
@@ -60,7 +61,7 @@ namespace MbD {
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void fillqsudot(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr diagMat) override;
+        void fillqsudotWeights(DiagMatDsptr mat) override;
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillVelICError(FColDsptr col) override;
         void fillVelICJacob(SpMatDsptr mat) override;
@@ -94,6 +95,7 @@ namespace MbD {
         void fillpFpydot(SpMatDsptr mat) override;
         void preDynOutput() override;
 
+        EndFrmsptr eFrmI, eFrmJ;
         std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> constraints;
 
     };

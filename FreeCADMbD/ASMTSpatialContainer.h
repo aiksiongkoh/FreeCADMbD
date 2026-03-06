@@ -55,8 +55,8 @@ namespace MbD {
         void createMbD() override;
         void updateMbDFromPosition3D(FColDsptr position3D);
         ASMTSpatialContainer* partOrAssembly() override;
-        void updateFromMbD() override;
         void compareResults(AnalysisType type) override;
+        void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void addRefPoint(std::shared_ptr<ASMTRefPoint> refPoint);
         void addMarker(std::shared_ptr<ASMTMarker> marker);
@@ -78,6 +78,7 @@ namespace MbD {
         FColDsptr getVelocity3D(size_t i) const;
         FColDsptr getOmega3D(size_t i) const;
         virtual void updateFromInputState();
+        void updateFromMbD() override;
         std::shared_ptr<StateData> dataFromMbD() override;
         FColDsptr rOPO();
         FMatDsptr aAOP();

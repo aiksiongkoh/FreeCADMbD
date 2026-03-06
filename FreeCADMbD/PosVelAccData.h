@@ -22,6 +22,7 @@ namespace MbD {
         std::shared_ptr<PosVelAccData> refData;
         FColDsptr rFfF, vFfF, omeFfF, aFfF, alpFfF;
         FMatDsptr aAFf;
+        std::shared_ptr<EulerAngles<double>> bryAngFf;
     };
 }
 

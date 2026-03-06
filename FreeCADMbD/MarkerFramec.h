@@ -33,7 +33,12 @@ namespace MbD {
         void initialize() override;
         System* root() override;
         void addEndFrame(EndFrmsptr x);
-        void endFramesDo(const std::function <void(EndFrmsptr)>& f) const;
+        //void endFramesDo(const std::function <void(EndFrmsptr)>& f) const;
+        template<class F>
+        void endFramesDo(F&& f) const {
+            for (auto& e : *endFrames)
+                f(e);
+        }
 
         FColDsptr aAdotjOm(size_t j);
         void setaApm(FMatDsptr mat) const;
@@ -47,9 +52,9 @@ namespace MbD {
         void fillqsudot(FColDsptr col) override;
         void fillqsudotPlam(FColDsptr col) override;
         void fillqsudotPlamDeriv(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr diagMat) override;
+        void fillqsudotWeights(DiagMatDsptr mat) override;
         void fillqsulam(FColDsptr col) override;
-        void fillqsuWeights(DiagMatDsptr diagMat) override;
+        void fillqsuWeights(DiagMatDsptr mat) override;
         void initializeGlobally() override;
         void initializeLocally() override;
         size_t iqE() const override;

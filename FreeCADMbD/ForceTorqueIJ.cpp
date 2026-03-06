@@ -1,5 +1,6 @@
 #include "ForceTorqueIJ.h"
 #include "ForceTorqueFunction.h"
+#include "System.h"
 
 using namespace MbD;
 
@@ -559,7 +560,7 @@ void ForceTorqueIJ::initialize()
 {
     forceFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
     torqueFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
-    dispIeJeO = DispIecJecO::With(geteFrmI(), geteFrmJ());
+    dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
 }
 
 void ForceTorqueIJ::initializeGlobally()
@@ -1114,6 +1115,23 @@ void ForceTorqueIJ::calcpQEJpEdotJ()
     else {
         pQEJpEdotJ = terms;
     }
+}
+
+void MbD::ForceTorqueIJ::useUniqueDispIeJeO()
+{
+    auto dispIeJeOs = root()->dispIeJeOs;
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp == dispIeJeO; });
+    if (it == dispIeJeOs->end()) {
+        dispIeJeOs->push_back(dispIeJeO);
+    }
+    else {
+        dispIeJeO = *it;
+    }
+}
+
+void MbD::ForceTorqueIJ::useUniqueDispIeJeKe()
+{
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void ForceTorqueIJ::calcaQXI()

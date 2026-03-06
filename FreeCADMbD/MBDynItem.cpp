@@ -351,14 +351,14 @@ FMatDsptr MBDynItem::readBasicOrientation(std::vector<std::string>& args)
         str.erase(0, pos + substr.length());
         auto euler = EulerAngles<Symsptr>::With();
         if (str.length() == 0) {
-            euler->rotOrder = std::make_shared<std::vector<size_t>>(std::initializer_list<size_t>{ 1, 2, 3 });
+            euler->axisOrder = std::make_shared<std::vector<size_t>>(std::initializer_list<size_t>{ 1, 2, 3 });
         }
         else {
             auto rotOrder = std::make_shared<std::vector<size_t>>(3);
             rotOrder->at(0) = str[0] - '0';
             rotOrder->at(1) = str[1] - '0';
             rotOrder->at(2) = str[2] - '0';
-            euler->rotOrder = rotOrder;
+            euler->axisOrder = rotOrder;
         }
         for (size_t i = 0; i < 3; i++)
         {

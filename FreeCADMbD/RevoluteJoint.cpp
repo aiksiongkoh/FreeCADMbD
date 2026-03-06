@@ -9,7 +9,7 @@
 #include "RevoluteJoint.h"
 #include "System.h"
 #include "AtPointConstraintIJ.h"
-#include "DirectionCosineConstraintIJ.h"
+#include "DirectionCosineConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -32,8 +32,8 @@ void RevoluteJoint::initializeGlobally()
     if (constraints->empty())
     {
         createAtPointConstraints();
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

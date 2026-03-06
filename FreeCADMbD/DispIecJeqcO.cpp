@@ -35,6 +35,11 @@ FMatDsptr MbD::DispIecJeqcO::getprIeJeOpEJ()
     return prIeJeOpEJ;
 }
 
+FMatDsptr MbD::DispIecJeqcO::getppriIeJeOpEJpEJ(size_t axis)
+{
+    return std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
+}
+
 void DispIecJeqcO::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO

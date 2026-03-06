@@ -32,12 +32,36 @@ void ASMTMotion::readMotionSeries(std::vector<std::string>& lines)
     auto seriesName = readString(str);
     assert(fullName("") == seriesName);
     lines.erase(lines.begin());
-    readFXonIs(lines);
-    readFYonIs(lines);
-    readFZonIs(lines);
-    readTXonIs(lines);
-    readTYonIs(lines);
-    readTZonIs(lines);
+    
+    auto infxs2 = readSeriesOf(lines, "FXonI");
+    auto infys2 = readSeriesOf(lines, "FYonI");
+    auto infzs2 = readSeriesOf(lines, "FZonI");
+    auto intxs2 = readSeriesOf(lines, "TXonI");
+    auto intys2 = readSeriesOf(lines, "TYonI");
+    auto intzs2 = readSeriesOf(lines, "TZonI");
+
+    for (size_t i = 0; i < infxs2->size(); ++i)
+    {
+        auto data = ForceTorqueData::With();
+        auto lambda = [&](FRowDsptr rowx, FRowDsptr rowy, FRowDsptr rowz) -> FColDsptr
+        {
+            auto col = FullColumn<double>::With(3);
+            col->at(0) = rowx->at(i);
+            col->at(1) = rowy->at(i);
+            col->at(2) = rowz->at(i);
+            return col;
+        };
+        data->aFIO = lambda(infxs2, infys2, infzs2);
+        data->aTIO = lambda(intxs2, intys2, intzs2);
+        dataSeriesIn->push_back(data);
+    }
+
+    // readFXonIs(lines);
+    // readFYonIs(lines);
+    // readFZonIs(lines);
+    // readTXonIs(lines);
+    // readTYonIs(lines);
+    // readTZonIs(lines);
 }
 
 void ASMTMotion::initMarkers()

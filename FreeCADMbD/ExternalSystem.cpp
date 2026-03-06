@@ -65,7 +65,7 @@ void ExternalSystem::outputFor(AnalysisType type)
     }
     else if (asmtAssembly) {
         asmtAssembly->updateFromMbD();
-        asmtAssembly->compareResults(type);
+        asmtAssembly->compareResults2(type);
         asmtAssembly->outputResults(type);
     }
     else {

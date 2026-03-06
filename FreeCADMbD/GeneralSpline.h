@@ -19,6 +19,7 @@ namespace MbD {
         GeneralSpline() = default;
         GeneralSpline(Symsptr arg);
         static std::shared_ptr<GeneralSpline> With();
+        static std::shared_ptr<GeneralSpline> With(Symsptr arg);
         
         double getValue() override;
         Symsptr differentiateWRTx() override;
@@ -33,7 +34,10 @@ namespace MbD {
         void calcIndexAndDelta();
         void searchIndexFromto(size_t start, size_t end);
         Symsptr clonesptr() override;
+        Symsptr copyWith(Symsptr arg) override;
         double y(double xxx);
+        Symsptr expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set);
+        Symsptr simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set) override;
 
         std::ostream& printOn(std::ostream& s) const override;
 

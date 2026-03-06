@@ -23,7 +23,7 @@ namespace MbD {
 
         void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) override;
-        void addToJointTorqueI(FColDsptr col) = 0;
+        void addToJointTorqueI(FColDsptr col) override = 0;
         virtual void initaAijIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;

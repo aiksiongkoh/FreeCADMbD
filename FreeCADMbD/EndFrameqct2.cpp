@@ -12,9 +12,9 @@
 #include "Symbolic.h"
 #include "SymTime.h"
 #include "EulerParameters.h"
-#include "EulerAngleszxz.h"
-#include "EulerAngleszxzDot.h"
-#include "EulerAngleszxzDDot.h"
+#include "EulerAngles.h"
+#include "EulerAnglesDot.h"
+#include "EulerAnglesDDot.h"
 
 using namespace MbD;
 

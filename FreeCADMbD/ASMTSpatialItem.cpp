@@ -154,7 +154,6 @@ FColDsptr ASMTSpatialItem::getPosition3D(size_t i)
 FMatDsptr ASMTSpatialItem::getRotationMatrix(size_t i)
 {
     auto bryantAngles = EulerAngles<double>::With();
-    bryantAngles->setRotOrder(1, 2, 3);
     if (bryxs == nullptr || bryxs->empty()) {
         //Do nothing.
     }

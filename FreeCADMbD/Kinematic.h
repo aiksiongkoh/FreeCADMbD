@@ -18,6 +18,11 @@ namespace MbD {
         Kinematic() : Item() {}
         Kinematic(const std::string& str) : Item(str) {}
         void initialize() override;
+        void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
+        void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;
+        void constraintsReport() override;
+        void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
+        void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
+        void reactivateRedundantConstraints();
     };
-
 }

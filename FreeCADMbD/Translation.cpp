@@ -28,9 +28,9 @@ void Translation::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 0));
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 1));
-        addConstraint(TranslationConstraintIJ::With(eFrmI, eFrmJ, 2));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 0));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 1));
+        addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2));
         root()->hasChanged = true;
     }
     else {

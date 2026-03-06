@@ -8,8 +8,8 @@
  
 #include "CylindricalJoint.h"
 #include "System.h"
-#include "DirectionCosineConstraintIJ.h"
-#include "TranslationConstraintIJ.h"
+#include "DirectionCosineConstraintIeJe.h"
+#include "TranslationConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -32,8 +32,8 @@ void CylindricalJoint::initializeGlobally()
     if (constraints->empty())
     {
         createInLineConstraints();
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 0));
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 1));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 0));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 1));
         root()->hasChanged = true;
     }
     else {

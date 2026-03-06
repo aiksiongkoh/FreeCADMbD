@@ -29,7 +29,9 @@ std::shared_ptr<SystemNewtonRaphson> SystemNewtonRaphson::With()
 void SystemNewtonRaphson::initializeGlobally()
 {
     assignEquationNumbers();
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->useEquationNumbers(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->useEquationNumbers(); 
+        });
     createVectorsAndMatrices();
     matrixSolver = matrixSolverClassNew();
 }

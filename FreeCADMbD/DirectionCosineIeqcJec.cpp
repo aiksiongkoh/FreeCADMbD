@@ -8,11 +8,17 @@
  
 #include "DirectionCosineIeqcJec.h"
 #include "EndFrameqc.h"
+#include "EndFramect.h"
 
 using namespace MbD;
 
 std::shared_ptr<DirectionCosineIeqcJec> DirectionCosineIeqcJec::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
 {
+    if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
+        throw SimulationStoppingError("To be implemented.");
+    }
+    assert(frmi->has_qX());
+    assert(!frmj->has_qX());
     auto inst = std::make_shared<DirectionCosineIeqcJec>(frmi, frmj, axisi, axisj);
     inst->initialize();
     return inst;

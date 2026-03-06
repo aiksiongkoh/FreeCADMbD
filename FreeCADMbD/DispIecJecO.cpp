@@ -12,6 +12,7 @@
 #include "EndFrameqct.h"
 #include "DispIeqcJeqcO.h"
 #include "DispIecJeqcO.h"
+#include "DispIectJeqcO.h"
 
 using namespace MbD;
 
@@ -51,7 +52,7 @@ std::shared_ptr<DispIecJecO> DispIecJecO::With(EndFrmsptr frmi, EndFrmsptr frmj)
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            inst = std::make_shared<DispIectJeqcO>(frmi, frmj);
         }
         else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
@@ -123,4 +124,10 @@ FColDsptr MbD::DispIecJecO::getprIeJeOpt()
 FColDsptr MbD::DispIecJecO::getpprIeJeOptpt()
 {
     return FColDsptr();
+}
+
+bool MbD::DispIecJecO::hasSameEndFrms(const std::shared_ptr<DispIecJecO> other) const
+{
+    auto sameClass = typeid(*this).name() == typeid(*other).name();
+    return sameClass && eFrmI == other->eFrmI && eFrmJ == other->eFrmJ;
 }

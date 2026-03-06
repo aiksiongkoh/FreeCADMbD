@@ -15,7 +15,6 @@ using namespace MbD;
 
 FunctionXcParameter::FunctionXcParameter(Symsptr arg) : FunctionX(arg)
 {
-    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<FunctionXcParameter> FunctionXcParameter::With()

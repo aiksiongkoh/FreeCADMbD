@@ -8,7 +8,7 @@
  
 #include "AngleJoint.h"
 #include "System.h"
-#include "DirectionCosineConstraintIJ.h"
+#include "DirectionCosineConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -30,7 +30,7 @@ void AngleJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto dirCosIzJz = DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 2);
+        auto dirCosIzJz = DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 2);
         dirCosIzJz->setConstant(std::cos(theIzJz));
         addConstraint(dirCosIzJz);
         this->root()->hasChanged = true;

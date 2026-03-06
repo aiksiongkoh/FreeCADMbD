@@ -25,7 +25,7 @@ std::shared_ptr<EndFramec> EndFramec::With()
     return inst;
 }
 
-std::shared_ptr<EndFramec> EndFramec::With(const std::string& str)
+std::shared_ptr<EndFramec> EndFramec::With(const std::string &str)
 {
     auto inst = std::make_shared<EndFramec>(str);
     inst->initialize();
@@ -34,7 +34,7 @@ std::shared_ptr<EndFramec> EndFramec::With(const std::string& str)
 
 void EndFramec::initialize()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 FMatDsptr EndFramec::aAeO() const
@@ -42,17 +42,17 @@ FMatDsptr EndFramec::aAeO() const
     return aAOe->transpose();
 }
 
-System* EndFramec::root()
+System *EndFramec::root()
 {
     return markerFrame->root();
 }
 
-void EndFramec::setMarkerFrame(MarkerFramec* markerFrm)
+void EndFramec::setMarkerFrame(MarkerFramec *markerFrm)
 {
     markerFrame = markerFrm;
 }
 
-MarkerFramec* EndFramec::getMarkerFrame() const
+MarkerFramec *EndFramec::getMarkerFrame() const
 {
     return markerFrame;
 }
@@ -65,18 +65,18 @@ void EndFramec::initEndFrameqct()
 
 void EndFramec::initEndFrameqct2()
 {
-    throw SimulationStoppingError("To be implemented.");
+    initEndFrameqct();
 }
 
 void EndFramec::simUpdateAll()
 {
-    //rOeO = rOmO + aAOm*rmem
-    //aAOe = aAOm*aAme;
+    // rOeO = rOmO + aAOm*rmem
+    // aAOe = aAOm*aAme;
     rOeO = markerFrame->rOmO->plusFullColumn(markerFrame->aAOm->timesFullColumn(rmem));
     aAOe = markerFrame->aAOm->timesFullMatrix(aAme);
 }
 
-void EndFramec::fillContactEndFrames(std::set<EndFramec*> efrms)
+void EndFramec::fillContactEndFrames(std::set<EndFramec *> efrms)
 {
 }
 
@@ -183,7 +183,7 @@ bool EndFramec::isEndFrameqc()
     return false;
 }
 
-SpatialContainerFrame* EndFramec::getPartFrame() const
+SpatialContainerFrame *EndFramec::getPartFrame() const
 {
     return markerFrame->getPartFrame();
 }
@@ -227,10 +227,12 @@ FMatDsptr EndFramec::pAjOepE(size_t j) const
 FMatDsptr EndFramec::pAjOepET(size_t axis)
 {
     auto answer = FullMatrix<double>::With(4, 3);
-    for (size_t i = 0; i < 4; i++) {
+    for (size_t i = 0; i < 4; i++)
+    {
         auto answeri = answer->at(i);
         auto pAOepEi = pAOepE()->at(i);
-        for (size_t j = 0; j < 3; j++) {
+        for (size_t j = 0; j < 3; j++)
+        {
             auto answerij = pAOepEi->at(j)->at(axis);
             answeri->at(j) = answerij;
         }
@@ -240,13 +242,14 @@ FMatDsptr EndFramec::pAjOepET(size_t axis)
 
 FColFMatDsptr EndFramec::pAOepE() const
 {
-    //rOeO = rOmO + aAOm*rmem
-    //aAOe = aAOm*aAme;
+    // rOeO = rOmO + aAOm*rmem
+    // aAOe = aAOm*aAme;
     auto pAOepE = std::make_shared<FullColumn<FMatDsptr>>(4);
-    auto mrkFrmc = static_cast<MarkerFramec*>(markerFrame);
-    for (size_t i = 0; i < 4; i++) {
+    auto mrkFrmc = static_cast<MarkerFramec *>(markerFrame);
+    for (size_t i = 0; i < 4; i++)
+    {
         auto prOmOpEi = mrkFrmc->prOmOpE()->column(i);
-        auto pAOmpEi = mrkFrmc->pAOmpE()->at(i);    //Make a copy
+        auto pAOmpEi = mrkFrmc->pAOmpE()->at(i); // Make a copy
         pAOepE->atiput(i, pAOmpEi->timesFullMatrix(aAme));
     }
     return pAOepE;
@@ -254,5 +257,5 @@ FColFMatDsptr EndFramec::pAOepE() const
 
 FColDsptr EndFramec::omeOeO()
 {
-    return static_cast<MarkerFramec*>(markerFrame)->omeOmO();
+    return static_cast<MarkerFramec *>(markerFrame)->omeOmO();
 }

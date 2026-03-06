@@ -66,6 +66,8 @@
 #include "ASMTRotationLimit.h"
 #include "ASMTTranslationLimit.h"
 #include "Units.h"
+#include "PosVelAccData.h"
+#include "EulerAngles.h"
 #if __GNUC__ >= 8
 #include <filesystem>
 #endif
@@ -92,7 +94,7 @@ void ASMTAssembly::initialize()
 
 void ASMTAssembly::runSinglePendulumSuperSimplified()
 {
-    //In this version we skip declaration of variables that don't need as they use default values.
+    // In this version we skip declaration of variables that don't need as they use default values.
     auto assembly = ASMTAssembly::With();
 
     assembly->setName("Assembly1");
@@ -119,7 +121,7 @@ void ASMTAssembly::runSinglePendulumSuperSimplified()
 
     auto simulationParameters = ASMTSimulationParameters::With();
     simulationParameters->settstart(0.0);
-    simulationParameters->settend(0.0);    //tstart == tend Initial Conditions only.
+    simulationParameters->settend(0.0); // tstart == tend Initial Conditions only.
     simulationParameters->sethmin(1.0e-9);
     simulationParameters->sethmax(1.0);
     simulationParameters->sethout(0.04);
@@ -131,7 +133,7 @@ void ASMTAssembly::runSinglePendulumSuperSimplified()
 
 void ASMTAssembly::runSinglePendulumSuperSimplified2()
 {
-    //In this version we skip declaration of variables that don't need as they use default values.
+    // In this version we skip declaration of variables that don't need as they use default values.
     auto assembly = ASMTAssembly::With();
     assembly->setName("OndselAssembly");
 
@@ -177,7 +179,7 @@ void ASMTAssembly::runSinglePendulumSuperSimplified2()
 
     auto simulationParameters = ASMTSimulationParameters::With();
     simulationParameters->settstart(0.0);
-    simulationParameters->settend(0.0);    //tstart == tend Initial Conditions only.
+    simulationParameters->settend(0.0); // tstart == tend Initial Conditions only.
     simulationParameters->sethmin(1.0e-9);
     simulationParameters->sethmax(1.0);
     simulationParameters->sethout(0.04);
@@ -259,7 +261,7 @@ void ASMTAssembly::runSinglePendulumSimplified()
 
     auto simulationParameters = ASMTSimulationParameters::With();
     simulationParameters->settstart(0.0);
-    simulationParameters->settend(0.0);    //tstart == tend Initial Conditions only.
+    simulationParameters->settend(0.0); // tstart == tend Initial Conditions only.
     simulationParameters->sethmin(1.0e-9);
     simulationParameters->sethmax(1.0);
     simulationParameters->sethout(0.04);
@@ -276,74 +278,69 @@ void ASMTAssembly::runSinglePendulum()
     assembly->setNotes(str);
     str = "Assembly1";
     assembly->setName(str);
-    auto pos3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    auto pos3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     assembly->setPosition3D(pos3D);
     auto rotMat = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}});
     assembly->setRotationMatrix(rotMat);
-    auto vel3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    auto vel3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     assembly->setVelocity3D(vel3D);
-    auto ome3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    auto ome3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     assembly->setOmega3D(ome3D);
     //
     auto mkrAM1 = ASMTMarker::With();
     str = "Marker1";
     mkrAM1->setName(str);
-    pos3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    pos3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     mkrAM1->setPosition3D(pos3D);
     rotMat = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}});
     mkrAM1->setRotationMatrix(rotMat);
     assembly->addMarker(mkrAM1);
     //
     auto part1 = ASMTPart::With();
     str = "Part1";
     part1->setName(str);
-    pos3D = std::make_shared<FullColumn<double>>(ListD{ -0.1, -0.1, -0.1 });
+    pos3D = std::make_shared<FullColumn<double>>(ListD{-0.1, -0.1, -0.1});
     part1->setPosition3D(pos3D);
     rotMat = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}});
     part1->setRotationMatrix(rotMat);
-    vel3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    vel3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     part1->setVelocity3D(vel3D);
-    ome3D = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
+    ome3D = std::make_shared<FullColumn<double>>(ListD{0, 0, 0});
     part1->setOmega3D(ome3D);
     assembly->addPart(part1);
     //
     auto massMarker = ASMTMarkerTemp::With();
     massMarker->setMass(0.2);
     massMarker->setDensity(10.0);
-    auto aJ = DiagonalMatrix<double>::With(ListD{ 8.3333333333333e-4, 0.016833333333333, 0.017333333333333 });
+    auto aJ = DiagonalMatrix<double>::With(ListD{8.3333333333333e-4, 0.016833333333333, 0.017333333333333});
     massMarker->setMomentOfInertias(aJ);
-    pos3D = std::make_shared<FullColumn<double>>(ListD{ 0.5, 0.1, 0.05 });
+    pos3D = std::make_shared<FullColumn<double>>(ListD{0.5, 0.1, 0.05});
     massMarker->setPosition3D(pos3D);
     rotMat = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}});
     massMarker->setRotationMatrix(rotMat);
     part1->setPrincipalMassMarker(massMarker);
     //
     auto mkrP1M1 = ASMTMarker::With();
     str = "Marker1";
     mkrP1M1->setName(str);
-    pos3D = std::make_shared<FullColumn<double>>(ListD{ 0.1, 0.1, 0.1 });
+    pos3D = std::make_shared<FullColumn<double>>(ListD{0.1, 0.1, 0.1});
     mkrP1M1->setPosition3D(pos3D);
     rotMat = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}});
     mkrP1M1->setRotationMatrix(rotMat);
     part1->addMarker(mkrP1M1);
     //
@@ -364,13 +361,13 @@ void ASMTAssembly::runSinglePendulum()
     assembly->addMotion(motion);
     //
     auto constantGravity = ASMTConstantGravity::With();
-    auto gAcceleration = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
+    auto gAcceleration = FullColumn<double>::With(3, 0.0);
     constantGravity->setg(gAcceleration);
     assembly->setConstantGravity(constantGravity);
     //
     auto simulationParameters = ASMTSimulationParameters::With();
     simulationParameters->settstart(0.0);
-    simulationParameters->settend(0.0);    //tstart == tend Initial Conditions only.
+    simulationParameters->settend(0.0); // tstart == tend Initial Conditions only.
     simulationParameters->sethmin(1.0e-9);
     simulationParameters->sethmax(1.0);
     simulationParameters->sethout(0.04);
@@ -380,15 +377,17 @@ void ASMTAssembly::runSinglePendulum()
     assembly->runKINEMATIC();
 }
 
-std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string& fileName)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &fileName)
 {
     std::ifstream stream(fileName);
-    if (stream.fail()) {
+    if (stream.fail())
+    {
         throw std::invalid_argument("File not found.");
     }
     std::string line;
     std::vector<std::string> lines;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         lines.push_back(line);
     }
     auto assembly = ASMTAssembly::With();
@@ -402,11 +401,11 @@ std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string& 
     return assembly;
 }
 
-void ASMTAssembly::runDynFile(const std::string& fileName)
+void ASMTAssembly::runDynFile(const std::string &fileName)
 {
     auto lines = linesFromFile(fileName);
     auto assembly = ASMTAssembly::With();
-    const std::string& str("\n\n\nStarting DYNAMIC simulation");
+    const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
     assembly->setFilename(fileName);
     assert(assembly->readStringNoSpacesOffTop(lines) == "Assembly");
@@ -414,11 +413,11 @@ void ASMTAssembly::runDynFile(const std::string& fileName)
     assembly->runDYNAMIC();
 }
 
-void ASMTAssembly::runKineFile(const std::string& fileName)
+void ASMTAssembly::runKineFile(const std::string &fileName)
 {
     auto lines = linesFromFile(fileName);
     auto assembly = ASMTAssembly::With();
-    const std::string& str("\n\n\nStarting KINEMATIC simulation");
+    const std::string &str("\n\n\nStarting KINEMATIC simulation");
     assembly->logString(str);
     assembly->setFilename(fileName);
     assert(assembly->readStringNoSpacesOffTop(lines) == "Assembly");
@@ -426,19 +425,21 @@ void ASMTAssembly::runKineFile(const std::string& fileName)
     assembly->runKINEMATIC();
 }
 
-std::vector<std::string> ASMTAssembly::linesFromFile(const std::string& fileName)
+std::vector<std::string> ASMTAssembly::linesFromFile(const std::string &fileName)
 {
     std::ifstream stream(fileName);
-    if (stream.fail()) {
+    if (stream.fail())
+    {
         std::cout << "Failed to open: "
-            << std::filesystem::absolute(fileName) << "\n";
+                  << std::filesystem::absolute(fileName) << "\n";
         std::cout << "Current working directory: "
-            << std::filesystem::current_path() << "\n";
+                  << std::filesystem::current_path() << "\n";
         throw std::invalid_argument("File not found.");
     }
     std::string line;
     std::vector<std::string> lines;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         lines.push_back(line);
     }
     bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
@@ -448,15 +449,17 @@ std::vector<std::string> ASMTAssembly::linesFromFile(const std::string& fileName
     return lines;
 }
 
-void ASMTAssembly::readWriteKineFile(const std::string& fileName)
+void ASMTAssembly::readWriteKineFile(const std::string &fileName)
 {
     std::ifstream stream(fileName);
-    if (stream.fail()) {
+    if (stream.fail())
+    {
         throw std::invalid_argument("File not found.");
     }
     std::string line;
     std::vector<std::string> lines;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         lines.push_back(line);
     }
     bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
@@ -464,7 +467,8 @@ void ASMTAssembly::readWriteKineFile(const std::string& fileName)
     assert(bool1 || bool2);
     lines.erase(lines.begin());
 
-    if (lines[0] == "Assembly") {
+    if (lines[0] == "Assembly")
+    {
         lines.erase(lines.begin());
         auto assembly = ASMTAssembly::With();
         assembly->parseASMT(lines);
@@ -476,15 +480,17 @@ void ASMTAssembly::readWriteKineFile(const std::string& fileName)
     }
 }
 
-void ASMTAssembly::readWriteDynFile(const std::string& fileName)
+void ASMTAssembly::readWriteDynFile(const std::string &fileName)
 {
     std::ifstream stream(fileName);
-    if (stream.fail()) {
+    if (stream.fail())
+    {
         throw std::invalid_argument("File not found.");
     }
     std::string line;
     std::vector<std::string> lines;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         lines.push_back(line);
     }
     bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
@@ -492,16 +498,43 @@ void ASMTAssembly::readWriteDynFile(const std::string& fileName)
     assert(bool1 || bool2);
     lines.erase(lines.begin());
 
-    if (lines[0] == "Assembly") {
+    if (lines[0] == "Assembly")
+    {
         lines.erase(lines.begin());
         auto assembly = ASMTAssembly::With();
         assembly->parseASMT(lines);
         assembly->runDYNAMIC();
         assembly->outputFile("tempAssembly.asmt");
-#ifndef NDEBUG
-        ASMTAssembly::runDynFile("tempAssembly.asmt");
-#endif
+        // tempAssembly2.asmt has input from filename and TimeSeries from tempAssembly.asmt
+        // Otherwise redundant constraints may not be the same even with very very small differences in input.
+        std::ifstream in(fileName);
+        if (!in)
+            throw std::runtime_error("Cannot open input file");
+        std::ifstream in2("tempAssembly.asmt");
+        if (!in2)
+            throw std::runtime_error("Cannot open input file");
+        std::ofstream out("tempAssembly2.asmt");
+        if (!out)
+            throw std::runtime_error("Cannot open output file");
+        std::string data((std::istreambuf_iterator<char>(in)),
+                         std::istreambuf_iterator<char>());
+        std::string data2((std::istreambuf_iterator<char>(in2)),
+                          std::istreambuf_iterator<char>());
+        std::size_t pos = data.find("TimeSeries");
+        if (pos == std::string::npos)
+            pos = data.size();
+        std::size_t pos2 = data2.find("TimeSeries");
+        out.write(data.data(), static_cast<std::streamsize>(pos));
+        out.write(data2.data() + pos2,
+                  static_cast<std::streamsize>(data2.size() - pos2));
+        out.close();
     }
+}
+
+void MbD::ASMTAssembly::readWriteReadDynFile(const std::string &fileName)
+{
+    ASMTAssembly::readWriteDynFile(fileName);
+    ASMTAssembly::runDynFile("tempAssembly2.asmt");
 }
 
 void ASMTAssembly::runDraggingTest()
@@ -510,30 +543,30 @@ void ASMTAssembly::runDraggingTest()
     auto dragPart = assembly->parts->at(0);
     auto dragParts = std::make_shared<std::vector<std::shared_ptr<ASMTPart>>>();
     dragParts->push_back(dragPart);
-    assembly->runPreDrag();    //Do this before first drag
+    assembly->runPreDrag(); // Do this before first drag
     FColDsptr pos3D, delta;
     pos3D = dragPart->position3D;
-    delta = std::make_shared<FullColumn<double>>(ListD{ 0.1, 0.2, 0.3 });
+    delta = std::make_shared<FullColumn<double>>(ListD{0.1, 0.2, 0.3});
     dragPart->updateMbDFromPosition3D(pos3D->plusFullColumn(delta));
     assembly->runDragStep(dragParts);
     pos3D = dragPart->position3D;
-    delta = std::make_shared<FullColumn<double>>(ListD{ 0.3, 0.2, 0.1 });
+    delta = std::make_shared<FullColumn<double>>(ListD{0.3, 0.2, 0.1});
     dragPart->updateMbDFromPosition3D(pos3D->plusFullColumn(delta));
     assembly->runDragStep(dragParts);
-    assembly->runPostDrag();    //Do this after last drag
+    assembly->runPostDrag(); // Do this after last drag
 }
 
-ASMTAssembly* ASMTAssembly::root()
+ASMTAssembly *ASMTAssembly::root()
 {
     return this;
 }
 
-void ASMTAssembly::setNotes(const std::string& str)
+void ASMTAssembly::setNotes(const std::string &str)
 {
     notes = str;
 }
 
-void ASMTAssembly::parseASMT(std::vector<std::string>& lines)
+void ASMTAssembly::parseASMT(std::vector<std::string> &lines)
 {
     readNotes(lines);
     readName(lines);
@@ -554,28 +587,28 @@ void ASMTAssembly::parseASMT(std::vector<std::string>& lines)
     readSeries(lines);
 }
 
-void ASMTAssembly::readNotes(std::vector<std::string>& lines)
+void ASMTAssembly::readNotes(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tNotes");
     lines.erase(lines.begin());
     notes = readStringTrimmedOffTop(lines);
 }
 
-void ASMTAssembly::readParts(std::vector<std::string>& lines)
+void ASMTAssembly::readParts(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tParts");
     lines.erase(lines.begin());
     parts->clear();
     auto it = std::find(lines.begin(), lines.end(), "\tKinematicIJs");
     std::vector<std::string> partsLines(lines.begin(), it);
-    while (!partsLines.empty()) {
+    while (!partsLines.empty())
+    {
         readPart(partsLines);
     }
     lines.erase(lines.begin(), it);
-
 }
 
-void ASMTAssembly::readPart(std::vector<std::string>& lines)
+void ASMTAssembly::readPart(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\t\tPart");
     lines.erase(lines.begin());
@@ -585,26 +618,26 @@ void ASMTAssembly::readPart(std::vector<std::string>& lines)
     parts->push_back(part);
 }
 
-void ASMTAssembly::readKinematicIJs(std::vector<std::string>& lines)
+void ASMTAssembly::readKinematicIJs(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tKinematicIJs");
     lines.erase(lines.begin());
     kinematicIJs->clear();
     auto it = std::find(lines.begin(), lines.end(), "\tConstraintSets");
     std::vector<std::string> kinematicIJsLines(lines.begin(), it);
-    while (!kinematicIJsLines.empty()) {
+    while (!kinematicIJsLines.empty())
+    {
         readKinematicIJ(kinematicIJsLines);
     }
     lines.erase(lines.begin(), it);
-
 }
 
-void ASMTAssembly::readKinematicIJ(std::vector<std::string>&)
+void ASMTAssembly::readKinematicIJ(std::vector<std::string> &)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void ASMTAssembly::readConstraintSets(std::vector<std::string>& lines)
+void ASMTAssembly::readConstraintSets(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tConstraintSets");
     lines.erase(lines.begin());
@@ -614,7 +647,7 @@ void ASMTAssembly::readConstraintSets(std::vector<std::string>& lines)
     readGeneralConstraintSets(lines);
 }
 
-void ASMTAssembly::readJoints(std::vector<std::string>& lines)
+void ASMTAssembly::readJoints(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\t\tJoints");
     lines.erase(lines.begin());
@@ -622,78 +655,102 @@ void ASMTAssembly::readJoints(std::vector<std::string>& lines)
     auto it = std::find(lines.begin(), lines.end(), "\t\tMotions");
     std::vector<std::string> jointsLines(lines.begin(), it);
     std::shared_ptr<ASMTJoint> joint;
-    while (!jointsLines.empty()) {
-        if (jointsLines[0] == "\t\t\tAngleJoint") {
+    while (!jointsLines.empty())
+    {
+        if (jointsLines[0] == "\t\t\tAngleJoint")
+        {
             joint = ASMTAngleJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tGearJoint") {
+        else if (jointsLines[0] == "\t\t\tGearJoint")
+        {
             joint = ASMTGearJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tNoRotationJoint") {
+        else if (jointsLines[0] == "\t\t\tNoRotationJoint")
+        {
             joint = ASMTNoRotationJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tParallelAxesJoint") {
+        else if (jointsLines[0] == "\t\t\tParallelAxesJoint")
+        {
             joint = ASMTParallelAxesJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tPerpendicularJoint") {
+        else if (jointsLines[0] == "\t\t\tPerpendicularJoint")
+        {
             joint = ASMTPerpendicularJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tRackPinionJoint") {
+        else if (jointsLines[0] == "\t\t\tRackPinionJoint")
+        {
             joint = ASMTRackPinionJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tScrewJoint") {
+        else if (jointsLines[0] == "\t\t\tScrewJoint")
+        {
             joint = ASMTScrewJoint::With();
         }
-        //AtPointJoints
-        else if (jointsLines[0] == "\t\t\tConstantVelocityJoint") {
+        // AtPointJoints
+        else if (jointsLines[0] == "\t\t\tConstantVelocityJoint")
+        {
             joint = ASMTConstantVelocityJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tFixedJoint") {
+        else if (jointsLines[0] == "\t\t\tFixedJoint")
+        {
             joint = ASMTFixedJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tRevoluteJoint") {
+        else if (jointsLines[0] == "\t\t\tRevoluteJoint")
+        {
             joint = ASMTRevoluteJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tSphericalJoint") {
+        else if (jointsLines[0] == "\t\t\tSphericalJoint")
+        {
             joint = ASMTSphericalJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tUniversalJoint") {
+        else if (jointsLines[0] == "\t\t\tUniversalJoint")
+        {
             joint = ASMTUniversalJoint::With();
         }
-        //CompoundJoints
-        else if (jointsLines[0] == "\t\t\tSphSphJoint") {
+        // CompoundJoints
+        else if (jointsLines[0] == "\t\t\tSphSphJoint")
+        {
             joint = ASMTSphSphJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tCylSphJoint") {
+        else if (jointsLines[0] == "\t\t\tCylSphJoint")
+        {
             joint = ASMTCylSphJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tRevCylJoint") {
+        else if (jointsLines[0] == "\t\t\tRevCylJoint")
+        {
             joint = ASMTRevCylJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tRevRevJoint") {
+        else if (jointsLines[0] == "\t\t\tRevRevJoint")
+        {
             joint = ASMTRevRevJoint::With();
         }
-        //InLineJoints
-        else if (jointsLines[0] == "\t\t\tCylindricalJoint") {
+        // InLineJoints
+        else if (jointsLines[0] == "\t\t\tCylindricalJoint")
+        {
             joint = ASMTCylindricalJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tPointInLineJoint") {
+        else if (jointsLines[0] == "\t\t\tPointInLineJoint")
+        {
             joint = ASMTPointInLineJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tTranslationalJoint") {
+        else if (jointsLines[0] == "\t\t\tTranslationalJoint")
+        {
             joint = ASMTTranslationalJoint::With();
         }
-        //InPlaneJoints
-        else if (jointsLines[0] == "\t\t\tLineInPlaneJoint") {
+        // InPlaneJoints
+        else if (jointsLines[0] == "\t\t\tLineInPlaneJoint")
+        {
             joint = ASMTLineInPlaneJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tPlanarJoint") {
+        else if (jointsLines[0] == "\t\t\tPlanarJoint")
+        {
             joint = ASMTPlanarJoint::With();
         }
-        else if (jointsLines[0] == "\t\t\tPointInPlaneJoint") {
+        else if (jointsLines[0] == "\t\t\tPointInPlaneJoint")
+        {
             joint = ASMTPointInPlaneJoint::With();
         }
-        else {
+        else
+        {
             throw SimulationStoppingError("To be implemented.");
         }
         jointsLines.erase(jointsLines.begin());
@@ -702,34 +759,40 @@ void ASMTAssembly::readJoints(std::vector<std::string>& lines)
         joints->push_back(joint);
     }
     lines.erase(lines.begin(), it);
-
 }
 
-void ASMTAssembly::readMotions(std::vector<std::string>& lines)
+void ASMTAssembly::readMotions(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\t\tMotions");
     lines.erase(lines.begin());
     motions->clear();
     auto it = std::find(lines.begin(), lines.end(), "\t\tLimits");
-    if (it == lines.end()) {
+    if (it == lines.end())
+    {
         it = std::find(lines.begin(), lines.end(), "\t\tGeneralConstraintSets");
     }
     std::vector<std::string> motionsLines(lines.begin(), it);
     std::shared_ptr<ASMTMotion> motion;
-    while (!motionsLines.empty()) {
-        if (motionsLines[0] == "\t\t\tRotationalMotion") {
+    while (!motionsLines.empty())
+    {
+        if (motionsLines[0] == "\t\t\tRotationalMotion")
+        {
             motion = ASMTRotationalMotion::With();
         }
-        else if (motionsLines[0] == "\t\t\tTranslationalMotion") {
+        else if (motionsLines[0] == "\t\t\tTranslationalMotion")
+        {
             motion = ASMTTranslationalMotion::With();
         }
-        else if (motionsLines[0] == "\t\t\tGeneralMotion") {
+        else if (motionsLines[0] == "\t\t\tGeneralMotion")
+        {
             motion = ASMTGeneralMotion::With();
         }
-        else if (motionsLines[0] == "\t\t\tAllowRotation") {
+        else if (motionsLines[0] == "\t\t\tAllowRotation")
+        {
             motion = ASMTAllowRotation::With();
         }
-        else {
+        else
+        {
             throw SimulationStoppingError("To be implemented.");
         }
         motionsLines.erase(motionsLines.begin());
@@ -741,9 +804,10 @@ void ASMTAssembly::readMotions(std::vector<std::string>& lines)
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readLimits(std::vector<std::string>& lines)
+void ASMTAssembly::readLimits(std::vector<std::string> &lines)
 {
-    if (lines[0] != "\t\tLimits") {
+    if (lines[0] != "\t\tLimits")
+    {
         return;
     }
     lines.erase(lines.begin());
@@ -751,14 +815,18 @@ void ASMTAssembly::readLimits(std::vector<std::string>& lines)
     auto it = std::find(lines.begin(), lines.end(), "\t\tGeneralConstraintSets");
     std::vector<std::string> limitsLines(lines.begin(), it);
     std::shared_ptr<ASMTLimit> limit;
-    while (!limitsLines.empty()) {
-        if (limitsLines[0] == "\t\t\tRotationLimit") {
+    while (!limitsLines.empty())
+    {
+        if (limitsLines[0] == "\t\t\tRotationLimit")
+        {
             limit = ASMTRotationLimit::With();
         }
-        else if (limitsLines[0] == "\t\t\tTranslationLimit") {
+        else if (limitsLines[0] == "\t\t\tTranslationLimit")
+        {
             limit = ASMTTranslationLimit::With();
         }
-        else {
+        else
+        {
             throw SimulationStoppingError("To be implemented.");
         }
         limitsLines.erase(limitsLines.begin());
@@ -770,35 +838,40 @@ void ASMTAssembly::readLimits(std::vector<std::string>& lines)
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readGeneralConstraintSets(std::vector<std::string>& lines) const
+void ASMTAssembly::readGeneralConstraintSets(std::vector<std::string> &lines) const
 {
     assert(lines[0] == "\t\tGeneralConstraintSets");
     lines.erase(lines.begin());
     constraintSets->clear();
     auto it = std::find(lines.begin(), lines.end(), "\tForceTorques");
     std::vector<std::string> generalConstraintSetsLines(lines.begin(), it);
-    while (!generalConstraintSetsLines.empty()) {
+    while (!generalConstraintSetsLines.empty())
+    {
         throw SimulationStoppingError("To be implemented.");
     }
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readForcesTorques(std::vector<std::string>& lines)
+void ASMTAssembly::readForcesTorques(std::vector<std::string> &lines)
 {
-    assert(lines[0] == "\tForceTorques");    //Spelling is not consistent in asmt file.
+    assert(lines[0] == "\tForceTorques"); // Spelling is not consistent in asmt file.
     lines.erase(lines.begin());
     forcesTorques->clear();
     auto it = std::find(lines.begin(), lines.end(), "\tConstantGravity");
     std::vector<std::string> forcesTorquesLines(lines.begin(), it);
     std::shared_ptr<ASMTForceTorque> forceTorque;
-    while (!forcesTorquesLines.empty()) {
-        if (forcesTorquesLines[0] == "\t\tInLineForceTorque") {
+    while (!forcesTorquesLines.empty())
+    {
+        if (forcesTorquesLines[0] == "\t\tInLineForceTorque")
+        {
             forceTorque = ASMTForceTorqueInLine::With();
         }
-        else if (forcesTorquesLines[0] == "\t\tGeneralForceTorque") {
+        else if (forcesTorquesLines[0] == "\t\tGeneralForceTorque")
+        {
             forceTorque = ASMTForceTorqueGeneral::With();
         }
-        else {
+        else
+        {
             throw SimulationStoppingError("To be implemented.");
         }
 
@@ -810,7 +883,7 @@ void ASMTAssembly::readForcesTorques(std::vector<std::string>& lines)
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readConstantGravity(std::vector<std::string>& lines)
+void ASMTAssembly::readConstantGravity(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tConstantGravity");
     lines.erase(lines.begin());
@@ -819,7 +892,7 @@ void ASMTAssembly::readConstantGravity(std::vector<std::string>& lines)
     constantGravity->parseASMT(lines);
 }
 
-void ASMTAssembly::readSimulationParameters(std::vector<std::string>& lines)
+void ASMTAssembly::readSimulationParameters(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tSimulationParameters");
     lines.erase(lines.begin());
@@ -828,7 +901,7 @@ void ASMTAssembly::readSimulationParameters(std::vector<std::string>& lines)
     simulationParameters->parseASMT(lines);
 }
 
-void ASMTAssembly::readAnimationParameters(std::vector<std::string>& lines)
+void ASMTAssembly::readAnimationParameters(std::vector<std::string> &lines)
 {
     assert(lines[0] == "\tAnimationParameters");
     lines.erase(lines.begin());
@@ -837,94 +910,108 @@ void ASMTAssembly::readAnimationParameters(std::vector<std::string>& lines)
     animationParameters->parseASMT(lines);
 }
 
-void ASMTAssembly::readSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readSeries(std::vector<std::string> &lines)
 {
-    while (!lines.empty() && (lines[0].find("Series") != std::string::npos)) {
-        if (lines[0].find("TimeSeries") != std::string::npos) {
+    while (!lines.empty() && (lines[0].find("Series") != std::string::npos))
+    {
+        if (lines[0].find("TimeSeries") != std::string::npos)
+        {
             readTimeSeries(lines);
         }
-        else if (lines[0].find("AssemblySeries") != std::string::npos) {
+        else if (lines[0].find("AssemblySeries") != std::string::npos)
+        {
             readAssemblySeries(lines);
         }
-        else if (lines[0].find("PartSeries") != std::string::npos) {
+        else if (lines[0].find("PartSeries") != std::string::npos)
+        {
             readPartSeries(lines);
         }
-        else if (lines[0].find("JointSeries") != std::string::npos) {
+        else if (lines[0].find("JointSeries") != std::string::npos)
+        {
             readJointSeries(lines);
         }
-        else if (lines[0].find("MotionSeries") != std::string::npos) {
+        else if (lines[0].find("MotionSeries") != std::string::npos)
+        {
             readMotionSeries(lines);
         }
-        else if (lines[0].find("ForceTorqueSeries") != std::string::npos) {
+        else if (lines[0].find("ForceTorqueSeries") != std::string::npos)
+        {
             readForceTorqueSeries(lines);
         }
-        else {
+        else
+        {
             throw SimulationStoppingError("To be implemented.");
         }
     }
 }
 
-void ASMTAssembly::readTimeSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readTimeSeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     assert(readStringNoSpacesOffTop(lines) == "TimeSeries");
     assert(lines[0].find("Number\tInput") != std::string::npos);
     lines.erase(lines.begin());
     readTimes(lines);
 }
 
-void ASMTAssembly::readTimes(std::vector<std::string>& lines)
+void ASMTAssembly::readTimes(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "Time\tInput";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
     str.erase(0, pos + substr.length());
     itimes = readRowOfDoubles(str);
-    //Need to insert element for input state at front of itimes. 
+    // Need to insert element for input state at front of itimes.
     if (itimes->empty())
     {
         itimes->push_back(0.0);
     }
-    else {
-        //Duplicate time0.
+    else
+    {
+        // Duplicate time0.
         itimes->insert(itimes->begin(), itimes->at(0));
     }
     lines.erase(lines.begin());
 }
 
-void ASMTAssembly::readPartSeriesMany(std::vector<std::string>& lines)
+void ASMTAssembly::readPartSeriesMany(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     assert(lines[0].find("PartSeries") != std::string::npos);
-    auto it = std::find_if(lines.begin(), lines.end(), [](const std::string& s) {
-        return s.find("JointSeries") != std::string::npos;
-        });
+    auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
+                           { return s.find("JointSeries") != std::string::npos; });
     std::vector<std::string> partSeriesLines(lines.begin(), it);
-    while (!partSeriesLines.empty()) {
+    while (!partSeriesLines.empty())
+    {
         readPartSeries(partSeriesLines);
     }
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readJointSeriesMany(std::vector<std::string>& lines)
+void ASMTAssembly::readJointSeriesMany(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     assert(lines[0].find("JointSeries") != std::string::npos);
-    auto it = std::find_if(lines.begin(), lines.end(), [](const std::string& s) {
-        return s.find("tionSeries") != std::string::npos;
-        });
+    auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
+                           { return s.find("tionSeries") != std::string::npos; });
     std::vector<std::string> jointSeriesLines(lines.begin(), it);
-    while (!jointSeriesLines.empty()) {
+    while (!jointSeriesLines.empty())
+    {
         readJointSeries(jointSeriesLines);
     }
     lines.erase(lines.begin(), it);
 }
 
-void ASMTAssembly::readAssemblySeries(std::vector<std::string>& lines)
+void ASMTAssembly::readAssemblySeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "AssemblySeries";
     auto pos = str.find(substr);
@@ -933,116 +1020,160 @@ void ASMTAssembly::readAssemblySeries(std::vector<std::string>& lines)
     auto seriesName = readString(str);
     assert(fullName("") == seriesName);
     lines.erase(lines.begin());
-    //xs, ys, zs, bryxs, bryys, bryzs
-    readXs(lines);
-    readYs(lines);
-    readZs(lines);
-    readBryantxs(lines);
-    readBryantys(lines);
-    readBryantzs(lines);
-    readVXs(lines);
-    readVYs(lines);
-    readVZs(lines);
-    readOmegaXs(lines);
-    readOmegaYs(lines);
-    readOmegaZs(lines);
-    readAXs(lines);
-    readAYs(lines);
-    readAZs(lines);
-    readAlphaXs(lines);
-    readAlphaYs(lines);
-    readAlphaZs(lines);
+
+    auto inxs2 = readSeriesOf(lines, "X");
+    auto inys2 = readSeriesOf(lines, "Y");
+    auto inzs2 = readSeriesOf(lines, "Z");
+    auto inbryxs2 = readSeriesOf(lines, "Bryantx");
+    auto inbryys2 = readSeriesOf(lines, "Bryanty");
+    auto inbryzs2 = readSeriesOf(lines, "Bryantz");
+    auto invxs2 = readSeriesOf(lines, "VX");
+    auto invys2 = readSeriesOf(lines, "VY");
+    auto invzs2 = readSeriesOf(lines, "VZ");
+    auto inomexs2 = readSeriesOf(lines, "OmegaX");
+    auto inomeys2 = readSeriesOf(lines, "OmegaY");
+    auto inomezs2 = readSeriesOf(lines, "OmegaZ");
+    auto inaxs2 = readSeriesOf(lines, "AX");
+    auto inays2 = readSeriesOf(lines, "AY");
+    auto inazs2 = readSeriesOf(lines, "AZ");
+    auto inalpxs2 = readSeriesOf(lines, "AlphaX");
+    auto inalpys2 = readSeriesOf(lines, "AlphaY");
+    auto inalpzs2 = readSeriesOf(lines, "AlphaZ");
+
+    for (size_t i = 0; i < inxs2->size(); ++i)
+    {
+        auto data = PosVelAccData::With();
+        auto lambda = [&](FRowDsptr rowx, FRowDsptr rowy, FRowDsptr rowz) -> FColDsptr
+        {
+            auto col = FullColumn<double>::With(3);
+            col->at(0) = rowx->at(i);
+            col->at(1) = rowy->at(i);
+            col->at(2) = rowz->at(i);
+            return col;
+        };
+        data->rFfF = lambda(inxs2, inys2, inzs2);
+        data->bryAngFf = EulerAngles<double>::With(lambda(inbryxs2, inbryys2, inbryzs2));
+        data->vFfF = lambda(invxs2, invys2, invzs2);
+        data->omeFfF = lambda(inomexs2, inomeys2, inomezs2);
+        data->aFfF = lambda(inaxs2, inays2, inazs2);
+        data->alpFfF = lambda(inalpxs2, inalpys2, inalpzs2);
+        dataSeriesIn->push_back(data);
+    }
+
+    // readXs(lines);
+    // readYs(lines);
+    // readZs(lines);
+    // readBryantxs(lines);
+    // readBryantys(lines);
+    // readBryantzs(lines);
+    // readVXs(lines);
+    // readVYs(lines);
+    // readVZs(lines);
+    // readOmegaXs(lines);
+    // readOmegaYs(lines);
+    // readOmegaZs(lines);
+    // readAXs(lines);
+    // readAYs(lines);
+    // readAZs(lines);
+    // readAlphaXs(lines);
+    // readAlphaYs(lines);
+    // readAlphaZs(lines);
 }
 
-void ASMTAssembly::readPartSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readPartSeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "PartSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
     str.erase(0, pos + substr.length());
     auto seriesName = readString(str);
-    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart>& prt) {
-        return prt->fullName("") == seriesName;
-        });
+    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart> &prt)
+                           { return prt->fullName("") == seriesName; });
     auto part = *it;
     part->readPartSeries(lines);
 }
 
-void ASMTAssembly::readJointSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readJointSeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "JointSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
     str.erase(0, pos + substr.length());
     auto seriesName = readString(str);
-    auto it = std::find_if(joints->begin(), joints->end(), [&](const std::shared_ptr<ASMTJoint>& jt) {
-        return jt->fullName("") == seriesName;
-        });
+    auto it = std::find_if(joints->begin(), joints->end(), [&](const std::shared_ptr<ASMTJoint> &jt)
+                           { return jt->fullName("") == seriesName; });
     auto joint = *it;
     joint->readJointSeries(lines);
 }
 
-void ASMTAssembly::readMotionSeriesMany(std::vector<std::string>& lines)
+void ASMTAssembly::readMotionSeriesMany(std::vector<std::string> &lines)
 {
-    while (!lines.empty()) {
+    while (!lines.empty())
+    {
         assert(lines[0].find("tionSeries") != std::string::npos);
         readMotionSeries(lines);
     }
 }
 
-void ASMTAssembly::readMotionSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readMotionSeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "tionSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
     str.erase(0, pos + substr.length());
     auto seriesName = readString(str);
-    auto it = std::find_if(motions->begin(), motions->end(), [&](const std::shared_ptr<ASMTMotion>& jt) {
-        return jt->fullName("") == seriesName;
-        });
+    auto it = std::find_if(motions->begin(), motions->end(), [&](const std::shared_ptr<ASMTMotion> &jt)
+                           { return jt->fullName("") == seriesName; });
     auto motion = *it;
     motion->readMotionSeries(lines);
 }
 
-void ASMTAssembly::readForceTorqueSeries(std::vector<std::string>& lines)
+void ASMTAssembly::readForceTorqueSeries(std::vector<std::string> &lines)
 {
-    if (lines.empty()) return;
+    if (lines.empty())
+        return;
     std::string str = lines[0];
     std::string substr = "ForceTorqueSeries";
     auto pos = str.find(substr);
     assert(pos != std::string::npos);
     str.erase(0, pos + substr.length());
     auto seriesName = readString(str);
-    auto it = std::find_if(forcesTorques->begin(), forcesTorques->end(), [&](const std::shared_ptr<ASMTForceTorque>& jt) {
-        return jt->fullName("") == seriesName;
-        });
+    auto it = std::find_if(forcesTorques->begin(), forcesTorques->end(), [&](const std::shared_ptr<ASMTForceTorque> &jt)
+                           { return jt->fullName("") == seriesName; });
     auto forcesTorque = *it;
     forcesTorque->readForceTorqueSeries(lines);
 }
 
-void ASMTAssembly::runDraggingLog(const std::string& fileName)
+void ASMTAssembly::runDraggingLog(const std::string &fileName)
 {
     std::ifstream stream(fileName);
-    if (stream.fail()) {
+    if (stream.fail())
+    {
         throw std::invalid_argument("File not found.");
     }
     std::string line;
     std::vector<std::string> lines;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         lines.push_back(line);
     }
     assert(readStringNoSpacesOffTop(lines) == "runPreDrag");
     runPreDrag();
-    while (lines[0].find("runDragStep") != std::string::npos) {
+    while (lines[0].find("runDragStep") != std::string::npos)
+    {
         assert(readStringNoSpacesOffTop(lines) == "runDragStep");
         auto dragParts = std::make_shared<std::vector<std::shared_ptr<ASMTPart>>>();
-        while (lines[0].find("Name") != std::string::npos) {
+        while (lines[0].find("Name") != std::string::npos)
+        {
             assert(readStringNoSpacesOffTop(lines) == "Name");
             auto dragPartName = readStringNoSpacesOffTop(lines);
             std::string longerName = "/" + name + "/" + dragPartName;
@@ -1053,7 +1184,8 @@ void ASMTAssembly::runDraggingLog(const std::string& fileName)
             dragPart->setPosition3D(dragPartPosition3D);
             assert(readStringNoSpacesOffTop(lines) == "RotationMatrix");
             auto dragPartRotationMatrix = std::make_shared<FullMatrix<double>>(3);
-            for (size_t i = 0; i < 3; i++) {
+            for (size_t i = 0; i < 3; i++)
+            {
                 auto row = readRowOfDoublesOffTop(lines);
                 dragPartRotationMatrix->atiput(i, row);
             }
@@ -1096,34 +1228,68 @@ void ASMTAssembly::deleteMbD()
     ASMTSpatialContainer::deleteMbD();
     constantGravity->deleteMbD();
     asmtTime->deleteMbD();
-    for (auto part : *parts) { part->deleteMbD(); }
-    for (auto joint : *joints) { joint->deleteMbD(); }
-    for (auto motion : *motions) { motion->deleteMbD(); }
-    for (auto limit : *limits) { limit->deleteMbD(); }
-    for (auto forceTorque : *forcesTorques) { forceTorque->deleteMbD(); }
-
-
+    for (auto part : *parts)
+    {
+        part->deleteMbD();
+    }
+    for (auto joint : *joints)
+    {
+        joint->deleteMbD();
+    }
+    for (auto motion : *motions)
+    {
+        motion->deleteMbD();
+    }
+    for (auto limit : *limits)
+    {
+        limit->deleteMbD();
+    }
+    for (auto forceTorque : *forcesTorques)
+    {
+        forceTorque->deleteMbD();
+    }
 }
 
 void ASMTAssembly::createMbD()
 {
-	mbdObject = mbdSystem;
+    mbdObject = mbdSystem;
     constantGravity->createMbD();
     asmtTime->createMbD();
-    for (auto refPoint : *refPoints) { refPoint->createMbD(); }
-    for (auto refCurve : *refCurves) { refCurve->createMbD(); }
-    for (auto refSurface : *refSurfaces) { refSurface->createMbD(); }
-    std::sort(parts->begin(), parts->end(), [](std::shared_ptr<ASMTPart> a, std::shared_ptr<ASMTPart> b) { return a->name < b->name; });
+    for (auto refPoint : *refPoints)
+    {
+        refPoint->createMbD();
+    }
+    for (auto refCurve : *refCurves)
+    {
+        refCurve->createMbD();
+    }
+    for (auto refSurface : *refSurfaces)
+    {
+        refSurface->createMbD();
+    }
+    std::sort(parts->begin(), parts->end(), [](std::shared_ptr<ASMTPart> a, std::shared_ptr<ASMTPart> b)
+              { return a->name < b->name; });
     auto jointsMotions = std::make_shared<std::vector<std::shared_ptr<ASMTConstraintSet>>>();
     jointsMotions->insert(jointsMotions->end(), joints->begin(), joints->end());
     jointsMotions->insert(jointsMotions->end(), motions->begin(), motions->end());
-    std::sort(jointsMotions->begin(), jointsMotions->end(), [](std::shared_ptr<ASMTConstraintSet> a, std::shared_ptr<ASMTConstraintSet> b) { return a->name < b->name; });
-    std::sort(forcesTorques->begin(), forcesTorques->end(), [](std::shared_ptr<ASMTForceTorque> a, std::shared_ptr<ASMTForceTorque> b) { return a->name < b->name; });
-    for (auto part : *parts) { part->createMbD(); }
-    for (auto joint : *jointsMotions) { joint->createMbD(); }
-    for (auto forceTorque : *forcesTorques) { forceTorque->createMbD(); }
+    std::sort(jointsMotions->begin(), jointsMotions->end(), [](std::shared_ptr<ASMTConstraintSet> a, std::shared_ptr<ASMTConstraintSet> b)
+              { return a->name < b->name; });
+    std::sort(forcesTorques->begin(), forcesTorques->end(), [](std::shared_ptr<ASMTForceTorque> a, std::shared_ptr<ASMTForceTorque> b)
+              { return a->name < b->name; });
+    for (auto part : *parts)
+    {
+        part->createMbD();
+    }
+    for (auto joint : *jointsMotions)
+    {
+        joint->createMbD();
+    }
+    for (auto forceTorque : *forcesTorques)
+    {
+        forceTorque->createMbD();
+    }
 
-    //Create MbD in SI units
+    // Create MbD in SI units
     auto asmtUnts = asmtUnits;
     auto mbdSysSolver = mbdSys()->systemSolver;
     mbdSysSolver->errorTolPosKine = simulationParameters->errorTolPosKine;
@@ -1143,7 +1309,7 @@ void ASMTAssembly::createMbD()
     mbdSysSolver->orderMax = simulationParameters->orderMax;
     mbdSysSolver->translationLimit = simulationParameters->translationLimit * asmtUnts->length;
     mbdSysSolver->rotationLimit = simulationParameters->rotationLimit;
-    //animationParameters = nullptr;
+    // animationParameters = nullptr;
 }
 
 void ASMTAssembly::outputFile(std::string filename)
@@ -1155,7 +1321,7 @@ void ASMTAssembly::outputFile(std::string filename)
     storeOnLevel(os, 0);
 }
 
-void ASMTAssembly::storeOnLevel(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevel(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "Assembly");
     storeOnLevelNotes(os, level + 1);
@@ -1176,7 +1342,7 @@ void ASMTAssembly::solve()
 {
     auto simulationParameters = ASMTSimulationParameters::With();
     simulationParameters->settstart(0.0);
-    simulationParameters->settend(0.0);    //tstart == tend Initial Conditions only.
+    simulationParameters->settend(0.0); // tstart == tend Initial Conditions only.
     simulationParameters->sethmin(1.0e-9);
     simulationParameters->sethmax(1.0);
     simulationParameters->sethout(0.04);
@@ -1190,18 +1356,20 @@ void ASMTAssembly::runPreDrag()
 {
     mbdSystem = System::With();
     mbdSystem->externalSystem->asmtAssembly = this;
-    try {
+    try
+    {
         mbdSystem->runPreDrag(mbdSystem);
     }
-    catch (SimulationStoppingError ex) {
-
+    catch (SimulationStoppingError ex)
+    {
     }
 }
 
 void ASMTAssembly::runDragStep(std::shared_ptr<std::vector<std::shared_ptr<ASMTPart>>> dragParts) const
 {
     auto dragMbDParts = std::make_shared<std::vector<std::shared_ptr<Part>>>();
-    for (auto dragPart : *dragParts) {
+    for (auto dragPart : *dragParts)
+    {
         auto dragMbDPart = std::static_pointer_cast<Part>(dragPart->mbdObject);
         dragMbDParts->push_back(dragMbDPart);
     }
@@ -1217,11 +1385,12 @@ void ASMTAssembly::runKINEMATIC()
 {
     mbdSystem = System::With();
     mbdSystem->externalSystem->asmtAssembly = this;
-    try {
+    try
+    {
         mbdSystem->runKINEMATIC(mbdSystem);
     }
-    catch (SimulationStoppingError ex) {
-
+    catch (SimulationStoppingError ex)
+    {
     }
 }
 
@@ -1230,75 +1399,83 @@ void ASMTAssembly::runDYNAMIC()
     auto mbdSys = System::With();
     mbdSystem = mbdSys;
     mbdSystem->externalSystem->asmtAssembly = this;
-    try {
+    try
+    {
         mbdSystem->runDYNAMIC(mbdSystem);
     }
-    catch (SimulationStoppingError ex) {
-
+    catch (SimulationStoppingError ex)
+    {
     }
 }
 
-std::shared_ptr<ASMTSpatialContainer> ASMTAssembly::spatialContainerAt(std::shared_ptr<ASMTAssembly> self, std::string& longname) const
+std::shared_ptr<ASMTSpatialContainer> ASMTAssembly::spatialContainerAt(std::shared_ptr<ASMTAssembly> self, std::string &longname) const
 {
-    if ((self->fullName("")) == longname) return self;
-    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart>& prt) {
-        return prt->fullName("") == longname;
-        });
+    if ((self->fullName("")) == longname)
+        return self;
+    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart> &prt)
+                           { return prt->fullName("") == longname; });
     auto part = *it;
     return part;
 }
 
-std::shared_ptr<ASMTPart> ASMTAssembly::partAt(const std::string& longname) const
+std::shared_ptr<ASMTPart> ASMTAssembly::partAt(const std::string &longname) const
 {
-    for (auto part : *parts) {
-        if (part->fullName("") == longname) {
+    for (auto part : *parts)
+    {
+        if (part->fullName("") == longname)
+        {
             return part;
         }
     }
     return nullptr;
 }
 
-std::shared_ptr<ASMTMarker> ASMTAssembly::markerAt(std::string& longname) const
+std::shared_ptr<ASMTMarker> ASMTAssembly::markerAt(std::string &longname) const
 {
-    for (auto refPoint : *refPoints) {
-        for (auto marker : *refPoint->markers) {
-            if (marker->fullName("") == longname) return marker;
+    for (auto refPoint : *refPoints)
+    {
+        for (auto marker : *refPoint->markers)
+        {
+            if (marker->fullName("") == longname)
+                return marker;
         }
     }
-    for (auto part : *parts) {
-        for (auto refPoint : *part->refPoints) {
-            for (auto marker : *refPoint->markers) {
-                if (marker->fullName("") == longname) return marker;
+    for (auto part : *parts)
+    {
+        for (auto refPoint : *part->refPoints)
+        {
+            for (auto marker : *refPoint->markers)
+            {
+                if (marker->fullName("") == longname)
+                    return marker;
             }
         }
-        if (part->principalMassMarker->fullName("") == longname) return part->principalMassMarker;
+        if (part->principalMassMarker->fullName("") == longname)
+            return part->principalMassMarker;
     }
     return nullptr;
 }
 
-std::shared_ptr<ASMTJoint> ASMTAssembly::jointAt(std::string& longname) const
+std::shared_ptr<ASMTJoint> ASMTAssembly::jointAt(std::string &longname) const
 {
-    auto it = std::find_if(joints->begin(), joints->end(), [&](const std::shared_ptr<ASMTJoint>& jt) {
-        return jt->fullName("") == longname;
-        });
+    auto it = std::find_if(joints->begin(), joints->end(), [&](const std::shared_ptr<ASMTJoint> &jt)
+                           { return jt->fullName("") == longname; });
     auto joint = *it;
     return joint;
 }
 
-std::shared_ptr<ASMTMotion> ASMTAssembly::motionAt(std::string& longname) const
+std::shared_ptr<ASMTMotion> ASMTAssembly::motionAt(std::string &longname) const
 {
-    auto it = std::find_if(motions->begin(), motions->end(), [&](const std::shared_ptr<ASMTMotion>& mt) {
-        return mt->fullName("") == longname;
-        });
+    auto it = std::find_if(motions->begin(), motions->end(), [&](const std::shared_ptr<ASMTMotion> &mt)
+                           { return mt->fullName("") == longname; });
     auto motion = *it;
     return motion;
 }
 
-std::shared_ptr<ASMTForceTorque> ASMTAssembly::forceTorqueAt(std::string& longname) const
+std::shared_ptr<ASMTForceTorque> ASMTAssembly::forceTorqueAt(std::string &longname) const
 {
-    auto it = std::find_if(forcesTorques->begin(), forcesTorques->end(), [&](const std::shared_ptr<ASMTForceTorque>& mt) {
-        return mt->fullName("") == longname;
-        });
+    auto it = std::find_if(forcesTorques->begin(), forcesTorques->end(), [&](const std::shared_ptr<ASMTForceTorque> &mt)
+                           { return mt->fullName("") == longname; });
     auto forceTorque = *it;
     return forceTorque;
 }
@@ -1325,6 +1502,9 @@ std::shared_ptr<ASMTTime> ASMTAssembly::geoTime() const
 
 void ASMTAssembly::updateFromMbD()
 {
+    auto data = dataFromMbD();
+    dataSeries->push_back(data);
+
     xs->push_back(0.0);
     ys->push_back(0.0);
     zs->push_back(0.0);
@@ -1345,29 +1525,64 @@ void ASMTAssembly::updateFromMbD()
     alpzs->push_back(0.0);
     auto time = asmtTime->getValue();
     times->push_back(time);
-    //std::cout << "Time = " << time << std::endl;
-    for (auto part : *parts) part->updateFromMbD();
-    for (auto joint : *joints) joint->updateFromMbD();
-    for (auto motion : *motions) motion->updateFromMbD();
-    for (auto forceTorque : *forcesTorques) forceTorque->updateFromMbD();
+    // std::cout << "Time = " << time << std::endl;
+    for (auto part : *parts)
+        part->updateFromMbD();
+    for (auto joint : *joints)
+        joint->updateFromMbD();
+    for (auto motion : *motions)
+        motion->updateFromMbD();
+    for (auto forceTorque : *forcesTorques)
+        forceTorque->updateFromMbD();
+}
+
+std::shared_ptr<StateData> MbD::ASMTAssembly::dataFromMbD()
+{
+    auto data = PosVelAccData::With();
+    auto zeroCol = FullColumn<double>::With(3, 0.0);
+    data->rFfF = zeroCol;
+    data->aAFf = FullMatrix<double>::identitysptr(3);
+    data->bryAngFf = EulerAngles<double>::With(3, 0.0);
+    data->vFfF = zeroCol;
+    data->omeFfF = zeroCol;
+    data->aFfF = zeroCol;
+    data->alpFfF = zeroCol;
+    return data;
 }
 
 void ASMTAssembly::compareResults(AnalysisType type)
 {
     ASMTSpatialContainer::compareResults(type);
-    for (auto part : *parts) part->compareResults(type);
-    for (auto joint : *joints) joint->compareResults(type);
-    for (auto motion : *motions) motion->compareResults(type);
-    for (auto forceTorque : *forcesTorques) forceTorque->compareResults(type);
+    for (auto part : *parts)
+        part->compareResults(type);
+    for (auto joint : *joints)
+        joint->compareResults(type);
+    for (auto motion : *motions)
+        motion->compareResults(type);
+    for (auto forceTorque : *forcesTorques)
+        forceTorque->compareResults(type);
+}
+
+void MbD::ASMTAssembly::compareResults2(AnalysisType type)
+{
+    ASMTSpatialContainer::compareResults2(type);
+    for (auto part : *parts)
+        part->compareResults2(type);
+    for (auto joint : *joints)
+        joint->compareResults2(type);
+    for (auto motion : *motions)
+        motion->compareResults2(type);
+    for (auto forceTorque : *forcesTorques)
+        forceTorque->compareResults2(type);
 }
 
 void ASMTAssembly::outputResults(AnalysisType type)
 {
-    //ASMTSpatialContainer::outputResults(type);
-    //for (auto part : *parts) part->outputResults(type);
-    //for (auto joint : *joints) joint->outputResults(type);
-    //for (auto motion : *motions) motion->outputResults(type);
-    //for (auto forceTorque : *forcesTorques) forceTorque->outputResults(type);
+    // ASMTSpatialContainer::outputResults(type);
+    // for (auto part : *parts) part->outputResults(type);
+    // for (auto joint : *joints) joint->outputResults(type);
+    // for (auto motion : *motions) motion->outputResults(type);
+    // for (auto forceTorque : *forcesTorques) forceTorque->outputResults(type);
 }
 
 void ASMTAssembly::addTime(std::shared_ptr<ASMTTime> time)
@@ -1421,46 +1636,47 @@ void ASMTAssembly::setAnimationParameters(std::shared_ptr<ASMTAnimationParameter
 
 std::shared_ptr<ASMTPart> ASMTAssembly::partNamed(std::string partName) const
 {
-    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart>& prt) {
-        return prt->fullName("") == partName;
-        });
+    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart> &prt)
+                           { return prt->fullName("") == partName; });
     auto part = *it;
     return part;
 }
 
 std::shared_ptr<ASMTPart> ASMTAssembly::partPartialNamed(std::string partialName) const
 {
-    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart>& prt) {
+    auto it = std::find_if(parts->begin(), parts->end(), [&](const std::shared_ptr<ASMTPart> &prt)
+                           {
         auto fullName = prt->fullName("");
-        return fullName.find(partialName) != std::string::npos;
-        });
+        return fullName.find(partialName) != std::string::npos; });
     auto part = *it;
     return part;
 }
 
-void ASMTAssembly::storeOnLevelNotes(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelNotes(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "Notes");
     storeOnLevelString(os, level + 1, notes);
 }
 
-void ASMTAssembly::storeOnLevelParts(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelParts(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "Parts");
-    for (auto part : *parts) {
+    for (auto part : *parts)
+    {
         part->storeOnLevel(os, level + 1);
     }
 }
 
-void ASMTAssembly::storeOnLevelKinematicIJs(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelKinematicIJs(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "KinematicIJs");
-    for (auto kinematicIJ : *kinematicIJs) {
+    for (auto kinematicIJ : *kinematicIJs)
+    {
         kinematicIJ->storeOnLevel(os, level);
     }
 }
 
-void ASMTAssembly::storeOnLevelConstraintSets(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelConstraintSets(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "ConstraintSets");
     storeOnLevelJoints(os, level + 1);
@@ -1468,41 +1684,45 @@ void ASMTAssembly::storeOnLevelConstraintSets(std::ofstream& os, size_t level)
     storeOnLevelGeneralConstraintSets(os, level + 1);
 }
 
-void ASMTAssembly::storeOnLevelForceTorques(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelForceTorques(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "ForceTorques");
-    for (auto forceTorque : *forcesTorques) {
+    for (auto forceTorque : *forcesTorques)
+    {
         forceTorque->storeOnLevel(os, level + 1);
     }
 }
 
-void ASMTAssembly::storeOnLevelJoints(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelJoints(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "Joints");
-    for (auto joint : *joints) {
+    for (auto joint : *joints)
+    {
         joint->storeOnLevel(os, level + 1);
     }
 }
 
-void ASMTAssembly::storeOnLevelMotions(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelMotions(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "Motions");
-    for (auto motion : *motions) {
+    for (auto motion : *motions)
+    {
         motion->storeOnLevel(os, level + 1);
     }
 }
 
-void ASMTAssembly::storeOnLevelGeneralConstraintSets(std::ofstream& os, size_t level)
+void ASMTAssembly::storeOnLevelGeneralConstraintSets(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "GeneralConstraintSets");
-    //for (auto generalConstraintSet : *generalConstraintSets) {
-    //    generalConstraintSet->storeOnLevel(os, level);
-    //}
+    // for (auto generalConstraintSet : *generalConstraintSets) {
+    //     generalConstraintSet->storeOnLevel(os, level);
+    // }
 }
 
-void ASMTAssembly::storeOnTimeSeries(std::ofstream& os)
+void ASMTAssembly::storeOnTimeSeries(std::ofstream &os)
 {
-    if (times->empty()) return;
+    if (times->empty())
+        return;
     os << "TimeSeries" << std::endl;
     os << "Number\tInput\t";
     for (size_t i = 1; i < times->size(); i++)
@@ -1518,13 +1738,17 @@ void ASMTAssembly::storeOnTimeSeries(std::ofstream& os)
     os << std::endl;
     os << "AssemblySeries\t" << fullName("") << std::endl;
     ASMTSpatialContainer::storeOnTimeSeries(os);
-    for (auto part : *parts) part->storeOnTimeSeries(os);
-    for (auto joint : *joints) joint->storeOnTimeSeries(os);
-    for (auto motion : *motions) motion->storeOnTimeSeries(os);
-    for (auto forTor : *forcesTorques) forTor->storeOnTimeSeries(os);
+    for (auto part : *parts)
+        part->storeOnTimeSeries(os);
+    for (auto joint : *joints)
+        joint->storeOnTimeSeries(os);
+    for (auto motion : *motions)
+        motion->storeOnTimeSeries(os);
+    for (auto forTor : *forcesTorques)
+        forTor->storeOnTimeSeries(os);
 }
 
-void ASMTAssembly::setFilename(const std::string& str)
+void ASMTAssembly::setFilename(const std::string &str)
 {
     std::stringstream ss;
     ss << "FileName = " << str;
@@ -1536,9 +1760,10 @@ void ASMTAssembly::setFilename(const std::string& str)
 void ASMTAssembly::updateFromInputState()
 {
     ASMTSpatialContainer::updateFromInputState();
-    for (auto part : *parts) part->updateFromInputState();
-    for (auto joint : *joints) joint->updateFromInputState();
-    for (auto motion : *motions) motion->updateFromInputState();
+    for (auto part : *parts)
+        part->updateFromInputState();
+    for (auto joint : *joints)
+        joint->updateFromInputState();
+    for (auto motion : *motions)
+        motion->updateFromInputState();
 }
-
-

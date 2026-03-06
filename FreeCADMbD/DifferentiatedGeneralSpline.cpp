@@ -14,12 +14,29 @@ using namespace MbD;
 
 DifferentiatedGeneralSpline::DifferentiatedGeneralSpline(Symsptr arg, Symsptr spline, size_t derivOrder) : AnyGeneralSpline(arg), generalSpline(spline), derivativeOrder(derivOrder)
 {
-    throw SimulationStoppingError("To be implemented.");
+}
+
+DifferentiatedGeneralSpline::DifferentiatedGeneralSpline(Symsptr arg) : AnyGeneralSpline(arg)
+{
 }
 
 std::shared_ptr<DifferentiatedGeneralSpline> DifferentiatedGeneralSpline::With()
 {
     auto inst = std::make_shared<DifferentiatedGeneralSpline>();
+    inst->initialize();
+    return inst;
+}
+
+std::shared_ptr<DifferentiatedGeneralSpline> MbD::DifferentiatedGeneralSpline::With(Symsptr arg)
+{
+    auto inst = std::make_shared<DifferentiatedGeneralSpline>(arg);
+    inst->initialize();
+    return inst;
+}
+
+std::shared_ptr<DifferentiatedGeneralSpline> MbD::DifferentiatedGeneralSpline::With(Symsptr arg, Symsptr spline, size_t derivOrder)
+{
+    auto inst = std::make_shared<DifferentiatedGeneralSpline>(arg, spline, derivOrder);
     inst->initialize();
     return inst;
 }
@@ -45,4 +62,14 @@ std::ostream& DifferentiatedGeneralSpline::printOn(std::ostream& s) const
 {
     s << "deriv(" << *generalSpline << ", " << derivativeOrder << ")";
     return s;
+}
+
+Symsptr DifferentiatedGeneralSpline::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>>)
+{
+    return sptr;
+}
+
+Symsptr DifferentiatedGeneralSpline::simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>>)
+{
+    return sptr;
 }

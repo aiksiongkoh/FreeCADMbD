@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cmake-configure-vs2022-x64",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "-S",
+        ".",
+        "-B",
+        "build-vs",
+        "-G",
+        "Visual Studio 17 2022",
+        "-A",
+        "x64",
+        "-DFREECADMBD_BUILD_EXE=ON",
+        "-DFREECADMBD_BUILD_TESTS=ON"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "cmake-build-debug-main",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "build-vs",
+        "--config",
+        "Debug",
+        "--target",
+        "FreeCADMbDMain"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "cmake-build-debug-main-configure",
+      "dependsOn": [
+        "cmake-configure-vs2022-x64",
+        "cmake-build-debug-main"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}
+
+

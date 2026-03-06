@@ -52,20 +52,26 @@ void MarkerFrameqc::initializeLocally()
             }
         }
     }
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->initializeLocally(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->initializeLocally(); 
+        });
 }
 /// <summary>
 /// 
 /// </summary>
 void MarkerFrameqc::initializeGlobally()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->initializeGlobally(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->initializeGlobally(); 
+        });
 }
 
 void MarkerFrameqc::postInput()
 {
     CartesianFrame::postInput();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postInput(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postInput(); 
+        });
 }
 
 void MarkerFrameqc::simUpdateAll()
@@ -142,37 +148,51 @@ size_t MarkerFrameqc::iqE() const
 
 void MarkerFrameqc::fillqsu(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsu(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsu(col); 
+        });
 }
 
-void MarkerFrameqc::fillqsuWeights(DiagMatDsptr diagMat)
+void MarkerFrameqc::fillqsuWeights(DiagMatDsptr mat)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsuWeights(diagMat); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsuWeights(mat); 
+        });
 }
 
 void MarkerFrameqc::fillqsuddotlam(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsuddotlam(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsuddotlam(col); 
+        });
 }
 
 void MarkerFrameqc::fillqsulam(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsulam(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsulam(col); 
+        });
 }
 
 void MarkerFrameqc::fillpqsumu(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillpqsumu(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillpqsumu(col); 
+        });
 }
 
 void MarkerFrameqc::fillpqsumudot(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillpqsumudot(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillpqsumudot(col); 
+        });
 }
 
 void MarkerFrameqc::fillqsudot(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsudot(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsudot(col); 
+        });
 }
 
 void MarkerFrameqc::fillqsudotPlam(FColDsptr col)
@@ -185,29 +205,39 @@ void MarkerFrameqc::fillqsudotPlamDeriv(FColDsptr col)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void MarkerFrameqc::fillqsudotWeights(DiagMatDsptr diagMat)
+void MarkerFrameqc::fillqsudotWeights(DiagMatDsptr mat)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->fillqsudotWeights(diagMat); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->fillqsudotWeights(mat); 
+        });
 }
 
 void MarkerFrameqc::setqsu(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsu(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setqsu(col); 
+        });
 }
 
 void MarkerFrameqc::setqsulam(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsulam(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setqsulam(col); 
+        });
 }
 
 void MarkerFrameqc::setqsudot(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsudot(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setqsudot(col); 
+        });
 }
 
 void MarkerFrameqc::setqsudotlam(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsudotlam(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setqsudotlam(col); 
+        });
 }
 
 void MarkerFrameqc::setqsudotPlam(FColDsptr col)
@@ -223,7 +253,9 @@ void MarkerFrameqc::setqsudotPlamDeriv(FColDsptr col)
 void MarkerFrameqc::postPosICIteration()
 {
     CartesianFrame::postPosICIteration();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postPosICIteration(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postPosICIteration(); 
+        });
 }
 
 void MarkerFrameqc::postStaticIteration()
@@ -233,40 +265,54 @@ void MarkerFrameqc::postStaticIteration()
 
 void MarkerFrameqc::postPosIC()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postPosIC(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postPosIC(); 
+        });
 }
 
 void MarkerFrameqc::preDyn()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->preDyn(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->preDyn(); 
+        });
 }
 
 void MarkerFrameqc::storeDynState()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->storeDynState(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->storeDynState(); 
+        });
 }
 
 void MarkerFrameqc::preVelIC()
 {
     CartesianFrame::preVelIC();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->preVelIC(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->preVelIC(); 
+        });
 }
 
 void MarkerFrameqc::postVelIC()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postVelIC(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postVelIC(); 
+        });
 }
 
 void MarkerFrameqc::preAccIC()
 {
     CartesianFrame::preAccIC();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->preAccIC(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->preAccIC(); 
+        });
 }
 
 void MarkerFrameqc::preDynOutput()
 {
     CartesianFrame::preDynOutput();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->preDynOutput(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->preDynOutput(); 
+        });
 }
 
 FColDsptr MarkerFrameqc::qXdot() const
@@ -311,7 +357,9 @@ FColDsptr MarkerFrameqc::qEddot() const
 
 void MarkerFrameqc::setqsuddotlam(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setqsuddotlam(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setqsuddotlam(col); 
+        });
 }
 
 FColFMatDsptr MarkerFrameqc::pAOppE()
@@ -328,40 +376,54 @@ FMatDsptr MarkerFrameqc::aBOp() const
 
 void MarkerFrameqc::postDynStep()
 {
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postDynStep(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postDynStep(); 
+        });
 }
 
 void MarkerFrameqc::setpqsumu(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setpqsumu(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setpqsumu(col); 
+        });
 }
 
 void MarkerFrameqc::setpqsumudot(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setpqsumudot(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setpqsumudot(col); 
+        });
 }
 
 void MarkerFrameqc::setpqsumuddot(FColDsptr col)
 {
-    endFramesDo([&](const EndFrmsptr& endFrame) { endFrame->setpqsumuddot(col); });
+    endFramesDo([&](const EndFrmsptr& endFrame) { 
+        endFrame->setpqsumuddot(col); 
+        });
 }
 
 void MarkerFrameqc::postDynPredictor()
 {
     CartesianFrame::postDynPredictor();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postDynPredictor(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postDynPredictor(); 
+        });
 }
 
 void MarkerFrameqc::postDynOutput()
 {
     CartesianFrame::postDynOutput();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postDynOutput(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postDynOutput(); 
+        });
 }
 
 void MarkerFrameqc::postDynCorrectorIteration()
 {
     CartesianFrame::postDynCorrectorIteration();
-    endFramesDo([](EndFrmsptr endFrame) { endFrame->postDynCorrectorIteration(); });
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->postDynCorrectorIteration(); 
+        });
 }
 
 FMatDsptr MarkerFrameqc::pvOmOpE()

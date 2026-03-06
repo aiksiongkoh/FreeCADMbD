@@ -23,7 +23,8 @@ namespace MbD {
         void initializeGlobally() override;
         void connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj) override;
 
-        double pitchRadius = 1.0, aConstant = 0.0;
+        double pitchRadius = 1.0;
+        double aConstant = std::numeric_limits<double>::min();
     };
 }
 

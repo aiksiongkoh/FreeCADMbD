@@ -24,7 +24,8 @@ namespace MbD {
         void initializeGlobally() override;
         void connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj) override;
 
-        double pitch = 1.0, aConstant = 0.0;
+        double pitch = 1.0;
+        double aConstant = std::numeric_limits<double>::min();
     };
 }
 

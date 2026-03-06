@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "InPlaneJoint.h"
-#include "TranslationConstraintIJ.h"
+#include "TranslationConstraintIeJe.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -20,7 +20,7 @@ void InPlaneJoint::initializeGlobally()
 
 void InPlaneJoint::createInPlaneConstraint()
 {
-    auto tranCon = TranslationConstraintIJ::With(eFrmI, eFrmJ, 2);
+    auto tranCon = TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2);
     tranCon->setConstant(offset);
     addConstraint(tranCon);
 }

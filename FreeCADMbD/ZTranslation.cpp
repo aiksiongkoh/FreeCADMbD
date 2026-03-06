@@ -35,7 +35,7 @@ void ZTranslation::initializeGlobally()
 {
     if (constraints->empty()) {
         initMotions();
-        auto tranCon = TranslationConstraintIJ::With(eFrmI, eFrmJ, 2);
+        auto tranCon = TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2);
         addConstraint(tranCon);
         root()->hasChanged = true;
     }

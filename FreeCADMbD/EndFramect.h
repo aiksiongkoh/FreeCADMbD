@@ -15,6 +15,9 @@ namespace MbD {
 
     class EndFramect : public EndFramec
     {
+        //rOeO = rOpO + aAOp * rpep
+        //rOeO = rOpO(qX) + aAOp(qE) * (rpmp + aApm * (rmem(t)))
+        //aAOe = aAOp(qE) * aApm * aAme(t)
         //time rmemBlks prmemptBlks pprmemptptBlks phiThePsiBlks pPhiThePsiptBlks ppPhiThePsiptptBlks 
         //rmem prmempt pprmemptpt aAme pAmept ppAmeptpt prOeOpt pprOeOpEpt pprOeOptpt pAOept ppAOepEpt ppAOeptpt 
     public:
@@ -48,6 +51,7 @@ namespace MbD {
         void postDynPredictor() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void simUpdateAll() override;
 
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
         std::shared_ptr<FullColumn<Symsptr>> phiThePsiBlks, pPhiThePsiptBlks, ppPhiThePsiptptBlks;

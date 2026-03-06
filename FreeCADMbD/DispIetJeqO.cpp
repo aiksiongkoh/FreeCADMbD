@@ -8,6 +8,7 @@
 
 #include "DispIetJeqO.h"
 #include "EndFrameqc.h"
+#include "EndFramect.h"
 
 using namespace MbD;
 
@@ -18,24 +19,15 @@ std::shared_ptr<DispIetJeqO> DispIetJeqO::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
-void DispIetJeqO::initializeGlobally()
-{
-    //Variables are constants.
-    prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
-    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->pprOeOpEpE;
-}
-
 void MbD::DispIetJeqO::preVelIC()
 {
-    DispIecJeqcO::preVelIC();
+    DispIeJeqO::preVelIC();
     calcpvaluept();
 }
 
 void MbD::DispIetJeqO::preAccIC()
 {
-    DispIecJeqcO::preAccIC();
-    calcppvaluepXJpt();
-    calcppvaluepEJpt();
+    DispIeJeqO::preAccIC();
     calcppvalueptpt();
 }
 
@@ -59,9 +51,12 @@ FColDsptr MbD::DispIetJeqO::getpprIeJeOptpt()
     return pprIeJeOptpt;
 }
 
-void DispIetJeqO::simUpdateAll()
+void DispIetJeqO::calcpvaluept()
 {
-    //rIeJeO = rOJeO - rOIeO
-    DispIecJecO::simUpdateAll();
-    prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->prOeOpE;
+    prIeJeOpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->prOeOpt->negated();
+}
+
+void DispIetJeqO::calcppvalueptpt()
+{
+    pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
 }

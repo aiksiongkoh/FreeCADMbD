@@ -48,6 +48,7 @@ void System::initialize()
     time = std::make_shared<SymTime>();
     createAssemblyFrame();
     parts = std::make_shared<std::vector<std::shared_ptr<Part>>>();
+    dispIeJeOs = std::make_shared<std::vector<std::shared_ptr<DispIeJeO>>>();
     joints = std::make_shared<std::vector<std::shared_ptr<JointIJ>>>();
     motions = std::make_shared<std::vector<std::shared_ptr<PrescribedMotion>>>();
     limits = std::make_shared<std::vector<std::shared_ptr<LimitIJ>>>();
@@ -95,6 +96,7 @@ void System::addForceTorque(std::shared_ptr<ForceTorqueIJ> forTor)
 {
     forTor->owner = this;
     forcesTorques->push_back(forTor);
+    forTor->useUniqueDispIeJeO();
 }
 
 void System::addGravity(std::shared_ptr<ConstantGravity> grav)
@@ -172,7 +174,9 @@ void System::runKINEMATIC(std::shared_ptr<System> self)
         initializeGlobally();
         if (!hasChanged) break;
     }
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postInput(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postInput();
+        });
     externalSystem->outputFor(INPUT);
     systemSolver->runAllIC();
     externalSystem->outputFor(INITIALCONDITION);
@@ -190,7 +194,9 @@ void System::runDYNAMIC(std::shared_ptr<System> self)
         initializeGlobally();
         if (!hasChanged) break;
     }
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postInput(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postInput();
+        });
     externalSystem->outputFor(INPUT);
     systemSolver->runAllIC();
     externalSystem->outputFor(INITIALCONDITION);
@@ -202,13 +208,17 @@ void System::initializeLocally()
 {
     hasChanged = false;
     time->value = systemSolver->tstart;
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->initializeLocally(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->initializeLocally();
+        });
     systemSolver->initializeLocally();
 }
 
 void System::initializeGlobally()
 {
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->initializeGlobally(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->initializeGlobally();
+        });
     systemSolver->initializeGlobally();
 }
 
@@ -231,14 +241,18 @@ void System::runPreDrag(std::shared_ptr<System> self)
         initializeGlobally();
         if (!hasChanged) break;
     }
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postInput(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postInput();
+        });
     systemSolver->runPreDrag();
     externalSystem->updateFromMbD();
 }
 
 void System::runDragStep(std::shared_ptr<std::vector<std::shared_ptr<Part>>> dragParts) const
 {
-    partsJointsMotionsLimitsForcesTorquesDo([](std::shared_ptr<Item> item) { item->postInput(); });
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postInput();
+        });
     systemSolver->runDragStep(dragParts);
     externalSystem->updateFromMbD();
 }
@@ -259,6 +273,7 @@ void System::partsJointsMotionsLimitsDo(const std::function<void(std::shared_ptr
 {
     f(asmFrame);
     for (const auto part : *parts) f(part);
+    for (const auto dispIeJeO : *dispIeJeOs) f(dispIeJeO);
     for (const auto joint : *joints) f(joint);
     for (const auto motion : *motions) f(motion);
     for (const auto limit : *limits) f(limit);
@@ -268,6 +283,7 @@ void System::partsJointsMotionsLimitsForcesTorquesDo(const std::function<void(st
 {
     f(asmFrame);
     for (const auto part : *parts) f(part);
+    for (const auto dispIeJeO : *dispIeJeOs) f(dispIeJeO);
     for (const auto joint : *joints) f(joint);
     for (const auto motion : *motions) f(motion);
     for (const auto limit : *limits) f(limit);
@@ -293,35 +309,45 @@ void System::mbdTimeValue(double t) const
 std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> System::essentialConstraints() const
 {
     auto essenConstraints = std::make_shared<std::vector<std::shared_ptr<Constraint>>>();
-    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillEssenConstraints(essenConstraints); });
+    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) {
+        item->fillEssenConstraints(essenConstraints);
+        });
     return essenConstraints;
 }
 
 std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> System::displacementConstraints() const
 {
     auto dispConstraints = std::make_shared<std::vector<std::shared_ptr<Constraint>>>();
-    jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> joint) { joint->fillDispConstraints(dispConstraints); });
+    jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> joint) {
+        joint->fillDispConstraints(dispConstraints);
+        });
     return dispConstraints;
 }
 
 std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> System::perpendicularConstraints() const
 {
     auto perpenConstraints = std::make_shared<std::vector<std::shared_ptr<Constraint>>>();
-    jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> joint) { joint->fillPerpenConstraints(perpenConstraints); });
+    jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> joint) {
+        joint->fillPerpenConstraints(perpenConstraints);
+        });
     return perpenConstraints;
 }
 
 std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> System::allRedundantConstraints() const
 {
     auto redunConstraints = std::make_shared<std::vector<std::shared_ptr<Constraint>>>();
-    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillRedundantConstraints(redunConstraints); });
+    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) {
+        item->fillRedundantConstraints(redunConstraints);
+        });
     return redunConstraints;
 }
 
 std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> System::allConstraints() const
 {
     auto constraints = std::make_shared<std::vector<std::shared_ptr<Constraint>>>();
-    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillConstraints(constraints); });
+    partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) {
+        item->fillConstraints(constraints);
+        });
     return constraints;
 }
 

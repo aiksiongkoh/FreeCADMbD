@@ -27,6 +27,7 @@ namespace MbD {
         virtual FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
         virtual FColDsptr getprIeJeOpt();
         virtual FColDsptr getpprIeJeOptpt();
+        bool hasSameEndFrms(const std::shared_ptr<DispIecJecO> other) const;
 
         FColDsptr rIeJeO;
     };

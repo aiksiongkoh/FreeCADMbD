@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <iostream>
 
 #include "AccNewtonRaphson.h"
@@ -26,7 +26,9 @@ std::shared_ptr<AccNewtonRaphson> AccNewtonRaphson::With()
 
 void AccNewtonRaphson::askSystemToUpdate()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->postAccICIteration(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postAccICIteration();
+        });
 }
 
 void AccNewtonRaphson::assignEquationNumbers()
@@ -103,7 +105,9 @@ void AccNewtonRaphson::incrementIterNo()
 void AccNewtonRaphson::initializeGlobally()
 {
     SystemNewtonRaphson::initializeGlobally();
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->fillqsuddotlam(x); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->fillqsuddotlam(x); 
+        });
 }
 
 void AccNewtonRaphson::logSingularMatrixMessage()
@@ -116,17 +120,23 @@ void AccNewtonRaphson::logSingularMatrixMessage()
 
 void AccNewtonRaphson::passRootToSystem()
 {
-    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { item->setqsuddotlam(x); });
+    system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
+        item->setqsuddotlam(x); 
+        });
 }
 
 void AccNewtonRaphson::postRun()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->postAccIC(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postAccIC();
+        });
 }
 
 void AccNewtonRaphson::preRun()
 {
-    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { item->preAccIC(); });
+    system->partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) { 
+        item->preAccIC(); 
+        });
 }
 
 void AccNewtonRaphson::handleSingularMatrix()
@@ -136,12 +146,14 @@ void AccNewtonRaphson::handleSingularMatrix()
     if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
         matrixSolver = GESpMatParPvPrecise::With();
         this->solveEquations();
-    } else {
+    }
+    else {
         str = typeid(r).name();
         if (str.find("GESpMatParPvPrecise") != std::string::npos) {
             this->logSingularMatrixMessage();
             matrixSolver->throwSingularMatrixError("AccNewtonRaphson");
-        } else {
+        }
+        else {
             throw SimulationStoppingError("To be implemented.");
         }
     }

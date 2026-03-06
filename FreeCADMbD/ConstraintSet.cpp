@@ -8,18 +8,18 @@
 
 #include<algorithm>
 #include <memory>
-#include <typeinfo>
 
 #include "ConstraintSet.h"
 #include "Constraint.h"
 #include "EndFramec.h"
-#include "EndFramect.h"
 #include "EndFrameqc.h"
+#include "EndFramect.h"
 #include "EndFrameqct.h"
 #include "RedundantConstraint.h"
 #include "MarkerFramec.h"
 #include "ForceTorqueData.h"
 #include "System.h"
+#include "ConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -37,9 +37,8 @@ void ConstraintSet::initialize()
 
 void ConstraintSet::initializeGlobally()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->initializeGlobally();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->initializeGlobally();
         });
 }
 
@@ -59,9 +58,8 @@ void ConstraintSet::initializeLocally()
             }
         }
     }
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->initializeLocally();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->initializeLocally();
         });
 }
 
@@ -69,76 +67,70 @@ void ConstraintSet::addConstraint(std::shared_ptr<Constraint> con)
 {
     con->owner = this;
     constraints->push_back(con);
+    auto conIeJe = std::dynamic_pointer_cast<ConstraintIeJe>(con);
+    if (conIeJe) conIeJe->useUniqueDispIeJeO();
 }
+
 void ConstraintSet::postInput()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postInput();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postInput();
         });
 }
 
 void ConstraintSet::prePosIC()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->prePosIC();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->prePosIC();
         });
 }
 
 void ConstraintSet::prePosKine()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->prePosKine();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->prePosKine();
         });
 }
 
 void ConstraintSet::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillEssenConstraints(essenConstraints);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillEssenConstraints(essenConstraints);
         });
 }
 
 void ConstraintSet::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillDispConstraints(dispConstraints);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillDispConstraints(dispConstraints);
         });
 }
 
 void ConstraintSet::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillPerpenConstraints(perpenConstraints);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillPerpenConstraints(perpenConstraints);
         });
 }
 
 void ConstraintSet::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillConstraints(allConstraints);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillConstraints(allConstraints);
         });
 }
 
 void ConstraintSet::fillqsulam(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillqsulam(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillqsulam(col);
         });
 }
 
 void ConstraintSet::fillqsudot(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillqsudot(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillqsudot(col);
         });
 }
 
@@ -148,9 +140,8 @@ void ConstraintSet::fillqsudotWeights(DiagMatDsptr)
 
 void ConstraintSet::useEquationNumbers()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->useEquationNumbers();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->useEquationNumbers();
         });
 }
 
@@ -165,145 +156,127 @@ std::string ConstraintSet::constraintSpecs()
 
 void ConstraintSet::setqsulam(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setqsulam(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setqsulam(col);
         });
 }
 
 void ConstraintSet::setqsudotlam(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setqsudotlam(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setqsudotlam(col);
         });
 }
 
 void ConstraintSet::postPosICIteration()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postPosICIteration();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postPosICIteration();
         });
 }
 
 void ConstraintSet::fillPosICError(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillPosICError(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillPosICError(col);
         });
 }
 
 void ConstraintSet::fillPosICJacob(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con) 
-        {
-            con->fillPosICJacob(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillPosICJacob(mat);
         });
 }
 
 void ConstraintSet::postPosIC()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postPosIC();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postPosIC();
         });
 }
 
 void ConstraintSet::preDyn()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->preDyn();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->preDyn();
         });
 }
 
 void ConstraintSet::fillPosKineError(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillPosKineError(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillPosKineError(col);
         });
 }
 
 void ConstraintSet::fillPosKineJacob(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillPosKineJacob(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillPosKineJacob(mat);
         });
 }
 
 void ConstraintSet::fillqsuddotlam(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillqsuddotlam(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillqsuddotlam(col);
         });
 }
 
 void ConstraintSet::preVelIC()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->preVelIC();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->preVelIC();
         });
 }
 
 void ConstraintSet::fillVelICError(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillVelICError(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillVelICError(col);
         });
 }
 
 void ConstraintSet::fillVelICJacob(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillVelICJacob(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillVelICJacob(mat);
         });
 }
 
 void ConstraintSet::preAccIC()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->preAccIC();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->preAccIC();
         });
 }
 
 void ConstraintSet::fillAccICIterError(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillAccICIterError(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillAccICIterError(col);
         });
 }
 
 void ConstraintSet::fillAccICIterJacob(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillAccICIterJacob(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillAccICIterJacob(mat);
         });
 }
 
 void ConstraintSet::setqsuddotlam(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setqsuddotlam(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setqsuddotlam(col);
         });
 }
 
 void ConstraintSet::postDynStep()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postDynStep();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postDynStep();
         });
 }
 
@@ -313,125 +286,111 @@ void ConstraintSet::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
     eFrmJ = frmj;
 }
 
-FColDsptr ConstraintSet::aFIeJtIe() const
+FColDsptr ConstraintSet::aFIeIe() const
 {
-    //"aFIeJtIe is joint force on end frame Ie expresses in Ie components."
+    //"aFIeIe is joint force on end frame Ie expresses in Ie components."
     auto frmIqc = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
-    return frmIqc->aAeO()->timesFullColumn(aFIeJtO());
+    return frmIqc->aAeO()->timesFullColumn(aFIeO());
 }
 
-FColDsptr ConstraintSet::aFIeJtO() const
+FColDsptr ConstraintSet::aFIeO() const
 {
-    //"aFIeJtO is joint force on end frame Ie expresses in O components."
-    auto aFIeJtO = std::make_shared <FullColumn<double>>(3);
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->addToJointForceI(aFIeJtO);
+    //"aFIeO is joint force on end frame Ie expresses in O components."
+    auto aFIeO = std::make_shared <FullColumn<double>>(3);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->addToJointForceI(aFIeO);
         });
-    return aFIeJtO;
+    return aFIeO;
 }
 
 void ConstraintSet::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillRedundantConstraints(redunConstraints);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillRedundantConstraints(redunConstraints);
         });
 }
 
 void ConstraintSet::fillpqsumu(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillpqsumu(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillpqsumu(col);
         });
 }
 
 void ConstraintSet::fillpqsumudot(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillpqsumudot(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillpqsumudot(col);
         });
 }
 
 void ConstraintSet::setpqsumu(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setpqsumu(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setpqsumu(col);
         });
 }
 
 void ConstraintSet::setpqsumudot(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setpqsumudot(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setpqsumudot(col);
         });
 }
 
 void ConstraintSet::postDynPredictor()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postDynPredictor();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postDynPredictor();
         });
 }
 
 void ConstraintSet::fillDynError(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillDynError(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillDynError(col);
         });
 }
 
 void ConstraintSet::fillpFpy(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillpFpy(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillpFpy(mat);
         });
 }
 
 void ConstraintSet::fillpFpydot(SpMatDsptr mat)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->fillpFpydot(mat);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->fillpFpydot(mat);
         });
 }
 
 void ConstraintSet::postDynCorrectorIteration()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postDynCorrectorIteration();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postDynCorrectorIteration();
         });
 }
 
 void ConstraintSet::postDynOutput()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->postDynOutput();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->postDynOutput();
         });
 }
 
 void ConstraintSet::preDynOutput()
 {
-    constraintsDo([](std::shared_ptr<Constraint> con)
-        {
-            con->preDynOutput();
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->preDynOutput();
         });
 }
 
 void ConstraintSet::setpqsumuddot(FColDsptr col)
 {
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->setpqsumuddot(col);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->setpqsumuddot(col);
         });
 }
 
@@ -501,30 +460,28 @@ FColDsptr ConstraintSet::aFX() const
     return jointForceI();
 }
 
-FColDsptr ConstraintSet::aTIeJtIe() const
+FColDsptr ConstraintSet::aTIeIe() const
 {
-    //"aTIeJtIe is torque on part containing end frame Ie expressed in Ie components."
-    return eFrmI->aAeO()->timesFullColumn(aTIeJtO());
+    //"aTIeIe is torque on part containing end frame Ie expressed in Ie components."
+    return eFrmI->aAeO()->timesFullColumn(aTIeO());
 }
 
-FColDsptr ConstraintSet::aTIeJtO() const
+FColDsptr ConstraintSet::aTIeO() const
 {
-    //"aTIeJtO is torque on part containing end frame Ie expressed in O components."
-    auto aTIeJtO = std::make_shared <FullColumn<double>>(3);
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->addToJointTorqueI(aTIeJtO);
+    //"aTIeO is torque on part containing end frame Ie expressed in O components."
+    auto aTIeO = std::make_shared <FullColumn<double>>(3);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->addToJointTorqueI(aTIeO);
         });
-    return aTIeJtO;
+    return aTIeO;
 }
 
 FColDsptr ConstraintSet::jointForceI() const
 {
     //"jointForceI is force on MbD marker I."
     auto jointForce = std::make_shared <FullColumn<double>>(3);
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->addToJointForceI(jointForce);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->addToJointForceI(jointForce);
         });
     return jointForce;
 }
@@ -538,9 +495,8 @@ FColDsptr ConstraintSet::jointTorqueI() const
 {
     //"jointTorqueI is torque on MbD marker I."
     auto jointTorque = std::make_shared <FullColumn<double>>(3);
-    constraintsDo([&](std::shared_ptr<Constraint> con)
-        {
-            con->addToJointTorqueI(jointTorque);
+    constraintsDo([&](std::shared_ptr<Constraint> con) {
+        con->addToJointTorqueI(jointTorque);
         });
     return jointTorque;
 }

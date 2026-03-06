@@ -7,6 +7,7 @@
  ***************************************************************************/
  
 #include "LineInPlaneJoint.h"
+#include "DirectionCosineConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -30,7 +31,7 @@ void LineInPlaneJoint::initializeGlobally()
     if (constraints->empty())
     {
         createInPlaneConstraint();
-        addConstraint(DirectionCosineConstraintIJ::With(eFrmI, eFrmJ, 2, 2));
+        addConstraint(DirectionCosineConstraintIeJe::With(eFrmI, eFrmJ, 2, 2));
         root()->hasChanged = true;
     }
     else {

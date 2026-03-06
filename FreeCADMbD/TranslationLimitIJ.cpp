@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "TranslationLimitIJ.h"
-#include "TranslationConstraintIJ.h"
+#include "TranslationConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -22,7 +22,7 @@ std::shared_ptr<TranslationLimitIJ> TranslationLimitIJ::With()
 void TranslationLimitIJ::initializeGlobally()
 {
     if (constraints->empty()) {
-        auto transConIJ = TranslationConstraintIJ::With(eFrmI, eFrmJ, 2);
+        auto transConIJ = TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2);
         transConIJ->setConstant(limit);
         addConstraint(transConIJ);
         this->root()->hasChanged = true;

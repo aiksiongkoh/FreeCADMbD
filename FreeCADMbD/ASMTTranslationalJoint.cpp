@@ -37,8 +37,3 @@ void ASMTTranslationalJoint::storeOnTimeSeries(std::ofstream& os)
     os << "TranslationalJointSeries\t" << fullName("") << std::endl;
     ASMTItemIJ::storeOnTimeSeries(os);
 }
-
-void ASMTTranslationalJoint::updateFromMbD()
-{
-    ASMTConstraintSet::updateFromMbD();
-}

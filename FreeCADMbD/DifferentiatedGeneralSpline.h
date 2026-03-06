@@ -16,14 +16,20 @@ namespace MbD {
         //derivativeOrder
     public:
         DifferentiatedGeneralSpline() = default;
+        DifferentiatedGeneralSpline(Symsptr arg);
         DifferentiatedGeneralSpline(Symsptr arg, Symsptr spline, size_t derivOrder);
         static std::shared_ptr<DifferentiatedGeneralSpline> With();
+        static std::shared_ptr<DifferentiatedGeneralSpline> With(Symsptr arg);
+        static std::shared_ptr<DifferentiatedGeneralSpline> With(Symsptr arg, Symsptr spline, size_t derivOrder);
         
         double getValue() override;
         Symsptr differentiateWRTx() override;
         Symsptr clonesptr() override;
 
         std::ostream& printOn(std::ostream& s) const override;
+
+        Symsptr expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set);
+        Symsptr simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set) override;
 
         Symsptr generalSpline;
         size_t derivativeOrder;
