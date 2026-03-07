@@ -123,10 +123,10 @@
      #Forces/couples: 
 
          #structural internal force: 1
-             set: integer structural_internal_force_1 = 1; #structural interal force label
+             set: integer structural_internal_force_1 = 1; #structural internal force label
 
          #structural internal force: 2
-             set: integer structural_internal_force_2 = 2; #structural interal force label
+             set: integer structural_internal_force_2 = 2; #structural internal force label
 
      #Nodes: initial conditions
 

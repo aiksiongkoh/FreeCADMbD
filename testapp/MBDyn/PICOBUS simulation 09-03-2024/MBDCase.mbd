@@ -278,55 +278,55 @@
              set: integer structural_force_1 = 1; #structural force label
 
          #structural internal force: 2
-             set: integer structural_internal_force_2 = 2; #structural interal force label
+             set: integer structural_internal_force_2 = 2; #structural internal force label
 
              set: real Kc_2 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_2 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 3
-             set: integer structural_internal_force_3 = 3; #structural interal force label
+             set: integer structural_internal_force_3 = 3; #structural internal force label
 
              set: real Kc_3 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_3 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 4
-             set: integer structural_internal_force_4 = 4; #structural interal force label
+             set: integer structural_internal_force_4 = 4; #structural internal force label
 
              set: real Kc_4 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_4 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 5
-             set: integer structural_internal_force_5 = 5; #structural interal force label
+             set: integer structural_internal_force_5 = 5; #structural internal force label
 
              set: real Kc_5 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_5 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 6
-             set: integer structural_internal_force_6 = 6; #structural interal force label
+             set: integer structural_internal_force_6 = 6; #structural internal force label
 
              set: real Kc_6 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_6 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 7
-             set: integer structural_internal_force_7 = 7; #structural interal force label
+             set: integer structural_internal_force_7 = 7; #structural internal force label
 
              set: real Kc_7 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_7 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 8
-             set: integer structural_internal_force_8 = 8; #structural interal force label
+             set: integer structural_internal_force_8 = 8; #structural internal force label
 
              set: real Kc_8 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_8 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 9
-             set: integer structural_internal_force_9 = 9; #structural interal force label
+             set: integer structural_internal_force_9 = 9; #structural internal force label
 
              set: real Kc_9 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_9 = 300.0; #Damping coefficient for contact force
 
          #structural internal force: 11
-             set: integer structural_internal_force_11 = 11; #structural interal force label
+             set: integer structural_internal_force_11 = 11; #structural internal force label
 
              set: real Kc_11 = 100000.0; #Stiffness coefficient for contact force
              set: real Cc_11 = 300.0; #Damping coefficient for contact force
