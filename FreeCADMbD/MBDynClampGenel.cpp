@@ -19,9 +19,9 @@ void MBDynClampGenel::parseMBDyn(std::string line)
     readLabel(arguments);
     type = readStringNoSpacesOffTop(arguments);
     nodeName = readStringNoSpacesOffTop(arguments);
-    assert(readStringNoSpacesOffTop(arguments) == "abstract");
+    readStringNoSpacesOffTopEqualOrThrow(arguments, "abstract");
     valueType = readStringNoSpacesOffTop(arguments);
-    assert(readStringNoSpacesOffTop(arguments) == "string");
+    readStringNoSpacesOffTopEqualOrThrow(arguments, "string");
     formula = popOffTop(arguments);
     formula = std::regex_replace(formula, std::regex("\""), "");
 }

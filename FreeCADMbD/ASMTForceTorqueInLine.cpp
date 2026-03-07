@@ -32,13 +32,13 @@ void ASMTForceTorqueInLine::parseASMT(std::vector<std::string>& lines)
 
 void ASMTForceTorqueInLine::readTension(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "tension");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "tension");
     tensionFunc = readStringTrimmedOffTop(lines);
 }
 
 void ASMTForceTorqueInLine::readTwist(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "twist");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "twist");
     twistFunc = readStringTrimmedOffTop(lines);
 }
 

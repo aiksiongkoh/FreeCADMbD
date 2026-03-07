@@ -978,7 +978,7 @@
              1.7763568394002505e-18, -1.548931999999604e-05, 0.1538068, #<absolute_pin_position> [m]
              3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #<absolute_orientation_matrix> 
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_2->ACTIVATION: Inconditional during assembly and simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_2->ACTIVATION: Unconditonal during assembly and simulation
      joint: joint_2,
          in line,
          structural_node_1, #<base_entity_label>
@@ -994,7 +994,7 @@
          structural_node_2, #<action_entity_label>
              orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_4->ACTIVATION: Inconditional during assembly and conditional during simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_4->ACTIVATION: Unconditonal during assembly and conditional during simulation
      driven: 6, string, "X_3_4< X_3_3",
      joint: joint_6,
          in line,
@@ -1012,7 +1012,7 @@
          structural_node_4, #<action_entity_label>
              orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_7->ACTIVATION: Inconditional during assembly and conditional during simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_7->ACTIVATION: Unconditonal during assembly and conditional during simulation
      driven: 9, string, "X_3_4< X_3_3",
      joint: joint_9,
          in line,
@@ -1030,7 +1030,7 @@
          structural_node_7, #<action_entity_label>
              orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_10->ACTIVATION: Inconditional during assembly and conditional during simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_10->ACTIVATION: Unconditonal during assembly and conditional during simulation
      driven: 12, string, "X_3_10< X_3_3",
      joint: joint_12,
          in line,
@@ -1048,7 +1048,7 @@
          structural_node_10, #<action_entity_label>
              orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_13->ACTIVATION: Inconditional during assembly and conditional during simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_13->ACTIVATION: Unconditonal during assembly and conditional during simulation
      driven: 15, string, "X_3_13< X_3_3",
      joint: joint_15,
          in line,
@@ -1066,7 +1066,7 @@
          structural_node_13, #<action_entity_label>
              orientation, 3, 0.0, 0.0, 1.0, 2, 0.0, 1.0, 0.0; #relative_orientation_matrix_2>
 
-     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_13->ACTIVATION: Inconditional during assembly and conditional during simulation
+     #ELEMENT_rigid_body_1<->ELEMENT_rigid_body_13->ACTIVATION: Unconditonal during assembly and conditional during simulation
      driven: 18, string, "Time < 0.5",
      joint: 18, #joint label
          in plane,
@@ -1076,7 +1076,7 @@
          structural_node_13, #<action_entity_label>
              offset, 0.02437182221256309, 9.084828353392783e-19, 0.028999997869347056; #<relative_offset> [m]
 
-     #ELEMENT_rigid_body_22<->ELEMENT_rigid_body_2->ACTIVATION: Inconditional during assembly and simulation
+     #ELEMENT_rigid_body_22<->ELEMENT_rigid_body_2->ACTIVATION: Unconditonal during assembly and simulation
      joint: joint_19,
          total joint,
          structural_node_22, #<base_entity_label>

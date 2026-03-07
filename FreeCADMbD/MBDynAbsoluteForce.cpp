@@ -20,9 +20,9 @@ void MBDynAbsoluteForce::parseMBDyn(std::string line)
     type = readStringNoSpacesOffTop(arguments);
     nodeName = readStringNoSpacesOffTop(arguments);
     rnmn = readPosition(arguments);
-    assert(readStringNoSpacesOffTop(arguments) == "single");
+    readStringNoSpacesOffTopEqualOrThrow(arguments, "single");
     fn = readVector3(arguments);
-    assert(readStringNoSpacesOffTop(arguments) == "string");
+    readStringNoSpacesOffTopEqualOrThrow(arguments, "string");
     formula = popOffTop(arguments);
     formula = std::regex_replace(formula, std::regex("\""), "");
 }

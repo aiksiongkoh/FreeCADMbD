@@ -68,7 +68,8 @@ void MBDynTotalJoint::readMarkerJ(std::vector<std::string>& args)
 
 void MBDynTotalJoint::readPositionConstraints(std::vector<std::string>& args)
 {
-    assert(lineHasTokens(popOffTop(args), "position", "constraint"));
+    auto str = popOffTop(args);
+    assert(lineHasTokens(str, "position", "constraint"));
     positionConstraints = std::vector<std::string>();
     positionConstraints.push_back(readStringNoSpacesOffTop(args));
     positionConstraints.push_back(readStringNoSpacesOffTop(args));
@@ -78,7 +79,8 @@ void MBDynTotalJoint::readPositionConstraints(std::vector<std::string>& args)
 
 void MBDynTotalJoint::readOrientationConstraints(std::vector<std::string>& args)
 {
-    assert(lineHasTokens(popOffTop(args), "orientation", "constraint"));
+    auto str = popOffTop(args);
+    assert(lineHasTokens(str, "orientation", "constraint"));
     orientationConstraints = std::vector<std::string>();
     orientationConstraints.push_back(readStringNoSpacesOffTop(args));
     orientationConstraints.push_back(readStringNoSpacesOffTop(args));
@@ -100,7 +102,7 @@ void MBDynTotalJoint::readOrientationFormulas(std::vector<std::string>& args)
     else if (str == "single") {
         auto vec3 = readVector3(args);
         assert(vec3->at(0) == 0 && vec3->at(1) == 0 && vec3->at(2) == 1);
-        assert(readStringNoSpacesOffTop(args) == "string");
+        readStringNoSpacesOffTopEqualOrThrow(args, "string");
         formula = popOffTop(args);
         formula = std::regex_replace(formula, std::regex("\""), "");
         orientationFormulas = std::vector<std::string>();

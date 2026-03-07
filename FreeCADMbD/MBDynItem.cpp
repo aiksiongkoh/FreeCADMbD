@@ -507,6 +507,16 @@ std::string MBDynItem::readStringNoSpacesOffTop(std::vector<std::string>& args)
     return str;
 }
 
+void MbD::MBDynItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
+{
+    auto topString = readStringNoSpacesOffTop(lines);
+    if (topString != str)
+    {
+        auto errstr = topString + " != " + str;
+        throw SimulationStoppingError(errstr);
+    };
+}
+
 FRowDsptr MBDynItem::readRowOfDoubles(const std::string& line)
 {
     return FRowDsptr();

@@ -58,13 +58,13 @@ std::shared_ptr<ConstraintSet> ASMTTranslationalMotion::mbdClassNew()
 
 void ASMTTranslationalMotion::readMotionJoint(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "MotionJoint");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "MotionJoint");
     motionJoint = readStringNoSpacesOffTop(lines);
 }
 
 void ASMTTranslationalMotion::readTranslationZ(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "TranslationZ");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "TranslationZ");
     translationZ = readStringTrimmedOffTop(lines);
 }
 

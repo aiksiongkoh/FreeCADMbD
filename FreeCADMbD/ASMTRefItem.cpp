@@ -26,7 +26,7 @@ void ASMTRefItem::addMarker(std::shared_ptr<ASMTMarker> marker)
 
 void ASMTRefItem::readMarkers(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Markers");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Markers");
     markers->clear();
     auto it = std::find_if(lines.begin(), lines.end(), [](const std::string& s) {
         return s.find("RefPoint") != std::string::npos;
@@ -40,7 +40,7 @@ void ASMTRefItem::readMarkers(std::vector<std::string>& lines)
 
 void ASMTRefItem::readMarker(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Marker");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Marker");
     auto marker = ASMTMarker::With();
     marker->owner = this;
     marker->parseASMT(lines);

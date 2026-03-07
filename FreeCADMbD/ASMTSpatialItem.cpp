@@ -45,7 +45,7 @@ void ASMTSpatialItem::setRotationMatrix(FMatDsptr mat)
 
 void ASMTSpatialItem::readPosition3D(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Position3D");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Position3D");
     std::istringstream iss(lines[0]);
     position3D = FullColumn<double>::With();
     double d;
@@ -57,7 +57,7 @@ void ASMTSpatialItem::readPosition3D(std::vector<std::string>& lines)
 
 void ASMTSpatialItem::readRotationMatrix(std::vector<std::string>& lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RotationMatrix");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RotationMatrix");
     rotationMatrix = FullMatrix<double>::With(3, 0);
     for (size_t i = 0; i < 3; i++)
     {

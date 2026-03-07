@@ -12,10 +12,10 @@ std::shared_ptr<MBDynDriveMeter> MBDynDriveMeter::With()
 
 void MBDynDriveMeter::readFunction(std::vector<std::string>& args)
 {
-    assert(readStringNoSpacesOffTop(args) == "meter");
-    assert(readDoubleOffTop(args) == 0.0);
-    assert(readStringNoSpacesOffTop(args) == "forever");
-    assert(readStringNoSpacesOffTop(args) == "steps");
+    readStringNoSpacesOffTopEqualOrThrow(args, "meter");
+    readDoubleOffTop(args);
+    readStringNoSpacesOffTopEqualOrThrow(args, "forever");
+    readStringNoSpacesOffTopEqualOrThrow(args, "steps");
     auto steps = readIntOffTop(args);
     auto ss = std::stringstream();
     ss << steps;

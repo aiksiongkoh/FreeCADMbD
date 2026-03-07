@@ -180,7 +180,7 @@ void MBDynJoint::readFunction(std::vector<std::string>& args)
         args.erase(args.begin());
         auto vec3 = readVector3(args);
         assert(vec3->at(0) == 0 && vec3->at(1) == 0 && vec3->at(2) == 1);
-        assert(readStringNoSpacesOffTop(args) == "string");
+        readStringNoSpacesOffTopEqualOrThrow(args, "string");
         formula = popOffTop(args);
         formula = std::regex_replace(formula, std::regex("\""), "");
     }
@@ -196,17 +196,17 @@ void MBDynJoint::readFunction(std::vector<std::string>& args)
 
 void MBDynJoint::readTotalJointFunction(std::vector<std::string>& args)
 {
-    assert(lineHasTokens(args[0], "position", "constraint"));
-    args.erase(args.begin());
-    assert(readStringNoSpacesOffTop(args) == "active");
-    assert(readStringNoSpacesOffTop(args) == "active");
-    assert(readStringNoSpacesOffTop(args) == "active");
-    assert(readStringNoSpacesOffTop(args) == "null");
-    assert(lineHasTokens(args[0], "orientation", "constraint"));
-    args.erase(args.begin());
-    assert(readStringNoSpacesOffTop(args) == "active");
-    assert(readStringNoSpacesOffTop(args) == "active");
-    assert(readStringNoSpacesOffTop(args) == "rotation");
+    auto str = readStringNoSpacesOffTop(args);
+    assert(lineHasTokens(str, "position", "constraint"));
+    readStringNoSpacesOffTopEqualOrThrow(args, "active");
+    readStringNoSpacesOffTopEqualOrThrow(args, "active");
+    readStringNoSpacesOffTopEqualOrThrow(args, "active");
+    readStringNoSpacesOffTopEqualOrThrow(args, "null");
+    str = readStringNoSpacesOffTop(args);
+    assert(lineHasTokens(str, "orientation", "constraint"));
+    readStringNoSpacesOffTopEqualOrThrow(args, "active");
+    readStringNoSpacesOffTopEqualOrThrow(args, "active");
+    readStringNoSpacesOffTopEqualOrThrow(args, "rotation");
     readFunction(args);
 }
 

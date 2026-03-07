@@ -51,7 +51,7 @@ void ASMTSpatialContainer::initialize()
 
 void ASMTSpatialContainer::readRefPoints(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RefPoints");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RefPoints");
     refPoints->clear();
     auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
                            { return s.find("RefCurves") != std::string::npos; });
@@ -65,7 +65,7 @@ void ASMTSpatialContainer::readRefPoints(std::vector<std::string> &lines)
 
 void ASMTSpatialContainer::readRefPoint(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RefPoint");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RefPoint");
     auto refPoint = ASMTRefPoint::With();
     refPoint->owner = this;
     refPoint->parseASMT(lines);
@@ -74,7 +74,7 @@ void ASMTSpatialContainer::readRefPoint(std::vector<std::string> &lines)
 
 void ASMTSpatialContainer::readRefCurves(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RefCurves");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RefCurves");
     refCurves->clear();
     auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
                            { return s.find("RefSurfaces") != std::string::npos; });
@@ -93,7 +93,7 @@ void ASMTSpatialContainer::readRefCurve(std::vector<std::string> &)
 
 void ASMTSpatialContainer::readRefSurfaces(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "RefSurfaces");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "RefSurfaces");
     refSurfaces->clear();
     auto it = std::find_if(lines.begin(), lines.end(), [](const std::string &s)
                            { return s.find("Part") != std::string::npos; });
@@ -459,7 +459,7 @@ void ASMTSpatialContainer::setOmega3D(FColDsptr vec)
 
 void ASMTSpatialContainer::readVelocity3D(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Velocity3D");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Velocity3D");
     std::istringstream iss(lines[0]);
     velocity3D = FullColumn<double>::With();
     double d;
@@ -472,7 +472,7 @@ void ASMTSpatialContainer::readVelocity3D(std::vector<std::string> &lines)
 
 void ASMTSpatialContainer::readOmega3D(std::vector<std::string> &lines)
 {
-    assert(readStringNoSpacesOffTop(lines) == "Omega3D");
+    readStringNoSpacesOffTopEqualOrThrow(lines, "Omega3D");
     std::istringstream iss(lines[0]);
     omega3D = FullColumn<double>::With();
     double d;

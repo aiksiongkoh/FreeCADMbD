@@ -70,7 +70,7 @@ void MBDynStructural::readOrientation(std::vector<std::string>& args)
     if (args.empty()) return;
     if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
-        assert(baseRefName == readStringNoSpacesOffTop(args));
+        readStringNoSpacesOffTopEqualOrThrow(args, baseRefName);
         auto ref = mbdynReferences()->at(baseRefName);
         auto aAFf = readBasicOrientation(args);
         auto aAOF = ref->aAFf;
@@ -86,7 +86,7 @@ void MBDynStructural::readOrientation(std::vector<std::string>& args)
         args.erase(args.begin());
         if (args[0].find("reference") != std::string::npos) {
             args.erase(args.begin());
-            assert(baseRefName == readStringNoSpacesOffTop(args));
+            readStringNoSpacesOffTopEqualOrThrow(args, baseRefName);
             aAOf = readBasicOrientation(args);
         }
     }
@@ -104,7 +104,7 @@ void MBDynStructural::readVelocity(std::vector<std::string>& args)
     }
     else if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
-        assert(baseRefName == readStringNoSpacesOffTop(args));
+        readStringNoSpacesOffTopEqualOrThrow(args, baseRefName);
         assert(args[0].find("null") != std::string::npos);    //ToDo: for not null.
         vOfO = readVector3(args);
     }
@@ -122,7 +122,7 @@ void MBDynStructural::readOmega(std::vector<std::string>& args)
     }
     else if (args[0].find("reference") != std::string::npos) {
         args.erase(args.begin());
-        assert(baseRefName == readStringNoSpacesOffTop(args));
+        readStringNoSpacesOffTopEqualOrThrow(args, baseRefName);
         assert(args[0].find("null") != std::string::npos);    //ToDo: for not null.
         omeOfO = readVector3(args);
     }

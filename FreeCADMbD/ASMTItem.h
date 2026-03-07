@@ -45,9 +45,10 @@ namespace MbD {
         virtual std::string classname();
         void setName(const std::string& str);
         virtual void parseASMT(std::vector<std::string>& lines);
-        std::string popOffTop(std::vector<std::string>& args);
-        std::string readStringTrimmedOffTop(std::vector<std::string>& args);
-        std::string readStringNoSpacesOffTop(std::vector<std::string>& args);
+        std::string popOffTop(std::vector<std::string>& lines);
+        std::string readStringTrimmedOffTop(std::vector<std::string>& lines);
+        std::string readStringNoSpacesOffTop(std::vector<std::string>& lines);
+        void readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string>& lines, std::string str);
         FRowDsptr readRowOfDoubles(const std::string& line);
         FRowDsptr readRowOfDoublesOffTop(std::vector<std::string>& lines);
         FRowDsptr readSeriesOf(std::vector<std::string>& lines, std::string str);
