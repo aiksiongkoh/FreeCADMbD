@@ -12,45 +12,152 @@
  * @brief Program to assemble a piston crank system.
  *********************************************************************/
 
+#include "../FreeCADMbD/CADSystem.h"
+#include "../FreeCADMbD/GESpMatParPvPrecise.h"
 #include "../FreeCADMbD/ASMTAssembly.h"
 #include "../FreeCADMbD/MBDynSystem.h"
+#include "../FreeCADMbD/MomentOfInertiaSolver.h"
 
 using namespace MbD;
-namespace
-{
-bool hasExtension(const std::string& filePath, const std::string& extension)
-{
-    return filePath.find(extension) != std::string::npos;
-}
-void runDefaultLocalScenario()
-{
-    ASMTAssembly::readWriteReadDynFile(std::string(TEST_DATA_PATH) + "/ASMT/pistonAllowZRotation.asmt");
-}
-}
+void runSpMat();
+void sharedptrTest();
 
 int main(int argc, char *argv[])
 {
-    if (argc <= 1)
+    if (argc > 1)
     {
-        runDefaultLocalScenario();
+        std::string infilename = argv[1];
+        if (argc > 2)
+        {
+            std::string outfilename = argv[2];
+            if (infilename.find(".asmt") != std::string::npos)
+            {
+                ASMTAssembly::readWriteDynFile2(infilename, outfilename);
+            }
+            return 0;
+        }
+        if (infilename.find(".asmt") != std::string::npos)
+        {
+            ASMTAssembly::readWriteDynFile(infilename);
+        }
+        else if (infilename.find(".mbd") != std::string::npos)
+        {
+            MBDynSystem::runDynFile(infilename);
+        }
         return 0;
     }
+    switch (2)
+    {
+    case 0:
+    {
+        auto cadSystem = CADSystem::With();
+        // cadSystem->runOndselSinglePendulum();
+        // cadSystem->runOndselDoublePendulum();
+        cadSystem->runOndselPiston(); // For debugging
+        // cadSystem->runPiston();
+        break;
+    }
+    case 1:
+    {
+        ASMTAssembly::readWriteDynFile2(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt", "");
+        break;
+    }
+    case 2:
+    {
+        ASMTAssembly::readWriteReadDynFile(std::string(TEST_DATA_PATH) + "/ASMT/pistonAllowZRotation.asmt");
+        break;
+    }
+    default:
+    {
+        ASMTAssembly::readWriteReadDynFile(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt");
+        auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/runPreDragBackhoe1.asmt");
+        assembly->runDraggingLog(std::string(TEST_DATA_PATH) + "/ASMT/draggingBackhoe1.log");
 
-    const std::string inputFile = argv[1];
-    if (argc > 2 && hasExtension(inputFile, ".asmt"))
-    {
-        const std::string outputFile = argv[2];
-        ASMTAssembly::readWriteDynFile2(inputFile, outputFile);
-        return 0;
-    }
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/mcphersonX.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt");
+        //
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/springdamper2.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/mcpherson.asmt");
+        // ASMTAssembly::runKineFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/Schmidt_Coupling_Ass_1-1.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/RevRevJt.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/RevCylJt.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/CylSphJt.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/SphSphJt.asmt");
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase(Cosine-half drive).mbd");
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase(Sine-forever drive).mbd");
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase9orig.mbd"); // SimulationStoppingError
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase8orig.mbd"); // Incompatible geometry at t=3.15
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase5orig.mbd"); // Test Product::integrateWRT
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/Gears.asmt");
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/anglejoint.asmt");
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/constvel.asmt");
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/rackscrew.asmt");
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/planarbug.asmt");
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/InitialConditions.mbd");
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/SphericalHinge.mbd");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/cirpendu2.asmt"); // Under constrained. Testing ICKine.
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/quasikine.asmt"); // Under constrained. Testing ICKine.
+        ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+        // MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCaseDebug2.mbd");
+        // return 0;
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase2.mbd");
+        // MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/MBDynCase.mbd");    //Very large but works
+        MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/CrankSlider2.mbd");
+        // MBDynSystem::runDynFile(std::string(TEST_DATA_PATH) + "/MBDyn/crank_slider.mbd");    //Needs integration of product
+        ////ASMTAssembly::runSinglePendulumSuperSimplified();    //Mass is missing
+        ////ASMTAssembly::runSinglePendulumSuperSimplified2();    //DOF has infinite acceleration due to zero mass and inertias
+        ASMTAssembly::runSinglePendulumSimplified();
+        ASMTAssembly::runSinglePendulum();
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/00backhoe.asmt");
+        // ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/circular.asmt");    //Needs checking
+        // ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/engine1.asmt");    //Needs checking
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/fourbar.asmt");
+        // ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/fourbot.asmt");    //Very large but works
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/wobpump.asmt");
 
-    if (hasExtension(inputFile, ".asmt"))
-    {
-        ASMTAssembly::readWriteDynFile(inputFile);
+        runSpMat();
+        MomentOfInertiaSolver::example1();
+        sharedptrTest();
+        break;
     }
-    else if (hasExtension(inputFile, ".mbd"))
-    {
-        MBDynSystem::runDynFile(inputFile);
     }
-    return 0;
+}
+void sharedptrTest()
+{
+    auto assm = std::make_shared<ASMTAssembly>();
+
+    auto assm1 = assm; // New shared_ptr to old object. Reference count incremented.
+    assert(assm == assm1);
+    assert(assm.get() == assm1.get());
+    assert(&assm != &assm1);
+    assert(assm->constantGravity == assm1->constantGravity);
+    assert(&(assm->constantGravity) == &(assm1->constantGravity));
+
+    auto assm2 = std::make_shared<ASMTAssembly>(*assm); // New shared_ptr to new object. Member variables copy old member variables
+    assert(assm != assm2);
+    assert(assm.get() != assm2.get());
+    assert(&assm != &assm2);
+    assert(assm->constantGravity == assm2->constantGravity);       // constantGravity is same object pointed to
+    assert(&(assm->constantGravity) != &(assm2->constantGravity)); // Different shared_ptrs of same reference counter
+}
+void runSpMat()
+{
+    auto spMat = std::make_shared<SparseMatrix<double>>(3, 3);
+    spMat->atijput(0, 0, 1.0);
+    spMat->atijput(0, 1, 1.0);
+    spMat->atijput(1, 0, 1.0);
+    spMat->atijput(1, 1, 1.0);
+    spMat->atijput(1, 2, 1.0);
+    spMat->atijput(2, 1, 1.0);
+    spMat->atijput(2, 2, 1.0);
+    auto fullCol = std::make_shared<FullColumn<double>>(3);
+    fullCol->atiput(0, 1.0);
+    fullCol->atiput(1, 2.0);
+    fullCol->atiput(2, 3.0);
+    auto matSolver = GESpMatParPvPrecise::With();
+    auto answer = matSolver->solvewithsaveOriginal(spMat, fullCol, true);
+    auto aAx = spMat->timesFullColumn(answer);
 }
