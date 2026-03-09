@@ -18,7 +18,7 @@ namespace MbD {
         //rOeO = rOpO + aAOp * rpep
         //rOeO = rOpO(qX) + aAOp(qE) * (rpmp + aApm * (rmem(t)))
         //aAOe = aAOp(qE) * aApm * aAme(t)
-        //time rmemBlks prmemptBlks pprmemptptBlks phiThePsiBlks pPhiThePsiptBlks ppPhiThePsiptptBlks 
+        //time rmemBlks prmemptBlks pprmemptptBlks the1x2y3zBlks pthe1x2y3zptBlks ppthe1x2y3zptptBlks 
         //rmem prmempt pprmemptpt aAme pAmept ppAmeptpt prOeOpt pprOeOpEpt pprOeOptpt pAOept ppAOepEpt ppAOeptpt 
     public:
         EndFramect() {}
@@ -30,8 +30,8 @@ namespace MbD {
         void initializeGlobally() override;
         void initprmemptBlks();
         void initpprmemptptBlks();
-        virtual void initpPhiThePsiptBlks();
-        virtual void initppPhiThePsiptptBlks();
+        virtual void initpthe1x2y3zptBlks();
+        virtual void initppthe1x2y3zptptBlks();
         void postInput() override;
         void prePosIC() override;
         void evalrmem() const;
@@ -54,7 +54,7 @@ namespace MbD {
         void simUpdateAll() override;
 
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
-        std::shared_ptr<FullColumn<Symsptr>> phiThePsiBlks, pPhiThePsiptBlks, ppPhiThePsiptptBlks;
+        std::shared_ptr<FullColumn<Symsptr>> the1x2y3zBlks, pthe1x2y3zptBlks, ppthe1x2y3zptptBlks;
         FColDsptr prmempt, pprmemptpt, prOeOpt, pprOeOptpt;
         FMatDsptr pAmept, ppAmeptpt, pAOept, ppAOeptpt;
     };

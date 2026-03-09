@@ -112,43 +112,12 @@ void ASMTItemIJ::storeOnLevel(std::ofstream& os, size_t level)
 
 void ASMTItemIJ::storeOnTimeSeries(std::ofstream& os)
 {
-    auto n = cFIO->size();
-    os << "FXonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cFIO->at(i)->at(0) << '\t';
-    }
-    os << std::endl;
-    os << "FYonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cFIO->at(i)->at(1) << '\t';
-    }
-    os << std::endl;
-    os << "FZonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cFIO->at(i)->at(2) << '\t';
-    }
-    os << std::endl;
-    os << "TXonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cTIO->at(i)->at(0) << '\t';
-    }
-    os << std::endl;
-    os << "TYonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cTIO->at(i)->at(1) << '\t';
-    }
-    os << std::endl;
-    os << "TZonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << cTIO->at(i)->at(2) << '\t';
-    }
-    os << std::endl;
+    storeOnArrayArray(os, "FXonI", cFIO, 0);
+    storeOnArrayArray(os, "FYonI", cFIO, 1);
+    storeOnArrayArray(os, "FZonI", cFIO, 2);
+    storeOnArrayArray(os, "TXonI", cTIO, 0);
+    storeOnArrayArray(os, "TYonI", cTIO, 1);
+    storeOnArrayArray(os, "TZonI", cTIO, 2);
 }
 
 FMatDsptr ASMTItemIJ::aAOI(size_t i) const

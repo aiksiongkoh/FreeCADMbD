@@ -31,25 +31,25 @@ void PrescribedMotion::initialize()
     xBlk = std::make_shared<Constant>(0.0);
     yBlk = std::make_shared<Constant>(0.0);
     zBlk = std::make_shared<Constant>(0.0);
-    phiBlk = std::make_shared<Constant>(0.0);
-    theBlk = std::make_shared<Constant>(0.0);
-    psiBlk = std::make_shared<Constant>(0.0);
+    the1xBlk = std::make_shared<Constant>(0.0);
+    the2yBlk = std::make_shared<Constant>(0.0);
+    the3zBlk = std::make_shared<Constant>(0.0);
 }
 
 void PrescribedMotion::initMotions()
 {
     auto xyzBlkList = std::initializer_list<Symsptr>{ xBlk, yBlk, zBlk };
-    auto xyzRotBlkList = std::initializer_list<Symsptr>{ phiBlk, theBlk, psiBlk };
+    auto xyzRotBlkList = std::initializer_list<Symsptr>{ the1xBlk, the2yBlk, the3zBlk };
 
     auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
     auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
     if (eFrmIct && !eFrmIqct) {
         eFrmIct->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
-        eFrmIct->phiThePsiBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
+        eFrmIct->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
     else if (!eFrmIct && eFrmIqct) {
         eFrmIqct->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
-        eFrmIqct->phiThePsiBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
+        eFrmIqct->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
 }
 

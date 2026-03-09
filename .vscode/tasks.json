@@ -41,10 +41,6 @@
         "reveal": "always",
         "panel": "dedicated"
       },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
       "problemMatcher": [
         "$msCompile"
       ]
@@ -56,6 +52,10 @@
         "cmake-build-debug-main"
       ],
       "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "problemMatcher": []
     }
   ]

@@ -396,7 +396,7 @@ std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &
     bool bool2 = str == "OndselSolver";
     assert(bool1 || bool2);
     assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
-    assembly->setFilename(fileName);
+    assembly->setinFileName(fileName);
     assembly->parseASMT(lines);
     return assembly;
 }
@@ -407,7 +407,7 @@ void ASMTAssembly::runDynFile(const std::string &fileName)
     auto assembly = ASMTAssembly::With();
     const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
-    assembly->setFilename(fileName);
+    assembly->setinFileName(fileName);
     assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->parseASMT(lines);
     assembly->runDYNAMIC();
@@ -419,7 +419,7 @@ void ASMTAssembly::runKineFile(const std::string &fileName)
     auto assembly = ASMTAssembly::With();
     const std::string &str("\n\n\nStarting KINEMATIC simulation");
     assembly->logString(str);
-    assembly->setFilename(fileName);
+    assembly->setinFileName(fileName);
     assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->parseASMT(lines);
     assembly->runKINEMATIC();
@@ -528,6 +528,60 @@ void ASMTAssembly::readWriteDynFile(const std::string &fileName)
         out.write(data2.data() + pos2,
                   static_cast<std::streamsize>(data2.size() - pos2));
         out.close();
+    }
+}
+
+void MbD::ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
+{
+    auto lines = linesFromFile(infilename);
+    auto assembly = ASMTAssembly::With();
+    const std::string &str("\n\n\nStarting DYNAMIC simulation");
+    assembly->logString(str);
+    assembly->setinFileName(infilename);
+    assembly->setoutFileName(outfilename);
+    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
+    assembly->parseASMT(lines);
+    assembly->runDYNAMIC();
+    assembly->outputFile("tempAssembly.asmt");
+    // Create tempAssembly2.asmt from input data from filename and TimeSeries from tempAssembly.asmt
+    // Otherwise redundant constraints may not be the same even with very very small differences in input.
+    std::ifstream in(infilename);
+    if (!in)
+        throw std::runtime_error("Cannot open input file");
+    std::ifstream in2("tempAssembly.asmt");
+    if (!in2)
+        throw std::runtime_error("Cannot open input file");
+    std::ofstream out("tempAssembly2.asmt");
+    if (!out)
+        throw std::runtime_error("Cannot open output file");
+    std::string data((std::istreambuf_iterator<char>(in)),
+                     std::istreambuf_iterator<char>());
+    std::string data2((std::istreambuf_iterator<char>(in2)),
+                      std::istreambuf_iterator<char>());
+    std::size_t pos = data.find("TimeSeries");
+    if (pos == std::string::npos)
+        pos = data.size();
+    std::size_t pos2 = data2.find("TimeSeries");
+    out.write(data.data(), static_cast<std::streamsize>(pos));
+    out.write(data2.data() + pos2,
+              static_cast<std::streamsize>(data2.size() - pos2));
+    out.close();
+
+    namespace fs = std::filesystem;
+    if (fs::exists("tempAssembly2.asmt"))
+    {
+        try
+        {
+            fs::copy_file("tempAssembly2.asmt", assembly->outFileName, fs::copy_options::overwrite_existing);
+        }
+        catch (const fs::filesystem_error &e)
+        {
+            std::cerr << "COPY TO DESTINATION FAILED: " << assembly->outFileName << '\n';
+        }
+    }
+    else
+    {
+        std::cerr << "SOLVER ERROR: tempAssembly2.asmt not found." << std::endl;
     }
 }
 
@@ -938,6 +992,10 @@ void ASMTAssembly::readSeries(std::vector<std::string> &lines)
         {
             readForceTorqueSeries(lines);
         }
+        else if (lines[0].find("AllowRotationSeries") != std::string::npos)
+        {
+            readAllowRotationSeries(lines);
+        }
         else
         {
             throw SimulationStoppingError("To be implemented.");
@@ -1151,6 +1209,22 @@ void ASMTAssembly::readForceTorqueSeries(std::vector<std::string> &lines)
                            { return jt->fullName("") == seriesName; });
     auto forcesTorque = *it;
     forcesTorque->readForceTorqueSeries(lines);
+}
+
+void ASMTAssembly::readAllowRotationSeries(std::vector<std::string> &lines)
+{
+    if (lines.empty())
+        return;
+    std::string str = lines[0];
+    std::string substr = "AllowRotationSeries";
+    auto pos = str.find(substr);
+    assert(pos != std::string::npos);
+    str.erase(0, pos + substr.length());
+    auto seriesName = readString(str);
+    auto it = std::find_if(motions->begin(), motions->end(), [&](const std::shared_ptr<ASMTMotion> &jt)
+                           { return jt->fullName("") == seriesName; });
+    auto motion = *it;
+    motion->readAllowRotationSeries(lines);
 }
 
 void ASMTAssembly::runDraggingLog(const std::string &fileName)
@@ -1725,16 +1799,19 @@ void ASMTAssembly::storeOnTimeSeries(std::ofstream &os)
         return;
     os << "TimeSeries" << std::endl;
     os << "Number\tInput\t";
-    for (size_t i = 1; i < times->size(); i++)
+    auto n = times->size();
+    for (size_t i = 1; i < n - 1; i++)
     {
         os << i << '\t';
     }
+    os << n;
     os << std::endl;
     os << "Time\tInput\t";
-    for (size_t i = 1; i < times->size(); i++)
+    for (size_t i = 1; i < n - 1; i++)
     {
         os << times->at(i) << '\t';
     }
+    os << times->back();
     os << std::endl;
     os << "AssemblySeries\t" << fullName("") << std::endl;
     ASMTSpatialContainer::storeOnTimeSeries(os);
@@ -1748,13 +1825,22 @@ void ASMTAssembly::storeOnTimeSeries(std::ofstream &os)
         forTor->storeOnTimeSeries(os);
 }
 
-void ASMTAssembly::setFilename(const std::string &str)
+void ASMTAssembly::setinFileName(const std::string &str)
 {
     std::stringstream ss;
     ss << "FileName = " << str;
     auto str2 = ss.str();
     logString(str2);
-    filename = str;
+    inFileName = str;
+}
+
+void ASMTAssembly::setoutFileName(const std::string &str)
+{
+    std::stringstream ss;
+    ss << "FileName = " << str;
+    auto str2 = ss.str();
+    logString(str2);
+    outFileName = str;
 }
 
 void ASMTAssembly::updateFromInputState()

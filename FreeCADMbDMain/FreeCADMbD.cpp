@@ -26,32 +26,45 @@ int main(int argc, char *argv[])
 {
     if (argc > 1)
     {
-        // For command line execution ./ondselmbd filename.mbd
-        std::string filePath = argv[1];
-        if (filePath.find(".asmt") != std::string::npos)
+        std::string infilename = argv[1];
+        if (argc > 2)
         {
-            ASMTAssembly::readWriteDynFile(filePath);
+            std::string outfilename = argv[2];
+            if (infilename.find(".asmt") != std::string::npos)
+            {
+                ASMTAssembly::readWriteDynFile2(infilename, outfilename);
+            }
+            return 0;
         }
-        else if (filePath.find(".mbd") != std::string::npos)
+        if (infilename.find(".asmt") != std::string::npos)
         {
-            MBDynSystem::runDynFile(filePath);
+            ASMTAssembly::readWriteDynFile(infilename);
+        }
+        else if (infilename.find(".mbd") != std::string::npos)
+        {
+            MBDynSystem::runDynFile(infilename);
         }
         return 0;
     }
-    switch (1)
+    switch (2)
     {
     case 0:
     {
         auto cadSystem = CADSystem::With();
         // cadSystem->runOndselSinglePendulum();
         // cadSystem->runOndselDoublePendulum();
-        cadSystem->runOndselPiston();        //For debugging
+        cadSystem->runOndselPiston(); // For debugging
         // cadSystem->runPiston();
         break;
     }
     case 1:
     {
-        ASMTAssembly::readWriteReadDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+        ASMTAssembly::readWriteDynFile2(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt", "");
+        break;
+    }
+    case 2:
+    {
+        ASMTAssembly::readWriteReadDynFile(std::string(TEST_DATA_PATH) + "/ASMT/pistonAllowZRotation.asmt");
         break;
     }
     default:

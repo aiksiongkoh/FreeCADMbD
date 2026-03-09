@@ -19,6 +19,7 @@ namespace MbD {
         static std::shared_ptr<ASMTMotion> With();
         
         void readMotionSeries(std::vector<std::string>& lines);
+        void readAllowRotationSeries(std::vector<std::string> &lines);
         virtual void initMarkers();
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnTimeSeries(std::ofstream& os) override;

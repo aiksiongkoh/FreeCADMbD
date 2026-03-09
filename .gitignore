@@ -54,3 +54,4 @@ temp/
 build-ninja/
 build-vs/
 tempAssembly.asmt
+/release/

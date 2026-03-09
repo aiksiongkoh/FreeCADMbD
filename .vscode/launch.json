@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug FreeCADMbDMain (no args, fast no build)",
+      "name": "Debug FreeCADMbDMain (no args)",
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
@@ -10,7 +10,8 @@
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
       "name": "Debug FreeCADMbDMain (no args, build first)",
@@ -22,10 +23,10 @@
       "cwd": "${workspaceFolder}",
       "environment": [],
       "console": "integratedTerminal",
-      "preLaunchTask": "cmake-build-debug-main"
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
-      "name": "Debug FreeCADMbDMain (.asmt, fast no build)",
+      "name": "Debug FreeCADMbDMain (.asmt)",
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
@@ -35,7 +36,8 @@
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
       "name": "Debug FreeCADMbDMain (.asmt, build first)",
@@ -49,10 +51,10 @@
       "cwd": "${workspaceFolder}",
       "environment": [],
       "console": "integratedTerminal",
-      "preLaunchTask": "cmake-build-debug-main"
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
-      "name": "Debug FreeCADMbDMain (.mbd, fast no build)",
+      "name": "Debug FreeCADMbDMain (.mbd)",
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
@@ -62,7 +64,8 @@
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
       "name": "Debug FreeCADMbDMain (.mbd, build first)",
@@ -76,7 +79,7 @@
       "cwd": "${workspaceFolder}",
       "environment": [],
       "console": "integratedTerminal",
-      "preLaunchTask": "cmake-build-debug-main"
+      "preLaunchTask": "cmake-build-debug-main-configure"
     },
     {
       "name": "Debug test_run fourbot",

@@ -36,13 +36,13 @@ void AllowZRotationConstraintIqctJqc::postInput()
     auto eqctI = std::static_pointer_cast<EndFrameqct>(eFrmI);
     auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
     auto aEulerAngles = aAImJe->eulerAngles();
-    auto the1z = aEulerAngles->at(1);
-    auto the2x = aEulerAngles->at(2);
-    if (std::abs(the2x) < (std::numbers::pi / 2.0)) {
-        eqctI->phiThePsiBlks->at(1) = std::make_shared<Constant>(the1z);
+    auto the2y = aEulerAngles->at(1);
+    auto the3z = aEulerAngles->at(2);
+    if (std::abs(the2y) < (std::numbers::pi / 2.0)) {
+        eqctI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(the3z);
     }
     else {
-        eqctI->phiThePsiBlks->at(1) = std::make_shared<Constant>(std::numbers::pi + the1z);
+        eqctI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(std::numbers::pi + the3z);
     }
     eqctI->postInput();
     DirectionCosineConstraintIqctJqc::postInput();

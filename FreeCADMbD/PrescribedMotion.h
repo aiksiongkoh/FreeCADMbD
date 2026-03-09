@@ -18,7 +18,6 @@ namespace MbD {
 
     class PrescribedMotion : public ConstraintSet
     {
-        //xBlk yBlk zBlk phiBlk theBlk psiBlk 
     public:
         PrescribedMotion() {}
         PrescribedMotion(const std::string& str) : ConstraintSet(str) {}
@@ -31,9 +30,9 @@ namespace MbD {
         Symsptr xBlk;
         Symsptr yBlk;
         Symsptr zBlk;
-        Symsptr phiBlk;
-        Symsptr theBlk;
-        Symsptr psiBlk;
+        Symsptr the1xBlk;
+        Symsptr the2yBlk;
+        Symsptr the3zBlk;
     };
 }
 

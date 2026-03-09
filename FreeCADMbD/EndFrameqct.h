@@ -22,7 +22,7 @@ namespace MbD {
         //Note: Do not subclass from EndFramect. 
         // Code duplication in EndFramect and EndFrameqct is less that in EndFrameqc and EndFrameqct
         //prOeOpE pprOeOpEpE pAOepE ppAOepEpE
-        //time rmemBlks prmemptBlks pprmemptptBlks phiThePsiBlks pPhiThePsiptBlks ppPhiThePsiptptBlks 
+        //time rmemBlks prmemptBlks pprmemptptBlks the1x2y3zBlks pthe1x2y3zptBlks ppthe1x2y3zptptBlks 
         //rmem prmempt pprmemptpt aAme pAmept ppAmeptpt prOeOpt pprOeOpEpt pprOeOptpt pAOept ppAOepEpt ppAOeptpt 
     public:
         EndFrameqct() {}
@@ -35,8 +35,8 @@ namespace MbD {
         void initializeGlobally() override;
         void initprmemptBlks();
         void initpprmemptptBlks();
-        virtual void initpPhiThePsiptBlks();
-        virtual void initppPhiThePsiptptBlks();
+        virtual void initpthe1x2y3zptBlks();
+        virtual void initppthe1x2y3zptptBlks();
         void postInput() override;
         void simUpdateAll() override;
         FRowDsptr ppriOeOpEpt(size_t i) const;
@@ -66,7 +66,7 @@ namespace MbD {
 
         double time = 0.0;
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
-        std::shared_ptr<FullColumn<Symsptr>> phiThePsiBlks, pPhiThePsiptBlks, ppPhiThePsiptptBlks;
+        std::shared_ptr<FullColumn<Symsptr>> the1x2y3zBlks, pthe1x2y3zptBlks, ppthe1x2y3zptptBlks;
         FColDsptr rmem, prmempt, pprmemptpt, prOeOpt, pprOeOptpt;
         FMatDsptr aAme, pAmept, ppAmeptpt, pAOept, ppAOeptpt;
         FMatDsptr pprOeOpEpt;

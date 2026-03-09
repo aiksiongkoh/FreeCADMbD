@@ -117,23 +117,23 @@ void ASMTGeneralMotion::createMbD()
     auto geoPhi = parser->stack->top();
     geoPhi = Symbolic::times(geoPhi, sptrConstant(asmtUnits()->angle));
     geoPhi->createMbD();
-    auto phiBlk = geoPhi->simplified(geoPhi);
+    auto the1Blk = geoPhi->simplified(geoPhi);
 
     userFunc = std::make_shared<BasicUserFunction>(angIJJ->at(1), 1.0);
     parser->parseUserFunction(userFunc);
     auto geoThe = parser->stack->top();
     geoThe = Symbolic::times(geoThe, sptrConstant(asmtUnits()->angle));
     geoThe->createMbD();
-    auto theBlk = geoThe->simplified(geoThe);
+    auto the2Blk = geoThe->simplified(geoThe);
 
     userFunc = std::make_shared<BasicUserFunction>(angIJJ->at(2), 1.0);
     parser->parseUserFunction(userFunc);
     auto geoPsi = parser->stack->top();
     geoPsi = Symbolic::times(geoPsi, sptrConstant(asmtUnits()->angle));
     geoPsi->createMbD();
-    auto psiBlk = geoPsi->simplified(geoPsi);
+    auto the3Blk = geoPsi->simplified(geoPsi);
 
-    auto xyzRotBlkList = std::initializer_list<Symsptr>{ phiBlk, theBlk, psiBlk };
+    auto xyzRotBlkList = std::initializer_list<Symsptr>{ the1Blk, the2Blk, the3Blk };
     auto fangIJJ = std::make_shared<EulerAngles<Symsptr>>(xyzRotBlkList);
     fangIJJ->axisOrder = rotationOrder;
     fullMotion->fangIJJ = fangIJJ;

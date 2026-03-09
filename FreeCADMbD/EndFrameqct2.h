@@ -25,8 +25,8 @@ namespace MbD {
         EndFrameqct2(const std::string& str) : EndFrameqct(str) {}
         static std::shared_ptr<EndFrameqct2> With(const std::string& str);
         
-        void initpPhiThePsiptBlks() override;
-        void initppPhiThePsiptptBlks() override;
+        void initpthe1x2y3zptBlks() override;
+        void initppthe1x2y3zptptBlks() override;
         void evalAme() override;
         void evalpAmept() override;
         void evalppAmeptpt() override;

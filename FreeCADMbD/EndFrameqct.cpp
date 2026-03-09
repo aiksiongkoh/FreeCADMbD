@@ -62,7 +62,7 @@ void EndFrameqct::initializeLocally()
         prmempt->zeroSelf();
         pprmemptpt->zeroSelf();
     }
-    if (!phiThePsiBlks) {
+    if (!the1x2y3zBlks) {
         aAme->identity();
         pAmept->zeroSelf();
         ppAmeptpt->zeroSelf();
@@ -76,9 +76,9 @@ void EndFrameqct::initializeGlobally()
         initprmemptBlks();
         initpprmemptptBlks();
     }
-    if (phiThePsiBlks) {
-        initpPhiThePsiptBlks();
-        initppPhiThePsiptptBlks();
+    if (the1x2y3zBlks) {
+        initpthe1x2y3zptBlks();
+        initppthe1x2y3zptptBlks();
     }
 }
 
@@ -106,31 +106,31 @@ void EndFrameqct::initpprmemptptBlks()
     }
 }
 
-void EndFrameqct::initpPhiThePsiptBlks()
+void EndFrameqct::initpthe1x2y3zptBlks()
 {
     auto mbdTime = root()->time;
-    pPhiThePsiptBlks = std::make_shared< FullColumn<Symsptr>>(3);
+    pthe1x2y3zptBlks = std::make_shared< FullColumn<Symsptr>>(3);
     for (size_t i = 0; i < 3; i++) {
-        auto angle = phiThePsiBlks->at(i);
+        auto angle = the1x2y3zBlks->at(i);
         auto var = angle->differentiateWRT(mbdTime);
         //std::cout << "var " << *var << std::endl;
         auto vel = var->simplified(var);
         //std::cout << "vel " << *vel << std::endl;
-        pPhiThePsiptBlks->at(i) = vel;
+        pthe1x2y3zptBlks->at(i) = vel;
         //std::cout << *angle << std::endl;
         //std::cout << *vel << std::endl;
     }
 }
 
-void EndFrameqct::initppPhiThePsiptptBlks()
+void EndFrameqct::initppthe1x2y3zptptBlks()
 {
     auto mbdTime = root()->time;
-    ppPhiThePsiptptBlks = std::make_shared< FullColumn<Symsptr>>(3);
+    ppthe1x2y3zptptBlks = std::make_shared< FullColumn<Symsptr>>(3);
     for (size_t i = 0; i < 3; i++) {
-        auto angleVel = pPhiThePsiptBlks->at(i);
+        auto angleVel = pthe1x2y3zptBlks->at(i);
         auto var = angleVel->differentiateWRT(mbdTime);
         auto angleAcc = var->simplified(var);
-        ppPhiThePsiptptBlks->at(i) = angleAcc;
+        ppthe1x2y3zptptBlks->at(i) = angleAcc;
         //std::cout << *angleVel << std::endl;
         //std::cout << *angleAcc << std::endl;
     }
@@ -218,16 +218,16 @@ void EndFrameqct::evalrmem() const
 
 void EndFrameqct::evalAme()
 {
-    if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngles<double>::With();
+    if (the1x2y3zBlks) {
+        auto the1x2y3z = EulerAngles<double>::With();
         for (size_t i = 0; i < 3; i++)
         {
-            auto expression = phiThePsiBlks->at(i);
+            auto expression = the1x2y3zBlks->at(i);
             auto value = expression->getValue();
-            phiThePsi->at(i) = value;
+            the1x2y3z->at(i) = value;
         }
-        phiThePsi->calc();
-        aAme = phiThePsi->aA;
+        the1x2y3z->calc();
+        aAme = the1x2y3z->aA;
     }
 }
 
@@ -318,22 +318,22 @@ void EndFrameqct::evalprmempt() const
 
 void EndFrameqct::evalpAmept()
 {
-    if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngles<double>::With();
-        auto phiThePsiDot = EulerAnglesDot<double>::With();
-        phiThePsiDot->aEulerAngles = phiThePsi.get();
+    if (the1x2y3zBlks) {
+        auto the1x2y3z = EulerAngles<double>::With();
+        auto the1x2y3zDot = EulerAnglesDot<double>::With();
+        the1x2y3zDot->aEulerAngles = the1x2y3z.get();
         for (size_t i = 0; i < 3; i++)
         {
-            auto expression = phiThePsiBlks->at(i);
-            auto derivative = pPhiThePsiptBlks->at(i);
+            auto expression = the1x2y3zBlks->at(i);
+            auto derivative = pthe1x2y3zptBlks->at(i);
             auto value = expression->getValue();
             auto valueDot = derivative->getValue();
-            phiThePsi->at(i) = value;
-            phiThePsiDot->at(i) = valueDot;
+            the1x2y3z->at(i) = value;
+            the1x2y3zDot->at(i) = valueDot;
         }
-        phiThePsi->calc();
-        phiThePsiDot->calc();
-        pAmept = phiThePsiDot->aAdot;
+        the1x2y3z->calc();
+        the1x2y3zDot->calc();
+        pAmept = the1x2y3zDot->aAdot;
     }
 }
 
@@ -351,28 +351,28 @@ void EndFrameqct::evalpprmemptpt() const
 
 void EndFrameqct::evalppAmeptpt()
 {
-    if (phiThePsiBlks) {
-        auto phiThePsi = EulerAngles<double>::With();
-        auto phiThePsiDot = EulerAnglesDot<double>::With();
-        phiThePsiDot->aEulerAngles = phiThePsi.get();
-        auto phiThePsiDDot = EulerAnglesDDot<double>::With();
-        phiThePsiDDot->aEulerAnglesDot = phiThePsiDot.get();
+    if (the1x2y3zBlks) {
+        auto the1x2y3z = EulerAngles<double>::With();
+        auto the1x2y3zDot = EulerAnglesDot<double>::With();
+        the1x2y3zDot->aEulerAngles = the1x2y3z.get();
+        auto the1x2y3zDDot = EulerAnglesDDot<double>::With();
+        the1x2y3zDDot->aEulerAnglesDot = the1x2y3zDot.get();
         for (size_t i = 0; i < 3; i++)
         {
-            auto expression = phiThePsiBlks->at(i);
-            auto derivative = pPhiThePsiptBlks->at(i);
-            auto secondDerivative = ppPhiThePsiptptBlks->at(i);
+            auto expression = the1x2y3zBlks->at(i);
+            auto derivative = pthe1x2y3zptBlks->at(i);
+            auto secondDerivative = ppthe1x2y3zptptBlks->at(i);
             auto value = expression->getValue();
             auto valueDot = derivative->getValue();
             auto valueDDot = secondDerivative->getValue();
-            phiThePsi->atiput(i, value);
-            phiThePsiDot->atiput(i, valueDot);
-            phiThePsiDDot->atiput(i, valueDDot);
+            the1x2y3z->atiput(i, value);
+            the1x2y3zDot->atiput(i, valueDot);
+            the1x2y3zDDot->atiput(i, valueDDot);
         }
-        phiThePsi->calc();
-        phiThePsiDot->calc();
-        phiThePsiDDot->calc();
-        ppAmeptpt = phiThePsiDDot->aAddot;
+        the1x2y3z->calc();
+        the1x2y3zDot->calc();
+        the1x2y3zDDot->calc();
+        ppAmeptpt = the1x2y3zDDot->aAddot;
     }
 }
 
