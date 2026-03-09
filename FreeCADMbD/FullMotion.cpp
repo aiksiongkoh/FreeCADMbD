@@ -64,10 +64,10 @@ void FullMotion::initMotions()
     auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
     if (eFrmIct && !eFrmIqct) {
         eFrmIct->rmemBlks = frIJI;
-        eFrmIct->phiThePsiBlks = fangIJJ;
+        eFrmIct->the1x2y3zBlks = fangIJJ;
     }
     else if (!eFrmIct && eFrmIqct) {
         eFrmIqct->rmemBlks = frIJI;
-        eFrmIqct->phiThePsiBlks = fangIJJ;
+        eFrmIqct->the1x2y3zBlks = fangIJJ;
     }
 }

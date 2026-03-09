@@ -28,6 +28,7 @@ std::shared_ptr<ASMTForceTorqueGeneral> ASMTForceTorqueGeneral::With()
 
 void ASMTForceTorqueGeneral::initialize()
 {
+    ASMTForceTorque::initialize();
     markerKSign = "I";
     aFIeKe = FullColumn<std::string>::With(3);
     aTIeKe = FullColumn<std::string>::With(3);
@@ -55,6 +56,17 @@ void ASMTForceTorqueGeneral::storeOnLevel(std::ofstream &os, size_t level)
 
 void ASMTForceTorqueGeneral::storeOnTimeSeries(std::ofstream &os)
 {
+    cFIO->reserve(dataSeries->size());
+    for (const auto &data : *dataSeries)
+    {
+        cFIO->push_back(std::dynamic_pointer_cast<ForceTorqueData>(data)->aFIO);
+    }
+    cTIO->reserve(dataSeries->size());
+    for (const auto &data : *dataSeries)
+    {
+        cTIO->push_back(std::dynamic_pointer_cast<ForceTorqueData>(data)->aTIO);
+    }
+
     auto dst = std::make_shared<std::vector<std::shared_ptr<ForceTorqueData>>>();
     dst->reserve(dataSeries->size());
 
@@ -65,43 +77,7 @@ void ASMTForceTorqueGeneral::storeOnTimeSeries(std::ofstream &os)
                    });
 
     os << "GeneralForceTorqueSeries\t" << fullName("") << std::endl;
-    auto n = dst->size();
-    os << "FXonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aFIO->at(0) << '\t';
-    }
-    os << std::endl;
-    os << "FYonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aFIO->at(1) << '\t';
-    }
-    os << std::endl;
-    os << "FZonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aFIO->at(2) << '\t';
-    }
-    os << std::endl;
-    os << "TXonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aTIO->at(0) << '\t';
-    }
-    os << std::endl;
-    os << "TYonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aTIO->at(1) << '\t';
-    }
-    os << std::endl;
-    os << "TZonI\t";
-    for (size_t i = 0; i < n; i++)
-    {
-        os << dst->at(i)->aTIO->at(2) << '\t';
-    }
-    os << std::endl;
+    ASMTItemIJ::storeOnTimeSeries(os);
 }
 
 void ASMTForceTorqueGeneral::createMbD()

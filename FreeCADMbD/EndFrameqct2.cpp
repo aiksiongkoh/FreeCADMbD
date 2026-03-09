@@ -25,30 +25,30 @@ std::shared_ptr<EndFrameqct2> EndFrameqct2::With(const std::string& str)
     return inst;
 }
 
-void EndFrameqct2::initpPhiThePsiptBlks()
+void EndFrameqct2::initpthe1x2y3zptBlks()
 {
     auto mbdTime = root()->time;
-    auto eulerAngles = std::static_pointer_cast<EulerAngles<Symsptr>>(phiThePsiBlks);
-    pPhiThePsiptBlks = eulerAngles->differentiateWRT(mbdTime);
+    auto eulerAngles = std::static_pointer_cast<EulerAngles<Symsptr>>(the1x2y3zBlks);
+    pthe1x2y3zptBlks = eulerAngles->differentiateWRT(mbdTime);
 }
 
-void EndFrameqct2::initppPhiThePsiptptBlks()
+void EndFrameqct2::initppthe1x2y3zptptBlks()
 {
     auto mbdTime = root()->time;
-    auto eulerAnglesDot = std::static_pointer_cast<EulerAnglesDot<Symsptr>>(pPhiThePsiptBlks);
-    ppPhiThePsiptptBlks = eulerAnglesDot->differentiateWRT(mbdTime);
+    auto eulerAnglesDot = std::static_pointer_cast<EulerAnglesDot<Symsptr>>(pthe1x2y3zptBlks);
+    ppthe1x2y3zptptBlks = eulerAnglesDot->differentiateWRT(mbdTime);
 }
 
 void EndFrameqct2::evalAme()
 {
-    auto eulerAngles = std::static_pointer_cast<EulerAngles<Symsptr>>(phiThePsiBlks);
+    auto eulerAngles = std::static_pointer_cast<EulerAngles<Symsptr>>(the1x2y3zBlks);
     eulerAngles->calc();
     aAme = eulerAngles->aA;
 }
 
 void EndFrameqct2::evalpAmept()
 {
-    auto eulerAnglesDot = std::static_pointer_cast<EulerAnglesDot<Symsptr>>(pPhiThePsiptBlks);
+    auto eulerAnglesDot = std::static_pointer_cast<EulerAnglesDot<Symsptr>>(pthe1x2y3zptBlks);
     eulerAnglesDot->calc();
     pAmept = eulerAnglesDot->aAdot;
 
@@ -56,7 +56,7 @@ void EndFrameqct2::evalpAmept()
 
 void EndFrameqct2::evalppAmeptpt()
 {
-    auto eulerAnglesDDot = std::static_pointer_cast<EulerAnglesDDot<Symsptr>>(ppPhiThePsiptptBlks);
+    auto eulerAnglesDDot = std::static_pointer_cast<EulerAnglesDDot<Symsptr>>(ppthe1x2y3zptptBlks);
     eulerAnglesDDot->calc();
     ppAmeptpt = eulerAnglesDDot->aAddot;
 }

@@ -48,6 +48,7 @@ namespace MbD {
         static std::vector<std::string> linesFromFile(const std::string& fileName);
         static void readWriteKineFile(const std::string& fileName);
         static void readWriteDynFile(const std::string& fileName);
+        static void readWriteDynFile2(const std::string& infilename, const std::string& outfilename);
         static void readWriteReadDynFile(const std::string& fileName);
 
         ASMTAssembly* root() override;
@@ -78,6 +79,7 @@ namespace MbD {
         void readMotionSeriesMany(std::vector<std::string>& lines);
         void readMotionSeries(std::vector<std::string>& lines);
         void readForceTorqueSeries(std::vector<std::string>& lines);
+        void readAllowRotationSeries(std::vector<std::string>& lines);
         void runDraggingLog(const std::string& chars);
         FColDsptr rOcmO() override;
         FColDsptr vOcmO() override;
@@ -131,10 +133,12 @@ namespace MbD {
         void storeOnLevelMotions(std::ofstream& os, size_t level);
         void storeOnLevelGeneralConstraintSets(std::ofstream& os, size_t level);
         void storeOnTimeSeries(std::ofstream& os) override;
-        void setFilename(const std::string& str);
+        void setinFileName(const std::string& str);
+        void setoutFileName(const std::string& str);
         void updateFromInputState() override;
 
-        std::string filename = "";
+        std::string inFileName = "";
+        std::string outFileName = "";
         std::string notes = "(Text string: '' runs: (Core.RunArray runs: #() values: #()))";
         std::shared_ptr<std::vector<std::shared_ptr<ASMTPart>>> parts = std::make_shared<std::vector<std::shared_ptr<ASMTPart>>>();
         std::shared_ptr<std::vector<std::shared_ptr<ASMTKinematicIJ>>> kinematicIJs = std::make_shared<std::vector<std::shared_ptr<ASMTKinematicIJ>>>();
