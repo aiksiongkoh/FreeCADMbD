@@ -32,8 +32,8 @@ void AtPointConstraintIcJqc::initriIeJeO()
 
 void AtPointConstraintIcJqc::simUpdateAll()
 {
-    //riIeJeO = rOJeO - rOIeO;
-    //aG = riIeJeO - C;
+    // riIeJeO = rOJeO - rOIeO;
+    // aG = riIeJeO - C;
     AtPointConstraintIJ::simUpdateAll();
     pGpEJ = std::static_pointer_cast<DispCompIecJeqcO>(riIeJeO)->priIeJeOpEJ;
 }
@@ -48,10 +48,10 @@ void AtPointConstraintIcJqc::useEquationNumbers()
 
 void AtPointConstraintIcJqc::addToJointForceI(FColDsptr col)
 {
-    //aFIeO = lam * pGpXI
-    //frmIec does not have q, we use frmJeqc
-    //aFJeO = lam * pGpXJ
-    //aFIeO = -aFJeO
+    // aFIeO = lam * pGpXI
+    // frmIec does not have q, we use frmJeqc
+    // aFJeO = lam * pGpXJ
+    // aFIeO = -aFJeO
     auto aFJeO = FullColumn<double>::With(3, 0.0);
     aFJeO->atiput(axis, lam);
     col->equalSelfMinus(aFJeO);
@@ -59,27 +59,27 @@ void AtPointConstraintIcJqc::addToJointForceI(FColDsptr col)
 
 void AtPointConstraintIcJqc::addToJointTorqueI(FColDsptr col)
 {
-    //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    //frmIec does not have q, we use frmJeqc
-    //aFJeO = lam * pGpXJ
-    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
-    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - p(aAOJp * rJpJeJp)pEJT * aFJeO)
-    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - (pAOJppEJ * rJpJeJp)T * aFJeO)
-    //aTJeO = rIeJeO cross aFIeO - aTIeO
-    //aTIeO = rJeIeO cross aFJeO - aTJeO
+    // aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
+    // frmIec does not have q, we use frmJeqc
+    // aFJeO = lam * pGpXJ
+    // aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
+    // aTJeO = 0.5 * aBOJp * (lam * pGpEJ - p(aAOJp * rJpJeJp)pEJT * aFJeO)
+    // aTJeO = 0.5 * aBOJp * (lam * pGpEJ - (pAOJppEJ * rJpJeJp)T * aFJeO)
+    // aTJeO = rIeJeO cross aFIeO - aTIeO
+    // aTIeO = rJeIeO cross aFJeO - aTJeO
 
     auto aFJeOT = FullRow<double>::With(3, 0.0);
     aFJeOT->atiput(axis, lam);
     auto rJpJeJp = eFrmJ->rpep();
     auto pAOJppEJ = eFrmJ->pAOppE();
     auto aBOJp = eFrmJ->aBOp();
-    auto prOJeOpEJTaFJeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOJeOpEJT * aFJeO
+    auto prOJeOpEJTaFJeO = std::make_shared<FullColumn<double>>(4, 0.0); // prOJeOpEJT * aFJeO
     for (size_t i = 0; i < 4; i++)
     {
         auto prOJeOpEJTaFJeOi = aFJeOT->timesFullColumn(pAOJppEJ->at(i)->timesFullColumn(rJpJeJp));
         prOJeOpEJTaFJeO->atiput(i, prOJeOpEJTaFJeOi);
     }
-    auto lampGpEJ = pGpEJ->transpose()->times(lam);  //lam * pGpEJ
+    auto lampGpEJ = pGpEJ->transpose()->times(lam); // lam * pGpEJ
     auto aTJeO = aBOJp->timesFullColumn(lampGpEJ->minusFullColumn(prOJeOpEJTaFJeO))->times(0.5);
     auto rJeIeO = getrIeJeO()->negated();
     auto aFJeO = aFJeOT->transpose();

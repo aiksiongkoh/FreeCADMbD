@@ -127,6 +127,11 @@ ConstraintType AtPointConstraintIJ::type()
     return displacement;
 }
 
+std::string AtPointConstraintIJ::constraintSpec()
+{
+    return "AtPointConstraintIJ";
+}
+
 void AtPointConstraintIJ::postDynPredictor()
 {
     riIeJeO->postDynPredictor();

@@ -45,11 +45,6 @@ ConstraintType AtPointConstraintIqctJqc::type()
     return essential;
 }
 
-std::string AtPointConstraintIqctJqc::constraintSpec()
-{
-    return "AtPointConstraintIJ";
-}
-
 void AtPointConstraintIqctJqc::preVelIC()
 {
     AtPointConstraintIqcJqc::preVelIC();

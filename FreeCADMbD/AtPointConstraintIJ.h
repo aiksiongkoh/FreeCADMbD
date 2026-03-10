@@ -22,8 +22,6 @@ namespace MbD {
         void initialize() override;
 
         void simUpdateAll() override;
-        void addToJointForceI(FColDsptr col) = 0;
-        void addToJointTorqueI(FColDsptr col) = 0;
         void initializeGlobally() override;
         void initializeLocally() override;
         virtual void initriIeJeO();
@@ -33,6 +31,7 @@ namespace MbD {
         void prePosIC() override;
         void preVelIC() override;
         ConstraintType type() override;
+        std::string constraintSpec() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;

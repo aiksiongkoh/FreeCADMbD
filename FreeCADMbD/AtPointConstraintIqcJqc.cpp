@@ -61,11 +61,6 @@ void AtPointConstraintIqcJqc::fillpFpydot(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
-std::string AtPointConstraintIqcJqc::constraintSpec()
-{
-    return "AtPointConstraintIJ";
-}
-
 void AtPointConstraintIqcJqc::fillPosICError(FColDsptr col)
 {
     AtPointConstraintIqcJc::fillPosICError(col);
