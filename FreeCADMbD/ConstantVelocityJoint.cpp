@@ -8,7 +8,6 @@
  
 #include "ConstantVelocityJoint.h"
 #include "System.h"
-#include "AtPointConstraintIJ.h"
 #include "ConstVelConstraintIJ.h"
 #include "EndFrameqc.h"
 

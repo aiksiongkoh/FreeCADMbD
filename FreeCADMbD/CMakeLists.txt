@@ -113,12 +113,6 @@ set(FREECADMBD_SRC
 		ASMTvIJKi.cpp
 		ASMTvrIJ.cpp
 		AssemblyFrame.cpp
-		AtPointConstraintIcJqc.cpp
-		AtPointConstraintIctJqc.cpp
-		AtPointConstraintIJ.cpp
-		AtPointConstraintIqcJc.cpp
-		AtPointConstraintIqcJqc.cpp
-		AtPointConstraintIqctJqc.cpp
 		AtPointConstraintIeJe.cpp
 		AtPointConstraintIeJeq.cpp
 		AtPointConstraintIetJeq.cpp
@@ -605,12 +599,6 @@ set(FREECADMBD_HEADERS
 		ASMTvIJKi.h
 		ASMTvrIJ.h
 		AssemblyFrame.h
-		AtPointConstraintIcJqc.h
-		AtPointConstraintIctJqc.h
-		AtPointConstraintIJ.h
-		AtPointConstraintIqcJc.h
-		AtPointConstraintIqcJqc.h
-		AtPointConstraintIqctJqc.h
 		AtPointConstraintIeJe.h
 		AtPointConstraintIeJeq.h
 		AtPointConstraintIetJeq.h

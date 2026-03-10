@@ -101,12 +101,6 @@ ASMTvIJ.cpp
 ASMTvIJKi.cpp
 ASMTvrIJ.cpp
 AssemblyFrame.cpp
-AtPointConstraintIcJqc.cpp
-AtPointConstraintIctJqc.cpp
-AtPointConstraintIJ.cpp
-AtPointConstraintIqcJc.cpp
-AtPointConstraintIqcJqc.cpp
-AtPointConstraintIqctJqc.cpp
 AtPointJoint.cpp
 BackwardDifference.cpp
 BasicDAEIntegrator.cpp

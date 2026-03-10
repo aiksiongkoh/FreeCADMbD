@@ -101,12 +101,6 @@ ASMTvIJ.h
 ASMTvIJKi.h
 ASMTvrIJ.h
 AssemblyFrame.h
-AtPointConstraintIcJqc.h
-AtPointConstraintIctJqc.h
-AtPointConstraintIJ.h
-AtPointConstraintIqcJc.h
-AtPointConstraintIqcJqc.h
-AtPointConstraintIqctJqc.h
 AtPointJoint.h
 BackwardDifference.h
 BasicDAEIntegrator.h

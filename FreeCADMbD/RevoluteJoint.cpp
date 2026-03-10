@@ -8,7 +8,6 @@
  
 #include "RevoluteJoint.h"
 #include "System.h"
-#include "AtPointConstraintIJ.h"
 #include "DirectionCosineConstraintIeJe.h"
 
 using namespace MbD;
