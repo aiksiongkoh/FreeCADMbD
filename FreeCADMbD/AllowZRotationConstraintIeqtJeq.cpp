@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include <numbers>
-#include "AllowZRotationConstraintIqctJqc.h"
+#include "AllowZRotationConstraintIeqtJeq.h"
 #include "MarkerFramec.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
@@ -18,23 +18,23 @@
 
 using namespace MbD;
 
-AllowZRotationConstraintIqctJqc::AllowZRotationConstraintIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) :
-    DirectionCosineConstraintIqctJqc(frmi, frmj, axisi, axisj)
+AllowZRotationConstraintIeqtJeq::AllowZRotationConstraintIeqtJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) :
+    DirectionCosineConstraintIeqtJeq(frmi, frmj, axisi, axisj)
 {
     //Do nothing.
 }
 
-std::shared_ptr<AllowZRotationConstraintIqctJqc> AllowZRotationConstraintIqctJqc::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
+std::shared_ptr<AllowZRotationConstraintIeqtJeq> AllowZRotationConstraintIeqtJeq::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
 {
-    auto inst = std::make_shared<AllowZRotationConstraintIqctJqc>(frmi, frmj, axisi, axisj);
+    auto inst = std::make_shared<AllowZRotationConstraintIeqtJeq>(frmi, frmj, axisi, axisj);
     inst->initialize();
     return inst;
 }
 
-void AllowZRotationConstraintIqctJqc::postInput()
+void AllowZRotationConstraintIeqtJeq::postInput()
 {
-    auto eqctI = std::static_pointer_cast<EndFrameqct>(eFrmI);
-    auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
+    auto eqctI = std::static_pointer_cast<EndFrameqct>(frmIe);
+    auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(frmJe->aAOe);
     auto aEulerAngles = aAImJe->eulerAngles();
     auto the2y = aEulerAngles->at(1);
     auto the3z = aEulerAngles->at(2);
@@ -45,16 +45,16 @@ void AllowZRotationConstraintIqctJqc::postInput()
         eqctI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(std::numbers::pi + the3z);
     }
     eqctI->postInput();
-    DirectionCosineConstraintIqctJqc::postInput();
+    DirectionCosineConstraintIeqtJeq::postInput();
 }
 
-void AllowZRotationConstraintIqctJqc::postPosIC()
+void AllowZRotationConstraintIeqtJeq::postPosIC()
 {
     //self becomeRedundantConstraint
     throw SimulationStoppingError("To be implemented.");
 }
 
-std::string AllowZRotationConstraintIqctJqc::constraintSpec()
+std::string AllowZRotationConstraintIeqtJeq::constraintSpec()
 {
     return "AllowZRotationConstraintIJ";
 }

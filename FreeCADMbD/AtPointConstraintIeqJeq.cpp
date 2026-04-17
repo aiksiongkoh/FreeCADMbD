@@ -37,20 +37,20 @@ void AtPointConstraintIeqJeq::initializeGlobally()
 void AtPointConstraintIeqJeq::calcpGpXJ()
 {
     //pGpXJ = [I];
-    auto prIeJeOpXJ = dispIeJeO->getprIeJeOpXJ();
+    auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
     pGpXJ = prIeJeOpXJ->at(axis);
 }
 
 void AtPointConstraintIeqJeq::calcpGpEJ()
 {
-    auto prIeJeOpEJ = dispIeJeO->getprIeJeOpEJ();
+    auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
     pGpEJ = prIeJeOpEJ->at(axis);
 }
 
 void AtPointConstraintIeqJeq::calcppGpEJpEJ()
 {
     //ppGpEJpEJ is constant for EndFrameqc, but not for EndFrameqct.
-    ppGpEJpEJ = dispIeJeO->getppriIeJeOpEJpEJ(axis);
+    ppGpEJpEJ = dispIeJeO->getppCompipEJpEJ(axis);
 }
 
 void AtPointConstraintIeqJeq::useEquationNumbers()

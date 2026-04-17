@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         }
         return 0;
     }
-    switch (2)
+    switch (0)
     {
     case 0:
     {

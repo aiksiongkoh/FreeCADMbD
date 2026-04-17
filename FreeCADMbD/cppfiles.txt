@@ -5,7 +5,7 @@ AccICNewtonRaphson.cpp
 AccKineNewtonRaphson.cpp
 AccNewtonRaphson.cpp
 AllowZRotation.cpp
-AllowZRotationConstraintIqctJqc.cpp
+AllowZRotationConstraintIeqtJeq.cpp
 AngleJoint.cpp
 AngleZConstraintIJ.cpp
 AngleZConstraintIqcJc.cpp
@@ -101,12 +101,6 @@ ASMTvIJ.cpp
 ASMTvIJKi.cpp
 ASMTvrIJ.cpp
 AssemblyFrame.cpp
-AtPointConstraintIcJqc.cpp
-AtPointConstraintIctJqc.cpp
-AtPointConstraintIJ.cpp
-AtPointConstraintIqcJc.cpp
-AtPointConstraintIqcJqc.cpp
-AtPointConstraintIqctJqc.cpp
 AtPointJoint.cpp
 BackwardDifference.cpp
 BasicDAEIntegrator.cpp
@@ -141,12 +135,6 @@ DiagonalMatrix.cpp
 DifferenceOperator.cpp
 DifferentialAlgebraicEquationSolver.cpp
 DifferentiatedGeneralSpline.cpp
-DirectionCosineConstraintIcJqc.cpp
-DirectionCosineConstraintIctJqc.cpp
-DirectionCosineConstraintIJ.cpp
-DirectionCosineConstraintIqcJc.cpp
-DirectionCosineConstraintIqcJqc.cpp
-DirectionCosineConstraintIqctJqc.cpp
 DirectionCosineIecJec.cpp
 DirectionCosineIecJeqc.cpp
 DirectionCosineIectJeqc.cpp
@@ -445,12 +433,6 @@ TorqueVector.cpp
 Transitions.cpp
 Translation.cpp
 TranslationalJoint.cpp
-TranslationConstraintIcJqc.cpp
-TranslationConstraintIctJqc.cpp
-TranslationConstraintIJ.cpp
-TranslationConstraintIqcJc.cpp
-TranslationConstraintIqcJqc.cpp
-TranslationConstraintIqctJqc.cpp
 TranslationLimitIJ.cpp
 Units.cpp
 UniversalJoint.cpp

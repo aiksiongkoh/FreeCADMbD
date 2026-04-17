@@ -14,8 +14,8 @@ set(FREECADMBD_SRC
 		AccKineNewtonRaphson.cpp
 		AccNewtonRaphson.cpp
 		AllowZRotation.cpp
-		AllowZRotationConstraintIctJqc.cpp
-		AllowZRotationConstraintIqctJqc.cpp
+		AllowZRotationConstraintIetJeq.cpp
+		AllowZRotationConstraintIeqtJeq.cpp
 		AngleJoint.cpp
 		AngleZConstraintIJ.cpp
 		AngleZConstraintIcJqc.cpp
@@ -113,12 +113,6 @@ set(FREECADMBD_SRC
 		ASMTvIJKi.cpp
 		ASMTvrIJ.cpp
 		AssemblyFrame.cpp
-		AtPointConstraintIcJqc.cpp
-		AtPointConstraintIctJqc.cpp
-		AtPointConstraintIJ.cpp
-		AtPointConstraintIqcJc.cpp
-		AtPointConstraintIqcJqc.cpp
-		AtPointConstraintIqctJqc.cpp
 		AtPointConstraintIeJe.cpp
 		AtPointConstraintIeJeq.cpp
 		AtPointConstraintIetJeq.cpp
@@ -166,12 +160,6 @@ set(FREECADMBD_SRC
 		DirectionCosineConstraintIeqJe.cpp
 		DirectionCosineConstraintIeqJeq.cpp
 		DirectionCosineConstraintIeqtJeq.cpp
-		DirectionCosineConstraintIcJqc.cpp
-		DirectionCosineConstraintIctJqc.cpp
-		DirectionCosineConstraintIJ.cpp
-		DirectionCosineConstraintIqcJc.cpp
-		DirectionCosineConstraintIqcJqc.cpp
-		DirectionCosineConstraintIqctJqc.cpp
 		DirectionCosineIecJec.cpp
 		DirectionCosineIecJeqc.cpp
 		DirectionCosineIectJeqc.cpp
@@ -311,7 +299,7 @@ set(FREECADMBD_SRC
 		Kinematic.cpp
 		KinematicDotIJ.cpp
 		KinematicIJ.cpp
-		KinematicIeJe.cpp
+		KinematicVectorIeJe.cpp
 		LDUFullMat.cpp
 		LDUFullMatParPv.cpp
 		LDUFullMatParPvRobust.cpp
@@ -466,12 +454,6 @@ set(FREECADMBD_SRC
 		Transitions.cpp
 		Translation.cpp
 		TranslationalJoint.cpp
-		TranslationConstraintIcJqc.cpp
-		TranslationConstraintIctJqc.cpp
-		TranslationConstraintIJ.cpp
-		TranslationConstraintIqcJc.cpp
-		TranslationConstraintIqcJqc.cpp
-		TranslationConstraintIqctJqc.cpp
 		TranslationLimitIJ.cpp
 		TranslationConstraintIeJe.cpp
 		TranslationConstraintIeJeq.cpp
@@ -506,8 +488,8 @@ set(FREECADMBD_HEADERS
 		AccKineNewtonRaphson.h
 		AccNewtonRaphson.h
 		AllowZRotation.h
-		AllowZRotationConstraintIctJqc.h
-		AllowZRotationConstraintIqctJqc.h
+		AllowZRotationConstraintIetJeq.h
+		AllowZRotationConstraintIeqtJeq.h
 		AngleJoint.h
 		AngleZConstraintIJ.h
 		AngleZConstraintIcJqc.h
@@ -605,12 +587,6 @@ set(FREECADMBD_HEADERS
 		ASMTvIJKi.h
 		ASMTvrIJ.h
 		AssemblyFrame.h
-		AtPointConstraintIcJqc.h
-		AtPointConstraintIctJqc.h
-		AtPointConstraintIJ.h
-		AtPointConstraintIqcJc.h
-		AtPointConstraintIqcJqc.h
-		AtPointConstraintIqctJqc.h
 		AtPointConstraintIeJe.h
 		AtPointConstraintIeJeq.h
 		AtPointConstraintIetJeq.h
@@ -658,12 +634,6 @@ set(FREECADMBD_HEADERS
 		DirectionCosineConstraintIeqJe.h
 		DirectionCosineConstraintIeqJeq.h
 		DirectionCosineConstraintIeqtJeq.h
-		DirectionCosineConstraintIcJqc.h
-		DirectionCosineConstraintIctJqc.h
-		DirectionCosineConstraintIJ.h
-		DirectionCosineConstraintIqcJc.h
-		DirectionCosineConstraintIqcJqc.h
-		DirectionCosineConstraintIqctJqc.h
 		DirectionCosineIecJec.h
 		DirectionCosineIecJeqc.h
 		DirectionCosineIectJeqc.h
@@ -804,7 +774,7 @@ set(FREECADMBD_HEADERS
 		Kinematic.h
 		KinematicDotIJ.h
 		KinematicIJ.h
-		KinematicIeJe.h
+		KinematicVectorIeJe.h
 		LDUFullMat.h
 		LDUFullMatParPv.h
 		LDUFullMatParPvRobust.h
@@ -960,12 +930,6 @@ set(FREECADMBD_HEADERS
 		Transitions.h
 		Translation.h
 		TranslationalJoint.h
-		TranslationConstraintIcJqc.h
-		TranslationConstraintIctJqc.h
-		TranslationConstraintIJ.h
-		TranslationConstraintIqcJc.h
-		TranslationConstraintIqcJqc.h
-		TranslationConstraintIqctJqc.h
 		TranslationLimitIJ.h
 		TranslationConstraintIeJe.h
 		TranslationConstraintIeJeq.h

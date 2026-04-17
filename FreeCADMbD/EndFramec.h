@@ -51,7 +51,7 @@ namespace MbD {
         virtual FColDsptr keO() const;
         virtual std::shared_ptr<EndFrameqc> newCopyEndFrameqc();
         virtual FColDsptr omeOeO();
-        virtual FColFMatDsptr pAOepE() const;
+        virtual FColFMatDsptr getpAOepE() const;
         virtual FColFMatDsptr pAOppE();
         virtual FMatDsptr pAjOepE(size_t j) const;
         virtual FMatDsptr pAjOepET(size_t j);
@@ -66,7 +66,17 @@ namespace MbD {
         virtual FColDsptr vOeO() const;
         virtual FMatDsptr getprOeOpE() const;
         virtual FMatFColDsptr getpprOeOpEpE() const;
+        virtual FColDsptr getprOeOpt() const;
+        virtual FMatDsptr getpprOeOpEpt() const;
+        virtual FColDsptr getpprOeOptpt() const;
+        virtual FMatDsptr getpAOept() const;
+        virtual FColFMatDsptr getppAOepEpt() const;
+        virtual FMatDsptr getppAOeptpt() const;
         virtual FMatDsptr pAOepEtimesFullColumn(FColDsptr col) const;
+        virtual FMatDsptr pAOeTpEtimesFullColumn(FColDsptr col) const;
+        virtual FMatFColDsptr ppAOeTpEpEtimesFullColumn(FColDsptr col) const;
+        virtual FMatDsptr ppAOeTpEpttimesFullColumn(FColDsptr col) const;
+        virtual FMatFColDsptr pAOeTpEtimesFullMatrix(FMatDsptr mat) const;
 
         FColDsptr rmem = std::make_shared<FullColumn<double>>(3);
         FMatDsptr aAme = FullMatrix<double>::identitysptr(3);

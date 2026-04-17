@@ -436,3 +436,45 @@ void EndFrameqct::postDynOutput()
     evalAme();
     EndFrameqc::postDynOutput();
 }
+
+FColDsptr MbD::EndFrameqct::getprOeOpt() const
+{
+    return prOeOpt;
+}
+
+FMatDsptr MbD::EndFrameqct::getpprOeOpEpt() const
+{
+    return pprOeOpEpt;
+}
+
+FColDsptr MbD::EndFrameqct::getpprOeOptpt() const
+{
+    return pprOeOptpt;
+}
+
+FMatDsptr MbD::EndFrameqct::getpAOept() const
+{
+    return pAOept;
+}
+
+FColFMatDsptr MbD::EndFrameqct::getppAOepEpt() const
+{
+    return ppAOepEpt;
+}
+
+FMatDsptr MbD::EndFrameqct::getppAOeptpt() const
+{
+    return ppAOeptpt;
+}
+
+FMatDsptr MbD::EndFrameqct::ppAOeTpEpttimesFullColumn(FColDsptr col) const
+{
+    auto answer = FullMatrix<double>::With(3, 4);
+    for (size_t j = 0; j < 4; j++)
+    {
+        auto ppAOepEjpt = ppAOepEpt->at(j);
+        auto answerCol = ppAOepEjpt->transposeTimesFullColumn(col);
+        answer->atijputFullColumn(0, j, answerCol);
+    }
+    return answer;
+}

@@ -19,44 +19,54 @@ std::shared_ptr<DispIetJeqO> DispIetJeqO::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
+void MbD::DispIetJeqO::simUpdateAll()
+{
+    DispIeJeqO::simUpdateAll();
+    calcpVectorpt();
+    calcppVectorpXJpt();
+    calcppVectorpEJpt();
+    calcppVectorptpt();
+}
+
 void MbD::DispIetJeqO::preVelIC()
 {
     DispIeJeqO::preVelIC();
-    calcpvaluept();
+    calcpVectorpt();
 }
 
 void MbD::DispIetJeqO::preAccIC()
 {
     DispIeJeqO::preAccIC();
-    calcppvalueptpt();
+    calcppVectorptpt();
 }
 
-FMatDsptr MbD::DispIetJeqO::getprIeJeOpXJ()
+FMatDsptr MbD::DispIetJeqO::getpVectorpXJ()
 {
     return prIeJeOpXJ;
 }
 
-FMatDsptr MbD::DispIetJeqO::getprIeJeOpEJ()
+FMatDsptr MbD::DispIetJeqO::getpVectorpEJ()
 {
     return prIeJeOpEJ;
 }
 
-FColDsptr MbD::DispIetJeqO::getprIeJeOpt()
+FColDsptr MbD::DispIetJeqO::getpVectorpt()
 {
     return prIeJeOpt;
 }
 
-FColDsptr MbD::DispIetJeqO::getpprIeJeOptpt()
+FColDsptr MbD::DispIetJeqO::getppVectorptpt()
 {
     return pprIeJeOptpt;
 }
 
-void DispIetJeqO::calcpvaluept()
+void DispIetJeqO::calcpVectorpt()
 {
-    prIeJeOpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->prOeOpt->negated();
+    prIeJeOpt = frmIe->getprOeOpt()->negated();
 }
 
-void DispIetJeqO::calcppvalueptpt()
+void DispIetJeqO::calcppVectorptpt()
 {
-    pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
+    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
+    pprIeJeOptpt = frmIe->getpprOeOptpt()->negated();
 }

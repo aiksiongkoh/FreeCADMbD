@@ -63,12 +63,19 @@ namespace MbD {
         void postDynPredictor() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        FColDsptr getprOeOpt() const override;
+        FMatDsptr getpprOeOpEpt() const override;
+        FColDsptr getpprOeOptpt() const override;
+        FMatDsptr getpAOept() const override;
+        FColFMatDsptr getppAOepEpt() const override;
+        FMatDsptr getppAOeptpt() const override;
+        FMatDsptr ppAOeTpEpttimesFullColumn(FColDsptr col) const override;
 
         double time = 0.0;
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
         std::shared_ptr<FullColumn<Symsptr>> the1x2y3zBlks, pthe1x2y3zptBlks, ppthe1x2y3zptptBlks;
-        FColDsptr rmem, prmempt, pprmemptpt, prOeOpt, pprOeOptpt;
-        FMatDsptr aAme, pAmept, ppAmeptpt, pAOept, ppAOeptpt;
+        FColDsptr prmempt, pprmemptpt, prOeOpt, pprOeOptpt;
+        FMatDsptr pAmept, ppAmeptpt, pAOept, ppAOeptpt;
         FMatDsptr pprOeOpEpt;
         FColFMatDsptr ppAOepEpt;
     };

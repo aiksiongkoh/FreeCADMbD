@@ -15,7 +15,6 @@
 #include "Item.h"
 #include "EndFrameqc.h"
 #include "TranslationConstraintIeJe.h"
-#include "DirectionCosineConstraintIJ.h"
 #include "ConstraintSet.h"
 
 namespace MbD {

@@ -53,5 +53,6 @@ temp/
 .cache/
 build-ninja/
 build-vs/
+build-debug/
 tempAssembly.asmt
 /release/

@@ -18,7 +18,25 @@ std::shared_ptr<DispIeJeqKeq> DispIeJeqKeq::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void DispIeJeqKeq::initializeGlobally()
+void MbD::DispIeJeqKeq::simUpdateAll()
 {
-    //Variables are constants.
+    DispIeJeKe::simUpdateAll();
+    calcpVectorpEK();
+    calcppVectorpXJpEK();
+    calcppVectorpEJpEK();
+    calcppVectorpEKpEK();
+}
+
+void MbD::DispIeJeqKeq::calcppVectorpXJpEK()
+{
+    // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
+    auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
+    pprIeJeKepXJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
+}
+
+void MbD::DispIeJeqKeq::calcppVectorpEJpEK()
+{
+    // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
+    auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
+    pprIeJeKepEJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
 }

@@ -20,29 +20,47 @@ std::shared_ptr<DispIeJeqO> DispIeJeqO::With(EndFrmsptr frmi, EndFrmsptr frmj)
 
 void DispIeJeqO::initializeGlobally()
 {
-    //Variables are constants.
-    prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
-    pprIeJeOpEJpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->pprOeOpEpE;
+    DispIeJeO::initializeGlobally();
+    // Variables are constants.
+    calcpVectorpXJ();
+    calcppVectorpEJpEJ();
 }
 
-FMatDsptr MbD::DispIeJeqO::getprIeJeOpXJ()
+void MbD::DispIeJeqO::calcpVectorpXJ()
+{
+    prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
+}
+
+void MbD::DispIeJeqO::calcpVectorpEJ()
+{
+    // rIeJeO = rOJeO - rOIeO
+    prIeJeOpEJ = frmJe->getprOeOpE();
+}
+
+void MbD::DispIeJeqO::calcppVectorpEJpEJ()
+{
+    pprIeJeOpEJpEJ = frmJe->getpprOeOpEpE();
+}
+
+FMatDsptr MbD::DispIeJeqO::getpVectorpXJ()
 {
     return prIeJeOpXJ;
 }
 
-FMatDsptr MbD::DispIeJeqO::getprIeJeOpEJ()
+FMatDsptr MbD::DispIeJeqO::getpVectorpEJ()
 {
     return prIeJeOpEJ;
 }
 
 void DispIeJeqO::simUpdateAll()
 {
-    //rIeJeO = rOJeO - rOIeO
+    // rIeJeO = rOJeO - rOIeO
     DispIeJeO::simUpdateAll();
-    prIeJeOpEJ = std::static_pointer_cast<EndFrameqc>(frmJe)->prOeOpE;
+    // calcpVectorpXJ() is a constant
+    calcpVectorpEJ();
 }
 
-FMatDsptr MbD::DispIeJeqO::getppriIeJeOpEJpEJ(size_t axis)
+FMatDsptr MbD::DispIeJeqO::getppCompipEJpEJ(size_t axis)
 {
     return std::static_pointer_cast<EndFrameqc>(frmJe)->ppriOeOpEpE(axis);
 }

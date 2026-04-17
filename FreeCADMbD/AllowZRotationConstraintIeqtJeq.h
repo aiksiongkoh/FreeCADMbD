@@ -8,15 +8,15 @@
 
 #pragma once
 
-#include "DirectionCosineConstraintIctJqc.h"
+#include "DirectionCosineConstraintIeqtJeq.h"
 
 namespace MbD {
 
-    class AllowZRotationConstraintIctJqc : public DirectionCosineConstraintIctJqc
+    class AllowZRotationConstraintIeqtJeq : public DirectionCosineConstraintIeqtJeq
     {
     public:
-        AllowZRotationConstraintIctJqc(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
-        static std::shared_ptr<AllowZRotationConstraintIctJqc> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
+        AllowZRotationConstraintIeqtJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
+        static std::shared_ptr<AllowZRotationConstraintIeqtJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
         void postInput() override;
         void postPosIC() override;

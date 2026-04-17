@@ -20,11 +20,16 @@ namespace MbD {
         static std::shared_ptr<DispIetJeqKet> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
-        void initializeGlobally() override;
+        virtual void calcpVectorpt();
+        virtual void calcppVectorpXJpt();
+        virtual void calcppVectorpEJpt();
+        virtual void calcppVectorptpt();
         void preVelIC() override;
         void preAccIC() override;
 
         FColDsptr prIeJeKept;
+        FMatDsptr pprIeJeKepXJpt;
+        FMatDsptr pprIeJeKepEJpt;
         FColDsptr pprIeJeKeptpt;
     };
 }

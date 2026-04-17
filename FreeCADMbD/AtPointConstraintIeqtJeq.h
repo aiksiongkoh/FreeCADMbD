@@ -18,7 +18,7 @@ namespace MbD {
         AtPointConstraintIeqtJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO) : AtPointConstraintIeqJeq(frmi, frmj, axisO) {}
         static std::shared_ptr<AtPointConstraintIeqtJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO);
 
-        void simUpdateAll();
+        void simUpdateAll() override;
         void initializeGlobally() override;
 
         void fillAccICIterError(FColDsptr col) override;

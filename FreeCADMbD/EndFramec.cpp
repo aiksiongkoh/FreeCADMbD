@@ -208,9 +208,59 @@ FMatFColDsptr MbD::EndFramec::getpprOeOpEpE() const
     return FMatFColDsptr();
 }
 
+FColDsptr MbD::EndFramec::getprOeOpt() const
+{
+    return FColDsptr();
+}
+
+FMatDsptr MbD::EndFramec::getpprOeOpEpt() const
+{
+    return FMatDsptr();
+}
+
+FColDsptr MbD::EndFramec::getpprOeOptpt() const
+{
+    return FColDsptr();
+}
+
+FMatDsptr MbD::EndFramec::getpAOept() const
+{
+    return FMatDsptr();
+}
+
+FColFMatDsptr MbD::EndFramec::getppAOepEpt() const
+{
+    return FColFMatDsptr();
+}
+
+FMatDsptr MbD::EndFramec::getppAOeptpt() const
+{
+    return FMatDsptr();
+}
+
 FMatDsptr MbD::EndFramec::pAOepEtimesFullColumn(FColDsptr col) const
 {
     return FMatDsptr();
+}
+
+FMatDsptr MbD::EndFramec::pAOeTpEtimesFullColumn(FColDsptr col) const
+{
+    return FMatDsptr();
+}
+
+FMatFColDsptr MbD::EndFramec::ppAOeTpEpEtimesFullColumn(FColDsptr col) const
+{
+    return FMatFColDsptr();
+}
+
+FMatDsptr MbD::EndFramec::ppAOeTpEpttimesFullColumn(FColDsptr col) const
+{
+    return FMatDsptr();
+}
+
+FMatFColDsptr MbD::EndFramec::pAOeTpEtimesFullMatrix(FMatDsptr mat) const
+{
+    return FMatFColDsptr();
 }
 
 FColDsptr EndFramec::aOeO() const
@@ -230,7 +280,7 @@ FMatDsptr EndFramec::pAjOepET(size_t axis)
     for (size_t i = 0; i < 4; i++)
     {
         auto answeri = answer->at(i);
-        auto pAOepEi = pAOepE()->at(i);
+        auto pAOepEi = getpAOepE()->at(i);
         for (size_t j = 0; j < 3; j++)
         {
             auto answerij = pAOepEi->at(j)->at(axis);
@@ -240,7 +290,7 @@ FMatDsptr EndFramec::pAjOepET(size_t axis)
     return answer;
 }
 
-FColFMatDsptr EndFramec::pAOepE() const
+FColFMatDsptr EndFramec::getpAOepE() const
 {
     // rOeO = rOmO + aAOm*rmem
     // aAOe = aAOm*aAme;

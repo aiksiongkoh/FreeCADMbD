@@ -63,7 +63,10 @@ namespace MbD {
         std::shared_ptr<EndFrameqct> endFrameqct;
 
         // Add this method declaration to EndFrameqc
-        FMatDsptr pAOepEtimesFullColumn(FColDsptr col) const;
+        FMatDsptr pAOepEtimesFullColumn(FColDsptr col) const override;
+        FMatDsptr pAOeTpEtimesFullColumn(FColDsptr col) const override;
+        FMatFColDsptr ppAOeTpEpEtimesFullColumn(FColDsptr col) const override;
+        FMatFColDsptr pAOeTpEtimesFullMatrix(FMatDsptr mat) const override;
     };
 }
 

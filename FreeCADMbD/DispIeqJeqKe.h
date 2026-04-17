@@ -20,16 +20,13 @@ namespace MbD {
         static std::shared_ptr<DispIeqJeqKe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
-        void calcpvaluepXJ() override;
-        void calcpvaluepEJ() override;
-        void calcppvaluepEIpXJ() override;
-        void calcppvaluepEIpEJ() override;
-        void calcppvaluepEJpEJ() override;
-        void initializeGlobally() override;
+        void calcpVectorpXJ() override;
+        void calcpVectorpEJ() override;
+        void calcppVectorpEJpEJ() override;
+        FMatDsptr getppCompipEJpEJ(size_t axis) override;
         FMatDsptr prIeJeKepXJ;
         FMatDsptr prIeJeKepEJ;
         FMatFColDsptr pprIeJeKepEJpEJ;
-
     };
 }
 

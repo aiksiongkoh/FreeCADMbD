@@ -83,51 +83,56 @@ std::shared_ptr<DispIeJeO> DispIeJeO::With(EndFrmsptr frmi, EndFrmsptr frmj)
 
 void DispIeJeO::simUpdateAll()
 {
+    calcVector();
+}
+
+void MbD::DispIeJeO::calcVector()
+{
     //rIeJeO = rOJeO - rOIeO
     rIeJeO = getrIeJeO();
 }
 
-FMatDsptr MbD::DispIeJeO::getprIeJeOpXI()
+FMatDsptr MbD::DispIeJeO::getpVectorpXI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getprIeJeOpEI()
+FMatDsptr MbD::DispIeJeO::getpVectorpEI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getprIeJeOpXJ()
+FMatDsptr MbD::DispIeJeO::getpVectorpXJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getprIeJeOpEJ()
+FMatDsptr MbD::DispIeJeO::getpVectorpEJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getppriIeJeOpEIpEI(size_t axis)
+FMatDsptr MbD::DispIeJeO::getppCompipEIpEI(size_t axis)
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getppriIeJeOpEJpEJ(size_t axis)
+FMatDsptr MbD::DispIeJeO::getppCompipEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeO::getprIeJeOpt()
+FColDsptr MbD::DispIeJeO::getpVectorpt()
 {
     return FColDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getpprIeJeOpEIpt()
+FMatDsptr MbD::DispIeJeO::getppVectorpEIpt()
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeO::getpprIeJeOptpt()
+FColDsptr MbD::DispIeJeO::getppVectorptpt()
 {
     return FColDsptr();
 }

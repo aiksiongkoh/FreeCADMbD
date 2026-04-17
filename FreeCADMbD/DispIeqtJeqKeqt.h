@@ -20,11 +20,23 @@ namespace MbD {
         static std::shared_ptr<DispIeqtJeqKeqt> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
-        void initializeGlobally() override;
+        virtual void calcpVectorpt();
+        virtual void calcppVectorpXIpt();
+        virtual void calcppVectorpEIpt();
+        virtual void calcppVectorpXJpt();
+        virtual void calcppVectorpEJpt();
+        virtual void calcppVectorpEKpt();
+        virtual void calcppVectorptpt();
         void preVelIC() override;
         void preAccIC() override;
 
         FColDsptr prIeJeKept;
+        FMatDsptr pprIeJeKepXIpt;
+        FMatDsptr pprIeJeKepEIpt;
+        FMatDsptr pprIeJeKepXJpt;
+        FMatDsptr pprIeJeKepEJpt;
+        FMatDsptr pprIeJeKepXKpt;
+        FMatDsptr pprIeJeKepEKpt;
         FColDsptr pprIeJeKeptpt;
     };
 }

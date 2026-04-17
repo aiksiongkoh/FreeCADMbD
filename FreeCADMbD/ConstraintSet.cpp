@@ -68,7 +68,10 @@ void ConstraintSet::addConstraint(std::shared_ptr<Constraint> con)
     con->owner = this;
     constraints->push_back(con);
     auto conIeJe = std::dynamic_pointer_cast<ConstraintIeJe>(con);
-    if (conIeJe) conIeJe->useUniqueDispIeJeO();
+    if (conIeJe) {
+        conIeJe->useUniqueDispIeJeO();
+        conIeJe->useUniqueDispIeJeKe();
+    }
 }
 
 void ConstraintSet::postInput()

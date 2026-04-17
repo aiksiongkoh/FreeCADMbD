@@ -9,8 +9,8 @@
 #include "System.h"
 #include "AllowZRotation.h"
 #include "FullColumn.h"
-#include "AllowZRotationConstraintIqctJqc.h"
-#include "AllowZRotationConstraintIctJqc.h"
+#include "AllowZRotationConstraintIeqtJeq.h"
+#include "AllowZRotationConstraintIetJeq.h"
 #include "EndFramect.h"
 #include "EndFrameqc.h"
 #include "EndFrameqct.h"
@@ -45,10 +45,10 @@ void AllowZRotation::initializeGlobally()
         auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
         auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
         if (eFrmIct && !eFrmIqct) {
-            dirCosCon = AllowZRotationConstraintIctJqc::With(eFrmI, eFrmJ, 1, 0);
+            dirCosCon = AllowZRotationConstraintIetJeq::With(eFrmI, eFrmJ, 1, 0);
         }
         else if (!eFrmIct && eFrmIqct) {
-            dirCosCon = AllowZRotationConstraintIqctJqc::With(eFrmI, eFrmJ, 1, 0);
+            dirCosCon = AllowZRotationConstraintIeqtJeq::With(eFrmI, eFrmJ, 1, 0);
         }
         else {
             throw SimulationStoppingError("Check this.");

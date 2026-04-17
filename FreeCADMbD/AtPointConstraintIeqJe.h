@@ -24,8 +24,8 @@ namespace MbD {
         void calcpGpEI() override;
         void calcppGpEIpEI() override;
         void fillAccICIterError(FColDsptr col) override;
-        void addToJointForceI(FColDsptr col);
-        void addToJointTorqueI(FColDsptr col);
+        void addToJointForceI(FColDsptr col) override;
+        void addToJointTorqueI(FColDsptr col) override;
         void fillPosICError(FColDsptr col) override;
         void fillPosICJacob(SpMatDsptr mat) override;
         void fillVelICJacob(SpMatDsptr mat) override;

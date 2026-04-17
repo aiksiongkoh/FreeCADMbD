@@ -38,7 +38,7 @@ ConstraintType AtPointConstraintIeqtJeq::type()
 void AtPointConstraintIeqtJeq::preVelIC()
 {
     AtPointConstraintIeqJeq::preVelIC();
-    pGpt = dispIeJeO->getprIeJeOpt()->at(axis);
+    pGpt = dispIeJeO->getpVectorpt()->at(axis);
 }
 
 void AtPointConstraintIeqtJeq::fillVelICError(FColDsptr col)
@@ -59,7 +59,7 @@ void AtPointConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 void AtPointConstraintIeqtJeq::preAccIC()
 {
     AtPointConstraintIeqJeq::preAccIC();
-    ppGpEIpt = dispIeJeO->getpprIeJeOpEIpt()->at(axis);
-    ppGptpt = dispIeJeO->getpprIeJeOptpt()->at(axis);
+    ppGpEIpt = dispIeJeO->getppVectorpEIpt()->at(axis);
+    ppGptpt = dispIeJeO->getppVectorptpt()->at(axis);
 }
 

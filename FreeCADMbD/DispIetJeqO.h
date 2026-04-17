@@ -22,14 +22,15 @@ namespace MbD {
         DispIetJeqO(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeJeqO(frmi, frmj) {}
         static std::shared_ptr<DispIetJeqO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
+        void simUpdateAll() override;
         void preVelIC() override;
         void preAccIC() override;
-        void calcpvaluept() override;
-        void calcppvalueptpt() override;
-        FMatDsptr getprIeJeOpXJ() override;
-        FMatDsptr getprIeJeOpEJ() override;
-        FColDsptr getprIeJeOpt() override;
-        FColDsptr getpprIeJeOptpt() override;
+        void calcpVectorpt() override;
+        void calcppVectorptpt() override;
+        FMatDsptr getpVectorpXJ() override;
+        FMatDsptr getpVectorpEJ() override;
+        FColDsptr getpVectorpt() override;
+        FColDsptr getppVectorptpt() override;
 
         FColDsptr prIeJeOpt;
         FColDsptr pprIeJeOptpt;

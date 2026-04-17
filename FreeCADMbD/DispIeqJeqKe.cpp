@@ -18,8 +18,48 @@ std::shared_ptr<DispIeqJeqKe> DispIeqJeqKe::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void DispIeqJeqKe::initializeGlobally()
+void MbD::DispIeqJeqKe::calcppVectorpEJpEJ()
 {
-    DispIeqJeKe::initializeGlobally();
-    //Variables are constants.
+    //pprIeJeKepEJpEJ = aAOKeT * pprIeJeOpEJpEJ
+    auto pprIeJeOpEJpEJ = dispIeJeO->getppVectorpEJpEJ();
+    pprIeJeKepEJpEJ = FullMatrix<FColDsptr>::With(4, 4);
+    for (size_t i = 0; i < 4; i++) {
+        for (size_t j = 0; j < 4; j++) {
+            pprIeJeKepEJpEJ->atijput(i, j, aAOKe->transposeTimesFullColumn(pprIeJeOpEJpEJ->at(i)->at(j)));
+        }
+    }
+}
+
+void MbD::DispIeqJeqKe::simUpdateAll()
+{
+    DispIeqJeKe::simUpdateAll();
+    calcpVectorpEJ();
+    calcppVectorpEJpEJ();
+}
+
+void MbD::DispIeqJeqKe::calcpVectorpXJ()
+{
+    //prIeJeKepXJ = aAOKeT * prIeJeOpXJ
+    auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
+    prIeJeKepXJ = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpXJ);
+}
+
+void MbD::DispIeqJeqKe::calcpVectorpEJ()
+{
+    //prIeJeKepEJ = aAOKeT * prIeJeOpEJ
+    auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
+    prIeJeKepEJ = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpEJ);
+}
+
+FMatDsptr MbD::DispIeqJeqKe::getppCompipEJpEJ(size_t axis)
+{
+    auto answer = FullMatrix<double>::With(4, 4);
+    for (size_t i = 0; i < 4; i++) {
+        auto answeri = answer->at(i);
+        auto pprIeJeKepEipE = pprIeJeKepEJpEJ->at(i);
+        for (size_t j = 0; j < 4; j++) {
+            answeri->at(j) = pprIeJeKepEipE->at(j)->at(axis);
+        }
+    }
+    return answer;
 }

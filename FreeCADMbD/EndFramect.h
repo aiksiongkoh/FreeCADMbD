@@ -52,6 +52,10 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
         void simUpdateAll() override;
+        FColDsptr getprOeOpt() const override;
+        FColDsptr getpprOeOptpt() const override;
+        FMatDsptr getpAOept() const override;
+        FMatDsptr getppAOeptpt() const override;
 
         std::shared_ptr<FullColumn<Symsptr>> rmemBlks, prmemptBlks, pprmemptptBlks;
         std::shared_ptr<FullColumn<Symsptr>> the1x2y3zBlks, pthe1x2y3zptBlks, ppthe1x2y3zptptBlks;

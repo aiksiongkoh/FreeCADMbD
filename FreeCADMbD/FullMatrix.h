@@ -119,7 +119,6 @@ namespace MbD
         double sumOfSquares() override;
         void zeroSelf() override;
         FMatsptr<T> copy();
-        FullMatrix<T> operator+(const FullMatrix<T> fullMat);
         FColsptr<T> transposeTimesFullColumn(const FColsptr<T> fullCol);
         void magnifySelf(T factor);
         std::shared_ptr<EulerParameters<T>> asEulerParameters();
@@ -706,18 +705,6 @@ namespace MbD
         for (size_t i = 0; i < m; i++)
         {
             answer->at(i) = this->at(i)->copy();
-        }
-        return answer;
-    }
-
-    template <typename T>
-    inline FullMatrix<T> FullMatrix<T>::operator+(const FullMatrix<T> fullMat)
-    {
-        auto n = this->size();
-        auto answer = FullMatrix<T>(n);
-        for (size_t i = 0; i < n; i++)
-        {
-            answer.at(i) = this->at(i)->plusFullRow(fullMat.at(i));
         }
         return answer;
     }

@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "DispIeqJeKeq.h"
 #include "EndFrameqc.h"
 
@@ -18,13 +18,57 @@ std::shared_ptr<DispIeqJeKeq> DispIeqJeKeq::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void DispIeqJeKeq::initializeGlobally()
+void MbD::DispIeqJeKeq::simUpdateAll()
 {
-    DispIeJeKe::initializeGlobally();
-    //Variables are constants.
+    DispIeqJeKe::simUpdateAll();
+    calcpVectorpEK();
+    calcppVectorpXIpEK();
+    calcppVectorpEIpEK();
+    calcppVectorpEKpEK();
 }
 
-void MbD::DispIeqJeKeq::calcpvaluepEK()
+void MbD::DispIeqJeKeq::calcpVectorpEK()
 {
-    prIeJeKepEK = frmKe->pAOepEtimesFullColumn(rIeJeO);
+    // prIeJeKepEK = pAOKeTpEK * rIeJeO
+    prIeJeKepEK = frmKe->pAOeTpEtimesFullColumn(rIeJeO);
+}
+
+void MbD::DispIeqJeKeq::calcppVectorpEKpEK()
+{
+    // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
+    pprIeJeKepEKpEK = frmKe->ppAOeTpEpEtimesFullColumn(rIeJeO);
+}
+
+void MbD::DispIeqJeKeq::calcppVectorpXIpEK()
+{
+    // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
+    auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
+    pprIeJeKepXIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXI);
+}
+
+void MbD::DispIeqJeKeq::calcppVectorpEIpEK()
+{
+    // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
+    auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
+    pprIeJeKepEIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEI);
+}
+
+FMatDsptr MbD::DispIeqJeKeq::getpVectorpEK()
+{
+    return prIeJeKepEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeKeq::getppVectorpXIpEK()
+{
+    return pprIeJeKepXIpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeKeq::getppVectorpEIpEK()
+{
+    return pprIeJeKepEIpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeKeq::getppVectorpEKpEK()
+{
+    return pprIeJeKepEKpEK;
 }

@@ -36,9 +36,9 @@ void AngleZConstraintIqcJqc::simUpdateAll()
 {
     //aG = thezIeJe - C
     AngleZConstraintIqcJc::simUpdateAll();
-    this->calcpGpEJ();
-    this->calcppGpEIpEJ();
-    this->calcppGpEJpEJ();
+    calcpGpEJ();
+    calcppGpEIpEJ();
+    calcppGpEJpEJ();
 }
 
 void AngleZConstraintIqcJqc::fillAccICIterError(FColDsptr col)

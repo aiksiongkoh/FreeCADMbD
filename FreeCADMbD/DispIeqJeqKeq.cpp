@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "DispIeqJeqKeq.h"
 #include "EndFrameqc.h"
 
@@ -18,13 +18,82 @@ std::shared_ptr<DispIeqJeqKeq> DispIeqJeqKeq::With(EndFrmsptr frmi, EndFrmsptr f
     return inst;
 }
 
-void DispIeqJeqKeq::initializeGlobally()
+void MbD::DispIeqJeqKeq::simUpdateAll()
 {
-    DispIeqJeKe::initializeGlobally();
-    //Variables are constants.
+    DispIeqJeqKe::simUpdateAll();
+    calcpVectorpEK();
+    calcppVectorpXIpEK();
+    calcppVectorpEIpEK();
+    calcppVectorpXJpEK();
+    calcppVectorpEJpEK();
+    calcppVectorpEKpEK();
 }
 
-void MbD::DispIeqJeqKeq::calcpvaluepEK()
+void MbD::DispIeqJeqKeq::calcpVectorpEK()
 {
-    prIeJeKepEK = frmKe->pAOepEtimesFullColumn(rIeJeO);
+    prIeJeKepEK = frmKe->pAOeTpEtimesFullColumn(rIeJeO);
+}
+
+void MbD::DispIeqJeqKeq::calcppVectorpXIpEK()
+{
+    // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
+    auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
+    pprIeJeKepXIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXI);
+}
+
+void MbD::DispIeqJeqKeq::calcppVectorpEIpEK()
+{
+    // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
+    auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
+    pprIeJeKepEIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEI);
+}
+
+void MbD::DispIeqJeqKeq::calcppVectorpXJpEK()
+{
+    // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
+    auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
+    pprIeJeKepXJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
+}
+
+void MbD::DispIeqJeqKeq::calcppVectorpEJpEK()
+{
+    // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
+    auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
+    pprIeJeKepEJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
+}
+
+void MbD::DispIeqJeqKeq::calcppVectorpEKpEK()
+{
+    // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
+    pprIeJeKepEKpEK = frmKe->ppAOeTpEpEtimesFullColumn(rIeJeO);
+}
+
+FMatDsptr MbD::DispIeqJeqKeq::getpVectorpEK()
+{
+    return prIeJeKepEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpXIpEK()
+{
+    return pprIeJeKepXIpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEIpEK()
+{
+    return pprIeJeKepEIpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpXJpEK()
+{
+    return pprIeJeKepXJpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEJpEK()
+{
+    return pprIeJeKepEJpEK;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEKpEK()
+{
+    return pprIeJeKepEKpEK;
 }

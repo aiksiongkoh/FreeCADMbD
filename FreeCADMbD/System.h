@@ -25,6 +25,7 @@
 #include "ConstantGravity.h"
 #include "Units.h"
 #include "DispIeJeO.h"
+#include "DispIeJeKe.h"
 
 namespace MbD {
     class Part;
@@ -97,6 +98,7 @@ namespace MbD {
         std::shared_ptr<AssemblyFrame> asmFrame;
         std::shared_ptr<std::vector<std::shared_ptr<Part>>> parts;
         std::shared_ptr<std::vector<std::shared_ptr<DispIeJeO>>> dispIeJeOs;  //Avoid duplication when used a lot.
+        std::shared_ptr<std::vector<std::shared_ptr<DispIeJeKe>>> dispIeJeKes;  //Avoid duplication when used a lot.
         std::shared_ptr<std::vector<std::shared_ptr<JointIJ>>> joints;
         std::shared_ptr<std::vector<std::shared_ptr<PrescribedMotion>>> motions;
         std::shared_ptr<std::vector<std::shared_ptr<LimitIJ>>> limits;

@@ -5,7 +5,7 @@ AccICNewtonRaphson.h
 AccKineNewtonRaphson.h
 AccNewtonRaphson.h
 AllowZRotation.h
-AllowZRotationConstraintIqctJqc.h
+AllowZRotationConstraintIeqtJeq.h
 AngleJoint.h
 AngleZConstraintIJ.h
 AngleZConstraintIqcJc.h
@@ -101,12 +101,6 @@ ASMTvIJ.h
 ASMTvIJKi.h
 ASMTvrIJ.h
 AssemblyFrame.h
-AtPointConstraintIcJqc.h
-AtPointConstraintIctJqc.h
-AtPointConstraintIJ.h
-AtPointConstraintIqcJc.h
-AtPointConstraintIqcJqc.h
-AtPointConstraintIqctJqc.h
 AtPointJoint.h
 BackwardDifference.h
 BasicDAEIntegrator.h
@@ -141,12 +135,6 @@ DiagonalMatrix.h
 DifferenceOperator.h
 DifferentialAlgebraicEquationSolver.h
 DifferentiatedGeneralSpline.h
-DirectionCosineConstraintIcJqc.h
-DirectionCosineConstraintIctJqc.h
-DirectionCosineConstraintIJ.h
-DirectionCosineConstraintIqcJc.h
-DirectionCosineConstraintIqcJqc.h
-DirectionCosineConstraintIqctJqc.h
 DirectionCosineIecJec.h
 DirectionCosineIecJeqc.h
 DirectionCosineIectJeqc.h
@@ -447,12 +435,6 @@ TorqueVector.h
 Transitions.h
 Translation.h
 TranslationalJoint.h
-TranslationConstraintIcJqc.h
-TranslationConstraintIctJqc.h
-TranslationConstraintIJ.h
-TranslationConstraintIqcJc.h
-TranslationConstraintIqcJqc.h
-TranslationConstraintIqctJqc.h
 TranslationLimitIJ.h
 Units.h
 UniversalJoint.h
