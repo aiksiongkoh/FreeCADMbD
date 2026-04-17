@@ -13,6 +13,7 @@
 #include "DispIeqJeqKe.h"
 #include "DispIeJeqKe.h"
 #include "DispIetJeqKet.h"
+#include "System.h"
 
 using namespace MbD;
 
@@ -85,13 +86,17 @@ void MbD::DispIeJeKe::initialize()
     dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
 }
 
-void DispIeJeKe::simUpdateAll()
+void MbD::DispIeJeKe::initializeGlobally()
 {
-    //rIeJeO = rOJeO - rOIeO
-    rIeJeO = getrIeJeO();
+    //Do nothing.
 }
 
-void MbD::DispIeJeKe::calcvalue()
+void DispIeJeKe::simUpdateAll()
+{
+    calcVector();
+}
+
+void MbD::DispIeJeKe::calcVector()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
@@ -112,147 +117,42 @@ void MbD::DispIeJeKe::calcvalue()
     rIeJeKe = aAOKe->transposeTimesFullColumn(rIeJeO);
 }
 
-void MbD::DispIeJeKe::calcpvaluepXI()
-{
-    assert(!prIeJeKepXI);
-}
-
-void MbD::DispIeJeKe::calcpvaluepEI()
-{
-    assert(!prIeJeKepEI);
-}
-
-void MbD::DispIeJeKe::calcpvaluepXJ()
-{
-    assert(!prIeJeKepXJ);
-}
-
-void MbD::DispIeJeKe::calcpvaluepEJ()
-{
-    assert(!prIeJeKepEJ);
-}
-
-void MbD::DispIeJeKe::calcpvaluepXK()
-{
-    assert(!prIeJeKepXK);
-}
-
-void MbD::DispIeJeKe::calcpvaluepEK()
-{
-    assert(!prIeJeKepEK);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXIpXI()
-{
-    assert(!pprIeJeKepXIpXI);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXIpEI()
-{
-    assert(!pprIeJeKepXIpEI);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXIpXJ()
-{
-    assert(!pprIeJeKepXIpXJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXIpEJ()
-{
-    assert(!pprIeJeKepXIpEJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXIpEK()
-{
-    assert(!pprIeJeKepXIpEK);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEIpEI()
-{
-    assert(!pprIeJeKepEIpEI);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEIpXJ()
-{
-    assert(!pprIeJeKepEIpXJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEIpEJ()
-{
-    assert(!pprIeJeKepEIpEJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEIpEK()
-{
-    assert(!pprIeJeKepEIpEK);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXJpXJ()
-{
-    assert(!pprIeJeKepXJpXJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXJpEJ()
-{
-    assert(!pprIeJeKepXJpEJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepXJpEK()
-{
-    assert(!pprIeJeKepXJpEK);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEJpEJ()
-{
-    assert(!pprIeJeKepEJpEJ);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEJpEK()
-{
-    assert(!pprIeJeKepEJpEK);
-}
-
-void MbD::DispIeJeKe::calcppvaluepEKpEK()
-{
-    assert(!pprIeJeKepEKpEK);
-}
-
-FMatDsptr MbD::DispIeJeKe::getprIeJeOpXI()
+FMatDsptr MbD::DispIeJeKe::getprIeJeKepXI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeOpEI()
+FMatDsptr MbD::DispIeJeKe::getprIeJeKepEI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeOpXJ()
+FMatDsptr MbD::DispIeJeKe::getprIeJeKepXJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeOpEJ()
+FMatDsptr MbD::DispIeJeKe::getprIeJeKepEJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppriIeJeOpEIpEI(size_t axis)
+FMatDsptr MbD::DispIeJeKe::getppriIeJeKepEIpEI(size_t axis)
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppriIeJeOpEJpEJ(size_t axis)
+FMatDsptr MbD::DispIeJeKe::getppriIeJeKepEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getprIeJeOpt()
+FColDsptr MbD::DispIeJeKe::getprIeJeKept()
 {
     return FColDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getpprIeJeOptpt()
+FColDsptr MbD::DispIeJeKe::getpprIeJeKeptpt()
 {
     return FColDsptr();
 }
@@ -261,4 +161,16 @@ bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<DispIeJeKe> other) co
 {
     auto sameClass = typeid(*this).name() == typeid(*other).name();
     return sameClass && frmIe == other->frmIe && frmJe == other->frmJe && frmKe == other->frmKe;
+}
+
+void MbD::DispIeJeKe::useUniqueDispIeJeO()
+{
+    auto dispIeJeOs = root()->dispIeJeOs;
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
+    if (it == dispIeJeOs->end()) {
+        dispIeJeOs->push_back(dispIeJeO);
+    }
+    else {
+        dispIeJeO = *it;
+    }
 }

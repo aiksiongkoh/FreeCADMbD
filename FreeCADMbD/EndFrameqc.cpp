@@ -27,7 +27,7 @@ std::shared_ptr<EndFrameqc> EndFrameqc::With()
     return inst;
 }
 
-std::shared_ptr<EndFrameqc> EndFrameqc::With(const std::string& str)
+std::shared_ptr<EndFrameqc> EndFrameqc::With(const std::string &str)
 {
     auto inst = std::make_shared<EndFrameqc>(str);
     inst->initialize();
@@ -44,11 +44,13 @@ void EndFrameqc::initialize()
 
 void EndFrameqc::initializeGlobally()
 {
-    //rOeO = rOmO + aAOm*rmem
-    //aAOe = aAOm*aAme;
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
+    // rOeO = rOmO + aAOm*rmem
+    // aAOe = aAOm*aAme;
+    auto mkrFrmqc = static_cast<MarkerFrameqc *>(markerFrame);
+    for (size_t i = 0; i < 4; i++)
+    {
+        for (size_t j = 0; j < 4; j++)
+        {
             auto pprOmOpEipEj = mkrFrmqc->pprOmOpEpE->at(i)->at(j);
             auto ppAOmpEipEj = mkrFrmqc->ppAOmpEpE->at(i)->at(j);
             pprOeOpEpE->atijput(i, j, pprOmOpEipEj->plusFullColumn(ppAOmpEipEj->timesFullColumn(rmem)));
@@ -80,10 +82,12 @@ void EndFrameqc::initEndFrameqct2()
 FMatFColDsptr EndFrameqc::ppAjOepEpE(size_t jj) const
 {
     auto answer = std::make_shared<FullMatrix<FColDsptr>>(4, 4);
-    for (size_t i = 0; i < 4; i++) {
+    for (size_t i = 0; i < 4; i++)
+    {
         auto answeri = answer->at(i);
         auto ppAOepEipE = ppAOepEpE->at(i);
-        for (size_t j = i; j < 4; j++) {
+        for (size_t j = i; j < 4; j++)
+        {
             answeri->at(j) = ppAOepEipE->at(j)->column(jj);
         }
     }
@@ -93,11 +97,12 @@ FMatFColDsptr EndFrameqc::ppAjOepEpE(size_t jj) const
 
 void EndFrameqc::simUpdateAll()
 {
-    //rOeO = rOmO + aAOm*rmem
-    //aAOe = aAOm*aAme;
+    // rOeO = rOmO + aAOm*rmem
+    // aAOe = aAOm*aAme;
     EndFramec::simUpdateAll();
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
-    for (size_t i = 0; i < 4; i++) {
+    auto mkrFrmqc = static_cast<MarkerFrameqc *>(markerFrame);
+    for (size_t i = 0; i < 4; i++)
+    {
         auto prOmOpEi = mkrFrmqc->prOmOpE->column(i);
         auto pAOmpEi = mkrFrmqc->pAOmpE->at(i);
         prOeOpE->atijputFullColumn(0, i, prOmOpEi->plusFullColumn(pAOmpEi->timesFullColumn(rmem)));
@@ -124,10 +129,12 @@ FMatDsptr EndFrameqc::pAjOepE(size_t jj) const
 FMatDsptr EndFrameqc::pAjOepET(size_t axis) const
 {
     auto answer = FullMatrix<double>::With(4, 3);
-    for (size_t i = 0; i < 4; i++) {
+    for (size_t i = 0; i < 4; i++)
+    {
         auto answeri = answer->at(i);
         auto pAOepEi = pAOepE->at(i);
-        for (size_t j = 0; j < 3; j++) {
+        for (size_t j = 0; j < 3; j++)
+        {
             auto answerij = pAOepEi->at(j)->at(axis);
             answeri->at(j) = answerij;
         }
@@ -138,10 +145,12 @@ FMatDsptr EndFrameqc::pAjOepET(size_t axis) const
 FMatDsptr EndFrameqc::ppriOeOpEpE(size_t ii) const
 {
     auto answer = FullMatrix<double>::With(4, 4);
-    for (size_t i = 0; i < 4; i++) {
+    for (size_t i = 0; i < 4; i++)
+    {
         auto answeri = answer->at(i);
         auto pprOeOpEipE = pprOeOpEpE->at(i);
-        for (size_t j = 0; j < 4; j++) {
+        for (size_t j = 0; j < 4; j++)
+        {
             auto answerij = pprOeOpEipE->at(j)->at(ii);
             answeri->at(j) = answerij;
         }
@@ -151,12 +160,12 @@ FMatDsptr EndFrameqc::ppriOeOpEpE(size_t ii) const
 
 size_t EndFrameqc::iqX() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->iqX();
+    return static_cast<MarkerFrameqc *>(markerFrame)->iqX();
 }
 
 size_t EndFrameqc::iqE() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->iqE();
+    return static_cast<MarkerFrameqc *>(markerFrame)->iqE();
 }
 
 FRowDsptr EndFrameqc::priOeOpE(size_t i) const
@@ -166,27 +175,27 @@ FRowDsptr EndFrameqc::priOeOpE(size_t i) const
 
 FColDsptr EndFrameqc::qXdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qXdot();
+    return static_cast<MarkerFrameqc *>(markerFrame)->qXdot();
 }
 
 std::shared_ptr<EulerParametersDot<double>> EndFrameqc::qEdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qEdot();
+    return static_cast<MarkerFrameqc *>(markerFrame)->qEdot();
 }
 
 FColDsptr EndFrameqc::qXddot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qXddot();
+    return static_cast<MarkerFrameqc *>(markerFrame)->qXddot();
 }
 
 FColDsptr EndFrameqc::qEddot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qEddot();
+    return static_cast<MarkerFrameqc *>(markerFrame)->qEddot();
 }
 
 FColDsptr EndFrameqc::rpep()
 {
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
+    auto mkrFrmqc = static_cast<MarkerFrameqc *>(markerFrame);
     auto rpmp = mkrFrmqc->rpmp;
     auto aApm = mkrFrmqc->aApm;
     auto rpep = rpmp->plusFullColumn(aApm->timesFullColumn(rmem));
@@ -195,12 +204,12 @@ FColDsptr EndFrameqc::rpep()
 
 FColFMatDsptr EndFrameqc::pAOppE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pAOppE();
+    return static_cast<MarkerFrameqc *>(markerFrame)->pAOppE();
 }
 
 FMatDsptr EndFrameqc::aBOp() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->aBOp();
+    return static_cast<MarkerFrameqc *>(markerFrame)->aBOp();
 }
 
 bool EndFrameqc::isEndFrameqc()
@@ -210,32 +219,34 @@ bool EndFrameqc::isEndFrameqc()
 
 FMatDsptr EndFrameqc::pvOeOpE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pvOmOpE();
+    return static_cast<MarkerFrameqc *>(markerFrame)->pvOmOpE();
 }
 
 FColDsptr EndFrameqc::omeOeO()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->omeOmO();
+    return static_cast<MarkerFrameqc *>(markerFrame)->omeOmO();
 }
 
 FMatDsptr EndFrameqc::pomeOeOpE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pomeOmOpE();
+    return static_cast<MarkerFrameqc *>(markerFrame)->pomeOmOpE();
 }
 
 FMatDsptr EndFrameqc::pomeOeOpEdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pomeOmOpEdot();
+    return static_cast<MarkerFrameqc *>(markerFrame)->pomeOmOpEdot();
 }
 
 std::shared_ptr<EndFramec> EndFrameqc::followEndFrame(EndFrmsptr frmi)
 {
     std::shared_ptr<EndFramec> endFrm;
-    if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
+    if (std::dynamic_pointer_cast<EndFrameqc>(frmi))
+    {
 
         endFrm = EndFrameqccq::With();
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
+    else if (std::dynamic_pointer_cast<EndFramec>(frmi))
+    {
         endFrm = EndFrameccq::With();
     }
     endFrm->name = name;
@@ -259,7 +270,7 @@ FMatFColDsptr MbD::EndFrameqc::getpprOeOpEpE() const
     return pprOeOpEpE;
 }
 
-MbD::FMatDsptr MbD::EndFrameqc::pAOepEtimesFullColumn(FColDsptr col) const
+FMatDsptr MbD::EndFrameqc::pAOepEtimesFullColumn(FColDsptr col) const
 {
     auto answer = FullMatrix<double>::With(3, 4);
     for (size_t j = 0; j < 4; j++)
@@ -271,3 +282,54 @@ MbD::FMatDsptr MbD::EndFrameqc::pAOepEtimesFullColumn(FColDsptr col) const
     return answer;
 }
 
+FMatDsptr MbD::EndFrameqc::pAOeTpEtimesFullColumn(FColDsptr col) const
+{
+    auto answer = FullMatrix<double>::With(3, 4);
+    for (size_t j = 0; j < 4; j++)
+    {
+        auto pAOepEj = pAOepE->at(j);
+        auto answerCol = pAOepEj->transposeTimesFullColumn(col);
+        answer->atijputFullColumn(0, j, answerCol);
+    }
+    return answer;
+}
+
+FMatFColDsptr MbD::EndFrameqc::ppAOeTpEpEtimesFullColumn(FColDsptr col) const
+{
+    // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
+    auto answer = FullMatrix<FColDsptr>::With(4, 4);
+    for (size_t i = 0; i < 4; i++)
+    {
+        auto ppAOepEipE = ppAOepEpE->at(i);
+        auto rowi = answer->at(i);
+        for (size_t j = 0; j < 4; j++)
+        {
+            auto ppAOepEipEj = ppAOepEipE->at(j);
+            auto answerCol = ppAOepEipEj->transposeTimesFullColumn(col);
+            rowi->atiput(j, answerCol);
+        }
+    }
+    return answer;
+}
+
+FMatFColDsptr MbD::EndFrameqc::pAOeTpEtimesFullMatrix(FMatDsptr prIeJeOpq) const
+{
+    // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
+    // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
+    // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
+    // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
+    auto pAOKepEK = getpAOepE();
+    auto pprIeJeKepqpEK = FullMatrix<FColDsptr>::With(prIeJeOpq->ncol(), 4);
+    for (size_t i = 0; i < 3; i++)
+    {
+        auto coli = prIeJeOpq->column(i);
+        auto rowi = pprIeJeKepqpEK->at(i);
+        for (size_t j = 0; j < 4; j++)
+        {
+            auto pAOKepEKj = pAOKepEK->at(j);
+            auto answerCol = pAOKepEKj->transposeTimesFullColumn(coli);
+            rowi->atiput(j, answerCol);
+        }
+    }
+    return pprIeJeKepqpEK;
+}

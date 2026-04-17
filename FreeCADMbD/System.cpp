@@ -49,6 +49,7 @@ void System::initialize()
     createAssemblyFrame();
     parts = std::make_shared<std::vector<std::shared_ptr<Part>>>();
     dispIeJeOs = std::make_shared<std::vector<std::shared_ptr<DispIeJeO>>>();
+    dispIeJeKes = std::make_shared<std::vector<std::shared_ptr<DispIeJeKe>>>();
     joints = std::make_shared<std::vector<std::shared_ptr<JointIJ>>>();
     motions = std::make_shared<std::vector<std::shared_ptr<PrescribedMotion>>>();
     limits = std::make_shared<std::vector<std::shared_ptr<LimitIJ>>>();
@@ -97,6 +98,7 @@ void System::addForceTorque(std::shared_ptr<ForceTorqueIJ> forTor)
     forTor->owner = this;
     forcesTorques->push_back(forTor);
     forTor->useUniqueDispIeJeO();
+    forTor->useUniqueDispIeJeKe();
 }
 
 void System::addGravity(std::shared_ptr<ConstantGravity> grav)
@@ -226,6 +228,8 @@ void System::clear()
 {
     name = std::string();
     parts->clear();
+    dispIeJeOs->clear();
+    dispIeJeKes->clear();
     joints->clear();
     motions->clear();
     forcesTorques->clear();
@@ -274,6 +278,7 @@ void System::partsJointsMotionsLimitsDo(const std::function<void(std::shared_ptr
     f(asmFrame);
     for (const auto part : *parts) f(part);
     for (const auto dispIeJeO : *dispIeJeOs) f(dispIeJeO);
+    for (const auto dispIeJeKe : *dispIeJeKes) f(dispIeJeKe);
     for (const auto joint : *joints) f(joint);
     for (const auto motion : *motions) f(motion);
     for (const auto limit : *limits) f(limit);
@@ -284,6 +289,7 @@ void System::partsJointsMotionsLimitsForcesTorquesDo(const std::function<void(st
     f(asmFrame);
     for (const auto part : *parts) f(part);
     for (const auto dispIeJeO : *dispIeJeOs) f(dispIeJeO);
+    for (const auto dispIeJeKe : *dispIeJeKes) f(dispIeJeKe);
     for (const auto joint : *joints) f(joint);
     for (const auto motion : *motions) f(motion);
     for (const auto limit : *limits) f(limit);

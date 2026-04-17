@@ -148,7 +148,9 @@ void TranslationConstraintIeJeq::fillAccICIterError(FColDsptr col)
 
 void MbD::TranslationConstraintIeJeq::calcpGpXJ()
 {
-    pGpXJ = riIeJeIe->pvaluepXJ();
+    // pGpXJ = riIeJeIe->pvaluepXJ();
+    auto prIeJeIepXJ = dispIeJeIe->getprIeJeKepXJ();
+    pGpXJ = prIeJeIepXJ->at(axisI);
 }
 
 void MbD::TranslationConstraintIeJeq::calcpGpEJ()

@@ -6,9 +6,12 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
  
+#include <algorithm>
+
 #include "TranslationConstraintIeJe.h"
 #include "TranslationConstraintIeqtJeq.h"
 #include "TranslationConstraintIetJeq.h"
+#include "System.h"
 #include "EndFrameqct.h"
 #include "EndFrameqc.h"
 #include "EndFramect.h"
@@ -88,7 +91,23 @@ void TranslationConstraintIeJe::simUpdateAll()
 void TranslationConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
+    dispIeJeIe = DispIeJeKe::With(frmIe, frmJe);
+    dispIeJeIe->frmKe = frmIe;
+    dispIeJeIe->owner = this;
     initriIeJeIe();
+}
+
+void MbD::TranslationConstraintIeJe::useUniqueDispIeJeKe()
+{
+    if (!dispIeJeIe) return;
+    auto dispIeJeKes = root()->dispIeJeKes;
+    auto it = std::find_if(dispIeJeKes->begin(), dispIeJeKes->end(), [&](auto disp) { return disp->hasSameEndFrms(dispIeJeIe); });
+    if (it == dispIeJeKes->end()) {
+        dispIeJeKes->push_back(dispIeJeIe);
+    }
+    else {
+        dispIeJeIe = *it;
+    }
 }
 
 void TranslationConstraintIeJe::initializeLocally()
@@ -99,6 +118,11 @@ void TranslationConstraintIeJe::initializeLocally()
 void TranslationConstraintIeJe::initializeGlobally()
 {
     riIeJeIe->initializeGlobally();
+}
+
+void MbD::TranslationConstraintIeJe::useUniqueDispIeJeO()
+{
+    dispIeJeIe->useUniqueDispIeJeO();
 }
 
 void TranslationConstraintIeJe::initriIeJeIe()
@@ -114,7 +138,9 @@ void TranslationConstraintIeJe::postInput()
 
 void MbD::TranslationConstraintIeJe::calcG()
 {
-    aG = riIeJeIe->value() - aConstant;
+    // aG = riIeJeIe->value() - aConstant;
+    auto rIeJeIe = dispIeJeIe->rIeJeKe;
+    aG = rIeJeIe->at(axisI) - aConstant;
 }
 
 void TranslationConstraintIeJe::prePosIC()

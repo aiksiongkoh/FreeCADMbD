@@ -35,6 +35,8 @@ namespace MbD {
         void initialize() override;
         void initializeLocally() override;
         void initializeGlobally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         void simUpdateAll() override;
         void postInput() override;
@@ -68,7 +70,7 @@ namespace MbD {
 
         size_t axisI = SIZE_MAX;
         std::shared_ptr<DispCompIecJecKec> riIeJeIe;
-        std::shared_ptr<DispIeJeKe> rIeJeIe;
+        std::shared_ptr<DispIeJeKe> dispIeJeIe;
         //ToDo: Use DispCompIecJecIe instead of DispCompIecJecKec
     };
 }

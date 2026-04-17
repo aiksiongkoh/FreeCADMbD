@@ -317,3 +317,23 @@ void EndFramect::simUpdateAll()
     rOeO = rOmO->plusFullColumn(aAOm->timesFullColumn(rmem));
     aAOe = aAOm->timesFullMatrix(aAme);
 }
+
+FColDsptr MbD::EndFramect::getprOeOpt() const
+{
+    return prOeOpt;
+}
+
+FColDsptr MbD::EndFramect::getpprOeOptpt() const
+{
+    return pprOeOptpt;
+}
+
+FMatDsptr MbD::EndFramect::getpAOept() const
+{
+    return pAOept;
+}
+
+FMatDsptr MbD::EndFramect::getppAOeptpt() const
+{
+    return ppAOeptpt;
+}

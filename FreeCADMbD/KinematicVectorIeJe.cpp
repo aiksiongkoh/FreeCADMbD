@@ -6,427 +6,384 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
  
-#include "KinematicIeJe.h"
+#include "KinematicVectorIeJe.h"
 #include "EndFramec.h"
 #include "SpatialContainerFrame.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<KinematicIeJe> KinematicIeJe::With()
+std::shared_ptr<KinematicVectorIeJe> KinematicVectorIeJe::With()
 {
-    auto inst = std::make_shared<KinematicIeJe>();
+    auto inst = std::make_shared<KinematicVectorIeJe>();
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<KinematicIeJe> KinematicIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<KinematicVectorIeJe> KinematicVectorIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    auto inst = std::make_shared<KinematicIeJe>(frmi, frmj);
+    auto inst = std::make_shared<KinematicVectorIeJe>(frmi, frmj);
     inst->initialize();
     return inst;
 }
 
-bool KinematicIeJe::isKineIJ()
+bool KinematicVectorIeJe::isKineIJ()
 {
     return true;
 }
 
-void KinematicIeJe::calcpvaluepXI()
+void KinematicVectorIeJe::calcpVectorpXI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepEI()
+void KinematicVectorIeJe::calcpVectorpEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpXI()
+void KinematicVectorIeJe::calcppVectorpXIpXI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpEI()
+void KinematicVectorIeJe::calcppVectorpXIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEIpEI()
+void KinematicVectorIeJe::calcppVectorpEIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepXJ()
+void KinematicVectorIeJe::calcpVectorpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepEJ()
+void KinematicVectorIeJe::calcpVectorpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpXJ()
+void KinematicVectorIeJe::calcppVectorpXIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpEJ()
+void KinematicVectorIeJe::calcppVectorpXIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEIpXJ()
+void KinematicVectorIeJe::calcppVectorpEIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEIpEJ()
+void KinematicVectorIeJe::calcppVectorpEIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXJpXJ()
+void KinematicVectorIeJe::calcppVectorpXJpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXJpEJ()
+void KinematicVectorIeJe::calcppVectorpXJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEJpEJ()
+void KinematicVectorIeJe::calcppVectorpEJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepXK()
+void KinematicVectorIeJe::calcpVectorpXK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepEK()
+void KinematicVectorIeJe::calcpVectorpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpEK()
+void KinematicVectorIeJe::calcppVectorpXIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEIpEK()
+void KinematicVectorIeJe::calcppVectorpEIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXJpEK()
+void KinematicVectorIeJe::calcppVectorpXJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEJpEK()
+void KinematicVectorIeJe::calcppVectorpEJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEKpEK()
+void KinematicVectorIeJe::calcppVectorpEKpEK()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluept()
+void KinematicVectorIeJe::calcpVectorpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvalueptpt()
+void KinematicVectorIeJe::calcppVectorptpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcvalue()
+void KinematicVectorIeJe::calcVector()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXIpt()
+void KinematicVectorIeJe::calcppVectorpXIpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEIpt()
+void KinematicVectorIeJe::calcppVectorpEIpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXJpt()
+void KinematicVectorIeJe::calcppVectorpXJpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEJpt()
+void KinematicVectorIeJe::calcppVectorpEJpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXKpt()
+void KinematicVectorIeJe::calcppVectorpXKpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepEKpt()
+void KinematicVectorIeJe::calcppVectorpEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-FRowDsptr KinematicIeJe::pvaluepX(SpatialContainerFrame* partFrame)
-{
-    if (partFrame == frmIp)
-    {
-        return pvaluepXI();
-    }
-    else if (partFrame == frmJp)
-    {
-        return pvaluepXJ();
-    }
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepE(SpatialContainerFrame* partFrame)
-{
-    if (partFrame == frmIp)
-    {
-        return pvaluepEI();
-    }
-    else if (partFrame == frmJp)
-    {
-        return pvaluepEJ();
-    }
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepXI()
-{
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepEI()
-{
-    return FRowDsptr();
-}
-
-FMatDsptr KinematicIeJe::ppvaluepXIpXI()
+FMatDsptr KinematicVectorIeJe::getpVectorpXI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepXIpEI()
+FMatDsptr KinematicVectorIeJe::getpVectorpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEIpEI()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXIpXI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FRowDsptr KinematicIeJe::pvaluepXJ()
-{
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepEJ()
-{
-    return FRowDsptr();
-}
-
-FMatDsptr KinematicIeJe::ppvaluepXIpXJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepXIpEJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEIpXJ()
+FMatDsptr KinematicVectorIeJe::getpVectorpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEIpEJ()
+FMatDsptr KinematicVectorIeJe::getpVectorpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepXJpXJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepXJpEJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEJpEJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FRowDsptr KinematicIeJe::pvaluepXK()
-{
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepEK()
-{
-    return FRowDsptr();
-}
-
-FMatDsptr KinematicIeJe::ppvaluepXIpEK()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEIpEK()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXJpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepXJpEK()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEJpEK()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::ppvaluepEKpEK()
+FMatDsptr KinematicVectorIeJe::getpVectorpXK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::puIeJeOpEI()
+FMatDsptr KinematicVectorIeJe::getpVectorpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::puIeJeOpXI()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::puIeJeOpEJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-FMatDsptr KinematicIeJe::puIeJeOpXJ()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpXJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
-double KinematicIeJe::pvaluept()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
-double KinematicIeJe::ppvalueptpt()
+FMatFColDsptr KinematicVectorIeJe::getppVectorpEKpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
-FRowDsptr KinematicIeJe::ppvaluepXIpt()
+FMatDsptr KinematicVectorIeJe::puIeJeOpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-FRowDsptr KinematicIeJe::ppvaluepEIpt()
+FMatDsptr KinematicVectorIeJe::puIeJeOpXI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-FRowDsptr KinematicIeJe::ppvaluepXJpt()
+FMatDsptr KinematicVectorIeJe::puIeJeOpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-FRowDsptr KinematicIeJe::ppvaluepEJpt()
+FMatDsptr KinematicVectorIeJe::puIeJeOpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-FRowDsptr KinematicIeJe::ppvaluepXKpt()
+FColDsptr KinematicVectorIeJe::getpVectorpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-FRowDsptr KinematicIeJe::ppvaluepEKpt()
+FColDsptr KinematicVectorIeJe::getppVectorptpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
-double KinematicIeJe::value()
+FMatDsptr KinematicVectorIeJe::getppVectorpXIpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppVectorpEIpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppVectorpXJpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppVectorpEJpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppVectorpXKpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppVectorpEKpt()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppCompipEIpEI(size_t axis)
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+FMatDsptr KinematicVectorIeJe::getppCompipEJpEJ(size_t axis)
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+double KinematicVectorIeJe::value()
 {
     throw SimulationStoppingError("To be implemented.");
     return 0.0;
 }
 
-void KinematicIeJe::withFrmIFrmJ(EndFrmsptr eFrmi, EndFrmsptr eFrmj)
+void KinematicVectorIeJe::withFrmIFrmJ(EndFrmsptr eFrmi, EndFrmsptr eFrmj)
 {
     frmIe = eFrmi;
     frmJe = eFrmj;
 }
 
-void KinematicIeJe::withFrmIFrmJaxis(EndFrmsptr eFrmI, EndFrmsptr eFrmJ, size_t axis)
+void KinematicVectorIeJe::withFrmIFrmJaxis(EndFrmsptr eFrmI, EndFrmsptr eFrmJ, size_t axis)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
+void KinematicVectorIeJe::withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrmj, EndFrmsptr eFrmk, size_t axis)
+void KinematicVectorIeJe::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrmj, EndFrmsptr eFrmk, size_t axis)
 {
 }
 
-void KinematicIeJe::initializeLocally()
+void KinematicVectorIeJe::initializeLocally()
 {
     frmIp = frmIe->getPartFrame();
     frmJp = frmJe->getPartFrame();
@@ -434,21 +391,21 @@ void KinematicIeJe::initializeLocally()
     has_qJ = frmJe->has_qX();
 }
 
-void KinematicIeJe::initializeGlobally()
+void KinematicVectorIeJe::initializeGlobally()
 {
 }
 
-SpatialContainerFrame* KinematicIeJe::partFrameI()
+SpatialContainerFrame* KinematicVectorIeJe::partFrameI()
 {
     return frmIp;
 }
 
-SpatialContainerFrame* KinematicIeJe::partFrameJ()
+SpatialContainerFrame* KinematicVectorIeJe::partFrameJ()
 {
     return frmJp;
 }
 
-FColDsptr MbD::KinematicIeJe::getrIeJeO()
+FColDsptr MbD::KinematicVectorIeJe::getrIeJeO()
 {
     return frmJe->rOeO->minusFullColumn(frmIe->rOeO);
 }

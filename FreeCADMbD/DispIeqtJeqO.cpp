@@ -31,58 +31,63 @@ void MbD::DispIeqtJeqO::simUpdateAll()
     //pprIeJeOpEJpEJ = ppAOJppEJpEJ * rJpJeJp   =    Constant * Constant
 
     DispIeqJeqO::simUpdateAll();
-    pprIeJeOpEIpEI = std::static_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpE->negated();
+    calcppVectorpEIpEI();   //No longer a constant
+    calcppVectorpEIpt();
+    calcppVectorpEJpt();
+    calcppVectorptpt();
 }
 
 void MbD::DispIeqtJeqO::preVelIC()
 {
     DispIeqJeqO::preVelIC();
-    calcpvaluept();
+    calcpVectorpt();
 }
 
 void MbD::DispIeqtJeqO::preAccIC()
 {
     DispIeqJeqO::preAccIC();
-    calcppvaluepEIpt();
-    calcppvalueptpt();
+    calcppVectorpEIpt();
+    calcppVectorptpt();
 }
 
-FMatDsptr MbD::DispIeqtJeqO::getprIeJeOpXJ()
+FMatDsptr MbD::DispIeqtJeqO::getpVectorpXJ()
 {
     return prIeJeOpXJ;
 }
 
-FMatDsptr MbD::DispIeqtJeqO::getprIeJeOpEJ()
+FMatDsptr MbD::DispIeqtJeqO::getpVectorpEJ()
 {
     return prIeJeOpEJ;
 }
 
-FColDsptr MbD::DispIeqtJeqO::getprIeJeOpt()
+FColDsptr MbD::DispIeqtJeqO::getpVectorpt()
 {
     return prIeJeOpt;
 }
 
-FMatDsptr MbD::DispIeqtJeqO::getpprIeJeOpEIpt()
+FMatDsptr MbD::DispIeqtJeqO::getppVectorpEIpt()
 {
     return pprIeJeOpEIpt;
 }
 
-FColDsptr MbD::DispIeqtJeqO::getpprIeJeOptpt()
+FColDsptr MbD::DispIeqtJeqO::getppVectorptpt()
 {
     return pprIeJeOptpt;
 }
 
-void DispIeqtJeqO::calcpvaluept()
+void DispIeqtJeqO::calcpVectorpt()
 {
-    prIeJeOpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->prOeOpt->negated();
+    prIeJeOpt = frmIe->getprOeOpt()->negated();
 }
 
-void DispIeqtJeqO::calcppvalueptpt()
+void DispIeqtJeqO::calcppVectorptpt()
 {
-    pprIeJeOptpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOptpt->negated();
+    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
+    pprIeJeOptpt = frmIe->getpprOeOptpt()->negated();
 }
 
-void DispIeqtJeqO::calcppvaluepEIpt()
+void DispIeqtJeqO::calcppVectorpEIpt()
 {
-    pprIeJeOpEIpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpt->negated();
+    // pprIeJeOpEIpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpt->negated();
+    pprIeJeOpEIpt = frmIe->getpprOeOpEpt()->negated();
 }

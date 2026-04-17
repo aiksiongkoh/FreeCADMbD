@@ -39,8 +39,8 @@ void ForceTorqueIJ::calcpTJeOpXI()
     //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
-    if (dispIeJeO->getprIeJeOpXI()) {
-        terms->equalSelfPlus(dispIeJeO->getprIeJeOpXI()->cross(aFIeO));
+    if (dispIeJeO->getpVectorpXI()) {
+        terms->equalSelfPlus(dispIeJeO->getpVectorpXI()->cross(aFIeO));
     }
     if (pFIeOpXI) {
         terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXI));
@@ -61,8 +61,8 @@ void ForceTorqueIJ::calcpTJeOpEI()
     //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
-    if (dispIeJeO->getprIeJeOpEI()) {
-        terms->equalSelfPlus(dispIeJeO->getprIeJeOpEI()->cross(aFIeO));
+    if (dispIeJeO->getpVectorpEI()) {
+        terms->equalSelfPlus(dispIeJeO->getpVectorpEI()->cross(aFIeO));
     }
     if (pFIeOpEI) {
         terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEI));
@@ -83,8 +83,8 @@ void ForceTorqueIJ::calcpTJeOpXJ()
     //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
-    if (dispIeJeO->getprIeJeOpXJ()) {
-        terms->equalSelfPlus(dispIeJeO->getprIeJeOpXJ()->cross(aFIeO));
+    if (dispIeJeO->getpVectorpXJ()) {
+        terms->equalSelfPlus(dispIeJeO->getpVectorpXJ()->cross(aFIeO));
     }
     if (pFIeOpXJ) {
         terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXJ));
@@ -105,8 +105,8 @@ void ForceTorqueIJ::calcpTJeOpEJ()
     //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
-    if (dispIeJeO->getprIeJeOpEJ()) {
-        terms->equalSelfPlus(dispIeJeO->getprIeJeOpEJ()->cross(aFIeO));
+    if (dispIeJeO->getpVectorpEJ()) {
+        terms->equalSelfPlus(dispIeJeO->getpVectorpEJ()->cross(aFIeO));
     }
     if (pFIeOpEJ) {
         terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEJ));
@@ -1120,7 +1120,7 @@ void ForceTorqueIJ::calcpQEJpEdotJ()
 void MbD::ForceTorqueIJ::useUniqueDispIeJeO()
 {
     auto dispIeJeOs = root()->dispIeJeOs;
-    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp == dispIeJeO; });
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
     if (it == dispIeJeOs->end()) {
         dispIeJeOs->push_back(dispIeJeO);
     }

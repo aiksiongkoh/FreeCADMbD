@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "DispIeqJeO.h"
 #include "EndFrameqc.h"
 
@@ -21,29 +21,45 @@ std::shared_ptr<DispIeqJeO> DispIeqJeO::With(EndFrmsptr frmi, EndFrmsptr frmj)
 void DispIeqJeO::initializeGlobally()
 {
     DispIeJeO::initializeGlobally();
-    //Variables are constants.
-    prIeJeOpXI = FullMatrix<double>::identitysptr(3)->negated();
-    pprIeJeOpEIpEI = std::static_pointer_cast<EndFrameqc>(frmIe)->pprOeOpEpE->negated();
+    // Variables are constants.
+    calcpVectorpXI();
+    calcppVectorpEIpEI();
 }
 
-FMatDsptr MbD::DispIeqJeO::getprIeJeOpXI()
+void MbD::DispIeqJeO::calcpVectorpXI()
+{
+    prIeJeOpXI = FullMatrix<double>::identitysptr(3)->negated();
+}
+
+void MbD::DispIeqJeO::calcpVectorpEI()
+{
+    prIeJeOpEI = frmIe->getprOeOpE()->negated();
+}
+
+void MbD::DispIeqJeO::calcppVectorpEIpEI()
+{
+    pprIeJeOpEIpEI = frmIe->getpprOeOpEpE()->negated();
+}
+
+FMatDsptr MbD::DispIeqJeO::getpVectorpXI()
 {
     return prIeJeOpXI;
 }
 
-FMatDsptr MbD::DispIeqJeO::getprIeJeOpEI()
+FMatDsptr MbD::DispIeqJeO::getpVectorpEI()
 {
     return prIeJeOpEI;
 }
 
-FMatDsptr MbD::DispIeqJeO::getppriIeJeOpEIpEI(size_t axis)
+FMatDsptr MbD::DispIeqJeO::getppCompipEIpEI(size_t axis)
 {
     return std::static_pointer_cast<EndFrameqc>(frmIe)->ppriOeOpEpE(axis)->negated();
 }
 
 void DispIeqJeO::simUpdateAll()
 {
-    //rIeJeO = rOJeO - rOIeO
+    // rIeJeO = rOJeO - rOIeO
     DispIeJeO::simUpdateAll();
-    prIeJeOpEI = std::static_pointer_cast<EndFrameqc>(frmIe)->prOeOpE->negated();
+    // calcpVectorpXI() is a constant
+    calcpVectorpEI();
 }

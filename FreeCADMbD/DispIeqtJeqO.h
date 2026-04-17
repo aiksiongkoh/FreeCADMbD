@@ -25,14 +25,14 @@ namespace MbD {
         void simUpdateAll() override;
         void preVelIC() override;
         void preAccIC() override;
-        void calcpvaluept() override;
-        void calcppvaluepEIpt();
-        void calcppvalueptpt() override;
-        FMatDsptr getprIeJeOpXJ() override;
-        FMatDsptr getprIeJeOpEJ() override;
-        FColDsptr getprIeJeOpt() override;
-        FMatDsptr getpprIeJeOpEIpt() override;
-        FColDsptr getpprIeJeOptpt() override;
+        void calcpVectorpt() override;
+        void calcppVectorpEIpt();
+        void calcppVectorptpt() override;
+        FMatDsptr getpVectorpXJ() override;
+        FMatDsptr getpVectorpEJ() override;
+        FColDsptr getpVectorpt() override;
+        FMatDsptr getppVectorpEIpt() override;
+        FColDsptr getppVectorptpt() override;
 
         FColDsptr prIeJeOpt;
         FMatDsptr pprIeJeOpEIpt;

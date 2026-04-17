@@ -24,6 +24,7 @@ void ConstraintIeJe::initialize()
 {
     Constraint::initialize();
     dispIeJeO = DispIeJeO::With(frmIe, frmJe);
+    dispIeJeO->owner = this;
 }
 
 void MbD::ConstraintIeJe::initializeLocally()

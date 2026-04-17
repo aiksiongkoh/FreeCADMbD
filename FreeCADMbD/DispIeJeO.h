@@ -8,10 +8,10 @@
  
 #pragma once
 
-#include "KinematicIeJe.h"
+#include "KinematicVectorIeJe.h"
 
 namespace MbD {
-    class DispIeJeO : public KinematicIeJe
+    class DispIeJeO : public KinematicVectorIeJe
     {
         //rIeJeO = rOJeO - rOIeO
         //rIeJeO = (rOJpO(qXJ) + aAOJp(qEJ) * rJpJeJp) - (rOIpO(qXI) + aAOIp(qEI) * rIpIeIp)
@@ -19,19 +19,20 @@ namespace MbD {
         //         - (rOIpO(qXI) + aAOIp(qEI) * (rIpImIp + aAIpIm * rImIeIm(t)))
     public:
         DispIeJeO() {}
-        DispIeJeO(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIeJe(frmi, frmj) {}
+        DispIeJeO(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicVectorIeJe(frmi, frmj) {}
         static std::shared_ptr<DispIeJeO> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
-        virtual FMatDsptr getprIeJeOpXI();
-        virtual FMatDsptr getprIeJeOpEI();
-        virtual FMatDsptr getprIeJeOpXJ();
-        virtual FMatDsptr getprIeJeOpEJ();
-        virtual FMatDsptr getppriIeJeOpEIpEI(size_t axis);
-        virtual FMatDsptr getppriIeJeOpEJpEJ(size_t axis);
-        virtual FColDsptr getprIeJeOpt();
-        virtual FMatDsptr getpprIeJeOpEIpt();
-        virtual FColDsptr getpprIeJeOptpt();
+        void calcVector() override;
+        virtual FMatDsptr getpVectorpXI();
+        virtual FMatDsptr getpVectorpEI();
+        virtual FMatDsptr getpVectorpXJ();
+        virtual FMatDsptr getpVectorpEJ();
+        virtual FMatDsptr getppCompipEIpEI(size_t axis);
+        virtual FMatDsptr getppCompipEJpEJ(size_t axis);
+        virtual FColDsptr getpVectorpt();
+        virtual FMatDsptr getppVectorpEIpt();
+        virtual FColDsptr getppVectorptpt();
         virtual bool hasSameEndFrms(const std::shared_ptr<DispIeJeO> other) const;
 
         FColDsptr rIeJeO;
