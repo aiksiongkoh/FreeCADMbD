@@ -28,16 +28,11 @@ void TranslationConstraintIeJeq::simUpdateAll()
     calcppGpEJpEJ();
 }
 
-void TranslationConstraintIeJeq::initriIeJeIe()
-{
-    riIeJeIe = DispCompIecJeqcKec::With(frmIe, frmJe, frmIe, axisI);
-}
-
 void TranslationConstraintIeJeq::useEquationNumbers()
 {
     TranslationConstraintIeJe::useEquationNumbers();
-    iqXJ = frmJe->iqX();
-    iqEJ = frmJe->iqE();
+    iqXJ = eFrmJ->iqX();
+    iqEJ = eFrmJ->iqE();
 }
 
 void TranslationConstraintIeJeq::fillpFpy(SpMatDsptr mat)
@@ -77,9 +72,9 @@ void TranslationConstraintIeJeq::addToJointTorqueI(FColDsptr col)
     //aTIeO = rJeIeO cross aFJeO - aTJeO
 
     auto aFJeOT = pGpXJ->times(lam);
-    auto rJpJeJp = frmJe->rpep();
-    auto pAOJppEJ = frmJe->pAOppE();
-    auto aBOJp = frmJe->aBOp();
+    auto rJpJeJp = eFrmJ->rpep();
+    auto pAOJppEJ = eFrmJ->pAOppE();
+    auto aBOJp = eFrmJ->aBOp();
     auto prOJeOpEJTaFJeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOJeOpEJT * aFJeO
     for (size_t i = 0; i < 4; i++)
     {
@@ -137,7 +132,7 @@ void TranslationConstraintIeJeq::fillAccICIterError(FColDsptr col)
     TranslationConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();
     double sum = pGpXJ->timesFullColumn(frmJeq->qXddot());
@@ -148,9 +143,9 @@ void TranslationConstraintIeJeq::fillAccICIterError(FColDsptr col)
 
 void MbD::TranslationConstraintIeJeq::calcpGpXJ()
 {
-    // pGpXJ = riIeJeIe->pvaluepXJ();
-    auto prIeJeIepXJ = dispIeJeIe->getprIeJeKepXJ();
-    pGpXJ = prIeJeIepXJ->at(axisI);
+    pGpXJ = riIeJeIe->pvaluepXJ();
+    // auto prIeJeIepXJ = dispIeJeIe->getpVectorpXJ();
+    // pGpXJ = prIeJeIepXJ->at(axisI);
 }
 
 void MbD::TranslationConstraintIeJeq::calcpGpEJ()

@@ -22,7 +22,7 @@ void DispIeqJeqO::initializeGlobally()
 {
     DispIeqJeO::initializeGlobally();
     // Variables are constants.
-    calcpVectorpEJ();
+    calcpVectorpXJ();
     calcppVectorpEJpEJ();
 }
 
@@ -34,12 +34,12 @@ void MbD::DispIeqJeqO::calcpVectorpXJ()
 void MbD::DispIeqJeqO::calcpVectorpEJ()
 {
     // rIeJeO = rOJeO - rOIeO
-    prIeJeOpEJ = frmJe->getprOeOpE();
+    prIeJeOpEJ = eFrmJ->getprOeOpE();
 }
 
 void MbD::DispIeqJeqO::calcppVectorpEJpEJ()
 {
-    pprIeJeOpEJpEJ = frmJe->getpprOeOpEpE();
+    pprIeJeOpEJpEJ = eFrmJ->getpprOeOpEpE();
 }
 
 FMatDsptr MbD::DispIeqJeqO::getpVectorpXJ()
@@ -52,6 +52,11 @@ FMatDsptr MbD::DispIeqJeqO::getpVectorpEJ()
     return prIeJeOpEJ;
 }
 
+FMatFColDsptr MbD::DispIeqJeqO::getppVectorpEJpEJ()
+{
+    return pprIeJeOpEJpEJ;
+}
+
 void DispIeqJeqO::simUpdateAll()
 {
     // rIeJeO = rOJeO - rOIeO
@@ -62,5 +67,5 @@ void DispIeqJeqO::simUpdateAll()
 
 FMatDsptr MbD::DispIeqJeqO::getppCompipEJpEJ(size_t axis)
 {
-    return std::static_pointer_cast<EndFrameqc>(frmJe)->ppriOeOpEpE(axis);
+    return std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
 }

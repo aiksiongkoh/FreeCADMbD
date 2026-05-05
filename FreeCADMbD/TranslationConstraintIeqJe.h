@@ -19,7 +19,6 @@ namespace MbD {
         static std::shared_ptr<TranslationConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
 
         void simUpdateAll() override;
-        void initriIeJeIe() override;
         void calcpGpXI() override;
         void calcpGpEI() override;
         void calcppGpXIpEI() override;

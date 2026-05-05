@@ -182,6 +182,11 @@ void KinematicVectorIeJe::calcppVectorpEKpt()
     throw SimulationStoppingError("To be implemented.");
 }
 
+FColDsptr MbD::KinematicVectorIeJe::getVector()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
 FMatDsptr KinematicVectorIeJe::getpVectorpXI()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -363,10 +368,15 @@ double KinematicVectorIeJe::value()
     return 0.0;
 }
 
+bool MbD::KinematicVectorIeJe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
+{
+    return false;
+}
+
 void KinematicVectorIeJe::withFrmIFrmJ(EndFrmsptr eFrmi, EndFrmsptr eFrmj)
 {
-    frmIe = eFrmi;
-    frmJe = eFrmj;
+    eFrmI = eFrmi;
+    eFrmJ = eFrmj;
 }
 
 void KinematicVectorIeJe::withFrmIFrmJaxis(EndFrmsptr eFrmI, EndFrmsptr eFrmJ, size_t axis)
@@ -385,27 +395,8 @@ void KinematicVectorIeJe::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrm
 
 void KinematicVectorIeJe::initializeLocally()
 {
-    frmIp = frmIe->getPartFrame();
-    frmJp = frmJe->getPartFrame();
-    has_qI = frmIe->has_qX();
-    has_qJ = frmJe->has_qX();
 }
 
 void KinematicVectorIeJe::initializeGlobally()
 {
-}
-
-SpatialContainerFrame* KinematicVectorIeJe::partFrameI()
-{
-    return frmIp;
-}
-
-SpatialContainerFrame* KinematicVectorIeJe::partFrameJ()
-{
-    return frmJp;
-}
-
-FColDsptr MbD::KinematicVectorIeJe::getrIeJeO()
-{
-    return frmJe->rOeO->minusFullColumn(frmIe->rOeO);
 }

@@ -9,6 +9,7 @@
 #include <algorithm>
 
 #include "TranslationConstraintIeJe.h"
+#include "DispCompiIeJeIe.h"
 #include "TranslationConstraintIeqtJeq.h"
 #include "TranslationConstraintIetJeq.h"
 #include "System.h"
@@ -91,8 +92,7 @@ void TranslationConstraintIeJe::simUpdateAll()
 void TranslationConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
-    dispIeJeIe = DispIeJeKe::With(frmIe, frmJe);
-    dispIeJeIe->frmKe = frmIe;
+    dispIeJeIe = DispIeJeKe::With(eFrmI, eFrmJ, eFrmI);
     dispIeJeIe->owner = this;
     initriIeJeIe();
 }
@@ -108,6 +108,7 @@ void MbD::TranslationConstraintIeJe::useUniqueDispIeJeKe()
     else {
         dispIeJeIe = *it;
     }
+    riIeJeIe->useUniqueDispIeJeKe();
 }
 
 void TranslationConstraintIeJe::initializeLocally()
@@ -123,11 +124,13 @@ void TranslationConstraintIeJe::initializeGlobally()
 void MbD::TranslationConstraintIeJe::useUniqueDispIeJeO()
 {
     dispIeJeIe->useUniqueDispIeJeO();
+    riIeJeIe->useUniqueDispIeJeO();
 }
 
 void TranslationConstraintIeJe::initriIeJeIe()
 {
-    riIeJeIe = DispCompIecJecKec::With(frmIe, frmJe, frmIe, axisI);
+    riIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, axisI);
+    riIeJeIe->owner = this;
 }
 
 void TranslationConstraintIeJe::postInput()

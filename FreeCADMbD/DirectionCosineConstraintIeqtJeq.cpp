@@ -35,7 +35,7 @@ void MbD::DirectionCosineConstraintIeqtJeq::preVelIC()
 
 void DirectionCosineConstraintIeqtJeq::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIeqctJeqc::With(frmIe, frmJe, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeqctJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void MbD::DirectionCosineConstraintIeqtJeq::fillVelICError(FColDsptr col)
@@ -51,8 +51,8 @@ ConstraintType MbD::DirectionCosineConstraintIeqtJeq::type()
 void DirectionCosineConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qEdotI = frmIeq->qEdot();
     auto qEdotJ = frmJeq->qEdot();
     double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;

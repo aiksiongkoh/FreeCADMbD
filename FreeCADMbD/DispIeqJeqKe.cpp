@@ -30,9 +30,25 @@ void MbD::DispIeqJeqKe::calcppVectorpEJpEJ()
     }
 }
 
+FMatDsptr MbD::DispIeqJeqKe::getpVectorpXJ()
+{
+    return prIeJeKepXJ;
+}
+
+FMatDsptr MbD::DispIeqJeqKe::getpVectorpEJ()
+{
+    return prIeJeKepEJ;
+}
+
+FMatFColDsptr MbD::DispIeqJeqKe::getppVectorpEJpEJ()
+{
+    return pprIeJeKepEJpEJ;
+}
+
 void MbD::DispIeqJeqKe::simUpdateAll()
 {
     DispIeqJeKe::simUpdateAll();
+    calcpVectorpXJ();
     calcpVectorpEJ();
     calcppVectorpEJpEJ();
 }
@@ -41,14 +57,14 @@ void MbD::DispIeqJeqKe::calcpVectorpXJ()
 {
     //prIeJeKepXJ = aAOKeT * prIeJeOpXJ
     auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
-    prIeJeKepXJ = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpXJ);
+    prIeJeKepXJ = eFrmK->aAOe->transposeTimesFullMatrix(prIeJeOpXJ);
 }
 
 void MbD::DispIeqJeqKe::calcpVectorpEJ()
 {
     //prIeJeKepEJ = aAOKeT * prIeJeOpEJ
     auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
-    prIeJeKepEJ = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpEJ);
+    prIeJeKepEJ = eFrmK->aAOe->transposeTimesFullMatrix(prIeJeOpEJ);
 }
 
 FMatDsptr MbD::DispIeqJeqKe::getppCompipEJpEJ(size_t axis)

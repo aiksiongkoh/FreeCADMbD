@@ -58,8 +58,8 @@ void MbD::AtPointConstraintIeJeq::initializeLocally()
 void AtPointConstraintIeJeq::useEquationNumbers()
 {
     AtPointConstraintIeJe::useEquationNumbers();
-    iqXJ = frmJe->iqX();
-    iqEJ = frmJe->iqE();
+    iqXJ = eFrmJ->iqX();
+    iqEJ = eFrmJ->iqE();
 }
 
 void AtPointConstraintIeJeq::fillpFpy(SpMatDsptr mat)
@@ -99,9 +99,9 @@ void MbD::AtPointConstraintIeJeq::addToJointTorqueI(FColDsptr col)
     // aTIeO = rJeIeO cross aFJeO - aTJeO
 
     auto aFJeOT = pGpXJ->times(lam);
-    auto rJpJeJp = frmJe->rpep();
-    auto pAOJppEJ = frmJe->pAOppE();
-    auto aBOJp = frmJe->aBOp();
+    auto rJpJeJp = eFrmJ->rpep();
+    auto pAOJppEJ = eFrmJ->pAOppE();
+    auto aBOJp = eFrmJ->aBOp();
     auto prOJeOpEJTaFJeO = std::make_shared<FullColumn<double>>(4, 0.0); // prOJeOpEJT * aFJeO
     for (size_t i = 0; i < 4; i++)
     {
@@ -154,7 +154,7 @@ void AtPointConstraintIeJeq::fillAccICIterError(FColDsptr col)
     AtPointConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();
     double sum = pGpXJ->timesFullColumn(frmJeq->qXddot());

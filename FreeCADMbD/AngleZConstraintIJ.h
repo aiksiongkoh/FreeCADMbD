@@ -8,15 +8,15 @@
 
 #pragma once
 
-#include "ConstraintIJ.h"
+#include "ConstraintIeJe.h"
 #include "AngleZIecJec.h"
 
 namespace MbD {
-    class AngleZConstraintIJ : public ConstraintIJ
+    class AngleZConstraintIJ : public ConstraintIeJe
     {
         //thezIeJe 
     public:
-        AngleZConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        AngleZConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
 
         static std::shared_ptr<AngleZConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
 

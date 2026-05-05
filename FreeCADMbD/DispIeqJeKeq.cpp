@@ -30,27 +30,27 @@ void MbD::DispIeqJeKeq::simUpdateAll()
 void MbD::DispIeqJeKeq::calcpVectorpEK()
 {
     // prIeJeKepEK = pAOKeTpEK * rIeJeO
-    prIeJeKepEK = frmKe->pAOeTpEtimesFullColumn(rIeJeO);
+    prIeJeKepEK = eFrmK->pAOeTpEtimesFullColumn(rIeJeO);
 }
 
 void MbD::DispIeqJeKeq::calcppVectorpEKpEK()
 {
     // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
-    pprIeJeKepEKpEK = frmKe->ppAOeTpEpEtimesFullColumn(rIeJeO);
+    pprIeJeKepEKpEK = eFrmK->ppAOeTpEpEtimesFullColumn(rIeJeO);
 }
 
 void MbD::DispIeqJeKeq::calcppVectorpXIpEK()
 {
     // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
     auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
-    pprIeJeKepXIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXI);
+    pprIeJeKepXIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXI);
 }
 
 void MbD::DispIeqJeKeq::calcppVectorpEIpEK()
 {
     // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
     auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
-    pprIeJeKepEIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEI);
+    pprIeJeKepEIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEI);
 }
 
 FMatDsptr MbD::DispIeqJeKeq::getpVectorpEK()

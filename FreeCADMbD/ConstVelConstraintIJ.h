@@ -8,16 +8,16 @@
  
 #pragma once
 
-#include "ConstraintIJ.h"
+#include "ConstraintIeJe.h"
 
 namespace MbD {
     class DirectionCosineIecJec;
 
-    class ConstVelConstraintIJ : public ConstraintIJ
+    class ConstVelConstraintIJ : public ConstraintIeJe
     {
         //aA01IeJe aA10IeJe 
     public:
-        ConstVelConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        ConstVelConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<ConstVelConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

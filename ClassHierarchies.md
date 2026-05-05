@@ -174,6 +174,10 @@ std::enable_shared_from_this<Item>
    |     `- ForceTorqueInLine
    |- Kinematic
    |  |- KinematicIJ
+   |  |  |- KinematicCompiIeJe
+   |  |  |  |- DispCompiIeJeIe
+   |  |  |  |- DispCompiIeJeKe
+   |  |  |  `- DispCompiIeJeO
    |  |  |- AngleZIecJec
    |  |  |  |- AngleZIecJeqc
    |  |  |  `- AngleZIeqcJec
@@ -209,11 +213,6 @@ std::enable_shared_from_this<Item>
    |  |  |  `- DispCompIeqcJecO
    |  |  |     `- DispCompIeqcJeqcO
    |  |  |        `- DispCompIeqctJeqcO
-   |  |  |- DispIecJecO
-   |  |  |  |- DispIecJeqcO
-   |  |  |  |  `- DispIectJeqcO
-   |  |  |  `- DispIeqcJecO
-   |  |  |     `- DispIeqcJeqcO
    |  |  |- DistIecJec
    |  |  |  |- DistIecJeqc
    |  |  |  |  `- DistIectJeqc
@@ -473,3 +472,46 @@ std::vector<T>
       |- FullMatrix
       `- SparseMatrix
 ```
+
+
+CADMbDFEM
+CMFNode(sup subs extCADItem)
+    CADItem()
+        CADAssembly
+        CADPart
+    MbDItem(extMbDItem cadItem)
+        MbDAssembly
+        MbDPart
+        MbDMarker
+        MbDIJ(mkrI mkrJ)
+            MbDJoint
+            MbDForceTorque
+    FEMItem(extFEMItem cadItem mbdItem)
+        FEMAssembly
+        FEMPart
+        FEMMeshElement
+        FEMMeshNode
+        FEMCLoad
+        FEMDLoad
+        FEMConstraint
+
+
+App::Part(Group InList OutList Placement)
+    CADItem()			not needed. Same as App::Part
+        CADAssembly		not needed. Same as App::Part
+        CADPart			not needed. Same as App::Part
+    MbDItem(extMbDItem cadItem)		cadItem has App::Part
+        MbDAssembly
+        MbDPart
+        MbDMarker
+        MbDIJ(mkrI mkrJ)
+            MbDJoint
+            MbDForceTorque
+    FEMItem(extFEMItem cadItem mbdItem) cadItem has App::Part
+        FEMAssembly
+        FEMPart
+        FEMMeshElement
+        FEMMeshNode
+        FEMCLoad
+        FEMDLoad
+        FEMConstraint

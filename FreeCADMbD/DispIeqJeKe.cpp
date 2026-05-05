@@ -21,6 +21,7 @@ std::shared_ptr<DispIeqJeKe> DispIeqJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 void MbD::DispIeqJeKe::simUpdateAll()
 {
     DispIeJeKe::simUpdateAll();
+    calcpVectorpXI();
     calcpVectorpEI();
     calcppVectorpEIpEI();
 }
@@ -29,14 +30,14 @@ void MbD::DispIeqJeKe::calcpVectorpXI()
 {
     //prIeJeKepXI = aAOKeT * prIeJeOpXI
     auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
-    prIeJeKepXI = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpXI);
+    prIeJeKepXI = eFrmK->aAOe->transposeTimesFullMatrix(prIeJeOpXI);
 }
 
 void MbD::DispIeqJeKe::calcpVectorpEI()
 {
     //prIeJeKepEI = aAOKeT * prIeJeOpEI
     auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
-    prIeJeKepEI = frmKe->aAOe->transposeTimesFullMatrix(prIeJeOpEI);
+    prIeJeKepEI = eFrmK->aAOe->transposeTimesFullMatrix(prIeJeOpEI);
 }
 
 void MbD::DispIeqJeKe::calcppVectorpEIpEI()
@@ -51,17 +52,22 @@ void MbD::DispIeqJeKe::calcppVectorpEIpEI()
     }
 }
 
-FMatDsptr MbD::DispIeqJeKe::getprIeJeKepXI()
+FMatDsptr MbD::DispIeqJeKe::getpVectorpXI()
 {
     return prIeJeKepXI;
 }
 
-FMatDsptr MbD::DispIeqJeKe::getprIeJeKepEI()
+FMatDsptr MbD::DispIeqJeKe::getpVectorpEI()
 {
     return prIeJeKepEI;
 }
 
-FMatDsptr MbD::DispIeqJeKe::getppriIeJeKepEIpEI(size_t axis)
+FMatFColDsptr MbD::DispIeqJeKe::getppVectorpEIpEI()
+{
+    return pprIeJeKepEIpEI;
+}
+
+FMatDsptr MbD::DispIeqJeKe::getppCompipEIpEI(size_t axis)
 {
     auto answer = FullMatrix<double>::With(4, 4);
     for (size_t i = 0; i < 4; i++) {

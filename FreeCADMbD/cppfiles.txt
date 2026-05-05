@@ -142,6 +142,7 @@ DirectionCosineIeqcJec.cpp
 DirectionCosineIeqcJeqc.cpp
 DirectionCosineIeqctJeqc.cpp
 DiscontinuityError.cpp
+DispCompiIeJeIe.cpp
 DispCompIecJecIe.cpp
 DispCompIecJecKec.cpp
 DispCompIecJecKeqc.cpp

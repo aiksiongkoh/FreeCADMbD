@@ -15,6 +15,16 @@ void Kinematic::initialize()
     Item::initialize();
 }
 
+void MbD::Kinematic::useUniqueDispIeJeO()
+{
+    //Do nothing.
+}
+
+void MbD::Kinematic::useUniqueDispIeJeKe()
+{
+    //Do nothing.
+}
+
 void MbD::Kinematic::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
     //Do nothing.

@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DistxyIeqcJec.h"
-#include "DispCompIeqcJecIe.h"
+#include "DispCompiIeJeIe.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -158,12 +158,6 @@ void DistxyIeqcJec::simUpdateAll()
     calcppdistxypXIpXI();
     calcppdistxypXIpEI();
     calcppdistxypEIpEI();
-}
-
-void DistxyIeqcJec::init_xyIeJeIe()
-{
-    xIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 0);
-    yIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 1);
 }
 
 FMatDsptr DistxyIeqcJec::ppvaluepEIpEI()

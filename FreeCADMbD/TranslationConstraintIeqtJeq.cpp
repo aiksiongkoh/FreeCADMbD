@@ -19,11 +19,6 @@ std::shared_ptr<TranslationConstraintIeqtJeq> TranslationConstraintIeqtJeq::With
     return inst;
 }
 
-void TranslationConstraintIeqtJeq::initriIeJeIe()
-{
-    riIeJeIe = DispCompIeqctJeqcKeqct::With(frmIe, frmJe, frmIe, axisI);
-}
-
 ConstraintType TranslationConstraintIeqtJeq::type()
 {
     return essential;
@@ -32,7 +27,7 @@ ConstraintType TranslationConstraintIeqtJeq::type()
 void TranslationConstraintIeqtJeq::preVelIC()
 {
     TranslationConstraintIeJe::preVelIC();
-    pGpt = std::static_pointer_cast<DispCompIeqctJeqcKeqct>(riIeJeIe)->pvaluept();
+    pGpt = riIeJeIe->pvaluept();
 }
 
 void TranslationConstraintIeqtJeq::fillVelICError(FColDsptr col)
@@ -43,19 +38,18 @@ void TranslationConstraintIeqtJeq::fillVelICError(FColDsptr col)
 void TranslationConstraintIeqtJeq::preAccIC()
 {
     TranslationConstraintIeJe::preAccIC();
-    auto riIeJeIeqct = std::static_pointer_cast<DispCompIeqctJeqcKeqct>(riIeJeIe);
-    ppGpXIpt = riIeJeIeqct->ppvaluepXIpt();
-    ppGpEIpt = riIeJeIeqct->ppvaluepEIpt()->plusFullRow(riIeJeIeqct->ppvaluepEKpt());
-    ppGpXJpt = riIeJeIeqct->ppvaluepXJpt();
-    ppGpEJpt = riIeJeIeqct->ppvaluepEJpt();
-    ppGptpt = riIeJeIeqct->ppvalueptpt();
+    ppGpXIpt = riIeJeIe->ppvaluepXIpt();
+    ppGpEIpt = riIeJeIe->ppvaluepEIpt()->plusFullRow(riIeJeIe->ppvaluepEKpt());
+    ppGpXJpt = riIeJeIe->ppvaluepXJpt();
+    ppGpEJpt = riIeJeIe->ppvaluepEJpt();
+    ppGptpt = riIeJeIe->ppvalueptpt();
 }
 
 void TranslationConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     TranslationConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qXdotI = frmIeq->qXdot();
     auto qEdotI = frmIeq->qEdot();
     auto qXdotJ = frmJeq->qXdot();

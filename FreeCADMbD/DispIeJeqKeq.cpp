@@ -31,12 +31,32 @@ void MbD::DispIeJeqKeq::calcppVectorpXJpEK()
 {
     // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
     auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
-    pprIeJeKepXJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
+    pprIeJeKepXJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
 }
 
 void MbD::DispIeJeqKeq::calcppVectorpEJpEK()
 {
     // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
-    pprIeJeKepEJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
+    pprIeJeKepEJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
+}
+
+FMatDsptr MbD::DispIeJeqKeq::getpVectorpEK()
+{
+    return prIeJeKepEK;
+}
+
+FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpXJpEK()
+{
+    return pprIeJeKepXJpEK;
+}
+
+FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpEJpEK()
+{
+    return pprIeJeKepEJpEK;
+}
+
+FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpEKpEK()
+{
+    return pprIeJeKepEKpEK;
 }

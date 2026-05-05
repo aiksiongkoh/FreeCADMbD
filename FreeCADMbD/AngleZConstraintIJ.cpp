@@ -17,9 +17,9 @@ std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, En
 {
     assert(frmi->isEndFrameqc());
     assert(frmj->isEndFrameqc());
-    auto angleZConIJ = std::make_shared<AngleZConstraintIqcJqc>(frmi, frmj);
-    angleZConIJ->initialize();
-    return angleZConIJ;
+    auto inst = std::make_shared<AngleZConstraintIqcJqc>(frmi, frmj);
+    inst->initialize();
+    return inst;
 }
 
 void AngleZConstraintIJ::simUpdateAll()
@@ -43,7 +43,7 @@ void AngleZConstraintIJ::initthezIeJe()
 
 void AngleZConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     this->initthezIeJe();
 }
 
@@ -60,31 +60,31 @@ void AngleZConstraintIJ::initializeLocally()
 void AngleZConstraintIJ::postInput()
 {
     assert(aConstant != std::numeric_limits<double>::min());
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void AngleZConstraintIJ::postPosICIteration()
 {
     thezIeJe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void AngleZConstraintIJ::preAccIC()
 {
     thezIeJe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void AngleZConstraintIJ::prePosIC()
 {
     thezIeJe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void AngleZConstraintIJ::preVelIC()
 {
     thezIeJe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 ConstraintType AngleZConstraintIJ::type()

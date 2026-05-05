@@ -10,6 +10,7 @@
 
 #include "ConstraintIeJe.h"
 #include "DispCompIecJecKec.h"
+#include "DispCompiIeJeIe.h"
 #include "DispIeJeKe.h"
 
 namespace MbD {
@@ -69,9 +70,8 @@ namespace MbD {
         std::string constraintSpec() override;
 
         size_t axisI = SIZE_MAX;
-        std::shared_ptr<DispCompIecJecKec> riIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> riIeJeIe;
         std::shared_ptr<DispIeJeKe> dispIeJeIe;
-        //ToDo: Use DispCompIecJecIe instead of DispCompIecJecKec
     };
 }
 

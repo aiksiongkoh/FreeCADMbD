@@ -8,21 +8,23 @@
  
 #pragma once
 
-#include "ConstraintIJ.h"
+#include "ConstraintIeJe.h"
 #include "OrbitAngleZIecJec.h"
 
 namespace MbD {
-    class GearConstraintIJ : public ConstraintIJ
+    class GearConstraintIJ : public ConstraintIeJe
     {
         //orbitIeJe orbitJeIe radiusI radiusJ 
     public:
-        GearConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        GearConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<GearConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         virtual void initorbitsIJ();
         void postInput() override;
         void postPosICIteration() override;

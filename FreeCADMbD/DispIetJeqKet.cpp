@@ -18,13 +18,9 @@ std::shared_ptr<DispIetJeqKet> DispIetJeqKet::With(EndFrmsptr frmi, EndFrmsptr f
     return inst;
 }
 
-void MbD::DispIetJeqKet::simUpdateAll()
+FColDsptr MbD::DispIetJeqKet::getppVectorptpt()
 {
-    DispIeJeqKe::simUpdateAll();
-    calcpVectorpt();
-    calcppVectorpXJpt();
-    calcppVectorpEJpt();
-    calcppVectorptpt();
+    return pprIeJeKeptpt;
 }
 
 void MbD::DispIetJeqKet::preVelIC()
@@ -44,8 +40,8 @@ void MbD::DispIetJeqKet::preAccIC()
 void MbD::DispIetJeqKet::calcpVectorpt()
 {
     // rIeJeKe = aAOKeT * (rOJeO - rOIeO)
-    prIeJeKept = frmKe->getpAOept()->transposeTimesFullColumn(rIeJeO)->minusFullColumn(
-        aAOKe->transposeTimesFullColumn(frmIe->getprOeOpt()));
+    prIeJeKept = eFrmK->getpAOept()->transposeTimesFullColumn(rIeJeO)->minusFullColumn(
+        aAOKe->transposeTimesFullColumn(eFrmI->getprOeOpt()));
 }
 
 void MbD::DispIetJeqKet::calcppVectorpXJpt()
@@ -53,9 +49,8 @@ void MbD::DispIetJeqKet::calcppVectorpXJpt()
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
     // pprIeJeKepXJpt = pAOKeTpt * prIeJeOpXJ + aAOKeT * pprIeJeOpXJpt
-    auto term2 = frmKe->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpXJ());
-    auto term3 = frmKe->aAOe->transposeTimesFullMatrix(dispIeJeO->getppVectorpXJpt());
-    pprIeJeKepXJpt = term2->plusFullMatrix(term3);
+    // pprIeJeKepXJpt = pAOKeTpt * prIeJeOpXJ + aAOKeT * 0
+    pprIeJeKepXJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpXJ());
 }
 
 void MbD::DispIetJeqKet::calcppVectorpEJpt()
@@ -63,9 +58,8 @@ void MbD::DispIetJeqKet::calcppVectorpEJpt()
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
     // pprIeJeKepEJpt = pAOKeTpt * prIeJeOpEJ + aAOKeT * pprIeJeOpEJpt
-    auto term2 = frmKe->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpEJ());
-    auto term3 = frmKe->aAOe->transposeTimesFullMatrix(dispIeJeO->getppVectorpEJpt());
-    pprIeJeKepEJpt = term2->plusFullMatrix(term3);
+    // pprIeJeKepEJpt = pAOKeTpt * prIeJeOpEJ + aAOKeT * 0
+    pprIeJeKepEJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpEJ());
 }
 
 void MbD::DispIetJeqKet::calcppVectorptpt()
@@ -73,8 +67,23 @@ void MbD::DispIetJeqKet::calcppVectorptpt()
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
     // pprIeJeKeptpt = ppAOKeTptpt * rIeJeO + 2 * pAOKeTpt * prIeJeOpt + aAOKeT * pprIeJeOptpt
-    auto term1 = frmKe->getppAOeptpt()->transposeTimesFullColumn(rIeJeO);
-    auto term2 = frmKe->getpAOept()->transposeTimesFullColumn(dispIeJeO->getpVectorpt())->times(2.0);
-    auto term3 = frmKe->aAOe->transposeTimesFullColumn(dispIeJeO->getppVectorptpt());
+    auto term1 = eFrmK->getppAOeptpt()->transposeTimesFullColumn(rIeJeO);
+    auto term2 = eFrmK->getpAOept()->transposeTimesFullColumn(dispIeJeO->getpVectorpt())->times(2.0);
+    auto term3 = eFrmK->aAOe->transposeTimesFullColumn(dispIeJeO->getppVectorptpt());
     pprIeJeKeptpt = term1->plusFullColumn(term2->plusFullColumn(term3));
+}
+
+FColDsptr MbD::DispIetJeqKet::getpVectorpt()
+{
+    return prIeJeKept;
+}
+
+FMatDsptr MbD::DispIetJeqKet::getppVectorpXJpt()
+{
+    return pprIeJeKepXJpt;
+}
+
+FMatDsptr MbD::DispIetJeqKet::getppVectorpEJpt()
+{
+    return pprIeJeKepEJpt;
 }

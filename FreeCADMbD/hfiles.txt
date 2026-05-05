@@ -142,6 +142,7 @@ DirectionCosineIeqcJec.h
 DirectionCosineIeqcJeqc.h
 DirectionCosineIeqctJeqc.h
 DiscontinuityError.h
+DispCompiIeJeIe.h
 DispCompIecJecIe.h
 DispCompIecJecKec.h
 DispCompIecJecKeqc.h

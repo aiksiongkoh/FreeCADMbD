@@ -34,12 +34,12 @@ void MbD::DispIeJeqO::calcpVectorpXJ()
 void MbD::DispIeJeqO::calcpVectorpEJ()
 {
     // rIeJeO = rOJeO - rOIeO
-    prIeJeOpEJ = frmJe->getprOeOpE();
+    prIeJeOpEJ = eFrmJ->getprOeOpE();
 }
 
 void MbD::DispIeJeqO::calcppVectorpEJpEJ()
 {
-    pprIeJeOpEJpEJ = frmJe->getpprOeOpEpE();
+    pprIeJeOpEJpEJ = eFrmJ->getpprOeOpEpE();
 }
 
 FMatDsptr MbD::DispIeJeqO::getpVectorpXJ()
@@ -52,6 +52,11 @@ FMatDsptr MbD::DispIeJeqO::getpVectorpEJ()
     return prIeJeOpEJ;
 }
 
+FMatFColDsptr MbD::DispIeJeqO::getppVectorpEJpEJ()
+{
+    return pprIeJeOpEJpEJ;
+}
+
 void DispIeJeqO::simUpdateAll()
 {
     // rIeJeO = rOJeO - rOIeO
@@ -62,5 +67,5 @@ void DispIeJeqO::simUpdateAll()
 
 FMatDsptr MbD::DispIeJeqO::getppCompipEJpEJ(size_t axis)
 {
-    return std::static_pointer_cast<EndFrameqc>(frmJe)->ppriOeOpEpE(axis);
+    return std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
 }

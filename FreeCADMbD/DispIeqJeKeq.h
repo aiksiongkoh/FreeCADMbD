@@ -17,6 +17,7 @@ namespace MbD {
     public:
         DispIeqJeKeq() {}
         DispIeqJeKeq(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeKe(frmi, frmj) {}
+        DispIeqJeKeq(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : DispIeqJeKe(frmi, frmj, frmk) {}
         static std::shared_ptr<DispIeqJeKeq> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;

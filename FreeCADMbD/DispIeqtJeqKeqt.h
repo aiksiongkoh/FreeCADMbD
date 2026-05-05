@@ -19,14 +19,20 @@ namespace MbD {
         DispIeqtJeqKeqt(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeqKeq(frmi, frmj) {}
         static std::shared_ptr<DispIeqtJeqKeqt> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
-        void simUpdateAll() override;
-        virtual void calcpVectorpt();
-        virtual void calcppVectorpXIpt();
-        virtual void calcppVectorpEIpt();
-        virtual void calcppVectorpXJpt();
-        virtual void calcppVectorpEJpt();
-        virtual void calcppVectorpEKpt();
-        virtual void calcppVectorptpt();
+        void calcpVectorpt() override;
+        void calcppVectorpXIpt() override;
+        void calcppVectorpEIpt() override;
+        void calcppVectorpXJpt() override;
+        void calcppVectorpEJpt() override;
+        void calcppVectorpEKpt() override;
+        void calcppVectorptpt() override;
+        FColDsptr getpVectorpt() override;
+        FMatDsptr getppVectorpXIpt() override;
+        FMatDsptr getppVectorpEIpt() override;
+        FMatDsptr getppVectorpXJpt() override;
+        FMatDsptr getppVectorpEJpt() override;
+        FMatDsptr getppVectorpEKpt() override;
+        FColDsptr getppVectorptpt() override;
         void preVelIC() override;
         void preAccIC() override;
 

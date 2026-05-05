@@ -22,8 +22,10 @@ namespace MbD {
         void simUpdateAll() override;
         void calcpVectorpEK() override;
         void calcppVectorpEKpEK() override;
-        FMatDsptr getppriIeJeKepEIpEI(size_t axis) override;
-        FMatDsptr getppriIeJeKepEJpEJ(size_t axis) override;
+        FMatDsptr getpVectorpEK();
+        FMatFColDsptr getppVectorpEKpEK();
+        FMatDsptr getppCompipEIpEI(size_t axis) override;
+        FMatDsptr getppCompipEJpEJ(size_t axis) override;
         FMatDsptr prIeJeKepEK;
         FMatFColDsptr pprIeJeKepEKpEK;
 

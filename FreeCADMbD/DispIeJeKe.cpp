@@ -10,14 +10,15 @@
 #include "EndFramec.h"
 #include "EndFramect.h"
 #include "EndFrameqct.h"
-#include "DispIeqJeqKe.h"
+#include "DispIeqJeKeq.h"
+#include "DispIeqJeqKeq.h"
 #include "DispIeJeqKe.h"
 #include "DispIetJeqKet.h"
 #include "System.h"
 
 using namespace MbD;
 
-std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
 {
     std::shared_ptr<DispIeJeKe> inst;
     if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
@@ -39,13 +40,15 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
-            inst = std::make_shared<DispIeqJeqKe>(frmi, frmj);
+            assert(frmk->has_qX());
+            inst = std::make_shared<DispIeqJeqKeq>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
-            inst = std::make_shared<DispIeqJeKe>(frmi, frmj);
+            assert(frmk->has_qX());
+            inst = std::make_shared<DispIeqJeKeq>(frmi, frmj, frmk);
         }
     }
     else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
@@ -53,7 +56,8 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
-            inst = std::make_shared<DispIetJeqKet>(frmi, frmj);
+            assert(!frmk->has_qX());
+            inst = std::make_shared<DispIetJeqKet>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
@@ -67,7 +71,8 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
             throw SimulationStoppingError("To be implemented.");
         }
         else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
-            inst = std::make_shared<DispIeJeqKe>(frmi, frmj);
+            assert(!frmk->has_qX());
+            inst = std::make_shared<DispIeJeqKe>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
@@ -112,55 +117,63 @@ void MbD::DispIeJeKe::calcVector()
     //pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     //pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
 
-    aAOKe = frmKe->aAOe;
+    aAOKe = eFrmK->aAOe;
     rIeJeO = dispIeJeO->rIeJeO;
     rIeJeKe = aAOKe->transposeTimesFullColumn(rIeJeO);
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeKepXI()
+FColDsptr MbD::DispIeJeKe::getVector()
+{
+    return rIeJeKe;
+}
+
+FMatDsptr MbD::DispIeJeKe::getpVectorpXI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeKepEI()
+FMatDsptr MbD::DispIeJeKe::getpVectorpEI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeKepXJ()
+FMatDsptr MbD::DispIeJeKe::getpVectorpXJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getprIeJeKepEJ()
+FMatDsptr MbD::DispIeJeKe::getpVectorpEJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppriIeJeKepEIpEI(size_t axis)
+FMatDsptr MbD::DispIeJeKe::getppCompipEIpEI(size_t axis)
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppriIeJeKepEJpEJ(size_t axis)
+FMatDsptr MbD::DispIeJeKe::getppCompipEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getprIeJeKept()
+FColDsptr MbD::DispIeJeKe::getpVectorpt()
 {
     return FColDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getpprIeJeKeptpt()
+FColDsptr MbD::DispIeJeKe::getppVectorptpt()
 {
     return FColDsptr();
 }
 
-bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<DispIeJeKe> other) const
+bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
 {
-    auto sameClass = typeid(*this).name() == typeid(*other).name();
-    return sameClass && frmIe == other->frmIe && frmJe == other->frmJe && frmKe == other->frmKe;
+    auto disp = std::dynamic_pointer_cast<DispIeJeKe>(other);
+    if (disp) {
+        return eFrmI == disp->eFrmI && eFrmJ == disp->eFrmJ && eFrmK == disp->eFrmK;
+    }
+    return false;
 }
 
 void MbD::DispIeJeKe::useUniqueDispIeJeO()

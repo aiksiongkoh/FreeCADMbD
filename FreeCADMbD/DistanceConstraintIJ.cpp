@@ -18,13 +18,13 @@ std::shared_ptr<DistanceConstraintIJ> DistanceConstraintIJ::With(EndFrmsptr frmi
     assert(frmi->isEndFrameqc());
     assert(frmj->isEndFrameqc());
     auto inst = std::make_shared<DistanceConstraintIqcJqc>(frmi, frmj);
-    inst->init_distIeJe();
+    inst->initialize();
     return inst;
 }
 
 void DistanceConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     init_distIeJe();
 }
 
@@ -52,31 +52,31 @@ void DistanceConstraintIJ::initializeLocally()
 void DistanceConstraintIJ::postInput()
 {
     distIeJe->postInput();
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void DistanceConstraintIJ::postPosICIteration()
 {
     distIeJe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void DistanceConstraintIJ::preAccIC()
 {
     distIeJe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void DistanceConstraintIJ::prePosIC()
 {
     distIeJe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void DistanceConstraintIJ::preVelIC()
 {
     distIeJe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 ConstraintType DistanceConstraintIJ::type()
@@ -87,23 +87,23 @@ ConstraintType DistanceConstraintIJ::type()
 void DistanceConstraintIJ::postDynPredictor()
 {
     distIeJe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void DistanceConstraintIJ::postDynCorrectorIteration()
 {
     distIeJe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void DistanceConstraintIJ::preDynOutput()
 {
     distIeJe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void DistanceConstraintIJ::postDynOutput()
 {
     distIeJe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }

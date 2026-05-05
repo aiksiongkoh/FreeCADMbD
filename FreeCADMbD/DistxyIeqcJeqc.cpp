@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DistxyIeqcJeqc.h"
-#include "DispCompIeqcJeqcIe.h"
+#include "DispCompiIeJeIe.h"
 
 using namespace MbD;
 
@@ -297,8 +297,10 @@ void DistxyIeqcJeqc::simUpdateAll()
 
 void DistxyIeqcJeqc::init_xyIeJeIe()
 {
-    xIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 0);
-    yIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 1);
+    xIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 0);
+    xIeJeIe->owner = this;
+    yIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 1);
+    yIeJeIe->owner = this;
 }
 
 FMatDsptr DistxyIeqcJeqc::ppvaluepEIpEJ()

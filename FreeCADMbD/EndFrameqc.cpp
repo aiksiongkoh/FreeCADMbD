@@ -319,8 +319,9 @@ FMatFColDsptr MbD::EndFrameqc::pAOeTpEtimesFullMatrix(FMatDsptr prIeJeOpq) const
     // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
     // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     auto pAOKepEK = getpAOepE();
-    auto pprIeJeKepqpEK = FullMatrix<FColDsptr>::With(prIeJeOpq->ncol(), 4);
-    for (size_t i = 0; i < 3; i++)
+    auto m = prIeJeOpq->ncol();
+    auto pprIeJeKepqpEK = FullMatrix<FColDsptr>::With(m, 4);
+    for (size_t i = 0; i < m; i++)
     {
         auto coli = prIeJeOpq->column(i);
         auto rowi = pprIeJeKepqpEK->at(i);

@@ -28,11 +28,21 @@ void MbD::DispIeJeKeq::simUpdateAll()
 void MbD::DispIeJeKeq::calcpVectorpEK()
 {
     // prIeJeKepEK = pAOKeTpEK * rIeJeO
-    prIeJeKepEK = frmKe->pAOeTpEtimesFullColumn(rIeJeO);
+    prIeJeKepEK = eFrmK->pAOeTpEtimesFullColumn(rIeJeO);
 }
 
 void MbD::DispIeJeKeq::calcppVectorpEKpEK()
 {
     // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
-    pprIeJeKepEKpEK = frmKe->ppAOeTpEpEtimesFullColumn(rIeJeO);
+    pprIeJeKepEKpEK = eFrmK->ppAOeTpEpEtimesFullColumn(rIeJeO);
+}
+
+FMatDsptr MbD::DispIeJeKeq::getpVectorpEK()
+{
+    return prIeJeKepEK;
+}
+
+FMatFColDsptr MbD::DispIeJeKeq::getppVectorpEKpEK()
+{
+    return pprIeJeKepEKpEK;
 }

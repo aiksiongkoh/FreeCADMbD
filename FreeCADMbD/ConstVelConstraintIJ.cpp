@@ -25,6 +25,7 @@ std::shared_ptr<ConstVelConstraintIJ> ConstVelConstraintIJ::With(EndFrmsptr frmi
 
 void ConstVelConstraintIJ::initialize()
 {
+    ConstraintIeJe::initialize();
     initA01IeJe();
     initA10IeJe();
 }
@@ -61,63 +62,63 @@ void ConstVelConstraintIJ::postInput()
 {
     aA01IeJe->postInput();
     aA10IeJe->postInput();
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void ConstVelConstraintIJ::postPosICIteration()
 {
     aA01IeJe->postPosICIteration();
     aA10IeJe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void ConstVelConstraintIJ::preAccIC()
 {
     aA01IeJe->preAccIC();
     aA10IeJe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void ConstVelConstraintIJ::prePosIC()
 {
     aA01IeJe->prePosIC();
     aA10IeJe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void ConstVelConstraintIJ::preVelIC()
 {
     aA01IeJe->preVelIC();
     aA10IeJe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 void ConstVelConstraintIJ::postDynPredictor()
 {
     aA01IeJe->postDynPredictor();
     aA10IeJe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void ConstVelConstraintIJ::postDynCorrectorIteration()
 {
     aA01IeJe->postDynCorrectorIteration();
     aA10IeJe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void ConstVelConstraintIJ::preDynOutput()
 {
     aA01IeJe->preDynOutput();
     aA10IeJe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void ConstVelConstraintIJ::postDynOutput()
 {
     aA01IeJe->postDynOutput();
     aA10IeJe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }
 
 void ConstVelConstraintIJ::addToJointForceI(FColDsptr col)

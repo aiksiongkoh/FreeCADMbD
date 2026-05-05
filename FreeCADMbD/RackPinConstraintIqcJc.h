@@ -19,7 +19,6 @@ namespace MbD {
         static std::shared_ptr<RackPinConstraintIqcJc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
-        void initxIeJeIe() override;
         void initthezIeJe() override;
         void addToJointForceI(FColDsptr col) override;
         void addToJointTorqueI(FColDsptr col) override;

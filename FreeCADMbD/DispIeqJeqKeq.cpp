@@ -31,41 +31,41 @@ void MbD::DispIeqJeqKeq::simUpdateAll()
 
 void MbD::DispIeqJeqKeq::calcpVectorpEK()
 {
-    prIeJeKepEK = frmKe->pAOeTpEtimesFullColumn(rIeJeO);
+    prIeJeKepEK = eFrmK->pAOeTpEtimesFullColumn(rIeJeO);
 }
 
 void MbD::DispIeqJeqKeq::calcppVectorpXIpEK()
 {
     // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
     auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
-    pprIeJeKepXIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXI);
+    pprIeJeKepXIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXI);
 }
 
 void MbD::DispIeqJeqKeq::calcppVectorpEIpEK()
 {
     // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
     auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
-    pprIeJeKepEIpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEI);
+    pprIeJeKepEIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEI);
 }
 
 void MbD::DispIeqJeqKeq::calcppVectorpXJpEK()
 {
     // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
     auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
-    pprIeJeKepXJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
+    pprIeJeKepXJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
 }
 
 void MbD::DispIeqJeqKeq::calcppVectorpEJpEK()
 {
     // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
-    pprIeJeKepEJpEK = frmKe->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
+    pprIeJeKepEJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
 }
 
 void MbD::DispIeqJeqKeq::calcppVectorpEKpEK()
 {
     // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
-    pprIeJeKepEKpEK = frmKe->ppAOeTpEpEtimesFullColumn(rIeJeO);
+    pprIeJeKepEKpEK = eFrmK->ppAOeTpEpEtimesFullColumn(rIeJeO);
 }
 
 FMatDsptr MbD::DispIeqJeqKeq::getpVectorpEK()

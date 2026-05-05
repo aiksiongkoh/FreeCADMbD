@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include "ConstraintIJ.h"
-#include "DispCompIecJecIe.h"
+#include "ConstraintIeJe.h"
+#include "DispCompiIeJeIe.h"
 #include "AngleZIecJec.h"
 
 namespace MbD {
-    class RackPinConstraintIJ : public ConstraintIJ
+    class RackPinConstraintIJ : public ConstraintIeJe
     {
         //xIeJeIe thezIeJe pitchRadius 
     public:
         RackPinConstraintIJ() {}
-        RackPinConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        RackPinConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<RackPinConstraintIJ> With();
         static std::shared_ptr<RackPinConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
@@ -28,6 +28,8 @@ namespace MbD {
         virtual void initthezIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
@@ -39,7 +41,7 @@ namespace MbD {
         void postDynOutput() override;
         std::string constraintSpec() override;
 
-        std::shared_ptr<DispCompIecJecIe> xIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe;
         std::shared_ptr<AngleZIecJec> thezIeJe;
         double pitchRadius = 0.0;
     };

@@ -109,6 +109,7 @@ namespace MbD
         FMatsptr<T> transpose();
         FMatsptr<T> negated();
         void symLowerWithUpper();
+        T atij(size_t i, size_t j);
         void atiput(size_t i, FRowsptr<T> fullRow);
         void atijput(size_t i, size_t j, T value);
         void atijputFullColumn(size_t i, size_t j, FColsptr<T> fullCol);
@@ -630,6 +631,12 @@ namespace MbD
                 this->at(j)->at(i) = this->at(i)->at(j);
             }
         }
+    }
+
+    template <typename T>
+    inline T FullMatrix<T>::atij(size_t i, size_t j)
+    {
+        return this->at(i)->at(j);
     }
 
     template <typename T>

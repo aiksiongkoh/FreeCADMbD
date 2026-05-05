@@ -8,16 +8,16 @@
  
 #pragma once
 
-#include "ConstraintIJ.h"
-#include "DispCompIecJecIe.h"
+#include "ConstraintIeJe.h"
+#include "DispCompiIeJeIe.h"
 #include "AngleZIecJec.h"
 
 namespace MbD {
-    class ScrewConstraintIJ : public ConstraintIJ
+    class ScrewConstraintIJ : public ConstraintIeJe
     {
         //zIeJeIe thezIeJe pitch 
     public:
-        ScrewConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        ScrewConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<ScrewConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
@@ -26,6 +26,8 @@ namespace MbD {
         virtual void initthezIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
@@ -36,7 +38,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        std::shared_ptr<DispCompIecJecIe> zIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> zIeJeIe;
         std::shared_ptr<AngleZIecJec> thezIeJe;
         double pitch = 0.0;
 

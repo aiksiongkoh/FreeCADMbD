@@ -26,10 +26,8 @@ namespace MbD {
         void preVelIC() override;
         void preAccIC() override;
         void calcpVectorpt() override;
-        void calcppVectorpEIpt();
+        void calcppVectorpEIpt() override;
         void calcppVectorptpt() override;
-        FMatDsptr getpVectorpXJ() override;
-        FMatDsptr getpVectorpEJ() override;
         FColDsptr getpVectorpt() override;
         FMatDsptr getppVectorpEIpt() override;
         FColDsptr getppVectorptpt() override;

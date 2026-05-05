@@ -8,7 +8,7 @@
  
 #include "RackPinConstraintIqcJqc.h"
 #include "EndFrameqc.h"
-#include "DispCompIeqcJeqcIe.h"
+#include "DispCompiIeJeIe.h"
 #include "AngleZIeqcJeqc.h"
 
 using namespace MbD;
@@ -32,7 +32,8 @@ void RackPinConstraintIqcJqc::initialize()
 
 void RackPinConstraintIqcJqc::initxIeJeIe()
 {
-    xIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 0);
+    xIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 0);
+    xIeJeIe->owner = this;
 }
 
 void RackPinConstraintIqcJqc::initthezIeJe()

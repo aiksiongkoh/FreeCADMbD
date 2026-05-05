@@ -33,8 +33,8 @@ std::shared_ptr<AllowZRotationConstraintIeqtJeq> AllowZRotationConstraintIeqtJeq
 
 void AllowZRotationConstraintIeqtJeq::postInput()
 {
-    auto eqctI = std::static_pointer_cast<EndFrameqct>(frmIe);
-    auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(frmJe->aAOe);
+    auto eqctI = std::static_pointer_cast<EndFrameqct>(eFrmI);
+    auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
     auto aEulerAngles = aAImJe->eulerAngles();
     auto the2y = aEulerAngles->at(1);
     auto the3z = aEulerAngles->at(2);

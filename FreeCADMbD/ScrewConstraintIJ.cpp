@@ -27,7 +27,7 @@ std::shared_ptr<ScrewConstraintIJ> ScrewConstraintIJ::With(EndFrmsptr frmi, EndF
 
 void ScrewConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     initzIeJeIe();
     initthezIeJe();
 }
@@ -61,66 +61,78 @@ void ScrewConstraintIJ::initializeLocally()
     thezIeJe->initializeLocally();
 }
 
+void MbD::ScrewConstraintIJ::useUniqueDispIeJeO()
+{
+    zIeJeIe->useUniqueDispIeJeO();
+    thezIeJe->useUniqueDispIeJeO();
+}
+
+void MbD::ScrewConstraintIJ::useUniqueDispIeJeKe()
+{
+    zIeJeIe->useUniqueDispIeJeKe();
+    thezIeJe->useUniqueDispIeJeKe();
+}
+
 void ScrewConstraintIJ::postInput()
 {
     zIeJeIe->postInput();
     thezIeJe->postInput();
     aConstant = (2.0 * std::numbers::pi * zIeJeIe->value()) - (thezIeJe->value() * pitch);
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void ScrewConstraintIJ::postPosICIteration()
 {
     zIeJeIe->postPosICIteration();
     thezIeJe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void ScrewConstraintIJ::preAccIC()
 {
     zIeJeIe->preAccIC();
     thezIeJe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void ScrewConstraintIJ::prePosIC()
 {
     zIeJeIe->prePosIC();
     thezIeJe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void ScrewConstraintIJ::preVelIC()
 {
     zIeJeIe->preVelIC();
     thezIeJe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 void ScrewConstraintIJ::postDynPredictor()
 {
     zIeJeIe->postDynPredictor();
     thezIeJe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void ScrewConstraintIJ::postDynCorrectorIteration()
 {
     zIeJeIe->postDynCorrectorIteration();
     thezIeJe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void ScrewConstraintIJ::preDynOutput()
 {
     zIeJeIe->preDynOutput();
     thezIeJe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void ScrewConstraintIJ::postDynOutput()
 {
     zIeJeIe->postDynOutput();
     thezIeJe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }

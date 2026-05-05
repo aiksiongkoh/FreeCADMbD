@@ -18,13 +18,13 @@ std::shared_ptr<GearConstraintIJ> GearConstraintIJ::With(EndFrmsptr frmi, EndFrm
     assert(frmi->isEndFrameqc());
     assert(frmj->isEndFrameqc());
     auto inst = std::make_shared<GearConstraintIqcJqc>(frmi, frmj);
-    inst->initorbitsIJ();
+    inst->initialize();
     return inst;
 }
 
 void GearConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     initorbitsIJ();
 }
 
@@ -45,6 +45,18 @@ void GearConstraintIJ::initializeLocally()
     orbitJeIe->initializeLocally();
 }
 
+void MbD::GearConstraintIJ::useUniqueDispIeJeO()
+{
+    orbitIeJe->useUniqueDispIeJeO();
+    orbitJeIe->useUniqueDispIeJeO();
+}
+
+void MbD::GearConstraintIJ::useUniqueDispIeJeKe()
+{
+    orbitIeJe->useUniqueDispIeJeKe();
+    orbitJeIe->useUniqueDispIeJeKe();
+}
+
 void GearConstraintIJ::initorbitsIJ()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -57,35 +69,35 @@ void GearConstraintIJ::postInput()
     if (aConstant == std::numeric_limits<double>::min()) {
         aConstant = orbitJeIe->value() + (ratio() * orbitIeJe->value());
     }
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void GearConstraintIJ::postPosICIteration()
 {
     orbitIeJe->postPosICIteration();
     orbitJeIe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void GearConstraintIJ::preAccIC()
 {
     orbitIeJe->preAccIC();
     orbitJeIe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void GearConstraintIJ::prePosIC()
 {
     orbitIeJe->prePosIC();
     orbitJeIe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void GearConstraintIJ::preVelIC()
 {
     orbitIeJe->preVelIC();
     orbitJeIe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 double GearConstraintIJ::ratio()
@@ -97,26 +109,26 @@ void GearConstraintIJ::postDynPredictor()
 {
     orbitIeJe->postDynPredictor();
     orbitJeIe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void GearConstraintIJ::postDynCorrectorIteration()
 {
     orbitIeJe->postDynCorrectorIteration();
     orbitJeIe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void GearConstraintIJ::preDynOutput()
 {
     orbitIeJe->preDynOutput();
     orbitJeIe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void GearConstraintIJ::postDynOutput()
 {
     orbitIeJe->postDynOutput();
     orbitJeIe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }
