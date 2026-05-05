@@ -17,27 +17,26 @@ namespace MbD {
     public:
         DispIeJeKe() {}
         DispIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicVectorIeJe(frmi, frmj) {}
-        static std::shared_ptr<DispIeJeKe> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        DispIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : KinematicVectorIeJe(frmi, frmj), eFrmK(frmk) {}
+        static std::shared_ptr<DispIeJeKe> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
 
         void initialize() override;
         void initializeGlobally() override;
+        void useUniqueDispIeJeO() override;
         void simUpdateAll() override;
         void calcVector() override;
-        virtual FMatDsptr getprIeJeKepXI();
-        virtual FMatDsptr getprIeJeKepEI();
-        virtual FMatDsptr getprIeJeKepXJ();
-        virtual FMatDsptr getprIeJeKepEJ();
-        virtual FMatDsptr getppriIeJeKepEIpEI(size_t axis);
-        virtual FMatDsptr getppriIeJeKepEJpEJ(size_t axis);
-        FColDsptr getprIeJeKept();
-        virtual FColDsptr getpprIeJeKeptpt();
-        bool hasSameEndFrms(const std::shared_ptr<DispIeJeKe> other) const;
-        void useUniqueDispIeJeO();
+        FColDsptr getVector() override;
+        FMatDsptr getpVectorpXI() override;
+        FMatDsptr getpVectorpEI() override;
+        FMatDsptr getpVectorpXJ() override;
+        FMatDsptr getpVectorpEJ() override;
+        FMatDsptr getppCompipEIpEI(size_t axis) override;
+        FMatDsptr getppCompipEJpEJ(size_t axis) override;
+        FColDsptr getpVectorpt() override;
+        FColDsptr getppVectorptpt() override;
+        bool hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const override;
 
-        SpatialContainerFrame* frmKp = nullptr;
-        bool has_qK = false;
-
-        EndFrmsptr frmKe;
+        EndFrmsptr eFrmK;
         std::shared_ptr<DispIeJeO> dispIeJeO;
         FMatDsptr aAOKe;
         FColDsptr rIeJeO;

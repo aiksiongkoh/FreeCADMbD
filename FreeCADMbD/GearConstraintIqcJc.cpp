@@ -127,12 +127,6 @@ void GearConstraintIqcJc::fillVelICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
 }
 
-void GearConstraintIqcJc::initorbitsIJ()
-{
-    orbitIeJe = OrbitAngleZIeqcJec::With(eFrmI, eFrmJ);
-    orbitJeIe = OrbitAngleZIeqcJec::With(eFrmJ, eFrmI);
-}
-
 void GearConstraintIqcJc::useEquationNumbers()
 {
     auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);

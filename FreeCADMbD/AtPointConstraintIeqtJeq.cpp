@@ -49,7 +49,7 @@ void AtPointConstraintIeqtJeq::fillVelICError(FColDsptr col)
 void AtPointConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     AtPointConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto qEdotI = frmIeq->qEdot();
     double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;
     sum += ppGptpt;

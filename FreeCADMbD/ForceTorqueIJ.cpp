@@ -1131,7 +1131,7 @@ void MbD::ForceTorqueIJ::useUniqueDispIeJeO()
 
 void MbD::ForceTorqueIJ::useUniqueDispIeJeKe()
 {
-    throw SimulationStoppingError("To be implemented.");
+    // Do nothing.
 }
 
 void ForceTorqueIJ::calcaQXI()

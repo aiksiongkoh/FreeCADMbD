@@ -11,7 +11,7 @@
 
 #include "ScrewConstraintIqcJc.h"
 #include "EndFrameqc.h"
-#include "DispCompIeqcJecIe.h"
+#include "DispCompiIeJeIe.h"
 #include "AngleZIeqcJec.h"
 
 using namespace MbD;
@@ -30,11 +30,6 @@ void ScrewConstraintIqcJc::initialize()
     pGpEI = FullRow<double>::With(4);
     ppGpXIpEI = FullMatrix<double>::With(3, 4);
     ppGpEIpEI = FullMatrix<double>::With(4, 4);
-}
-
-void ScrewConstraintIqcJc::initzIeJeIe()
-{
-    zIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 2);
 }
 
 void ScrewConstraintIqcJc::initthezIeJe()

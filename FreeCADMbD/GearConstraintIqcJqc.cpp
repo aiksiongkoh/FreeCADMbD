@@ -154,7 +154,9 @@ void GearConstraintIqcJqc::fillVelICJacob(SpMatDsptr mat)
 void GearConstraintIqcJqc::initorbitsIJ()
 {
     orbitIeJe = OrbitAngleZIeqcJeqc::With(eFrmI, eFrmJ);
+    orbitIeJe->owner = this;
     orbitJeIe = OrbitAngleZIeqcJeqc::With(eFrmJ, eFrmI);
+    orbitJeIe->owner = this;
 }
 
 void GearConstraintIqcJqc::useEquationNumbers()

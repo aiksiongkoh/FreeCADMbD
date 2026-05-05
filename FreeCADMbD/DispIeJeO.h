@@ -24,16 +24,17 @@ namespace MbD {
 
         void simUpdateAll() override;
         void calcVector() override;
-        virtual FMatDsptr getpVectorpXI();
-        virtual FMatDsptr getpVectorpEI();
-        virtual FMatDsptr getpVectorpXJ();
-        virtual FMatDsptr getpVectorpEJ();
-        virtual FMatDsptr getppCompipEIpEI(size_t axis);
-        virtual FMatDsptr getppCompipEJpEJ(size_t axis);
-        virtual FColDsptr getpVectorpt();
-        virtual FMatDsptr getppVectorpEIpt();
-        virtual FColDsptr getppVectorptpt();
-        virtual bool hasSameEndFrms(const std::shared_ptr<DispIeJeO> other) const;
+        FColDsptr getVector() override;
+        FMatDsptr getpVectorpXI() override;
+        FMatDsptr getpVectorpEI() override;
+        FMatDsptr getpVectorpXJ() override;
+        FMatDsptr getpVectorpEJ() override;
+        FMatDsptr getppCompipEIpEI(size_t axis) override;
+        FMatDsptr getppCompipEJpEJ(size_t axis) override;
+        FColDsptr getpVectorpt() override;
+        FMatDsptr getppVectorpEIpt() override;
+        FColDsptr getppVectorptpt() override;
+        bool hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const override;
 
         FColDsptr rIeJeO;
     };

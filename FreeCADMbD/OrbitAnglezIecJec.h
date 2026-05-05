@@ -9,7 +9,7 @@
 #pragma once
 
 #include "KinematicIJ.h"
-#include "DispCompIecJecIe.h"
+#include "DispCompiIeJeIe.h"
 
 namespace MbD {
     class OrbitAngleZIecJec : public KinematicIJ
@@ -25,6 +25,8 @@ namespace MbD {
         virtual void init_xyIeJeIe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
@@ -38,7 +40,7 @@ namespace MbD {
 
         double thez = std::numeric_limits<double>::min();
         double cosOverSSq = 0.0, sinOverSSq = 0.0, twoCosSinOverSSqSq = 0.0, dSqOverSSqSq = 0.0;
-        std::shared_ptr<DispCompIecJecIe> xIeJeIe, yIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
     };
 }
 

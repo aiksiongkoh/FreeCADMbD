@@ -19,11 +19,6 @@ std::shared_ptr<TranslationConstraintIetJeq> TranslationConstraintIetJeq::With(E
     return inst;
 }
 
-void TranslationConstraintIetJeq::initriIeJeIe()
-{
-    riIeJeIe = DispCompIectJeqcKect::With(frmIe, frmJe, frmIe, axisI);
-}
-
 ConstraintType TranslationConstraintIetJeq::type()
 {
     return essential;
@@ -32,7 +27,7 @@ ConstraintType TranslationConstraintIetJeq::type()
 void TranslationConstraintIetJeq::preVelIC()
 {
     TranslationConstraintIeJe::preVelIC();
-    pGpt = std::static_pointer_cast<DispCompIectJeqcKect>(riIeJeIe)->pvaluept();
+    pGpt = riIeJeIe->pvaluept();
 }
 
 void TranslationConstraintIetJeq::fillVelICError(FColDsptr col)
@@ -43,16 +38,15 @@ void TranslationConstraintIetJeq::fillVelICError(FColDsptr col)
 void TranslationConstraintIetJeq::preAccIC()
 {
     TranslationConstraintIeJe::preAccIC();
-    auto riIeJeIeqct = std::static_pointer_cast<DispCompIectJeqcKect>(riIeJeIe);
-    ppGpXJpt = riIeJeIeqct->ppvaluepXJpt();
-    ppGpEJpt = riIeJeIeqct->ppvaluepEJpt();
-    ppGptpt = riIeJeIeqct->ppvalueptpt();
+    ppGpXJpt = riIeJeIe->ppvaluepXJpt();
+    ppGpEJpt = riIeJeIe->ppvaluepEJpt();
+    ppGptpt = riIeJeIe->ppvalueptpt();
 }
 
 void TranslationConstraintIetJeq::fillAccICIterError(FColDsptr col)
 {
     TranslationConstraintIeJeq::fillAccICIterError(col);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();
     auto sum = 2.0 * ppGpXJpt->timesFullColumn(qXdotJ);

@@ -31,7 +31,7 @@ std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With(EndFrmsptr frmi, 
 
 void RackPinConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     initxIeJeIe();
     initthezIeJe();
 }
@@ -65,6 +65,18 @@ void RackPinConstraintIJ::initializeLocally()
     thezIeJe->initializeLocally();
 }
 
+void MbD::RackPinConstraintIJ::useUniqueDispIeJeO()
+{
+    xIeJeIe->useUniqueDispIeJeO();
+    thezIeJe->useUniqueDispIeJeO();
+}
+
+void MbD::RackPinConstraintIJ::useUniqueDispIeJeKe()
+{
+    xIeJeIe->useUniqueDispIeJeKe();
+    thezIeJe->useUniqueDispIeJeKe();
+}
+
 void RackPinConstraintIJ::postInput()
 {
     xIeJeIe->postInput();
@@ -72,63 +84,63 @@ void RackPinConstraintIJ::postInput()
     if (aConstant == std::numeric_limits<double>::min()) {
         aConstant = xIeJeIe->value() + (pitchRadius * thezIeJe->value());
     }
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void RackPinConstraintIJ::postPosICIteration()
 {
     xIeJeIe->postPosICIteration();
     thezIeJe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void RackPinConstraintIJ::preAccIC()
 {
     xIeJeIe->preAccIC();
     thezIeJe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void RackPinConstraintIJ::prePosIC()
 {
     xIeJeIe->prePosIC();
     thezIeJe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void RackPinConstraintIJ::preVelIC()
 {
     xIeJeIe->preVelIC();
     thezIeJe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 void RackPinConstraintIJ::postDynPredictor()
 {
     xIeJeIe->postDynPredictor();
     thezIeJe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void RackPinConstraintIJ::postDynCorrectorIteration()
 {
     xIeJeIe->postDynCorrectorIteration();
     thezIeJe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void RackPinConstraintIJ::preDynOutput()
 {
     xIeJeIe->preDynOutput();
     thezIeJe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void RackPinConstraintIJ::postDynOutput()
 {
     xIeJeIe->postDynOutput();
     thezIeJe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }
 
 std::string RackPinConstraintIJ::constraintSpec()

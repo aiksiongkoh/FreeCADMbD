@@ -33,12 +33,12 @@ void MbD::DispIeqJeO::calcpVectorpXI()
 
 void MbD::DispIeqJeO::calcpVectorpEI()
 {
-    prIeJeOpEI = frmIe->getprOeOpE()->negated();
+    prIeJeOpEI = eFrmI->getprOeOpE()->negated();
 }
 
 void MbD::DispIeqJeO::calcppVectorpEIpEI()
 {
-    pprIeJeOpEIpEI = frmIe->getpprOeOpEpE()->negated();
+    pprIeJeOpEIpEI = eFrmI->getpprOeOpEpE()->negated();
 }
 
 FMatDsptr MbD::DispIeqJeO::getpVectorpXI()
@@ -51,9 +51,14 @@ FMatDsptr MbD::DispIeqJeO::getpVectorpEI()
     return prIeJeOpEI;
 }
 
+FMatFColDsptr MbD::DispIeqJeO::getppVectorpEIpEI()
+{
+    return pprIeJeOpEIpEI;
+}
+
 FMatDsptr MbD::DispIeqJeO::getppCompipEIpEI(size_t axis)
 {
-    return std::static_pointer_cast<EndFrameqc>(frmIe)->ppriOeOpEpE(axis)->negated();
+    return std::static_pointer_cast<EndFrameqc>(eFrmI)->ppriOeOpEpE(axis)->negated();
 }
 
 void DispIeqJeO::simUpdateAll()

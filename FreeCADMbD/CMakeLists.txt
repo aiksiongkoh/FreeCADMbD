@@ -167,6 +167,9 @@ set(FREECADMBD_SRC
 		DirectionCosineIeqcJeqc.cpp
 		DirectionCosineIeqctJeqc.cpp
 		DiscontinuityError.cpp
+		DispCompiIeJeIe.cpp
+		DispCompiIeJeKe.cpp
+		DispCompiIeJeO.cpp
 		DispCompIecJecIe.cpp
 		DispCompIecJecKec.cpp
 		DispCompIecJecKeqc.cpp
@@ -187,11 +190,6 @@ set(FREECADMBD_SRC
 		DispCompIeqctJeqcIe.cpp
 		DispCompIeqctJeqcKeqct.cpp
 		DispCompIeqctJeqcO.cpp
-		DispIecJecO.cpp
-		DispIecJeqcO.cpp
-		DispIectJeqcO.cpp
-		DispIeqcJecO.cpp
-		DispIeqcJeqcO.cpp
 		DispIeJeO.cpp
 		DispIeJeqO.cpp
 		DispIetJeqO.cpp
@@ -297,6 +295,7 @@ set(FREECADMBD_SRC
 		JointIJ.cpp
 		KineIntegrator.cpp
 		Kinematic.cpp
+		KinematicCompiIeJe.cpp
 		KinematicDotIJ.cpp
 		KinematicIJ.cpp
 		KinematicVectorIeJe.cpp
@@ -641,6 +640,9 @@ set(FREECADMBD_HEADERS
 		DirectionCosineIeqcJeqc.h
 		DirectionCosineIeqctJeqc.h
 		DiscontinuityError.h
+		DispCompiIeJeIe.h
+		DispCompiIeJeKe.h
+		DispCompiIeJeO.h
 		DispCompIecJecIe.h
 		DispCompIecJecKec.h
 		DispCompIecJecKeqc.h
@@ -661,11 +663,6 @@ set(FREECADMBD_HEADERS
 		DispCompIeqctJeqcIe.h
 		DispCompIeqctJeqcKeqct.h
 		DispCompIeqctJeqcO.h
-		DispIecJecO.h
-		DispIecJeqcO.h
-		DispIectJeqcO.h
-		DispIeqcJecO.h
-		DispIeqcJeqcO.h
 		DispIeJeO.h
 		DispIeJeqO.h
 		DispIetJeqO.h
@@ -772,6 +769,7 @@ set(FREECADMBD_HEADERS
 		JointIJ.h
 		KineIntegrator.h
 		Kinematic.h
+		KinematicCompiIeJe.h
 		KinematicDotIJ.h
 		KinematicIJ.h
 		KinematicVectorIeJe.h

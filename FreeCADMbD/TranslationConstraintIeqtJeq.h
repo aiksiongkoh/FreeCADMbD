@@ -20,7 +20,6 @@ namespace MbD {
 
         void fillAccICIterError(FColDsptr col) override;
         void fillVelICError(FColDsptr col) override;
-        void initriIeJeIe() override;
         void preAccIC() override;
         void preVelIC() override;
         ConstraintType type() override;

@@ -9,7 +9,7 @@
 #include "RackPinConstraintIqcJc.h"
 #include "EndFrameqc.h"
 #include "AngleZIeqcJec.h"
-#include "DispCompIeqcJecIe.h"
+#include "DispCompiIeJeIe.h"
 
 using namespace MbD;
 
@@ -27,11 +27,6 @@ void RackPinConstraintIqcJc::initialize()
     pGpEI = FullRow<double>::With(4);
     ppGpXIpEI = FullMatrix<double>::With(3, 4);
     ppGpEIpEI = FullMatrix<double>::With(4, 4);
-}
-
-void RackPinConstraintIqcJc::initxIeJeIe()
-{
-    xIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 0);
 }
 
 void RackPinConstraintIqcJc::initthezIeJe()

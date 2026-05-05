@@ -18,13 +18,13 @@ std::shared_ptr<DistancexyConstraintIJ> DistancexyConstraintIJ::With(EndFrmsptr 
     assert(frmi->isEndFrameqc());
     assert(frmj->isEndFrameqc());
     auto inst = std::make_shared<DistancexyConstraintIqcJqc>(frmi, frmj);
-    inst->init_xyIeJeIe();
+    inst->initialize();
     return inst;
 }
 
 void DistancexyConstraintIJ::initialize()
 {
-    ConstraintIJ::initialize();
+    ConstraintIeJe::initialize();
     init_xyIeJeIe();
 }
 
@@ -53,39 +53,51 @@ void DistancexyConstraintIJ::initializeLocally()
     yIeJeIe->initializeLocally();
 }
 
+void MbD::DistancexyConstraintIJ::useUniqueDispIeJeO()
+{
+    xIeJeIe->useUniqueDispIeJeO();
+    yIeJeIe->useUniqueDispIeJeO();
+}
+
+void MbD::DistancexyConstraintIJ::useUniqueDispIeJeKe()
+{
+    xIeJeIe->useUniqueDispIeJeKe();
+    yIeJeIe->useUniqueDispIeJeKe();
+}
+
 void DistancexyConstraintIJ::postInput()
 {
     xIeJeIe->postInput();
     yIeJeIe->postInput();
-    ConstraintIJ::postInput();
+    ConstraintIeJe::postInput();
 }
 
 void DistancexyConstraintIJ::postPosICIteration()
 {
     xIeJeIe->postPosICIteration();
     yIeJeIe->postPosICIteration();
-    ConstraintIJ::postPosICIteration();
+    ConstraintIeJe::postPosICIteration();
 }
 
 void DistancexyConstraintIJ::preAccIC()
 {
     xIeJeIe->preAccIC();
     yIeJeIe->preAccIC();
-    ConstraintIJ::preAccIC();
+    ConstraintIeJe::preAccIC();
 }
 
 void DistancexyConstraintIJ::prePosIC()
 {
     xIeJeIe->prePosIC();
     yIeJeIe->prePosIC();
-    ConstraintIJ::prePosIC();
+    ConstraintIeJe::prePosIC();
 }
 
 void DistancexyConstraintIJ::preVelIC()
 {
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
-    ConstraintIJ::preVelIC();
+    ConstraintIeJe::preVelIC();
 }
 
 ConstraintType DistancexyConstraintIJ::type()
@@ -97,26 +109,26 @@ void DistancexyConstraintIJ::postDynPredictor()
 {
     xIeJeIe->postDynPredictor();
     yIeJeIe->postDynPredictor();
-    ConstraintIJ::postDynPredictor();
+    ConstraintIeJe::postDynPredictor();
 }
 
 void DistancexyConstraintIJ::postDynCorrectorIteration()
 {
     xIeJeIe->postDynCorrectorIteration();
     yIeJeIe->postDynCorrectorIteration();
-    ConstraintIJ::postDynCorrectorIteration();
+    ConstraintIeJe::postDynCorrectorIteration();
 }
 
 void DistancexyConstraintIJ::preDynOutput()
 {
     xIeJeIe->preDynOutput();
     yIeJeIe->preDynOutput();
-    ConstraintIJ::preDynOutput();
+    ConstraintIeJe::preDynOutput();
 }
 
 void DistancexyConstraintIJ::postDynOutput()
 {
     xIeJeIe->postDynOutput();
     yIeJeIe->postDynOutput();
-    ConstraintIJ::postDynOutput();
+    ConstraintIeJe::postDynOutput();
 }

@@ -29,7 +29,7 @@ void DirectionCosineConstraintIeqJeq::simUpdateAll()
 
 void DirectionCosineConstraintIeqJeq::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIeqcJeqc::With(frmIe, frmJe, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeqcJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void MbD::DirectionCosineConstraintIeqJeq::calcpGpEJ()
@@ -50,7 +50,7 @@ void DirectionCosineConstraintIeqJeq::calcppGpEJpEJ()
 void DirectionCosineConstraintIeqJeq::useEquationNumbers()
 {
     DirectionCosineConstraintIeqJe::useEquationNumbers();
-    iqEJ = frmJe->iqE();
+    iqEJ = eFrmJ->iqE();
 }
 
 void DirectionCosineConstraintIeqJeq::fillpFpy(SpMatDsptr mat)
@@ -105,8 +105,8 @@ void DirectionCosineConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qEdotI = eFrmIqc->qEdot();
     auto qEdotJ = eFrmJqc->qEdot();
     double sum = pGpEJ->timesFullColumn(eFrmJqc->qEddot());

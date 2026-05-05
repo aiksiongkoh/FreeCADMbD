@@ -89,7 +89,12 @@ void DispIeJeO::simUpdateAll()
 void MbD::DispIeJeO::calcVector()
 {
     //rIeJeO = rOJeO - rOIeO
-    rIeJeO = getrIeJeO();
+    rIeJeO = eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
+}
+
+FColDsptr MbD::DispIeJeO::getVector()
+{
+    return rIeJeO;
 }
 
 FMatDsptr MbD::DispIeJeO::getpVectorpXI()
@@ -137,8 +142,11 @@ FColDsptr MbD::DispIeJeO::getppVectorptpt()
     return FColDsptr();
 }
 
-bool MbD::DispIeJeO::hasSameEndFrms(const std::shared_ptr<DispIeJeO> other) const
+bool MbD::DispIeJeO::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
 {
-    auto sameClass = typeid(*this).name() == typeid(*other).name();
-    return sameClass && frmIe == other->frmIe && frmJe == other->frmJe;
+    auto disp = std::dynamic_pointer_cast<DispIeJeO>(other);
+    if (disp) {
+        return eFrmI == disp->eFrmI && eFrmJ == disp->eFrmJ;
+    }
+    return false;
 }

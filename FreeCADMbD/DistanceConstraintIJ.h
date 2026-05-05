@@ -8,15 +8,15 @@
  
 #pragma once
 
-#include "ConstraintIJ.h"
+#include "ConstraintIeJe.h"
 #include "DistIecJec.h"
 
 namespace MbD {
-    class DistanceConstraintIJ : public ConstraintIJ
+    class DistanceConstraintIJ : public ConstraintIeJe
     {
         //distIeJe
     public:
-        DistanceConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        DistanceConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<DistanceConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

@@ -19,6 +19,7 @@ namespace MbD {
         OrbitAngleZIeqcJeqc(EndFrmsptr frmi, EndFrmsptr frmj) : OrbitAngleZIeqcJec(frmi, frmj) {}
         static std::shared_ptr<OrbitAngleZIeqcJeqc> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
+        void init_xyIeJeIe() override;
 
         void calcppthezpEIpEJ();
         void calcppthezpEIpXJ();
@@ -30,7 +31,6 @@ namespace MbD {
         void calcpthezpEJ();
         void calcpthezpXJ();
         void simUpdateAll() override;
-        void init_xyIeJeIe() override;
         FMatDsptr ppvaluepEIpEJ() override;
         FMatDsptr ppvaluepEIpXJ() override;
         FMatDsptr ppvaluepEJpEJ() override;

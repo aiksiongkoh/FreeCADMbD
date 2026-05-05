@@ -8,15 +8,15 @@
  
 #pragma once
 
-#include "ConstraintIJ.h"
-#include "DispCompIecJecIe.h"
+#include "ConstraintIeJe.h"
+#include "DispCompiIeJeIe.h"
 
 namespace MbD {
-    class DistancexyConstraintIJ : public ConstraintIJ
+    class DistancexyConstraintIJ : public ConstraintIeJe
     {
         //xIeJeIe yIeJeIe 
     public:
-        DistancexyConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIJ(frmi, frmj) {}
+        DistancexyConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<DistancexyConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
@@ -24,6 +24,8 @@ namespace MbD {
         virtual void init_xyIeJeIe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
@@ -35,7 +37,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        std::shared_ptr<DispCompIecJecIe> xIeJeIe, yIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
         //ToDo: Use DistxyIecJec instead of xIeJeIe, yIeJeIe
 
     };

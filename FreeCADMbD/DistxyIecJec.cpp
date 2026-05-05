@@ -46,6 +46,16 @@ void DistxyIecJec::initializeLocally()
     yIeJeIe->initializeLocally();
 }
 
+void MbD::DistxyIecJec::useUniqueDispIeJeO()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void MbD::DistxyIecJec::useUniqueDispIeJeKe()
+{
+    throw SimulationStoppingError("To be implemented.");
+}
+
 void DistxyIecJec::init_xyIeJeIe()
 {
     throw SimulationStoppingError("To be implemented.");

@@ -56,8 +56,8 @@ void AtPointConstraintIeqJeq::calcppGpEJpEJ()
 void AtPointConstraintIeqJeq::useEquationNumbers()
 {
     AtPointConstraintIeqJe::useEquationNumbers();
-    iqXJ = frmJe->iqX();
-    iqEJ = frmJe->iqE();
+    iqXJ = eFrmJ->iqX();
+    iqEJ = eFrmJ->iqE();
 }
 
 void AtPointConstraintIeqJeq::initializeLocally()
@@ -119,8 +119,8 @@ void AtPointConstraintIeqJeq::fillAccICIterError(FColDsptr col)
     AtPointConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(frmJe);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
     auto qEdotI = frmIeq->qEdot();
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();

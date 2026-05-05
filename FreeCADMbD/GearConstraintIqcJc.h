@@ -31,7 +31,6 @@ namespace MbD {
         void fillPosICJacob(SpMatDsptr mat) override;
         void fillPosKineJacob(SpMatDsptr mat) override;
         void fillVelICJacob(SpMatDsptr mat) override;
-        void initorbitsIJ() override;
         void useEquationNumbers() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;

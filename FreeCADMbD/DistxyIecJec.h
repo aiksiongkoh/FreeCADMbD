@@ -9,7 +9,7 @@
 #pragma once
 
 #include "KinematicIJ.h"
-#include "DispCompIecJecIe.h"
+#include "DispCompiIeJeIe.h"
 
 namespace MbD {
     class DistxyIecJec : public KinematicIJ
@@ -24,6 +24,8 @@ namespace MbD {
         void simUpdateAll() override;
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         virtual void init_xyIeJeIe();
         void postInput() override;
         void postPosICIteration() override;
@@ -33,7 +35,7 @@ namespace MbD {
         double value() override;
 
         double distxy = 0.0;
-        std::shared_ptr<DispCompIecJecIe> xIeJeIe, yIeJeIe;
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
     
     };
 }

@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "OrbitAngleZIeqcJec.h"
-#include "DispCompIeqcJecIe.h"
+#include "DispCompiIeJeIe.h"
 
 using namespace MbD;
 
@@ -133,12 +133,6 @@ void OrbitAngleZIeqcJec::simUpdateAll()
     calcppthezpXIpXI();
     calcppthezpXIpEI();
     calcppthezpEIpEI();
-}
-
-void OrbitAngleZIeqcJec::init_xyIeJeIe()
-{
-    xIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 0);
-    yIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 1);
 }
 
 FMatDsptr OrbitAngleZIeqcJec::ppvaluepEIpEI()

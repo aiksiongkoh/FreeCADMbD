@@ -8,6 +8,7 @@
  
 #include "TranslationConstraintIeqJe.h"
 #include "DispCompIeqcJecKeqc.h"
+#include "DispCompiIeJeKe.h"
 #include "EndFrameqc.h"
 
 using namespace MbD;
@@ -26,11 +27,6 @@ void TranslationConstraintIeqJe::simUpdateAll()
     calcpGpEI();
     calcppGpXIpEI();
     calcppGpEIpEI();
-}
-
-void TranslationConstraintIeqJe::initriIeJeIe()
-{
-    riIeJeIe = DispCompIeqcJecKeqc::With(frmIe, frmJe, frmIe, axisI);
 }
 
 void MbD::TranslationConstraintIeqJe::calcpGpXI()
@@ -74,8 +70,8 @@ void MbD::TranslationConstraintIeqJe::calcppGpEIpEI()
 void TranslationConstraintIeqJe::useEquationNumbers()
 {
     TranslationConstraintIeJe::useEquationNumbers();
-    iqXI = frmIe->iqX();
-    iqEI = frmIe->iqE();
+    iqXI = eFrmI->iqX();
+    iqEI = eFrmI->iqE();
 }
 
 void TranslationConstraintIeqJe::fillpFpy(SpMatDsptr mat)
@@ -137,7 +133,7 @@ void TranslationConstraintIeqJe::fillAccICIterError(FColDsptr col)
     TranslationConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto qXdotI = frmIeq->qXdot();
     auto qEdotI = frmIeq->qEdot();
     auto sum = pGpXI->timesFullColumn(frmIeq->qXddot());
@@ -159,9 +155,9 @@ void TranslationConstraintIeqJe::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     auto aFIeOT = pGpXI->times(lam);
-    auto rIpIeIp = frmIe->rpep();
-    auto pAOIppEI = frmIe->pAOppE();
-    auto aBOIp = frmIe->aBOp();
+    auto rIpIeIp = eFrmI->rpep();
+    auto pAOIppEI = eFrmI->pAOppE();
+    auto aBOIp = eFrmI->aBOp();
     auto prOIeOpEITaFIeO = std::make_shared<FullColumn<double>>(4, 0.0);    //prOIeOpEIT * aFIeO
     for (size_t i = 0; i < 4; i++)
     {

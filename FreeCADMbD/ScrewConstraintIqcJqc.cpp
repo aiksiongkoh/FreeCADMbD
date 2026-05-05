@@ -11,7 +11,7 @@
 
 #include "ScrewConstraintIqcJqc.h"
 #include "EndFrameqc.h"
-#include "DispCompIeqcJeqcIe.h"
+#include "DispCompiIeJeIe.h"
 #include "AngleZIeqcJeqc.h"
 
 using namespace MbD;
@@ -35,7 +35,8 @@ void ScrewConstraintIqcJqc::initialize()
 
 void ScrewConstraintIqcJqc::initzIeJeIe()
 {
-    zIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 2);
+    zIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 2);
+    zIeJeIe->owner = this;
 }
 
 void ScrewConstraintIqcJqc::initthezIeJe()

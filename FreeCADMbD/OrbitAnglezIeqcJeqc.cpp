@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "OrbitAngleZIeqcJeqc.h"
-#include "DispCompIeqcJeqcIe.h"
+#include "DispCompiIeJeIe.h"
 
 using namespace MbD;
 
@@ -30,6 +30,14 @@ void OrbitAngleZIeqcJeqc::initialize()
     ppthezpXJpXJ = FullMatrix<double>::With(3, 3);
     ppthezpXJpEJ = FullMatrix<double>::With(3, 4);
     ppthezpEJpEJ = FullMatrix<double>::With(4, 4);
+}
+
+void MbD::OrbitAngleZIeqcJeqc::init_xyIeJeIe()
+{
+    xIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 0);
+    xIeJeIe->owner = this;
+    yIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 1);
+    yIeJeIe->owner = this;
 }
 
 void OrbitAngleZIeqcJeqc::calcppthezpEIpEJ()
@@ -241,12 +249,6 @@ void OrbitAngleZIeqcJeqc::simUpdateAll()
     calcppthezpXJpXJ();
     calcppthezpXJpEJ();
     calcppthezpEJpEJ();
-}
-
-void OrbitAngleZIeqcJeqc::init_xyIeJeIe()
-{
-    xIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 0);
-    yIeJeIe = DispCompIeqcJeqcIe::With(eFrmI, eFrmJ, 1);
 }
 
 FMatDsptr OrbitAngleZIeqcJeqc::ppvaluepEIpEJ()

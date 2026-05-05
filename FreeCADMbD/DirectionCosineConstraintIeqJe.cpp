@@ -28,7 +28,7 @@ void DirectionCosineConstraintIeqJe::simUpdateAll()
 
 void DirectionCosineConstraintIeqJe::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIeqcJec::With(frmIe, frmJe, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeqcJec::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void DirectionCosineConstraintIeqJe::calcpGpEI()
@@ -44,7 +44,7 @@ void DirectionCosineConstraintIeqJe::calcppGpEIpEI()
 void DirectionCosineConstraintIeqJe::useEquationNumbers()
 {
     DirectionCosineConstraintIeJe::useEquationNumbers();
-    iqEI = frmIe->iqE();
+    iqEI = eFrmI->iqE();
 }
 
 void DirectionCosineConstraintIeqJe::fillpFpy(SpMatDsptr mat)
@@ -91,7 +91,7 @@ void DirectionCosineConstraintIeqJe::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(frmIe);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
     auto qEdotI = eFrmIqc->qEdot();
     double sum = pGpEI->timesFullColumn(eFrmIqc->qEddot());
     sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));
@@ -103,7 +103,7 @@ void MbD::DirectionCosineConstraintIeqJe::addToJointTorqueI(FColDsptr col)
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     //aFIeO = zero
     //aTIeO = 0.5 * aBOIp * lam * pGpEI
-    auto aBOIp = frmIe->aBOp();
+    auto aBOIp = eFrmI->aBOp();
     auto lampGpEI = pGpEI->transpose()->times(lam);  //lam * pGpEI
     auto aTIeO = aBOIp->timesFullColumn(lampGpEI)->times(0.5);
     col->equalSelfPlus(aTIeO);

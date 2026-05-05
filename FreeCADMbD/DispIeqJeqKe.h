@@ -17,12 +17,16 @@ namespace MbD {
     public:
         DispIeqJeqKe() {}
         DispIeqJeqKe(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeKe(frmi, frmj) {}
+        DispIeqJeqKe(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : DispIeqJeKe(frmi, frmj, frmk) {}
         static std::shared_ptr<DispIeqJeqKe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
         void calcpVectorpXJ() override;
         void calcpVectorpEJ() override;
         void calcppVectorpEJpEJ() override;
+        FMatDsptr getpVectorpXJ() override;
+        FMatDsptr getpVectorpEJ() override;
+        FMatFColDsptr getppVectorpEJpEJ() override;
         FMatDsptr getppCompipEJpEJ(size_t axis) override;
         FMatDsptr prIeJeKepXJ;
         FMatDsptr prIeJeKepEJ;

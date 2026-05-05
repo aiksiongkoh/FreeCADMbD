@@ -20,7 +20,8 @@ namespace MbD {
     public:
         ConstraintIeJe() {}
         ConstraintIeJe(const std::string& str) : Constraint(str) {}
-        ConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : frmIe(frmi), frmJe(frmj), Constraint() {}
+        ConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj)
+            : Constraint(), eFrmI(frmi), eFrmJ(frmj) {}
         static std::shared_ptr<ConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 		
         void initialize() override;
@@ -44,7 +45,7 @@ namespace MbD {
         void addToJointForceJ(FColDsptr col) override;
         void addToJointTorqueJ(FColDsptr col) override;
 
-        virtual void calcG() = 0;
+        virtual void calcG();
         virtual void calcpGpXI();
         virtual void calcpGpEI();
         virtual void calcpGpXJ();
@@ -59,15 +60,12 @@ namespace MbD {
         virtual void calcppGpXJpXJ();
         virtual void calcppGpXJpEJ();
         virtual void calcppGpEJpEJ();
-        EndFrmsptr getfrmIe() { return frmIe; }
-        EndFrmsptr getfrmJe() { return frmJe; }
+        EndFrmsptr getfrmIe() { return eFrmI; }
+        EndFrmsptr getfrmJe() { return eFrmJ; }
         FColDsptr getrIeJeO();
-        virtual ConstraintType type() override = 0 ;
-        virtual std::string constraintSpec() override = 0;
-
-
-
-        EndFrmsptr frmIe, frmJe;
+        virtual ConstraintType type() override;
+        virtual std::string constraintSpec() override;
+        EndFrmsptr eFrmI, eFrmJ;
         std::shared_ptr<DispIeJeO> dispIeJeO;
     };
 }

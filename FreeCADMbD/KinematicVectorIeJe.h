@@ -20,7 +20,7 @@ namespace MbD {
         //eFrmI eFrmJ 
     public:
         KinematicVectorIeJe() : Kinematic() {}
-        KinematicVectorIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : frmIe(frmi), frmJe(frmj), Kinematic() {}
+        KinematicVectorIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), Kinematic() {}
         static std::shared_ptr<KinematicVectorIeJe> With();
         static std::shared_ptr<KinematicVectorIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual void withFrmIFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
@@ -63,7 +63,7 @@ namespace MbD {
         virtual void calcppVectorpEKpt();
         virtual void calcppVectorptpt();
 
-        FColDsptr getrIeJeO();
+        virtual FColDsptr getVector();
         virtual FMatDsptr getpVectorpXI();
         virtual FMatDsptr getpVectorpEI();
         virtual FMatFColDsptr getppVectorpXIpXI();
@@ -100,16 +100,11 @@ namespace MbD {
         virtual FMatDsptr getppCompipEIpEI(size_t axis);
         virtual FMatDsptr getppCompipEJpEJ(size_t axis);
         virtual double value() override;
-        SpatialContainerFrame* partFrameI();
-        SpatialContainerFrame* partFrameJ();
-        EndFrmsptr geteFrmI() override { return frmIe; }
-        EndFrmsptr geteFrmJ() override { return frmJe; }
+        EndFrmsptr geteFrmI() override { return eFrmI; }
+        EndFrmsptr geteFrmJ() override { return eFrmJ; }
+        virtual bool hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const;
 
-        EndFrmsptr frmIe, frmJe;
-        SpatialContainerFrame* frmIp = nullptr;
-        SpatialContainerFrame* frmJp = nullptr;
-        bool has_qI = false;
-        bool has_qJ = false;
+        EndFrmsptr eFrmI, eFrmJ;
     };
 }
 

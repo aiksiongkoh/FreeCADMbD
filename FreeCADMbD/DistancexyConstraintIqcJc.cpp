@@ -9,7 +9,7 @@
 #include "DistancexyConstraintIqcJc.h"
 #include "EndFrameqc.h"
 //#include "EndFramec.h"
-#include "DispCompIeqcJecIe.h"
+#include "DispCompiIeJeIe.h"
 
 using namespace MbD;
 
@@ -92,12 +92,6 @@ void DistancexyConstraintIqcJc::calcppGpXIpXI()
     ppGpXIpXI = (xIeJeIe->pvaluepXI()->transposeTimesFullRow(xIeJeIe->pvaluepXI()));
     ppGpXIpXI = ppGpXIpXI->plusFullMatrix(yIeJeIe->pvaluepXI()->transposeTimesFullRow(yIeJeIe->pvaluepXI()));
     ppGpXIpXI->magnifySelf(2.0);
-}
-
-void DistancexyConstraintIqcJc::init_xyIeJeIe()
-{
-    xIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 0);
-    yIeJeIe = DispCompIeqcJecIe::With(eFrmI, eFrmJ, 1);
 }
 
 void DistancexyConstraintIqcJc::fillAccICIterError(FColDsptr col)

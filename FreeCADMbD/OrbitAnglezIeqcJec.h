@@ -26,7 +26,6 @@ namespace MbD {
         void calcpthezpEI();
         void calcpthezpXI();
         void simUpdateAll() override;
-        void init_xyIeJeIe() override;
         FMatDsptr ppvaluepEIpEI() override;
         FMatDsptr ppvaluepXIpEI() override;
         FMatDsptr ppvaluepXIpXI() override;

@@ -23,7 +23,7 @@ std::shared_ptr<ConstraintIeJe> ConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr
 void ConstraintIeJe::initialize()
 {
     Constraint::initialize();
-    dispIeJeO = DispIeJeO::With(frmIe, frmJe);
+    dispIeJeO = DispIeJeO::With(eFrmI, eFrmJ);
     dispIeJeO->owner = this;
 }
 
@@ -121,6 +121,11 @@ void MbD::ConstraintIeJe::simUpdateAll()
     // calcppGpEJpEJ();
 }
 
+void MbD::ConstraintIeJe::calcG()
+{
+    throw SimulationStoppingError("ConstraintIeJe::calcG is not implemented.");
+}
+
 void MbD::ConstraintIeJe::calcpGpXI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcpGpXI is not implemented.");
@@ -196,6 +201,11 @@ std::string ConstraintIeJe::constraintSpec()
     return "ConstraintIeJe";
 }
 
+ConstraintType MbD::ConstraintIeJe::type()
+{
+    return Constraint::type();
+}
+
 void ConstraintIeJe::addToJointForceJ(FColDsptr col)
 {
     //aFJeO = lam * pGpXJ
@@ -210,5 +220,5 @@ void ConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 
 FColDsptr ConstraintIeJe::getrIeJeO()
 {
-    return frmJe->rOeO->minusFullColumn(frmIe->rOeO);
+    return eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
 }
