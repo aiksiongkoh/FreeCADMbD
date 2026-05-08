@@ -51,7 +51,7 @@ void TranslationConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
 void TranslationConstraintIeJeq::addToJointForceI(FColDsptr col)
 {
     //aFIeO = lam * pGpXI
-    //frmIec does not have q, we use frmJeq
+    //frmIe does not have q, we use frmJeq
     //aFJeO = lam * pGpXJ
     //aFIeO = -aFJeO
     auto aFJeO = pGpXJ->transpose()->times(lam);
@@ -61,7 +61,7 @@ void TranslationConstraintIeJeq::addToJointForceI(FColDsptr col)
 void TranslationConstraintIeJeq::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    //frmIec does not have q, we use frmJeq
+    //frmIe does not have q, we use frmJeq
     //aFJeO = lam * pGpXJ
     //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
     //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - p(aAOJp * rJpJeJp)pEJT * aFJeO)

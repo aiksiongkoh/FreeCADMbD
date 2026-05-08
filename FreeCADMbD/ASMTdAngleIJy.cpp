@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "ASMTdAngleIJy.h"
-#include "DAngleYIeqcJeqc.h"
+#include "DAngleYIeqJeq.h"
 
 using namespace MbD;
 
@@ -20,5 +20,5 @@ std::shared_ptr<ASMTdAngleIJy> ASMTdAngleIJy::With()
 
 std::shared_ptr<KinematicIJ> ASMTdAngleIJy::mbdClassNew()
 {
-    return DAngleYIeqcJeqc::With();
+    return DAngleYIeqJeq::With();
 }

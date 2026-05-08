@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "DirectionCosineIecJec.h"
+#include "DirectionCosineIeJe.h"
 
 namespace MbD {
     class DirectionCosineConstraintIeJe : public ConstraintIeJe
@@ -55,7 +55,7 @@ namespace MbD {
 
 
         size_t axisI = SIZE_MAX, axisJ = SIZE_MAX;
-        std::shared_ptr<DirectionCosineIecJec> aAijIeJe;
+        std::shared_ptr<DirectionCosineIeJe> aAijIeJe;
 
     };
 }

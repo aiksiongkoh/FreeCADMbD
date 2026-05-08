@@ -21,7 +21,7 @@ namespace MbD {
         static std::shared_ptr<ASMTSymbolicFunctionIJ> With();
 
         virtual std::shared_ptr<KinematicIJ> mbdClassNew();
-        virtual std::shared_ptr<KinematicIJ> mbdKineIJWith(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIJ> mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual std::shared_ptr<KinematicIJ> mbdKineIqctJqct(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual std::shared_ptr<KinematicIJ> mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual std::shared_ptr<KinematicIJ> mbdKineIqctJct(EndFrmsptr frmi, EndFrmsptr frmj);

@@ -1,9 +1,9 @@
 #include "ASMTvrIJ.h"
 #include "Units.h"
-#include "VelRadIeqctJeqc.h"
-#include "VelRadIeqcJeqc.h"
-#include "VelRadIectJeqc.h"
-#include "VelRadIecJeqc.h"
+#include "VelRadIeqtJeq.h"
+#include "VelRadIeqJeq.h"
+#include "VelRadIetJeq.h"
+#include "VelRadIeJeq.h"
 
 using namespace MbD;
 
@@ -16,27 +16,27 @@ std::shared_ptr<ASMTvrIJ> ASMTvrIJ::With()
 
 std::shared_ptr<KinematicIJ> ASMTvrIJ::mbdClassNew()
 {
-    return VelRadIeqcJeqc::With();
+    return VelRadIeqJeq::With();
 }
 
 std::shared_ptr<KinematicIJ> ASMTvrIJ::mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    return VelRadIeqctJeqc::With(frmi, frmj);
+    return VelRadIeqtJeq::With(frmi, frmj);
 }
 
 std::shared_ptr<KinematicIJ> ASMTvrIJ::mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    return VelRadIeqcJeqc::With(frmi, frmj);
+    return VelRadIeqJeq::With(frmi, frmj);
 }
 
 std::shared_ptr<KinematicIJ> ASMTvrIJ::mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    return VelRadIectJeqc::With(frmi, frmj);
+    return VelRadIetJeq::With(frmi, frmj);
 }
 
 std::shared_ptr<KinematicIJ> ASMTvrIJ::mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    return VelRadIecJeqc::With(frmi, frmj);
+    return VelRadIeJeq::With(frmi, frmj);
 }
 
 double ASMTvrIJ::asmtUnit()

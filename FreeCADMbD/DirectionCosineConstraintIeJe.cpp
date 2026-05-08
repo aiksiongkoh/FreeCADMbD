@@ -128,7 +128,7 @@ std::string DirectionCosineConstraintIeJe::constraintSpec()
 void DirectionCosineConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
-    aAijIeJe = DirectionCosineIecJec::With(eFrmI, eFrmJ, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeJe::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void DirectionCosineConstraintIeJe::initializeLocally()

@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "GearConstraintIJ.h"
-#include "GearConstraintIqcJqc.h"
+#include "GearConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -17,7 +17,7 @@ std::shared_ptr<GearConstraintIJ> GearConstraintIJ::With(EndFrmsptr frmi, EndFrm
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<GearConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<GearConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }

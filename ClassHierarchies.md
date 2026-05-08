@@ -103,28 +103,28 @@ std::enable_shared_from_this<Item>
    |  |  |     `- TranslationConstraintIeqJeq
    |  |  |        `- TranslationConstraintIeqtJeq
    |  |  |- AngleZConstraintIJ
-   |  |  |  |- AngleZConstraintIcJqc
-   |  |  |  `- AngleZConstraintIqcJc
-   |  |  |     `- AngleZConstraintIqcJqc
+   |  |  |  |- AngleZConstraintIeJeq
+   |  |  |  `- AngleZConstraintIeqJe
+   |  |  |     `- AngleZConstraintIeqJeq
    |  |  |- ConstVelConstraintIJ
-   |  |  |  `- ConstVelConstraintIqcJc
-   |  |  |     `- ConstVelConstraintIqcJqc
+   |  |  |  `- ConstVelConstraintIeqJe
+   |  |  |     `- ConstVelConstraintIeqJeq
    |  |  |- DistanceConstraintIJ
-   |  |  |  `- DistanceConstraintIqcJc
-   |  |  |     `- DistanceConstraintIqcJqc
-   |  |  |        `- DistanceConstraintIqctJqc
+   |  |  |  `- DistanceConstraintIeqJe
+   |  |  |     `- DistanceConstraintIeqJeq
+   |  |  |        `- DistanceConstraintIeqtJeq
    |  |  |- DistancexyConstraintIJ
-   |  |  |  `- DistancexyConstraintIqcJc
-   |  |  |     `- DistancexyConstraintIqcJqc
+   |  |  |  `- DistancexyConstraintIeqJe
+   |  |  |     `- DistancexyConstraintIeqJeq
    |  |  |- GearConstraintIJ
-   |  |  |  `- GearConstraintIqcJc
-   |  |  |     `- GearConstraintIqcJqc
+   |  |  |  `- GearConstraintIeqJe
+   |  |  |     `- GearConstraintIeqJeq
    |  |  |- RackPinConstraintIJ
-   |  |  |  `- RackPinConstraintIqcJc
-   |  |  |     `- RackPinConstraintIqcJqc
+   |  |  |  `- RackPinConstraintIeqJe
+   |  |  |     `- RackPinConstraintIeqJeq
    |  |  `- ScrewConstraintIJ
-   |  |     `- ScrewConstraintIqcJc
-   |  |        `- ScrewConstraintIqcJqc
+   |  |     `- ScrewConstraintIeqJe
+   |  |        `- ScrewConstraintIeqJeq
    |  |- EulerConstraint
    |  `- RedundantConstraint
    |- ConstraintSet
@@ -177,54 +177,48 @@ std::enable_shared_from_this<Item>
    |  |  |  |- DispCompiIeJeIe
    |  |  |  |- DispCompiIeJeKe
    |  |  |  `- DispCompiIeJeO
-   |  |  |- AngleZIecJec
-   |  |  |  |- AngleZIecJeqc
-   |  |  |  `- AngleZIeqcJec
-   |  |  |     `- AngleZIeqcJeqc
-   |  |  |- DAngleXIecJec
-   |  |  |  `- DAngleXIeqcJec
-   |  |  |     `- DAngleXIeqcJeqc
-   |  |  |- DAngleYIecJec
-   |  |  |  `- DAngleYIeqcJec
-   |  |  |- DirectionCosineIecJec
-   |  |  |  |- DirectionCosineIecJeqc
-   |  |  |  |  `- DirectionCosineIectJeqc
-   |  |  |  `- DirectionCosineIeqcJec
-   |  |  |     `- DirectionCosineIeqcJeqc
-   |  |  |        `- DirectionCosineIeqctJeqc
+   |  |  |- AngleZIeJe
+   |  |  |  |- AngleZIeJeq
+   |  |  |  `- AngleZIeqJe
+   |  |  |     `- AngleZIeqJeq
+   |  |  |- DAngleXIeJe
+   |  |  |  `- DAngleXIeqJe
+   |  |  |     `- DAngleXIeqJeq
+   |  |  |- DAngleYIeJe
+   |  |  |  `- DAngleYIeqJe
+   |  |  |- DirectionCosineIeJe
+   |  |  |  |- DirectionCosineIeJeq
+   |  |  |  |  `- DirectionCosineIetJeq
+   |  |  |  `- DirectionCosineIeqJe
+   |  |  |     `- DirectionCosineIeqJeq
+   |  |  |        `- DirectionCosineIeqtJeq
    |  |  |- DistIeJe
    |  |  |  |- DistIeqJe
    |  |  |  |  `- DistIeqJeq
    |  |  |  |     `- DistIeqtJeq
    |  |  |  `- DistIeJeq
    |  |  |     `- DistIetJeq
-   |  |  |- DistIecJec
-   |  |  |  |- DistIecJeqc
-   |  |  |  |  `- DistIectJeqc
-   |  |  |  `- DistIeqcJec
-   |  |  |     `- DistIeqcJeqc
-   |  |  |        `- DistIeqctJeqc
-   |  |  |- DistxyIecJec
-   |  |  |  `- DistxyIeqcJec
-   |  |  |     `- DistxyIeqcJeqc
-   |  |  |        `- DistxyIeqctJeqc
+   |  |  |- DistxyIeJe
+   |  |  |  `- DistxyIeqJe
+   |  |  |     `- DistxyIeqJeq
+   |  |  |        `- DistxyIeqtJeq
    |  |  |- KinematicDotIJ
-   |  |  |  |- OmeCompIecJecKec
-   |  |  |  |  |- OmeCompIecJeqcKec
-   |  |  |  |  `- OmeCompIeqcJecKeqc
-   |  |  |  |     `- OmeCompIeqcJeqcKeqc
-   |  |  |  |- OmeCompIecJecO
-   |  |  |  |  `- OmeCompIeqcJecO
-   |  |  |  |     `- OmeCompIeqcJeqcO
-   |  |  |  `- VelRadIecJec
-   |  |  |     |- VelRadIecJeqc
-   |  |  |     |  `- VelRadIectJeqc
-   |  |  |     `- VelRadIeqcJec
-   |  |  |        `- VelRadIeqcJeqc
-   |  |  |           `- VelRadIeqctJeqc
-   |  |  `- OrbitAngleZIecJec
-   |  |     `- OrbitAngleZIeqcJec
-   |  |        `- OrbitAngleZIeqcJeqc
+   |  |  |  |- OmeCompIeJeKe
+   |  |  |  |  |- OmeCompIeJeqKe
+   |  |  |  |  `- OmeCompIeqJeKeq
+   |  |  |  |     `- OmeCompIeqJeqKeq
+   |  |  |  |- OmeCompIeJeO
+   |  |  |  |  `- OmeCompIeqJeO
+   |  |  |  |     `- OmeCompIeqJeqO
+   |  |  |  `- VelRadIeJe
+   |  |  |     |- VelRadIeJeq
+   |  |  |     |  `- VelRadIetJeq
+   |  |  |     `- VelRadIeqJe
+   |  |  |        `- VelRadIeqJeq
+   |  |  |           `- VelRadIeqtJeq
+   |  |  `- OrbitAngleZIeJe
+   |  |     `- OrbitAngleZIeqJe
+   |  |        `- OrbitAngleZIeqJeq
    |  `- KinematicVectorIeJe
    |     |- DispIeJeKe
    |     |  |- DispIeJeKeq

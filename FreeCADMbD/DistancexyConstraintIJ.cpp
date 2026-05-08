@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DistancexyConstraintIJ.h"
-#include "DistancexyConstraintIqcJqc.h"
+#include "DistancexyConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -17,7 +17,7 @@ std::shared_ptr<DistancexyConstraintIJ> DistancexyConstraintIJ::With(EndFrmsptr 
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<DistancexyConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<DistancexyConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }

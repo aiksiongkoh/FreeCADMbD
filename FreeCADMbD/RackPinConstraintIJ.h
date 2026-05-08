@@ -10,7 +10,7 @@
 
 #include "ConstraintIeJe.h"
 #include "DispCompiIeJeIe.h"
-#include "AngleZIecJec.h"
+#include "AngleZIeJe.h"
 
 namespace MbD {
     class RackPinConstraintIJ : public ConstraintIeJe
@@ -42,7 +42,7 @@ namespace MbD {
         std::string constraintSpec() override;
 
         std::shared_ptr<DispCompiIeJeIe> xIeJeIe;
-        std::shared_ptr<AngleZIecJec> thezIeJe;
+        std::shared_ptr<AngleZIeJe> thezIeJe;
         double pitchRadius = 0.0;
     };
 }

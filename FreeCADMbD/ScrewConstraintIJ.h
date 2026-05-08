@@ -10,7 +10,7 @@
 
 #include "ConstraintIeJe.h"
 #include "DispCompiIeJeIe.h"
-#include "AngleZIecJec.h"
+#include "AngleZIeJe.h"
 
 namespace MbD {
     class ScrewConstraintIJ : public ConstraintIeJe
@@ -39,7 +39,7 @@ namespace MbD {
         void postDynOutput() override;
 
         std::shared_ptr<DispCompiIeJeIe> zIeJeIe;
-        std::shared_ptr<AngleZIecJec> thezIeJe;
+        std::shared_ptr<AngleZIeJe> thezIeJe;
         double pitch = 0.0;
 
 

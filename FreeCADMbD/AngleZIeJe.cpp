@@ -1,0 +1,210 @@
+/***************************************************************************
+ *   Copyright (c) 2023 Ondsel, Inc.                                       *
+ *                                                                         *
+ *   This file is part of OndselSolver.                                    *
+ *                                                                         *
+ *   See LICENSE file for details about copyright.                         *
+ ***************************************************************************/
+ 
+#include <cmath>
+#include <numbers>
+
+#include <iostream>
+#include "AngleZIeJe.h"
+#include "Numeric.h"
+#include "AngleZIeJeq.h"
+#include "AngleZIeqJe.h"
+#include "AngleZIeqJeq.h"
+#include "EndFrameqt.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrame.h"
+#include "SimulationStoppingError.h"
+
+using namespace MbD;
+
+std::shared_ptr<AngleZIeJe> AngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    std::shared_ptr<AngleZIeJe> inst;
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+            inst = std::make_shared<AngleZIeqJeq>(frmi, frmj);
+        }
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+            inst = std::make_shared<AngleZIeqJe>(frmi, frmj);
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+            inst = std::make_shared<AngleZIeJeq>(frmi, frmj);
+        }
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+            throw SimulationStoppingError("To be implemented.");
+        }
+    }
+    assert(inst);
+    inst->initialize();
+    return inst;
+}
+
+void AngleZIeJe::initialize()
+{
+    KinematicIJ::initialize();
+    this->init_aAijIeJe();
+}
+
+void AngleZIeJe::simUpdateAll()
+{
+    //thezIeJe = atan2(sthez, cthez)
+    //thezIeJe = atan2(aA10IeJe, aA00IeJe)
+    auto cthez = aA00IeJe->value();
+    auto sthez = aA10IeJe->value();
+    auto sumOfSquares = cthez * cthez + (sthez * sthez);
+    auto diffOfSquares = sthez * sthez - (cthez * cthez);
+    auto sumOfSquaresSquared = sumOfSquares * sumOfSquares;
+    auto thez0to2pi = Numeric::arcTan0to2piYoverX(sthez, cthez);
+    thez = std::round((thez - thez0to2pi) / (2.0 * std::numbers::pi)) * (2.0 * std::numbers::pi) + thez0to2pi;
+    cosOverSSq = cthez / sumOfSquares;
+    sinOverSSq = sthez / sumOfSquares;
+    twoCosSinOverSSqSq = 2.0 * cthez * sthez / sumOfSquaresSquared;
+    dSqOverSSqSq = diffOfSquares / sumOfSquaresSquared;
+}
+
+void AngleZIeJe::init_aAijIeJe()
+{
+    //Subclasses must implement.
+    throw SimulationStoppingError("To be implemented.");
+}
+
+void AngleZIeJe::initializeGlobally()
+{
+    aA00IeJe->initializeGlobally();
+    aA10IeJe->initializeGlobally();
+}
+
+void AngleZIeJe::initializeLocally()
+{
+    KinematicIJ::initializeLocally();
+    if (!aA00IeJe) init_aAijIeJe();
+    aA00IeJe->initializeLocally();
+    aA10IeJe->initializeLocally();
+}
+
+void AngleZIeJe::postInput()
+{
+    aA00IeJe->postInput();
+    aA10IeJe->postInput();
+    if (thez == std::numeric_limits<double>::min()) {
+        auto cthez = aA00IeJe->value();
+        auto sthez = aA10IeJe->value();
+        if (cthez > 0.0) {
+            thez = std::atan2(sthez, cthez);
+        }
+        else {
+            thez = Numeric::arcTan0to2piYoverX(sthez, cthez);
+        }
+    }
+    KinematicIJ::postInput();
+}
+
+void AngleZIeJe::postPosICIteration()
+{
+    aA00IeJe->postPosICIteration();
+    aA10IeJe->postPosICIteration();
+    KinematicIJ::postPosICIteration();
+}
+
+void AngleZIeJe::preAccIC()
+{
+    aA00IeJe->preAccIC();
+    aA10IeJe->preAccIC();
+    KinematicIJ::preAccIC();
+}
+
+void AngleZIeJe::prePosIC()
+{
+    aA00IeJe->prePosIC();
+    aA10IeJe->prePosIC();
+    assert(thez != std::numeric_limits<double>::min());
+    KinematicIJ::prePosIC();
+}
+
+void AngleZIeJe::preVelIC()
+{
+    aA00IeJe->preVelIC();
+    aA10IeJe->preVelIC();
+    KinematicIJ::preVelIC();
+}
+
+double AngleZIeJe::value()
+{
+    return thez;
+}
+
+void AngleZIeJe::postDynPredictor()
+{
+    aA00IeJe->postDynPredictor();
+    aA10IeJe->postDynPredictor();
+    KinematicIJ::postDynPredictor();
+}
+
+void AngleZIeJe::postDynCorrectorIteration()
+{
+    aA00IeJe->postDynCorrectorIteration();
+    aA10IeJe->postDynCorrectorIteration();
+    KinematicIJ::postDynCorrectorIteration();
+}
+
+void AngleZIeJe::preDynOutput()
+{
+    aA00IeJe->preDynOutput();
+    aA10IeJe->preDynOutput();
+    KinematicIJ::preDynOutput();
+}
+
+void AngleZIeJe::postDynOutput()
+{
+    aA00IeJe->postDynOutput();
+    aA10IeJe->postDynOutput();
+    KinematicIJ::postDynOutput();
+}

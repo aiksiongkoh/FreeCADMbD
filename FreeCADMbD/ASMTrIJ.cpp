@@ -1,9 +1,6 @@
 #include "ASMTrIJ.h"
 #include "Units.h"
-#include "DistIeqctJeqc.h"
-#include "DistIeqcJeqc.h"
-#include "DistIectJeqc.h"
-#include "DistIecJeqc.h"
+#include "DistIeJe.h"
 
 using namespace MbD;
 
@@ -14,29 +11,9 @@ std::shared_ptr<ASMTrIJ> ASMTrIJ::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTrIJ::mbdClassNew()
+std::shared_ptr<KinematicIJ> MbD::ASMTrIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    return DistIeqcJeqc::With();
-}
-
-std::shared_ptr<KinematicIJ> ASMTrIJ::mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj)
-{
-    return DistIeqctJeqc::With(frmi, frmj);
-}
-
-std::shared_ptr<KinematicIJ> ASMTrIJ::mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
-{
-    return DistIeqcJeqc::With(frmi, frmj);
-}
-
-std::shared_ptr<KinematicIJ> ASMTrIJ::mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj)
-{
-    return DistIectJeqc::With(frmi, frmj);
-}
-
-std::shared_ptr<KinematicIJ> ASMTrIJ::mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
-{
-    return DistIecJeqc::With(frmi, frmj);
+    return DistIeJe::With(frmi, frmj);
 }
 
 double ASMTrIJ::asmtUnit()
