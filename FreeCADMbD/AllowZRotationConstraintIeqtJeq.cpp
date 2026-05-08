@@ -8,9 +8,9 @@
 
 #include <numbers>
 #include "AllowZRotationConstraintIeqtJeq.h"
-#include "MarkerFramec.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
+#include "MarkerFrame.h"
+#include "EndFrameq.h"
+#include "EndFrameqt.h"
 #include "Symbolic.h"
 #include "Constant.h"
 #include "EulerAngles.h"
@@ -33,18 +33,18 @@ std::shared_ptr<AllowZRotationConstraintIeqtJeq> AllowZRotationConstraintIeqtJeq
 
 void AllowZRotationConstraintIeqtJeq::postInput()
 {
-    auto eqctI = std::static_pointer_cast<EndFrameqct>(eFrmI);
-    auto aAImJe = eqctI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
+    auto eqtI = std::static_pointer_cast<EndFrameqt>(eFrmI);
+    auto aAImJe = eqtI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
     auto aEulerAngles = aAImJe->eulerAngles();
     auto the2y = aEulerAngles->at(1);
     auto the3z = aEulerAngles->at(2);
     if (std::abs(the2y) < (std::numbers::pi / 2.0)) {
-        eqctI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(the3z);
+        eqtI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(the3z);
     }
     else {
-        eqctI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(std::numbers::pi + the3z);
+        eqtI->the1x2y3zBlks->at(2) = std::make_shared<Constant>(std::numbers::pi + the3z);
     }
-    eqctI->postInput();
+    eqtI->postInput();
     DirectionCosineConstraintIeqtJeq::postInput();
 }
 

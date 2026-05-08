@@ -84,7 +84,7 @@ std::string ASMTItem::popOffTop(std::vector<std::string> &args)
     return str;
 }
 
-std::string MbD::ASMTItem::readStringTrimmedOffTop(std::vector<std::string> &args)
+std::string ASMTItem::readStringTrimmedOffTop(std::vector<std::string> &args)
 {
     // Return top string without leading and trailing whitespaces.
     std::string str = popOffTop(args);
@@ -111,7 +111,7 @@ std::string ASMTItem::readStringNoSpacesOffTop(std::vector<std::string> &args)
     return str;
 }
 
-void MbD::ASMTItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
+void ASMTItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
 {
     auto topString = readStringNoSpacesOffTop(lines);
     if (topString != str)
@@ -268,7 +268,7 @@ void ASMTItem::compareResults(AnalysisType)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void MbD::ASMTItem::compareResults2(AnalysisType type)
+void ASMTItem::compareResults2(AnalysisType type)
 {
 }
 
@@ -358,7 +358,7 @@ void ASMTItem::storeOnTimeSeries(std::ofstream &)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void MbD::ASMTItem::storeOnArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<double>> arr)
+void ASMTItem::storeOnArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<double>> arr)
 {
     os << str << "\t";
     for (size_t i = 0; i < arr->size() - 1; i++)
@@ -369,7 +369,7 @@ void MbD::ASMTItem::storeOnArray(std::ofstream &os, const std::string &str, std:
     os << std::endl;
 }
 
-void MbD::ASMTItem::storeOnArrayArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<FColDsptr>> arrarr, size_t ii)
+void ASMTItem::storeOnArrayArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<FColDsptr>> arrarr, size_t ii)
 {
     os << str << "\t";
     for (size_t i = 0; i < arrarr->size() - 1; i++)

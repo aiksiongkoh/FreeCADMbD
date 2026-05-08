@@ -8,7 +8,7 @@
 
 #include "DirectionCosineConstraintIeqJeq.h"
 #include "DirectionCosineIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -32,7 +32,7 @@ void DirectionCosineConstraintIeqJeq::initaAijIeJe()
     aAijIeJe = DirectionCosineIeqcJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
-void MbD::DirectionCosineConstraintIeqJeq::calcpGpEJ()
+void DirectionCosineConstraintIeqJeq::calcpGpEJ()
 {
     pGpEJ = aAijIeJe->pvaluepEJ();
 }
@@ -105,8 +105,8 @@ void DirectionCosineConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = eFrmIqc->qEdot();
     auto qEdotJ = eFrmJqc->qEdot();
     double sum = pGpEJ->timesFullColumn(eFrmJqc->qEddot());

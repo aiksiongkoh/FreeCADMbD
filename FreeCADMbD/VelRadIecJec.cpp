@@ -1,5 +1,5 @@
 #include "VelRadIecJec.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -13,7 +13,7 @@ std::shared_ptr<VelRadIecJec> VelRadIecJec::With(EndFrmsptr frmi, EndFrmsptr frm
 
 void VelRadIecJec::simUpdateAll()
 {
-    rIeJeO = getrIeJeO();
+    rIeJeO = dispIeJeO->rIeJeO;
     rIeJe = rIeJeO->length();
     if (rIeJe == 0.0) return;
     uIeJeO = rIeJeO->times(1.0 / rIeJe);

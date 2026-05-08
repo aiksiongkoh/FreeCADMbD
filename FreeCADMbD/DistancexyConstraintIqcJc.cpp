@@ -7,8 +7,8 @@
  ***************************************************************************/
  
 #include "DistancexyConstraintIqcJc.h"
-#include "EndFrameqc.h"
-//#include "EndFramec.h"
+#include "EndFrameq.h"
+//#include "EndFrame.h"
 #include "DispCompiIeJeIe.h"
 
 using namespace MbD;
@@ -98,7 +98,7 @@ void DistancexyConstraintIqcJc::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qXdotI = eFrmIqc->qXdot();
     auto qEdotI = eFrmIqc->qEdot();
     auto sum = pGpXI->timesFullColumn(eFrmIqc->qXddot());
@@ -145,7 +145,7 @@ void DistancexyConstraintIqcJc::fillVelICJacob(SpMatDsptr mat)
 
 void DistancexyConstraintIqcJc::useEquationNumbers()
 {
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     iqXI = frmIeqc->iqX();
     iqEI = frmIeqc->iqE();
 }

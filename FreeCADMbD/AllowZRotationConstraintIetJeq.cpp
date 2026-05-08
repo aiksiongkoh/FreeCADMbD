@@ -8,9 +8,9 @@
 
 #include <numbers>
 #include "AllowZRotationConstraintIetJeq.h"
-#include "MarkerFramec.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
+#include "MarkerFrame.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
 #include "Symbolic.h"
 #include "Constant.h"
 #include "EulerAngles.h"
@@ -33,7 +33,7 @@ std::shared_ptr<AllowZRotationConstraintIetJeq> AllowZRotationConstraintIetJeq::
 
 void AllowZRotationConstraintIetJeq::postInput()
 {
-    auto ectI = std::static_pointer_cast<EndFramect>(eFrmI);
+    auto ectI = std::static_pointer_cast<EndFramet>(eFrmI);
     auto aAImJe = ectI->getMarkerFrame()->aAOm->transposeTimesFullMatrix(eFrmJ->aAOe);
     auto aEulerAngles = aAImJe->eulerAngles();
     auto the2y = aEulerAngles->at(1);

@@ -8,7 +8,7 @@
  
 #include "RackPinConstraintIJ.h"
 #include "RackPinConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -22,8 +22,8 @@ std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With()
 
 std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<RackPinConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -65,13 +65,13 @@ void RackPinConstraintIJ::initializeLocally()
     thezIeJe->initializeLocally();
 }
 
-void MbD::RackPinConstraintIJ::useUniqueDispIeJeO()
+void RackPinConstraintIJ::useUniqueDispIeJeO()
 {
     xIeJeIe->useUniqueDispIeJeO();
     thezIeJe->useUniqueDispIeJeO();
 }
 
-void MbD::RackPinConstraintIJ::useUniqueDispIeJeKe()
+void RackPinConstraintIJ::useUniqueDispIeJeKe()
 {
     xIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();

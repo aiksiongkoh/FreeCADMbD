@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "GearConstraintIqcJc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "OrbitAngleZIeqcJec.h"
 
 using namespace MbD;
@@ -82,7 +82,7 @@ void GearConstraintIqcJc::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qXdotI = eFrmIqc->qXdot();
     auto qEdotI = eFrmIqc->qEdot();
     auto sum = pGpXI->timesFullColumn(eFrmIqc->qXddot());
@@ -129,7 +129,7 @@ void GearConstraintIqcJc::fillVelICJacob(SpMatDsptr mat)
 
 void GearConstraintIqcJc::useEquationNumbers()
 {
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     iqXI = frmIeqc->iqX();
     iqEI = frmIeqc->iqE();
 }

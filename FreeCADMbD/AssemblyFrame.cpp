@@ -12,7 +12,7 @@
 #include "Part.h"
 #include "EulerConstraint.h"
 #include "AbsConstraint.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
 #include "RedundantConstraint.h"
@@ -39,9 +39,9 @@ std::shared_ptr<AssemblyFrame> AssemblyFrame::With(const std::string& str)
     return inst;
 }
 
-std::shared_ptr<MarkerFramec> MbD::AssemblyFrame::createMarkerFrame(const std::string& str)
+std::shared_ptr<MarkerFrame> AssemblyFrame::createMarkerFrame(const std::string& str)
 {
-    return MarkerFramec::With(str);
+    return MarkerFrame::With(str);
 }
 
 System* AssemblyFrame::root()
@@ -51,14 +51,14 @@ System* AssemblyFrame::root()
 
 void AssemblyFrame::initializeLocally()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->initializeLocally(); 
         });
 }
 
 void AssemblyFrame::initializeGlobally()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->initializeGlobally(); 
         });
 }
@@ -115,28 +115,28 @@ void AssemblyFrame::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<
 
 void AssemblyFrame::fillqsu(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsu(col); 
         });
 }
 
 void AssemblyFrame::fillqsuWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsuWeights(mat); 
         });
 }
 
 void AssemblyFrame::fillqsuddotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsuddotlam(col); 
         });
 }
 
 void AssemblyFrame::fillqsulam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsulam(col); 
         });
 }
@@ -144,63 +144,63 @@ void AssemblyFrame::fillqsulam(FColDsptr col)
 void AssemblyFrame::fillpqsumu(FColDsptr col)
 {
     //"Fill q, s and lam into col."
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillpqsumu(col); 
         });
 }
 
 void AssemblyFrame::fillpqsumudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillpqsumudot(col); 
         });
 }
 
 void AssemblyFrame::fillqsudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsudot(col); 
         });
 }
 
 void AssemblyFrame::fillqsudotWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsudotWeights(mat); 
         });
 }
 
 void AssemblyFrame::useEquationNumbers()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->useEquationNumbers(); 
         });
 }
 
 void AssemblyFrame::setqsu(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsu(col); 
         });
 }
 
 void AssemblyFrame::setqsulam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsulam(col); 
         });
 }
 
 void AssemblyFrame::setqsudotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsudotlam(col); 
         });
 }
 
 void AssemblyFrame::setqsudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsudot(col); 
         });
 }
@@ -208,49 +208,49 @@ void AssemblyFrame::setqsudot(FColDsptr col)
 void AssemblyFrame::postPosICIteration()
 {
     CartesianFrame::postPosICIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postPosICIteration(); 
         });
 }
 
 void AssemblyFrame::fillPosICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosICError(col); 
         });
 }
 
 void AssemblyFrame::fillPosICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosICJacob(mat); 
         });
 }
 
 void AssemblyFrame::postPosIC()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postPosIC(); 
         });
 }
 
 void AssemblyFrame::preDyn()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preDyn(); 
         });
 }
 
 void AssemblyFrame::storeDynState()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->storeDynState(); 
         });
 }
 
 void AssemblyFrame::fillPosKineError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosKineError(col); 
         });
 }
@@ -258,28 +258,28 @@ void AssemblyFrame::fillPosKineError(FColDsptr col)
 void AssemblyFrame::preVelIC()
 {
     CartesianFrame::preVelIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preVelIC(); 
         });
 }
 
 void AssemblyFrame::postVelIC()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postVelIC(); 
         });
 }
 
 void AssemblyFrame::fillVelICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillVelICError(col); 
         });
 }
 
 void AssemblyFrame::fillVelICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillVelICJacob(mat); 
         });
 }
@@ -287,35 +287,35 @@ void AssemblyFrame::fillVelICJacob(SpMatDsptr mat)
 void AssemblyFrame::preAccIC()
 {
     CartesianFrame::preAccIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preAccIC(); 
         });
 }
 
 void AssemblyFrame::fillAccICIterError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillAccICIterError(col); 
         });
 }
 
 void AssemblyFrame::fillAccICIterJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillAccICIterJacob(mat); 
         });
 }
 
 void AssemblyFrame::setqsuddotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsuddotlam(col); 
         });
 }
 
 void AssemblyFrame::fillPosKineJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosKineJacob(mat); 
         });
 }
@@ -328,28 +328,28 @@ double AssemblyFrame::suggestSmallerOrAcceptDynStepSize(double hnew)
 
 void AssemblyFrame::postDynStep()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynStep(); 
         });
 }
 
 void AssemblyFrame::setpqsumu(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumu(col); 
         });
 }
 
 void AssemblyFrame::setpqsumudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumudot(col); 
         });
 }
 
 void AssemblyFrame::setpqsumuddot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumuddot(col); 
         });
 }
@@ -357,14 +357,14 @@ void AssemblyFrame::setpqsumuddot(FColDsptr col)
 void AssemblyFrame::postDynPredictor()
 {
     CartesianFrame::postDynPredictor();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynPredictor(); 
         });
 }
 
 void AssemblyFrame::fillDynError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillDynError(col); 
         });
 }
@@ -382,7 +382,7 @@ void AssemblyFrame::fillpFpydot(SpMatDsptr mat)
 void AssemblyFrame::postDynCorrectorIteration()
 {
     CartesianFrame::postDynCorrectorIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynCorrectorIteration(); 
         });
 }
@@ -390,7 +390,7 @@ void AssemblyFrame::postDynCorrectorIteration()
 void AssemblyFrame::preDynOutput()
 {
     CartesianFrame::preDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preDynOutput(); 
         });
 }
@@ -398,7 +398,7 @@ void AssemblyFrame::preDynOutput()
 void AssemblyFrame::postDynOutput()
 {
     CartesianFrame::postDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynOutput(); 
         });
 }
@@ -406,7 +406,7 @@ void AssemblyFrame::postDynOutput()
 void AssemblyFrame::postInput()
 {
     CartesianFrame::postInput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postInput(); 
         });
 }

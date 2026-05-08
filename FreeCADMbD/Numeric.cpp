@@ -47,7 +47,7 @@ bool Numeric::equalDigitTol(double x, double xx, size_t nDigit, double tol)
     return std::abs(relDiff) < std::pow(10, -int(nDigit));
 }
 
-bool MbD::Numeric::anglesEqual(double a, double b, double tol)
+bool Numeric::anglesEqual(double a, double b, double tol)
 {
     double d = std::remainder(a - b, 2.0 * std::numbers::pi); // in [-pi, pi]
     return std::abs(d) <= tol;

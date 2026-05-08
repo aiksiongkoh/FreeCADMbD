@@ -27,7 +27,7 @@ void DispCompiIeJeIe::initialize()
     dispIeJeIe->owner = this;
 }
 
-void MbD::DispCompiIeJeIe::simUpdateAll()
+void DispCompiIeJeIe::simUpdateAll()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeIe = aAIeO * rIeJeO
@@ -35,7 +35,7 @@ void MbD::DispCompiIeJeIe::simUpdateAll()
     // Do nothing. rIeJeIe is updated by rIeJeKe
 }
 
-void MbD::DispCompiIeJeIe::useUniqueDispIeJeKe()
+void DispCompiIeJeIe::useUniqueDispIeJeKe()
 {
     if (!dispIeJeIe)
         return;
@@ -57,7 +57,7 @@ double DispCompiIeJeIe::value()
     return dispIeJeIe->rIeJeKe->at(axis);
 }
 
-FRowDsptr MbD::DispCompiIeJeIe::pvaluepEI()
+FRowDsptr DispCompiIeJeIe::pvaluepEI()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepEI = pAOIeTpEI * rIeJeO + aAOIeT * prIeJeOpEI
@@ -66,7 +66,7 @@ FRowDsptr MbD::DispCompiIeJeIe::pvaluepEI()
     return term1->plusFullRow(term2);
 }
 
-FMatDsptr MbD::DispCompiIeJeIe::ppvaluepXIpEI()
+FMatDsptr DispCompiIeJeIe::ppvaluepXIpEI()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepXI = aAOIeT * prIeJeOpXI
@@ -74,7 +74,7 @@ FMatDsptr MbD::DispCompiIeJeIe::ppvaluepXIpEI()
     return componentMatrixFrom(kineVector()->getppVectorpXIpEK());
 }
 
-FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpEI()
+FMatDsptr DispCompiIeJeIe::ppvaluepEIpEI()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepEI = pAOIeTpEI * rIeJeO + aAOIeT * prIeJeOpEI
@@ -85,7 +85,7 @@ FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpEI()
     return term1->plusFullMatrix(term2)->plusFullMatrix(term2->transpose())->plusFullMatrix(term3);
 }
 
-FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpXJ()
+FMatDsptr DispCompiIeJeIe::ppvaluepEIpXJ()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepXJ = aAOIeT * prIeJeOpXJ
@@ -93,7 +93,7 @@ FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpXJ()
     return componentMatrixFrom(kineVector()->getppVectorpXJpEK())->transpose();
 }
 
-FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpEJ()
+FMatDsptr DispCompiIeJeIe::ppvaluepEIpEJ()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepEJ = aAOIeT * prIeJeOpEJ
@@ -101,7 +101,7 @@ FMatDsptr MbD::DispCompiIeJeIe::ppvaluepEIpEJ()
     return componentMatrixFrom(kineVector()->getppVectorpEJpEK())->transpose();
 }
 
-FRowDsptr MbD::DispCompiIeJeIe::ppvaluepXIpt()
+FRowDsptr DispCompiIeJeIe::ppvaluepXIpt()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepXI = aAOIeT * prIeJeOpXI
@@ -109,7 +109,7 @@ FRowDsptr MbD::DispCompiIeJeIe::ppvaluepXIpt()
     return componentRowFrom(kineVector()->getppVectorpXIpt());
 }
 
-FRowDsptr MbD::DispCompiIeJeIe::ppvaluepEIpt()
+FRowDsptr DispCompiIeJeIe::ppvaluepEIpt()
 {
     // rIeJeIe = aAOIeT * rIeJeO
     // prIeJeIepEI = pAOIeEI * rIeJeO + aAOIeT * prIeJeOpEI

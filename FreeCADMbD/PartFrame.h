@@ -13,15 +13,15 @@
 //#include <functional>
 
 #include "SpatialContainerFrame.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "FullColumn.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 
 namespace MbD {
     class Part;
-    class MarkerFramec;
+    class MarkerFrame;
     class EulerConstraint;
     class AbsConstraint;
 
@@ -35,7 +35,7 @@ namespace MbD {
         static std::shared_ptr<PartFrame> With(const std::string& str);
         void initialize() override;
         bool has_qX() const override;
-        std::shared_ptr<MarkerFramec> createMarkerFrame(const std::string& str) override;
+        std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) override;
         System* root() override;
         void initializeLocally() override;
         void initializeGlobally() override;
@@ -60,7 +60,7 @@ namespace MbD {
 
         void setPart(Part* x);
         Part* getPart() const;
-        void addMarkerFrame(std::shared_ptr<MarkerFramec> x);
+        void addMarkerFrame(std::shared_ptr<MarkerFrame> x);
         EndFrmsptr endFrame(std::string name);
         void aGabsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
         void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;

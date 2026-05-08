@@ -83,8 +83,8 @@ void ASMTForceTorqueGeneral::storeOnTimeSeries(std::ofstream &os)
 void ASMTForceTorqueGeneral::createMbD()
 {
     ASMTForceTorque::createMbD();
-    auto eFrmI = std::static_pointer_cast<EndFramec>(markerI->mbdObject);
-    auto eFrmJ = std::static_pointer_cast<EndFramec>(markerJ->mbdObject);
+    auto eFrmI = std::static_pointer_cast<EndFrame>(markerI->mbdObject);
+    auto eFrmJ = std::static_pointer_cast<EndFrame>(markerJ->mbdObject);
     assert(eFrmJ->has_qX());
     std::shared_ptr<ForceTorqueGeneral> forceTorqueGeneral;
     if (markerKSign == "O")
@@ -93,7 +93,7 @@ void ASMTForceTorqueGeneral::createMbD()
     }
     else
     {
-        std::shared_ptr<EndFramec> efrmK;
+        std::shared_ptr<EndFrame> efrmK;
         if (markerKSign == "J")
         {
             efrmK = eFrmJ;

@@ -377,7 +377,7 @@ void ASMTSpatialContainer::compareResults(AnalysisType type)
     lambda("alpzs", alpzs, inalpzs, i, nDigit, alphaTol);
 }
 
-void MbD::ASMTSpatialContainer::compareResults2(AnalysisType type)
+void ASMTSpatialContainer::compareResults2(AnalysisType type)
 {
 }
 

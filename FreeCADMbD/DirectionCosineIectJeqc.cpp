@@ -7,8 +7,8 @@
  ***************************************************************************/
 
 #include "DirectionCosineIectJeqc.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
 
 using namespace MbD;
 
@@ -27,10 +27,10 @@ void DirectionCosineIectJeqc::initialize()
 
 void DirectionCosineIectJeqc::initializeGlobally()
 {
-    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppAjOepEpE(axisJ);
+    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameq>(eFrmJ)->ppAjOepEpE(axisJ);
 }
 
-void MbD::DirectionCosineIectJeqc::simUpdateAll()
+void DirectionCosineIectJeqc::simUpdateAll()
 {
     DirectionCosineIecJeqc::simUpdateAll();
 }
@@ -48,7 +48,7 @@ double DirectionCosineIectJeqc::ppvalueptpt()
 void DirectionCosineIectJeqc::preVelIC()
 {
     Item::preVelIC();
-    auto pAjOIept = std::static_pointer_cast<EndFramect>(eFrmI)->pAjOept(axisI);
+    auto pAjOIept = std::static_pointer_cast<EndFramet>(eFrmI)->pAjOept(axisI);
     pAijIeJept = pAjOIept->dot(aAjOJe);
 }
 
@@ -61,8 +61,8 @@ void DirectionCosineIectJeqc::preAccIC()
 {
     //| ppAjOIepEITpt ppAjOIeptpt ppAjOIepEITpti pAjOIept |
     Item::preAccIC();
-    auto pAjOIept = std::static_pointer_cast<EndFramect>(eFrmI)->pAjOept(axisI);
-    auto ppAjOIeptpt = std::static_pointer_cast<EndFramect>(eFrmI)->ppAjOeptpt(axisI);
+    auto pAjOIept = std::static_pointer_cast<EndFramet>(eFrmI)->pAjOept(axisI);
+    auto ppAjOIeptpt = std::static_pointer_cast<EndFramet>(eFrmI)->ppAjOeptpt(axisI);
     for (size_t i = 0; i < 4; i++)
     {
         ppAijIeJepEJpt->atiput(i, pAjOIept->dot(pAjOJepEJT->at(i)));

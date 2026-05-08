@@ -12,8 +12,8 @@
 
 namespace MbD {
     class SpatialContainerFrame;
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class KinematicIJ : public Kinematic
     {
@@ -63,7 +63,6 @@ namespace MbD {
         virtual void calcppvaluepEKpt();
         virtual void calcppvalueptpt();
 
-        FColDsptr getrIeJeO();
         virtual FRowDsptr pvaluepX(SpatialContainerFrame* partFrame);
         virtual FRowDsptr pvaluepE(SpatialContainerFrame* partFrame);
         virtual FRowDsptr pvaluepXI();

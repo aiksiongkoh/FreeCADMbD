@@ -2,10 +2,10 @@
 #include "MbDSymbolicFunction.h"
 #include "Constant.h"
 #include "SimulationStoppingError.h"
-#include "EndFrameqct.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
-#include "EndFramec.h"
+#include "EndFrameqt.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrame.h"
 
 using namespace MbD;
 
@@ -18,15 +18,15 @@ std::shared_ptr<ASMTSymbolicFunctionIJKi> ASMTSymbolicFunctionIJKi::With()
 
 void ASMTSymbolicFunctionIJKi::createMbD()
 {
-    auto eFrmI = std::static_pointer_cast<EndFramec>(geoIJ->markerI->mbdObject);
-    auto eFrmJ = std::static_pointer_cast<EndFramec>(geoIJ->markerJ->mbdObject);
+    auto eFrmI = std::static_pointer_cast<EndFrame>(geoIJ->markerI->mbdObject);
+    auto eFrmJ = std::static_pointer_cast<EndFrame>(geoIJ->markerJ->mbdObject);
     assert(eFrmJ->has_qX());
     std::shared_ptr<KinematicIJ> kineIJ;
     if (markerKSign == "O") {
         kineIJ = mbdKineIJaxisWith(eFrmI, eFrmJ, axisK);
     }
     else {
-        std::shared_ptr<EndFramec> efrmK;
+        std::shared_ptr<EndFrame> efrmK;
         if (markerKSign == "J") {
             efrmK = eFrmJ;
         }
@@ -53,59 +53,59 @@ void ASMTSymbolicFunctionIJKi::withFrmIFrmJfrmK(EndFrmsptr eFrmi, EndFrmsptr eFr
 std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJaxisWith(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
     std::shared_ptr<KinematicIJ> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqctJqctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqctJqcaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqctJctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqctJcaxis(frmi, frmj, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqcJqctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqcJqcaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqcJctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqcJcaxis(frmi, frmj, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIctJqctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIctJqcaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIctJctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIctJcaxis(frmi, frmj, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIcJqctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIcJqcaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIcJctaxis(frmi, frmj, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIcJcaxis(frmi, frmj, axisK);
         }
     }
@@ -116,59 +116,59 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJaxisWith(EndFrms
 std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJKaxisKWith(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
     std::shared_ptr<KinematicIJ> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqctJqctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqctJqcKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqctJctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqctJcKaxisK(frmi, frmj, efrmK, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqcJqctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqcJqcKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqcJctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqcJcKaxisK(frmi, frmj, efrmK, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIctJqctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIctJqcKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIctJctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIctJcKaxisK(frmi, frmj, efrmK, axisK);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIcJqctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIcJqcKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIcJctKaxisK(frmi, frmj, efrmK, axisK);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIcJcKaxisK(frmi, frmj, efrmK, axisK);
         }
     }

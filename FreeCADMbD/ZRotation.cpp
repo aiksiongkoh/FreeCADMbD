@@ -10,8 +10,8 @@
 #include "ZRotation.h"
 #include "FullColumn.h"
 #include "DirectionCosineConstraintIeJe.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
+#include "EndFrameq.h"
+#include "EndFrameqt.h"
 
 using namespace MbD;
 

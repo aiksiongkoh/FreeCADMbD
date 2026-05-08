@@ -63,8 +63,8 @@ void ASMTForceTorqueInLine::storeOnTimeSeries(std::ofstream& os)
 void ASMTForceTorqueInLine::createMbD()
 {
     ASMTForceTorque::createMbD();
-    auto mrkI = std::static_pointer_cast<EndFramec>(markerI->mbdObject);
-    auto mrkJ = std::static_pointer_cast<EndFramec>(markerJ->mbdObject);
+    auto mrkI = std::static_pointer_cast<EndFrame>(markerI->mbdObject);
+    auto mrkJ = std::static_pointer_cast<EndFrame>(markerJ->mbdObject);
     auto mbdForceTorqueInLine = ForceTorqueInLine::With(mrkI, mrkJ);
     mbdForceTorqueInLine->name = fullName("");
     Symsptr tension, twist;

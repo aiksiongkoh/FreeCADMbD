@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DistIectJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 

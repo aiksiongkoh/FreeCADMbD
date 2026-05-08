@@ -9,7 +9,7 @@
 #pragma once
 
 #include "AngleZIecJec.h"
-#include "EndFramec.h"
+#include "EndFrame.h"
 
 namespace MbD {
     class AngleZIecJeqc : public AngleZIecJec

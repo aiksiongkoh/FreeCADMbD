@@ -1,5 +1,5 @@
 #include "VelRadIecJeqc.h"
-#include "EndFrameqct.h"
+#include "EndFrameqt.h"
 
 using namespace MbD;
 
@@ -30,7 +30,7 @@ void VelRadIecJeqc::simUpdateAll()
 {
     VelRadIecJec::simUpdateAll();
     if (rIeJe == 0.0) return;
-    auto efrmqcJ = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto efrmqcJ = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto prIeJeOpEJ = efrmqcJ->prOeOpE;
     auto prIeJeOpEJT = prIeJeOpEJ->transpose();
     auto pvIeJeOpEJT = efrmqcJ->pvOeOpE()->transpose();

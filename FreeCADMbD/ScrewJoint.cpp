@@ -44,8 +44,8 @@ void ScrewJoint::initializeGlobally()
 void ScrewJoint::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     //"Subsequent prescribed motions may make frmi, frmj become prescribed end frames."
-    //"Use newCopyEndFrameqc to prevent efrms from becoming EndFrameqct."
+    //"Use newCopyEndFrameq to prevent efrms from becoming EndFrameqt."
 
-    eFrmI = frmi->newCopyEndFrameqc();
-    eFrmJ = frmj->newCopyEndFrameqc();
+    eFrmI = frmi->newCopyEndFrameq();
+    eFrmJ = frmj->newCopyEndFrameq();
 }

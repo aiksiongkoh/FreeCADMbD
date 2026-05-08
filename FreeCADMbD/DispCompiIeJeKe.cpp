@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispCompiIeJeKe.h"
-#include "EndFramec.h"
+#include "EndFrame.h"
 #include "System.h"
 
 using namespace MbD;
@@ -26,12 +26,12 @@ void DispCompiIeJeKe::initialize()
     dispIeJeKe->owner = this;
 }
 
-void MbD::DispCompiIeJeKe::useUniqueDispIeJeO()
+void DispCompiIeJeKe::useUniqueDispIeJeO()
 {
     dispIeJeKe->useUniqueDispIeJeO();
 }
 
-void MbD::DispCompiIeJeKe::useUniqueDispIeJeKe()
+void DispCompiIeJeKe::useUniqueDispIeJeKe()
 {
     if (!dispIeJeKe) return;
     auto dispIeJeKes = root()->dispIeJeKes;

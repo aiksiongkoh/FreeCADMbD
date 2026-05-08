@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ForceTorqueIJ.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 #include "DistIecJec.h"
 
 namespace MbD {

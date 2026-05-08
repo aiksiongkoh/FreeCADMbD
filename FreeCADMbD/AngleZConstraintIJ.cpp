@@ -8,15 +8,15 @@
 
 #include "AngleZConstraintIJ.h"
 #include "AngleZConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<AngleZConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -29,7 +29,7 @@ void AngleZConstraintIJ::simUpdateAll()
     aG = thez - aConstant;
 }
 
-void MbD::AngleZConstraintIJ::addToJointForceI(FColDsptr col)
+void AngleZConstraintIJ::addToJointForceI(FColDsptr col)
 {
     //aFIeO = lam * pGpXI
     //aFIeO = lam * zero

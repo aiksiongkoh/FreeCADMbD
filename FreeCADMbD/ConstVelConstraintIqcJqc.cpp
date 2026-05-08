@@ -8,7 +8,7 @@
  
 #include "ConstVelConstraintIqcJqc.h"
 #include "DirectionCosineIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -74,9 +74,9 @@ void ConstVelConstraintIqcJqc::fillAccICIterError(FColDsptr col)
 {
     ConstVelConstraintIqcJc::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qEdotI = eFrmIqc->qEdot();
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotJ = eFrmJqc->qEdot();
     double sum = 0.0;
     sum += pGpEJ->timesFullColumn(eFrmJqc->qEddot());
@@ -128,7 +128,7 @@ void ConstVelConstraintIqcJqc::initA10IeJe()
 void ConstVelConstraintIqcJqc::useEquationNumbers()
 {
     ConstVelConstraintIqcJc::useEquationNumbers();
-    iqEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->iqE();
+    iqEJ = std::static_pointer_cast<EndFrameq>(eFrmJ)->iqE();
 }
 
 void ConstVelConstraintIqcJqc::fillpFpy(SpMatDsptr mat)

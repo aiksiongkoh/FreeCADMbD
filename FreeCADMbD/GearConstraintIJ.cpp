@@ -8,15 +8,15 @@
  
 #include "GearConstraintIJ.h"
 #include "GearConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<GearConstraintIJ> GearConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<GearConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -45,13 +45,13 @@ void GearConstraintIJ::initializeLocally()
     orbitJeIe->initializeLocally();
 }
 
-void MbD::GearConstraintIJ::useUniqueDispIeJeO()
+void GearConstraintIJ::useUniqueDispIeJeO()
 {
     orbitIeJe->useUniqueDispIeJeO();
     orbitJeIe->useUniqueDispIeJeO();
 }
 
-void MbD::GearConstraintIJ::useUniqueDispIeJeKe()
+void GearConstraintIJ::useUniqueDispIeJeKe()
 {
     orbitIeJe->useUniqueDispIeJeKe();
     orbitJeIe->useUniqueDispIeJeKe();

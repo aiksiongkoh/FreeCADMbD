@@ -7,8 +7,8 @@
  ***************************************************************************/
 
 #include "DispIetJeqO.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
 
 using namespace MbD;
 
@@ -19,24 +19,24 @@ std::shared_ptr<DispIetJeqO> DispIetJeqO::With(EndFrmsptr frmi, EndFrmsptr frmj)
     return inst;
 }
 
-void MbD::DispIetJeqO::preVelIC()
+void DispIetJeqO::preVelIC()
 {
     DispIeJeqO::preVelIC();
     calcpVectorpt();
 }
 
-void MbD::DispIetJeqO::preAccIC()
+void DispIetJeqO::preAccIC()
 {
     DispIeJeqO::preAccIC();
     calcppVectorptpt();
 }
 
-FColDsptr MbD::DispIetJeqO::getpVectorpt()
+FColDsptr DispIetJeqO::getpVectorpt()
 {
     return prIeJeOpt;
 }
 
-FColDsptr MbD::DispIetJeqO::getppVectorptpt()
+FColDsptr DispIetJeqO::getppVectorptpt()
 {
     return pprIeJeOptpt;
 }
@@ -48,6 +48,6 @@ void DispIetJeqO::calcpVectorpt()
 
 void DispIetJeqO::calcppVectorptpt()
 {
-    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
+    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramet>(frmIe)->pprOeOptpt->negated();
     pprIeJeOptpt = eFrmI->getpprOeOptpt()->negated();
 }

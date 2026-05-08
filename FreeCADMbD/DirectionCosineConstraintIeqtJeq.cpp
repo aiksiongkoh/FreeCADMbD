@@ -8,7 +8,7 @@
  
 #include "DirectionCosineConstraintIeqtJeq.h"
 #include "DirectionCosineIeqctJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -19,7 +19,7 @@ std::shared_ptr<DirectionCosineConstraintIeqtJeq> DirectionCosineConstraintIeqtJ
     return inst;
 }
 
-void MbD::DirectionCosineConstraintIeqtJeq::preAccIC()
+void DirectionCosineConstraintIeqtJeq::preAccIC()
 {
     DirectionCosineConstraintIeqJeq::preAccIC();
     ppGpEIpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->ppAijIeJepEIpt;
@@ -27,7 +27,7 @@ void MbD::DirectionCosineConstraintIeqtJeq::preAccIC()
     ppGptpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->ppAijIeJeptpt;
 }
 
-void MbD::DirectionCosineConstraintIeqtJeq::preVelIC()
+void DirectionCosineConstraintIeqtJeq::preVelIC()
 {
     DirectionCosineConstraintIeqJeq::preVelIC();
     pGpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->pAijIeJept;
@@ -38,12 +38,12 @@ void DirectionCosineConstraintIeqtJeq::initaAijIeJe()
     aAijIeJe = DirectionCosineIeqctJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
-void MbD::DirectionCosineConstraintIeqtJeq::fillVelICError(FColDsptr col)
+void DirectionCosineConstraintIeqtJeq::fillVelICError(FColDsptr col)
 {
     col->atiminusNumber(iG, pGpt);
 }
 
-ConstraintType MbD::DirectionCosineConstraintIeqtJeq::type()
+ConstraintType DirectionCosineConstraintIeqtJeq::type()
 {
     return essential;
 }
@@ -51,8 +51,8 @@ ConstraintType MbD::DirectionCosineConstraintIeqtJeq::type()
 void DirectionCosineConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = frmIeq->qEdot();
     auto qEdotJ = frmJeq->qEdot();
     double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;

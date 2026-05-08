@@ -7,8 +7,7 @@
  ***************************************************************************/
 
 #include "AtPointConstraintIeqtJeq.h"
-#include "DispCompIectJeqcO.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -49,7 +48,7 @@ void AtPointConstraintIeqtJeq::fillVelICError(FColDsptr col)
 void AtPointConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     AtPointConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qEdotI = frmIeq->qEdot();
     double sum = (ppGpEIpt->timesFullColumn(qEdotI)) * 2.0;
     sum += ppGptpt;

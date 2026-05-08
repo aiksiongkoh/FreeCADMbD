@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIeqtJeqKeqt.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "FullColumn.h"
 
 using namespace MbD;
@@ -19,23 +19,23 @@ std::shared_ptr<DispIeqtJeqKeqt> DispIeqtJeqKeqt::With(EndFrmsptr frmi, EndFrmsp
     return inst;
 }
 
-FMatDsptr MbD::DispIeqtJeqKeqt::getppVectorpEKpt()
+FMatDsptr DispIeqtJeqKeqt::getppVectorpEKpt()
 {
     return pprIeJeKepEIpt;
 }
 
-FColDsptr MbD::DispIeqtJeqKeqt::getppVectorptpt()
+FColDsptr DispIeqtJeqKeqt::getppVectorptpt()
 {
     return pprIeJeKeptpt;
 }
 
-void MbD::DispIeqtJeqKeqt::preVelIC()
+void DispIeqtJeqKeqt::preVelIC()
 {
     DispIeqJeqKeq::preVelIC();
     calcpVectorpt();
 }
 
-void MbD::DispIeqtJeqKeqt::preAccIC()
+void DispIeqtJeqKeqt::preAccIC()
 {
     DispIeqJeqKeq::preAccIC();
     calcppVectorpXJpt();
@@ -43,14 +43,14 @@ void MbD::DispIeqtJeqKeqt::preAccIC()
     calcppVectorptpt();
 }
 
-void MbD::DispIeqtJeqKeqt::calcpVectorpt()
+void DispIeqtJeqKeqt::calcpVectorpt()
 {
     // rIeJeKe = aAOKeT * (rOJeO - rOIeO)
     prIeJeKept = eFrmK->getpAOept()->transposeTimesFullColumn(rIeJeO)->minusFullColumn(
         aAOKe->transposeTimesFullColumn(eFrmI->getprOeOpt()));
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorpXIpt()
+void DispIeqtJeqKeqt::calcppVectorpXIpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -59,7 +59,7 @@ void MbD::DispIeqtJeqKeqt::calcppVectorpXIpt()
     pprIeJeKepXIpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpXI());
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorpEIpt()
+void DispIeqtJeqKeqt::calcppVectorpEIpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -69,7 +69,7 @@ void MbD::DispIeqtJeqKeqt::calcppVectorpEIpt()
     pprIeJeKepEIpt = term2->plusFullMatrix(term3);
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorpXJpt()
+void DispIeqtJeqKeqt::calcppVectorpXJpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -78,7 +78,7 @@ void MbD::DispIeqtJeqKeqt::calcppVectorpXJpt()
     pprIeJeKepXJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpXJ());
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorpEJpt()
+void DispIeqtJeqKeqt::calcppVectorpEJpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -87,7 +87,7 @@ void MbD::DispIeqtJeqKeqt::calcppVectorpEJpt()
     pprIeJeKepEJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpEJ());
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorpEKpt()
+void DispIeqtJeqKeqt::calcppVectorpEKpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -97,7 +97,7 @@ void MbD::DispIeqtJeqKeqt::calcppVectorpEKpt()
     pprIeJeKepEKpt = term1->plusFullMatrix(term2);
 }
 
-void MbD::DispIeqtJeqKeqt::calcppVectorptpt()
+void DispIeqtJeqKeqt::calcppVectorptpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -108,22 +108,22 @@ void MbD::DispIeqtJeqKeqt::calcppVectorptpt()
     pprIeJeKeptpt = term1->plusFullColumn(term2->plusFullColumn(term3));
 }
 
-FColDsptr MbD::DispIeqtJeqKeqt::getpVectorpt()
+FColDsptr DispIeqtJeqKeqt::getpVectorpt()
 {
     return prIeJeKept;
 }
 
-FMatDsptr MbD::DispIeqtJeqKeqt::getppVectorpXIpt()
+FMatDsptr DispIeqtJeqKeqt::getppVectorpXIpt()
 {
     return pprIeJeKepEIpt;
 }
 
-FMatDsptr MbD::DispIeqtJeqKeqt::getppVectorpEJpt()
+FMatDsptr DispIeqtJeqKeqt::getppVectorpEJpt()
 {
     return pprIeJeKepEIpt;
 }
 
-FMatDsptr MbD::DispIeqtJeqKeqt::getppVectorpEIpt()
+FMatDsptr DispIeqtJeqKeqt::getppVectorpEIpt()
 {
     return pprIeJeKepEIpt;
 }

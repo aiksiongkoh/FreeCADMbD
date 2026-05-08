@@ -14,15 +14,16 @@
 #include "DispIeJeO.h"
 #include "SpatialContainerFrame.h"
 
-namespace MbD {
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+namespace MbD
+{
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class ForceTorqueIJ : public ForceTorqueItem
     {
     public:
         ForceTorqueIJ() {}
-        ForceTorqueIJ(const std::string& str) : ForceTorqueItem(str) {}
+        ForceTorqueIJ(const std::string &str) : ForceTorqueItem(str) {}
         ForceTorqueIJ(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), ForceTorqueItem() {}
         ForceTorqueIJ(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : eFrmI(frmi), eFrmJ(frmj), ForceTorqueItem() {}
 
@@ -30,14 +31,14 @@ namespace MbD {
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
         void fillDynError(FColDsptr col) override;
-        void fillpFpy(SpMatDsptr mat) override;        
+        void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
         virtual void calcaFIeO() = 0;
         void calcaFJeO();
-        virtual void calcpFIeOpX(SpatialContainerFrame* partFrame) = 0;
-        virtual void calcpFIeOpE(SpatialContainerFrame* partFrame) = 0;
-        virtual void calcpFIeOpXdot(SpatialContainerFrame* partFrame) = 0;
-        virtual void calcpFIeOpEdot(SpatialContainerFrame* partFrame) = 0;
+        virtual void calcpFIeOpX(SpatialContainerFrame *partFrame) = 0;
+        virtual void calcpFIeOpE(SpatialContainerFrame *partFrame) = 0;
+        virtual void calcpFIeOpXdot(SpatialContainerFrame *partFrame) = 0;
+        virtual void calcpFIeOpEdot(SpatialContainerFrame *partFrame) = 0;
         void calcpFIeOpXI();
         void calcpFIeOpEI();
         void calcpFIeOpXJ();
@@ -57,8 +58,8 @@ namespace MbD {
 
         virtual void calcaTIeO() = 0;
         void calcaTJeO();
-        virtual void calcpTIeOpX(SpatialContainerFrame* partFrame) = 0;
-        virtual void calcpTIeOpE(SpatialContainerFrame* partFrame) = 0;
+        virtual void calcpTIeOpX(SpatialContainerFrame *partFrame) = 0;
+        virtual void calcpTIeOpE(SpatialContainerFrame *partFrame) = 0;
         void calcpTIeOpXI();
         void calcpTIeOpEI();
         void calcpTIeOpXJ();
@@ -67,8 +68,8 @@ namespace MbD {
         void calcpTJeOpEI();
         void calcpTJeOpXJ();
         void calcpTJeOpEJ();
-        virtual void calcpTIeOpXdot(SpatialContainerFrame* partFrame) = 0;
-        virtual void calcpTIeOpEdot(SpatialContainerFrame* partFrame) = 0;
+        virtual void calcpTIeOpXdot(SpatialContainerFrame *partFrame) = 0;
+        virtual void calcpTIeOpEdot(SpatialContainerFrame *partFrame) = 0;
         void calcpTIeOpXdotI();
         void calcpTIeOpEdotI();
         void calcpTIeOpXdotJ();
@@ -140,8 +141,8 @@ namespace MbD {
         virtual void useUniqueDispIeJeKe();
 
         EndFrmsptr eFrmI, eFrmJ;
-        SpatialContainerFrame* prtFrmI = nullptr;
-        SpatialContainerFrame* prtFrmJ = nullptr;
+        SpatialContainerFrame *prtFrmI = nullptr;
+        SpatialContainerFrame *prtFrmJ = nullptr;
         bool has_qI = false;
         bool has_qJ = false;
         size_t iqXI = SIZE_MAX, iqEI = SIZE_MAX;
@@ -224,10 +225,10 @@ namespace MbD {
         FMatDsptr pQEJpEdotI;
         FMatDsptr pQEJpXdotJ;
         FMatDsptr pQEJpEdotJ;
+        // dispIeJeO is updated at global level
+        FColDsptr rIeJeO;
         std::shared_ptr<DispIeJeO> dispIeJeO;
         std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>> forceFunctions;
-        std::shared_ptr < std::vector<std::shared_ptr<ForceTorqueFunction>>> torqueFunctions;
-
+        std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>> torqueFunctions;
     };
 }
-

@@ -8,7 +8,7 @@
  
 #include "DirectionCosineConstraintIeJeq.h"
 #include "DirectionCosineIecJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -60,7 +60,7 @@ void DirectionCosineConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
-void MbD::DirectionCosineConstraintIeJeq::addToJointTorqueI(FColDsptr col)
+void DirectionCosineConstraintIeJeq::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     //frmIec does not have q, we use frmJeqc
@@ -107,7 +107,7 @@ void DirectionCosineConstraintIeJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotJ = frmJeq->qEdot();
     double sum = pGpEJ->timesFullColumn(frmJeq->qEddot());
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));

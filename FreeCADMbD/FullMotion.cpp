@@ -10,8 +10,8 @@
 #include "System.h"
 #include "TranslationConstraintIeJe.h"
 #include "DirectionCosineConstraintIeJe.h"
-#include "EndFramect.h"
-#include "EndFrameqct.h"
+#include "EndFramet.h"
+#include "EndFrameqt.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -38,7 +38,7 @@ std::shared_ptr<FullMotion> FullMotion::With(const std::string& str)
 void FullMotion::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     ConstraintSet::connectsItoJ(frmi, frmj);
-    std::static_pointer_cast<EndFrameqc>(eFrmI)->initEndFrameqct2();
+    std::static_pointer_cast<EndFrameq>(eFrmI)->initEndFrameqt2();
 }
 
 void FullMotion::initializeGlobally()
@@ -60,14 +60,14 @@ void FullMotion::initializeGlobally()
 
 void FullMotion::initMotions()
 {
-    auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
-    auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
-    if (eFrmIct && !eFrmIqct) {
+    auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+    auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+    if (eFrmIct && !eFrmIqt) {
         eFrmIct->rmemBlks = frIJI;
         eFrmIct->the1x2y3zBlks = fangIJJ;
     }
-    else if (!eFrmIct && eFrmIqct) {
-        eFrmIqct->rmemBlks = frIJI;
-        eFrmIqct->the1x2y3zBlks = fangIJJ;
+    else if (!eFrmIct && eFrmIqt) {
+        eFrmIqt->rmemBlks = frIJI;
+        eFrmIqt->the1x2y3zBlks = fangIJJ;
     }
 }

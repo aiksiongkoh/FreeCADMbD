@@ -3,10 +3,10 @@
 #include "Units.h"
 #include "Constant.h"
 #include "SimulationStoppingError.h"
-#include "EndFrameqct.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
-#include "EndFramec.h"
+#include "EndFrameqt.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrame.h"
 
 using namespace MbD;
 
@@ -128,59 +128,59 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdKineIcJc(EndFrmsptr frmi
 std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdKineIJWith(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     std::shared_ptr<KinematicIJ> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqctJqct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqctJqc(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqctJct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqctJc(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqcJqct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIqcJqc(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIqcJct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIqcJc(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIctJqct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIctJqc(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIctJct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIctJc(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIcJqct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = mbdKineIcJqc(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             inst = mbdKineIcJct(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = mbdKineIcJc(frmi, frmj);
         }
     }
@@ -195,8 +195,8 @@ void ASMTSymbolicFunctionIJ::withFrmIFrmJ(EndFrmsptr eFrmI, EndFrmsptr eFrmJ)
 
 void ASMTSymbolicFunctionIJ::createMbD()
 {
-    auto eFrmI = std::static_pointer_cast<EndFramec>(geoIJ->markerI->mbdObject);
-    auto eFrmJ = std::static_pointer_cast<EndFramec>(geoIJ->markerJ->mbdObject);
+    auto eFrmI = std::static_pointer_cast<EndFrame>(geoIJ->markerI->mbdObject);
+    auto eFrmJ = std::static_pointer_cast<EndFrame>(geoIJ->markerJ->mbdObject);
     assert(eFrmJ->has_qX());
     auto kineIJ = mbdKineIJWith(eFrmI, eFrmJ);
     auto symKineIJ = MbDSymbolicFunction::With(kineIJ);

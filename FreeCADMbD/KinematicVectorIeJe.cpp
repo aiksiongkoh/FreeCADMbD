@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "KinematicVectorIeJe.h"
-#include "EndFramec.h"
+#include "EndFrame.h"
 #include "SpatialContainerFrame.h"
 #include "SimulationStoppingError.h"
 
@@ -182,7 +182,7 @@ void KinematicVectorIeJe::calcppVectorpEKpt()
     throw SimulationStoppingError("To be implemented.");
 }
 
-FColDsptr MbD::KinematicVectorIeJe::getVector()
+FColDsptr KinematicVectorIeJe::getVector()
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -368,7 +368,7 @@ double KinematicVectorIeJe::value()
     return 0.0;
 }
 
-bool MbD::KinematicVectorIeJe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
+bool KinematicVectorIeJe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
 {
     return false;
 }

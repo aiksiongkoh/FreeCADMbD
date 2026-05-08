@@ -8,7 +8,7 @@
  
 #include "DirectionCosineConstraintIetJeq.h"
 #include "DirectionCosineIectJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -19,14 +19,14 @@ std::shared_ptr<DirectionCosineConstraintIetJeq> DirectionCosineConstraintIetJeq
     return inst;
 }
 
-void MbD::DirectionCosineConstraintIetJeq::preAccIC()
+void DirectionCosineConstraintIetJeq::preAccIC()
 {
     DirectionCosineConstraintIeJeq::preAccIC();
     ppGpEJpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->ppAijIeJepEJpt;
     ppGptpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->ppAijIeJeptpt;
 }
 
-void MbD::DirectionCosineConstraintIetJeq::preVelIC()
+void DirectionCosineConstraintIetJeq::preVelIC()
 {
     DirectionCosineConstraintIeJeq::preVelIC();
     pGpt = std::static_pointer_cast<DirectionCosineIectJeqc>(aAijIeJe)->pAijIeJept;
@@ -37,12 +37,12 @@ void DirectionCosineConstraintIetJeq::initaAijIeJe()
     aAijIeJe = DirectionCosineIectJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
-void MbD::DirectionCosineConstraintIetJeq::fillVelICError(FColDsptr col)
+void DirectionCosineConstraintIetJeq::fillVelICError(FColDsptr col)
 {
     col->atiminusNumber(iG, pGpt);
 }
 
-ConstraintType MbD::DirectionCosineConstraintIetJeq::type()
+ConstraintType DirectionCosineConstraintIetJeq::type()
 {
     return essential;
 }
@@ -50,7 +50,7 @@ ConstraintType MbD::DirectionCosineConstraintIetJeq::type()
 void DirectionCosineConstraintIetJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeJeq::fillAccICIterError(col);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotJ = frmJeq->qEdot();
     double sum = 0.0;
     sum += (ppGpEJpt->timesFullColumn(qEdotJ)) * 2.0;

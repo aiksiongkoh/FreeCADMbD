@@ -12,8 +12,8 @@
 #include <assert.h>
 
 #include "PrescribedMotion.h"
-#include "EndFramect.h"
-#include "EndFrameqct.h"
+#include "EndFramet.h"
+#include "EndFrameqt.h"
 #include "Constant.h"
 
 using namespace MbD;
@@ -41,20 +41,20 @@ void PrescribedMotion::initMotions()
     auto xyzBlkList = std::initializer_list<Symsptr>{ xBlk, yBlk, zBlk };
     auto xyzRotBlkList = std::initializer_list<Symsptr>{ the1xBlk, the2yBlk, the3zBlk };
 
-    auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
-    auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
-    if (eFrmIct && !eFrmIqct) {
+    auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+    auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+    if (eFrmIct && !eFrmIqt) {
         eFrmIct->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
         eFrmIct->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
-    else if (!eFrmIct && eFrmIqct) {
-        eFrmIqct->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
-        eFrmIqct->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
+    else if (!eFrmIct && eFrmIqt) {
+        eFrmIqt->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
+        eFrmIqt->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
 }
 
 void PrescribedMotion::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     ConstraintSet::connectsItoJ(frmi, frmj);
-    eFrmI->initEndFrameqct();
+    eFrmI->initEndFrameqt();
 }

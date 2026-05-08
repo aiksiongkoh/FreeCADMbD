@@ -18,7 +18,7 @@ namespace MbD {
     class EulerAngleszxz : public EulerArray<T>
     {
         //phiA theA psiA aA 
-        //Used by EndFrameqct
+        //Used by EndFrameqt
     public:
         EulerAngleszxz() : EulerArray<T>(3) {}
         static std::shared_ptr<EulerAngleszxz<T>> With();

@@ -12,8 +12,8 @@
 #include "DispIeJeO.h"
 
 namespace MbD {
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
     
     class ConstraintIeJe : public Constraint
     {
@@ -62,11 +62,13 @@ namespace MbD {
         virtual void calcppGpEJpEJ();
         EndFrmsptr getfrmIe() { return eFrmI; }
         EndFrmsptr getfrmJe() { return eFrmJ; }
-        FColDsptr getrIeJeO();
         virtual ConstraintType type() override;
         virtual std::string constraintSpec() override;
         EndFrmsptr eFrmI, eFrmJ;
-        std::shared_ptr<DispIeJeO> dispIeJeO;
+        // dispIeJeO is usefull for action and reactioon calculation
+        // dispIeJeO is updated at global level
+        std::shared_ptr<DispIeJeO> dispIeJeO; 
+        FColDsptr rIeJeO;
     };
 }
 

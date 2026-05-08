@@ -11,9 +11,9 @@
 #include "FullColumn.h"
 #include "AllowZRotationConstraintIeqtJeq.h"
 #include "AllowZRotationConstraintIetJeq.h"
-#include "EndFramect.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
+#include "EndFramet.h"
+#include "EndFrameq.h"
+#include "EndFrameqt.h"
 #include "RedundantConstraint.h"
 
 using namespace MbD;
@@ -42,12 +42,12 @@ void AllowZRotation::initializeGlobally()
     if (constraints->empty()) {
         initMotions();
         std::shared_ptr<Constraint> dirCosCon;
-        auto eFrmIct = std::dynamic_pointer_cast<EndFramect>(eFrmI);
-        auto eFrmIqct = std::dynamic_pointer_cast<EndFrameqct>(eFrmI);
-        if (eFrmIct && !eFrmIqct) {
+        auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+        auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+        if (eFrmIct && !eFrmIqt) {
             dirCosCon = AllowZRotationConstraintIetJeq::With(eFrmI, eFrmJ, 1, 0);
         }
-        else if (!eFrmIct && eFrmIqct) {
+        else if (!eFrmIct && eFrmIqt) {
             dirCosCon = AllowZRotationConstraintIeqtJeq::With(eFrmI, eFrmJ, 1, 0);
         }
         else {

@@ -9,7 +9,6 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "DispCompIecJecKec.h"
 #include "DispCompiIeJeIe.h"
 #include "DispIeJeKe.h"
 

@@ -7,15 +7,15 @@
  ***************************************************************************/
 
 #pragma once
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 namespace MbD {
-    class EndFrameqccq : public EndFrameqc
+    class EndFrameqccq : public EndFrameq
     {
         //targetFrame rpep pprOeOpEpEtarget 
     public:
         static std::shared_ptr<EndFrameqccq> With();
-        void setTargetFrame(std::shared_ptr<EndFramec> targetFrm) override;
+        void setTargetFrame(std::shared_ptr<EndFrame> targetFrm) override;
 
         EndFrmsptr targetFrame;
         FColDsptr rpep;

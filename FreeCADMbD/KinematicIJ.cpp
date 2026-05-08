@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "KinematicIJ.h"
-#include "EndFramec.h"
+#include "EndFrame.h"
 #include "SpatialContainerFrame.h"
 #include "SimulationStoppingError.h"
 
@@ -446,9 +446,4 @@ SpatialContainerFrame* KinematicIJ::partFrameI()
 SpatialContainerFrame* KinematicIJ::partFrameJ()
 {
     return prtFrmJ;
-}
-
-FColDsptr MbD::KinematicIJ::getrIeJeO()
-{
-    return eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
 }

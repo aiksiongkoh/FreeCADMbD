@@ -46,8 +46,8 @@ void RackPinJoint::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
     //"OODS J is on pinion. z axis is axis of pinion."
     //"OODS I is on rack. x axis is axis of rack. z axis is parallel to axis of pinion."
     //"Subsequent prescribed motions may make frmi, frmj become prescribed end frames."
-    //"Use newCopyEndFrameqc to prevent efrms from becoming EndFrameqct."
+    //"Use newCopyEndFrameq to prevent efrms from becoming EndFrameqt."
 
-    eFrmI = frmi->newCopyEndFrameqc();
-    eFrmJ = frmj->newCopyEndFrameqc();
+    eFrmI = frmi->newCopyEndFrameq();
+    eFrmJ = frmj->newCopyEndFrameq();
 }

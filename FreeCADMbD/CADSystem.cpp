@@ -19,7 +19,7 @@
 #include "CylindricalJoint.h"
 #include "SystemSolver.h"
 #include "Part.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 #include "PartFrame.h"
 #include "SymTime.h"
 #include "StateData.h"

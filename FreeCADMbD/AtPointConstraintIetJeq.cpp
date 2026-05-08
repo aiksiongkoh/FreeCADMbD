@@ -7,8 +7,7 @@
  ***************************************************************************/
 
 #include "AtPointConstraintIetJeq.h"
-#include "DispCompIectJeqcO.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 

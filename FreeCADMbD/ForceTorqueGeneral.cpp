@@ -57,7 +57,7 @@ void ForceTorqueGeneral::simUpdateAll()
     calcpQEJpEK();
 }
 
-FColDsptr MbD::ForceTorqueGeneral::getaFIeK() const
+FColDsptr ForceTorqueGeneral::getaFIeK() const
 {
     auto answer = FullColumn<double>::With(3);
     for (size_t i = 0; i < 3; i++)
@@ -67,7 +67,7 @@ FColDsptr MbD::ForceTorqueGeneral::getaFIeK() const
     return answer;
 }
 
-FColDsptr MbD::ForceTorqueGeneral::getaTIeK() const
+FColDsptr ForceTorqueGeneral::getaTIeK() const
 {
     auto answer = FullColumn<double>::With(3);
     for (size_t i = 0; i < 3; i++)

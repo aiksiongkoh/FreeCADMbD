@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIeqJeqKeq.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -18,7 +18,7 @@ std::shared_ptr<DispIeqJeqKeq> DispIeqJeqKeq::With(EndFrmsptr frmi, EndFrmsptr f
     return inst;
 }
 
-void MbD::DispIeqJeqKeq::simUpdateAll()
+void DispIeqJeqKeq::simUpdateAll()
 {
     DispIeqJeqKe::simUpdateAll();
     calcpVectorpEK();
@@ -29,71 +29,71 @@ void MbD::DispIeqJeqKeq::simUpdateAll()
     calcppVectorpEKpEK();
 }
 
-void MbD::DispIeqJeqKeq::calcpVectorpEK()
+void DispIeqJeqKeq::calcpVectorpEK()
 {
     prIeJeKepEK = eFrmK->pAOeTpEtimesFullColumn(rIeJeO);
 }
 
-void MbD::DispIeqJeqKeq::calcppVectorpXIpEK()
+void DispIeqJeqKeq::calcppVectorpXIpEK()
 {
     // pprIeJeKepXIpEK = pAOKeTpEK * prIeJeOpXI
     auto prIeJeOpXI = dispIeJeO->getpVectorpXI();
     pprIeJeKepXIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXI);
 }
 
-void MbD::DispIeqJeqKeq::calcppVectorpEIpEK()
+void DispIeqJeqKeq::calcppVectorpEIpEK()
 {
     // pprIeJeKepEIpEK = pAOKeTpEK * prIeJeOpEI
     auto prIeJeOpEI = dispIeJeO->getpVectorpEI();
     pprIeJeKepEIpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEI);
 }
 
-void MbD::DispIeqJeqKeq::calcppVectorpXJpEK()
+void DispIeqJeqKeq::calcppVectorpXJpEK()
 {
     // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
     auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
     pprIeJeKepXJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
 }
 
-void MbD::DispIeqJeqKeq::calcppVectorpEJpEK()
+void DispIeqJeqKeq::calcppVectorpEJpEK()
 {
     // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
     pprIeJeKepEJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
 }
 
-void MbD::DispIeqJeqKeq::calcppVectorpEKpEK()
+void DispIeqJeqKeq::calcppVectorpEKpEK()
 {
     // pprIeJeKepEKpEK = ppAOKeTpEKpEK * rIeJeO
     pprIeJeKepEKpEK = eFrmK->ppAOeTpEpEtimesFullColumn(rIeJeO);
 }
 
-FMatDsptr MbD::DispIeqJeqKeq::getpVectorpEK()
+FMatDsptr DispIeqJeqKeq::getpVectorpEK()
 {
     return prIeJeKepEK;
 }
 
-FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpXIpEK()
+FMatFColDsptr DispIeqJeqKeq::getppVectorpXIpEK()
 {
     return pprIeJeKepXIpEK;
 }
 
-FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEIpEK()
+FMatFColDsptr DispIeqJeqKeq::getppVectorpEIpEK()
 {
     return pprIeJeKepEIpEK;
 }
 
-FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpXJpEK()
+FMatFColDsptr DispIeqJeqKeq::getppVectorpXJpEK()
 {
     return pprIeJeKepXJpEK;
 }
 
-FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEJpEK()
+FMatFColDsptr DispIeqJeqKeq::getppVectorpEJpEK()
 {
     return pprIeJeKepEJpEK;
 }
 
-FMatFColDsptr MbD::DispIeqJeqKeq::getppVectorpEKpEK()
+FMatFColDsptr DispIeqJeqKeq::getppVectorpEKpEK()
 {
     return pprIeJeKepEKpEK;
 }

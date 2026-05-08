@@ -15,10 +15,10 @@
 #include "AngleZIecJeqc.h"
 #include "AngleZIeqcJec.h"
 #include "AngleZIeqcJeqc.h"
-#include "EndFrameqct.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
-#include "EndFramec.h"
+#include "EndFrameqt.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrame.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -26,59 +26,59 @@ using namespace MbD;
 std::shared_ptr<AngleZIecJec> AngleZIecJec::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     std::shared_ptr<AngleZIecJec> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AngleZIeqcJeqc>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<AngleZIeqcJec>(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AngleZIecJeqc>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }

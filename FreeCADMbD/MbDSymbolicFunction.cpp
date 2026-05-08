@@ -3,7 +3,6 @@
 #include "MbDSymbolicFunction.h"
 #include "Constant.h"
 #include "KinematicDotIJ.h"
-#include "DispCompIecJecKec.h"
 #include "KinematicIJ.h"
 #include "SimulationStoppingError.h"
 
@@ -232,9 +231,5 @@ SpatialContainerFrame* MbDSymbolicFunction::partFrameJ()
 
 SpatialContainerFrame* MbDSymbolicFunction::partFrameK()
 {
-    auto frmIqc = std::dynamic_pointer_cast<DispCompIecJecKec>(mbdObject);
-    if (frmIqc) {
-        return frmIqc->partFrameK();
-    }
     return nullptr;
 }

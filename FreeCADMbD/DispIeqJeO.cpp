@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIeqJeO.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -26,39 +26,39 @@ void DispIeqJeO::initializeGlobally()
     calcppVectorpEIpEI();
 }
 
-void MbD::DispIeqJeO::calcpVectorpXI()
+void DispIeqJeO::calcpVectorpXI()
 {
     prIeJeOpXI = FullMatrix<double>::identitysptr(3)->negated();
 }
 
-void MbD::DispIeqJeO::calcpVectorpEI()
+void DispIeqJeO::calcpVectorpEI()
 {
     prIeJeOpEI = eFrmI->getprOeOpE()->negated();
 }
 
-void MbD::DispIeqJeO::calcppVectorpEIpEI()
+void DispIeqJeO::calcppVectorpEIpEI()
 {
     pprIeJeOpEIpEI = eFrmI->getpprOeOpEpE()->negated();
 }
 
-FMatDsptr MbD::DispIeqJeO::getpVectorpXI()
+FMatDsptr DispIeqJeO::getpVectorpXI()
 {
     return prIeJeOpXI;
 }
 
-FMatDsptr MbD::DispIeqJeO::getpVectorpEI()
+FMatDsptr DispIeqJeO::getpVectorpEI()
 {
     return prIeJeOpEI;
 }
 
-FMatFColDsptr MbD::DispIeqJeO::getppVectorpEIpEI()
+FMatFColDsptr DispIeqJeO::getppVectorpEIpEI()
 {
     return pprIeJeOpEIpEI;
 }
 
-FMatDsptr MbD::DispIeqJeO::getppCompipEIpEI(size_t axis)
+FMatDsptr DispIeqJeO::getppCompipEIpEI(size_t axis)
 {
-    return std::static_pointer_cast<EndFrameqc>(eFrmI)->ppriOeOpEpE(axis)->negated();
+    return std::static_pointer_cast<EndFrameq>(eFrmI)->ppriOeOpEpE(axis)->negated();
 }
 
 void DispIeqJeO::simUpdateAll()

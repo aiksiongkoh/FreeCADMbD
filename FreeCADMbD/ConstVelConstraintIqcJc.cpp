@@ -11,7 +11,7 @@
 #include "ConstVelConstraintIqcJc.h"
 #include "DirectionCosineIeqcJec.h"
 #include "DirectionCosineIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -61,7 +61,7 @@ void ConstVelConstraintIqcJc::simUpdateAll()
 void ConstVelConstraintIqcJc::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qEdotI = eFrmIqc->qEdot();
     double sum = 0.0;
     sum += pGpEI->timesFullColumn(eFrmIqc->qEddot());
@@ -105,7 +105,7 @@ void ConstVelConstraintIqcJc::initA10IeJe()
 
 void ConstVelConstraintIqcJc::useEquationNumbers()
 {
-    iqEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->iqE();
+    iqEI = std::static_pointer_cast<EndFrameq>(eFrmI)->iqE();
 }
 
 void ConstVelConstraintIqcJc::fillpFpy(SpMatDsptr mat)
@@ -124,7 +124,7 @@ std::string ConstVelConstraintIqcJc::constraintSpec()
     return "ConstVelConstraintIJ";
 }
 
-void MbD::ConstVelConstraintIqcJc::addToJointTorqueI(FColDsptr col)
+void ConstVelConstraintIqcJc::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     //aFIeO = zero;

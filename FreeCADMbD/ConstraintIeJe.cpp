@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "ConstraintIeJe.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 #include "System.h"
 
@@ -27,15 +27,12 @@ void ConstraintIeJe::initialize()
     dispIeJeO->owner = this;
 }
 
-void MbD::ConstraintIeJe::initializeLocally()
+void ConstraintIeJe::initializeLocally()
 {
-    dispIeJeO->initializeLocally();
 }
 
-void MbD::ConstraintIeJe::initializeGlobally()
+void ConstraintIeJe::initializeGlobally()
 {
-    // Not needed. Done by System.dispIeJeOs
-    // dispIeJeO->initializeGlobally();
 }
 
 void ConstraintIeJe::useUniqueDispIeJeO()
@@ -50,60 +47,54 @@ void ConstraintIeJe::useUniqueDispIeJeO()
     }
 }
 
-void MbD::ConstraintIeJe::useUniqueDispIeJeKe()
+void ConstraintIeJe::useUniqueDispIeJeKe()
 {
     //Do nothing.
 }
 
-void MbD::ConstraintIeJe::prePosIC()
+void ConstraintIeJe::prePosIC()
 {
-    dispIeJeO->prePosIC();
+    Constraint::prePosIC();
     lam = 0.0;
     iG = SIZE_MAX;
-    Constraint::prePosIC();
 }
 
-void MbD::ConstraintIeJe::postPosICIteration()
+void ConstraintIeJe::postPosICIteration()
 {
-    dispIeJeO->postPosICIteration();
     Constraint::postPosICIteration();
 }
 
-void MbD::ConstraintIeJe::preVelIC()
+void ConstraintIeJe::preVelIC()
 {
-    dispIeJeO->preVelIC();
     Constraint::preVelIC();
 }
 
-void MbD::ConstraintIeJe::preAccIC()
+void ConstraintIeJe::preAccIC()
 {
-    dispIeJeO->preAccIC();
     Constraint::preAccIC();
 }
 
-void MbD::ConstraintIeJe::preDyn()
+void ConstraintIeJe::preDyn()
 {
-    dispIeJeO->preDyn();
     Constraint::preDyn();
 }
 
-void MbD::ConstraintIeJe::preDynOutput()
+void ConstraintIeJe::preDynOutput()
 {
-    dispIeJeO->preDynOutput();
     Constraint::preDynOutput();
 }
 
-void MbD::ConstraintIeJe::postInput()
+void ConstraintIeJe::postInput()
 {
-    dispIeJeO->postInput();
     lam = 0.0;
     Constraint::postInput();
 }
 
-void MbD::ConstraintIeJe::simUpdateAll()
+void ConstraintIeJe::simUpdateAll()
 {
     //Update locally only.
     //Objects that Constraints depend on have already executed simUpdateAll().
+    rIeJeO = dispIeJeO->rIeJeO;
     calcG();
     // calcpGpXI();
     // calcpGpEI();
@@ -121,77 +112,77 @@ void MbD::ConstraintIeJe::simUpdateAll()
     // calcppGpEJpEJ();
 }
 
-void MbD::ConstraintIeJe::calcG()
+void ConstraintIeJe::calcG()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcG is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcpGpXI()
+void ConstraintIeJe::calcpGpXI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcpGpXI is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcpGpEI()
+void ConstraintIeJe::calcpGpEI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcpGpEI is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcpGpXJ()
+void ConstraintIeJe::calcpGpXJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcpGpXJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcpGpEJ()
+void ConstraintIeJe::calcpGpEJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcpGpEJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXIpXI()
+void ConstraintIeJe::calcppGpXIpXI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpXI is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXIpEI()
+void ConstraintIeJe::calcppGpXIpEI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpEI is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXIpXJ()
+void ConstraintIeJe::calcppGpXIpXJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpXJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXIpEJ()
+void ConstraintIeJe::calcppGpXIpEJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXIpEJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpEIpEI()
+void ConstraintIeJe::calcppGpEIpEI()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpEI is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpEIpXJ()
+void ConstraintIeJe::calcppGpEIpXJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpXJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpEIpEJ()
+void ConstraintIeJe::calcppGpEIpEJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpEIpEJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXJpXJ()
+void ConstraintIeJe::calcppGpXJpXJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXJpXJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpXJpEJ()
+void ConstraintIeJe::calcppGpXJpEJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpXJpEJ is not implemented.");
 }
 
-void MbD::ConstraintIeJe::calcppGpEJpEJ()
+void ConstraintIeJe::calcppGpEJpEJ()
 {
     throw SimulationStoppingError("ConstraintIeJe::calcppGpEJpEJ is not implemented.");
 }
@@ -201,7 +192,7 @@ std::string ConstraintIeJe::constraintSpec()
     return "ConstraintIeJe";
 }
 
-ConstraintType MbD::ConstraintIeJe::type()
+ConstraintType ConstraintIeJe::type()
 {
     return Constraint::type();
 }
@@ -216,9 +207,4 @@ void ConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 {
     //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
     throw SimulationStoppingError("To be implemented.");
-}
-
-FColDsptr ConstraintIeJe::getrIeJeO()
-{
-    return eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
 }

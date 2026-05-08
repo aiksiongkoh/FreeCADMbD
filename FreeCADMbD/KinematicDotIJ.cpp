@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "KinematicDotIJ.h"
-#include "EndFramec.h"
+#include "EndFrame.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;

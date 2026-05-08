@@ -13,15 +13,15 @@
  //#include <functional>
 
 #include "CartesianFrame.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "FullColumn.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 
 namespace MbD {
     class Part;
-    class MarkerFramec;
+    class MarkerFrame;
     class EulerConstraint;
     class AbsConstraint;
 
@@ -32,7 +32,7 @@ namespace MbD {
         SpatialContainerFrame() {}
         SpatialContainerFrame(const std::string& str) : CartesianFrame(str) {}
 
-        virtual std::shared_ptr<MarkerFramec> createMarkerFrame(const std::string& str) = 0;
+        virtual std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) = 0;
 
         void initialize() override;
 
@@ -40,9 +40,9 @@ namespace MbD {
         void initializeGlobally() override;
         void postInput() override;
 
-        void addMarkerFrame(std::shared_ptr<MarkerFramec> x);
+        void addMarkerFrame(std::shared_ptr<MarkerFrame> x);
         EndFrmsptr endFrame(std::string name) const;
-        void markerFramesDo(const std::function <void(std::shared_ptr<MarkerFramec>)>& f) const;
+        void markerFramesDo(const std::function <void(std::shared_ptr<MarkerFrame>)>& f) const;
 
         void prePosIC() override;
         void prePosKine() override;
@@ -109,7 +109,7 @@ namespace MbD {
         virtual FMatDsptr aBOp() const;
         virtual FColDsptr aOmO() const;
 
-        std::shared_ptr<std::vector<std::shared_ptr<MarkerFramec>>> markerFrames;
+        std::shared_ptr<std::vector<std::shared_ptr<MarkerFrame>>> markerFrames;
     };
 }
 

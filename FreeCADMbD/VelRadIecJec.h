@@ -9,6 +9,7 @@
 #pragma once
 
 #include "KinematicDotIJ.h"
+#include "DispIeJeO.h"
 
 namespace MbD {
     class VelRadIecJec : public KinematicDotIJ
@@ -22,6 +23,7 @@ namespace MbD {
         void simUpdateAll() override;
         double value() override;
 
+        std::shared_ptr<DispIeJeO> dispIeJeO; 
         double rIeJe = 0.0, vIeJe = 0.0;
         FColDsptr rIeJeO, uIeJeO, vIeJeO;
 

@@ -12,12 +12,12 @@
 
 using namespace MbD;
 
-void MbD::KinematicCompiIeJe::useUniqueDispIeJeO()
+void KinematicCompiIeJe::useUniqueDispIeJeO()
 {
     kineVector()->useUniqueDispIeJeO();
 }
 
-void MbD::KinematicCompiIeJe::simUpdateAll()
+void KinematicCompiIeJe::simUpdateAll()
 {
     // Do nothing.
     // dispIeJeO, dispIeJeKe are already updated by Assembly.

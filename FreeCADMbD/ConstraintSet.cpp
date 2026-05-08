@@ -11,12 +11,12 @@
 
 #include "ConstraintSet.h"
 #include "Constraint.h"
-#include "EndFramec.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
-#include "EndFrameqct.h"
+#include "EndFrame.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrameqt.h"
 #include "RedundantConstraint.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 #include "ForceTorqueData.h"
 #include "System.h"
 #include "ConstraintIeJe.h"
@@ -44,17 +44,17 @@ void ConstraintSet::initializeGlobally()
 
 void ConstraintSet::initializeLocally()
 {
-    auto frmIqc = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIqc = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
     if (frmIqc) {
-        if (frmIqc->endFrameqct) {
-            eFrmI = frmIqc->endFrameqct;
+        if (frmIqc->endFrameqt) {
+            eFrmI = frmIqc->endFrameqt;
         }
     }
     else {
-        auto frmIc = std::dynamic_pointer_cast<EndFramec>(eFrmI);
+        auto frmIc = std::dynamic_pointer_cast<EndFrame>(eFrmI);
         if (frmIc) {
-            if (frmIc->endFramect) {
-                eFrmI = std::static_pointer_cast<EndFramec>(frmIc->endFramect);
+            if (frmIc->endFramet) {
+                eFrmI = std::static_pointer_cast<EndFrame>(frmIc->endFramet);
             }
         }
     }
@@ -292,7 +292,7 @@ void ConstraintSet::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 FColDsptr ConstraintSet::aFIeIe() const
 {
     //"aFIeIe is joint force on end frame Ie expresses in Ie components."
-    auto frmIqc = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIqc = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
     return frmIqc->aAeO()->timesFullColumn(aFIeO());
 }
 

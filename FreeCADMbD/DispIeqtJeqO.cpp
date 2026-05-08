@@ -7,8 +7,8 @@
  ***************************************************************************/
 
 #include "DispIeqtJeqO.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
+#include "EndFrameq.h"
+#include "EndFrameqt.h"
 
 using namespace MbD;
 
@@ -19,7 +19,7 @@ std::shared_ptr<DispIeqtJeqO> DispIeqtJeqO::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void MbD::DispIeqtJeqO::simUpdateAll()
+void DispIeqtJeqO::simUpdateAll()
 {
     //rIeJeO = rOJeO(q,t) - rOIeO(q)
     //rIeJeO = rOJpO + aAOJp * rJpJeJp - (rOIpO + aAOIp * rIpIeIp(t))
@@ -34,30 +34,30 @@ void MbD::DispIeqtJeqO::simUpdateAll()
     calcppVectorpEIpEI();   //No longer a constant
 }
 
-void MbD::DispIeqtJeqO::preVelIC()
+void DispIeqtJeqO::preVelIC()
 {
     DispIeqJeqO::preVelIC();
     calcpVectorpt();
 }
 
-void MbD::DispIeqtJeqO::preAccIC()
+void DispIeqtJeqO::preAccIC()
 {
     DispIeqJeqO::preAccIC();
     calcppVectorpEIpt();
     calcppVectorptpt();
 }
 
-FColDsptr MbD::DispIeqtJeqO::getpVectorpt()
+FColDsptr DispIeqtJeqO::getpVectorpt()
 {
     return prIeJeOpt;
 }
 
-FMatDsptr MbD::DispIeqtJeqO::getppVectorpEIpt()
+FMatDsptr DispIeqtJeqO::getppVectorpEIpt()
 {
     return pprIeJeOpEIpt;
 }
 
-FColDsptr MbD::DispIeqtJeqO::getppVectorptpt()
+FColDsptr DispIeqtJeqO::getppVectorptpt()
 {
     return pprIeJeOptpt;
 }
@@ -69,12 +69,12 @@ void DispIeqtJeqO::calcpVectorpt()
 
 void DispIeqtJeqO::calcppVectorptpt()
 {
-    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramect>(frmIe)->pprOeOptpt->negated();
+    // pprIeJeOptpt = std::dynamic_pointer_cast<EndFramet>(frmIe)->pprOeOptpt->negated();
     pprIeJeOptpt = eFrmI->getpprOeOptpt()->negated();
 }
 
 void DispIeqtJeqO::calcppVectorpEIpt()
 {
-    // pprIeJeOpEIpt = std::dynamic_pointer_cast<EndFrameqct>(frmIe)->pprOeOpEpt->negated();
+    // pprIeJeOpEIpt = std::dynamic_pointer_cast<EndFrameqt>(frmIe)->pprOeOpEpt->negated();
     pprIeJeOpEIpt = eFrmI->getpprOeOpEpt()->negated();
 }

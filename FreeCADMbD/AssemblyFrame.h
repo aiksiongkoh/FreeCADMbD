@@ -13,15 +13,15 @@
  //#include <functional>
 
 #include "SpatialContainerFrame.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "FullColumn.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
-#include "MarkerFramec.h"
+#include "MarkerFrame.h"
 
 namespace MbD {
     class Part;
-    class MarkerFramec;
+    class MarkerFrame;
     class EulerConstraint;
     class AbsConstraint;
 
@@ -34,7 +34,7 @@ namespace MbD {
         static std::shared_ptr<AssemblyFrame> With();
         static std::shared_ptr<AssemblyFrame> With(const std::string& str);
 
-        std::shared_ptr<MarkerFramec> createMarkerFrame(const std::string& str) override;
+        std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) override;
         System* root() override;
         void initializeLocally() override;
         void initializeGlobally() override;

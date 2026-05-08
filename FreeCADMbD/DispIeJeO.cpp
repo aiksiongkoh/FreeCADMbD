@@ -7,9 +7,9 @@
  ***************************************************************************/
  
 #include "DispIeJeO.h"
-#include "EndFramec.h"
-#include "EndFramect.h"
-#include "EndFrameqct.h"
+#include "EndFrame.h"
+#include "EndFramet.h"
+#include "EndFrameqt.h"
 #include "DispIeqJeqO.h"
 #include "DispIeJeqO.h"
 #include "DispIetJeqO.h"
@@ -20,59 +20,59 @@ using namespace MbD;
 std::shared_ptr<DispIeJeO> DispIeJeO::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     std::shared_ptr<DispIeJeO> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DispIeqtJeqO>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DispIeqJeqO>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<DispIeqJeO>(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DispIetJeqO>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DispIeJeqO>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
@@ -86,63 +86,63 @@ void DispIeJeO::simUpdateAll()
     calcVector();
 }
 
-void MbD::DispIeJeO::calcVector()
+void DispIeJeO::calcVector()
 {
     //rIeJeO = rOJeO - rOIeO
     rIeJeO = eFrmJ->rOeO->minusFullColumn(eFrmI->rOeO);
 }
 
-FColDsptr MbD::DispIeJeO::getVector()
+FColDsptr DispIeJeO::getVector()
 {
     return rIeJeO;
 }
 
-FMatDsptr MbD::DispIeJeO::getpVectorpXI()
+FMatDsptr DispIeJeO::getpVectorpXI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getpVectorpEI()
+FMatDsptr DispIeJeO::getpVectorpEI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getpVectorpXJ()
+FMatDsptr DispIeJeO::getpVectorpXJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getpVectorpEJ()
+FMatDsptr DispIeJeO::getpVectorpEJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getppCompipEIpEI(size_t axis)
+FMatDsptr DispIeJeO::getppCompipEIpEI(size_t axis)
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getppCompipEJpEJ(size_t axis)
+FMatDsptr DispIeJeO::getppCompipEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeO::getpVectorpt()
+FColDsptr DispIeJeO::getpVectorpt()
 {
     return FColDsptr();
 }
 
-FMatDsptr MbD::DispIeJeO::getppVectorpEIpt()
+FMatDsptr DispIeJeO::getppVectorpEIpt()
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeO::getppVectorptpt()
+FColDsptr DispIeJeO::getppVectorptpt()
 {
     return FColDsptr();
 }
 
-bool MbD::DispIeJeO::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
+bool DispIeJeO::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
 {
     auto disp = std::dynamic_pointer_cast<DispIeJeO>(other);
     if (disp) {

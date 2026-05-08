@@ -39,27 +39,27 @@ ConstraintType RedundantConstraint::type()
     return redundant;
 }
 
-void MbD::RedundantConstraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
+void RedundantConstraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
     //Do nothing.
 }
 
-void MbD::RedundantConstraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
+void RedundantConstraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
 {
     //Do nothing.
 }
 
-void MbD::RedundantConstraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
+void RedundantConstraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
     //Do nothing.
 }
 
-void MbD::RedundantConstraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
+void RedundantConstraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
 {
     //Do nothing.
 }
 
-void MbD::RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
+void RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
         redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
 }
@@ -204,7 +204,7 @@ void RedundantConstraint::postDynOutput()
     //Do nothing.
 }
 
-void MbD::RedundantConstraint::addToJointForceI(FColDsptr col)
+void RedundantConstraint::addToJointForceI(FColDsptr col)
 {
     (void)col;
 }
@@ -214,12 +214,12 @@ void RedundantConstraint::addToJointTorqueI(FColDsptr col)
     (void)col;
 }
 
-void MbD::RedundantConstraint::addToJointForceJ(FColDsptr col)
+void RedundantConstraint::addToJointForceJ(FColDsptr col)
 {
     (void)col;
 }
 
-void MbD::RedundantConstraint::addToJointTorqueJ(FColDsptr col)
+void RedundantConstraint::addToJointTorqueJ(FColDsptr col)
 {
     (void)col;
 }

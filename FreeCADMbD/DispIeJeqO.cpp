@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIeJeqO.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -26,33 +26,33 @@ void DispIeJeqO::initializeGlobally()
     calcppVectorpEJpEJ();
 }
 
-void MbD::DispIeJeqO::calcpVectorpXJ()
+void DispIeJeqO::calcpVectorpXJ()
 {
     prIeJeOpXJ = FullMatrix<double>::identitysptr(3);
 }
 
-void MbD::DispIeJeqO::calcpVectorpEJ()
+void DispIeJeqO::calcpVectorpEJ()
 {
     // rIeJeO = rOJeO - rOIeO
     prIeJeOpEJ = eFrmJ->getprOeOpE();
 }
 
-void MbD::DispIeJeqO::calcppVectorpEJpEJ()
+void DispIeJeqO::calcppVectorpEJpEJ()
 {
     pprIeJeOpEJpEJ = eFrmJ->getpprOeOpEpE();
 }
 
-FMatDsptr MbD::DispIeJeqO::getpVectorpXJ()
+FMatDsptr DispIeJeqO::getpVectorpXJ()
 {
     return prIeJeOpXJ;
 }
 
-FMatDsptr MbD::DispIeJeqO::getpVectorpEJ()
+FMatDsptr DispIeJeqO::getpVectorpEJ()
 {
     return prIeJeOpEJ;
 }
 
-FMatFColDsptr MbD::DispIeJeqO::getppVectorpEJpEJ()
+FMatFColDsptr DispIeJeqO::getppVectorpEJpEJ()
 {
     return pprIeJeOpEJpEJ;
 }
@@ -65,7 +65,7 @@ void DispIeJeqO::simUpdateAll()
     calcpVectorpEJ();
 }
 
-FMatDsptr MbD::DispIeJeqO::getppCompipEJpEJ(size_t axis)
+FMatDsptr DispIeJeqO::getppCompipEJpEJ(size_t axis)
 {
-    return std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppriOeOpEpE(axis);
+    return std::static_pointer_cast<EndFrameq>(eFrmJ)->ppriOeOpEpE(axis);
 }

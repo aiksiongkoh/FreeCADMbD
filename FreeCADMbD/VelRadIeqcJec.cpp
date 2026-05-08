@@ -1,5 +1,5 @@
 #include "VelRadIeqcJec.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
@@ -25,7 +25,7 @@ void VelRadIeqcJec::simUpdateAll()
     VelRadIecJec::simUpdateAll();
     if (rIeJe == 0.0) return;
     auto muIeJeO = uIeJeO->negated();
-    auto efrmqcI = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto efrmqcI = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto mprIeJeOpEI = efrmqcI->prOeOpE;
     auto mprIeJeOpEIT = mprIeJeOpEI->transpose();
     auto mpvIeJeOpEIT = efrmqcI->pvOeOpE()->transpose();

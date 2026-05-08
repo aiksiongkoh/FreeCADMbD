@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIetJeqKet.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -18,18 +18,18 @@ std::shared_ptr<DispIetJeqKet> DispIetJeqKet::With(EndFrmsptr frmi, EndFrmsptr f
     return inst;
 }
 
-FColDsptr MbD::DispIetJeqKet::getppVectorptpt()
+FColDsptr DispIetJeqKet::getppVectorptpt()
 {
     return pprIeJeKeptpt;
 }
 
-void MbD::DispIetJeqKet::preVelIC()
+void DispIetJeqKet::preVelIC()
 {
     DispIeJeqKe::preVelIC();
     calcpVectorpt();
 }
 
-void MbD::DispIetJeqKet::preAccIC()
+void DispIetJeqKet::preAccIC()
 {
     DispIeJeqKe::preAccIC();
     calcppVectorpXJpt();
@@ -37,14 +37,14 @@ void MbD::DispIetJeqKet::preAccIC()
     calcppVectorptpt();
 }
 
-void MbD::DispIetJeqKet::calcpVectorpt()
+void DispIetJeqKet::calcpVectorpt()
 {
     // rIeJeKe = aAOKeT * (rOJeO - rOIeO)
     prIeJeKept = eFrmK->getpAOept()->transposeTimesFullColumn(rIeJeO)->minusFullColumn(
         aAOKe->transposeTimesFullColumn(eFrmI->getprOeOpt()));
 }
 
-void MbD::DispIetJeqKet::calcppVectorpXJpt()
+void DispIetJeqKet::calcppVectorpXJpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -53,7 +53,7 @@ void MbD::DispIetJeqKet::calcppVectorpXJpt()
     pprIeJeKepXJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpXJ());
 }
 
-void MbD::DispIetJeqKet::calcppVectorpEJpt()
+void DispIetJeqKet::calcppVectorpEJpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -62,7 +62,7 @@ void MbD::DispIetJeqKet::calcppVectorpEJpt()
     pprIeJeKepEJpt = eFrmK->getpAOept()->transposeTimesFullMatrix(dispIeJeO->getpVectorpEJ());
 }
 
-void MbD::DispIetJeqKet::calcppVectorptpt()
+void DispIetJeqKet::calcppVectorptpt()
 {
     // rIeJeKe = aAOKeT * rIeJeO
     // prIeJeKept = pAOKeTpt * rIeJeO + aAOKeT * prIeJeOpt
@@ -73,17 +73,17 @@ void MbD::DispIetJeqKet::calcppVectorptpt()
     pprIeJeKeptpt = term1->plusFullColumn(term2->plusFullColumn(term3));
 }
 
-FColDsptr MbD::DispIetJeqKet::getpVectorpt()
+FColDsptr DispIetJeqKet::getpVectorpt()
 {
     return prIeJeKept;
 }
 
-FMatDsptr MbD::DispIetJeqKet::getppVectorpXJpt()
+FMatDsptr DispIetJeqKet::getppVectorpXJpt()
 {
     return pprIeJeKepXJpt;
 }
 
-FMatDsptr MbD::DispIetJeqKet::getppVectorpEJpt()
+FMatDsptr DispIetJeqKet::getppVectorpEJpt()
 {
     return pprIeJeKepEJpt;
 }

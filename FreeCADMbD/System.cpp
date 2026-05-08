@@ -11,8 +11,8 @@
 #include "System.h"
 #include "Part.h"
 #include "AssemblyFrame.h"
-#include "EndFramec.h"
-#include "EndFrameqc.h"
+#include "EndFrame.h"
+#include "EndFrameq.h"
 #include "JointIJ.h"
 #include "LimitIJ.h"
 #include "ForceTorqueIJ.h"
@@ -144,13 +144,13 @@ double System::calcCharacteristicLength() const
     for (auto connector : *connectorList) {
         std::vector<EndFrmsptr> efrms = { connector->geteFrmI(), connector->geteFrmJ() };
         for (const EndFrmsptr& efrm : efrms) {
-            auto xc = std::dynamic_pointer_cast<EndFramec>(efrm);
-            auto efrmqc = std::dynamic_pointer_cast<EndFrameqc>(efrm);
+            auto xc = std::dynamic_pointer_cast<EndFrame>(efrm);
+            auto efrmqc = std::dynamic_pointer_cast<EndFrameq>(efrm);
             if (efrmqc) {
                 lengths->push_back(efrmqc->rpep()->length());
             }
             else {
-                auto efrmc = std::dynamic_pointer_cast<EndFramec>(efrm);
+                auto efrmc = std::dynamic_pointer_cast<EndFrame>(efrm);
                 if (efrmc) {
                     lengths->push_back(efrmc->rOeO->length());
                 }

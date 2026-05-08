@@ -13,69 +13,69 @@
 #include "TranslationConstraintIeqtJeq.h"
 #include "TranslationConstraintIetJeq.h"
 #include "System.h"
-#include "EndFrameqct.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
-#include "EndFramec.h"
+#include "EndFrameqt.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
+#include "EndFrame.h"
 
 using namespace MbD;
 
 std::shared_ptr<TranslationConstraintIeJe> TranslationConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi)
 {
     std::shared_ptr<TranslationConstraintIeJe> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqtJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqJe>(frmi, frmj, axisi);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIetJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
@@ -97,7 +97,7 @@ void TranslationConstraintIeJe::initialize()
     initriIeJeIe();
 }
 
-void MbD::TranslationConstraintIeJe::useUniqueDispIeJeKe()
+void TranslationConstraintIeJe::useUniqueDispIeJeKe()
 {
     if (!dispIeJeIe) return;
     auto dispIeJeKes = root()->dispIeJeKes;
@@ -121,7 +121,7 @@ void TranslationConstraintIeJe::initializeGlobally()
     riIeJeIe->initializeGlobally();
 }
 
-void MbD::TranslationConstraintIeJe::useUniqueDispIeJeO()
+void TranslationConstraintIeJe::useUniqueDispIeJeO()
 {
     dispIeJeIe->useUniqueDispIeJeO();
     riIeJeIe->useUniqueDispIeJeO();
@@ -139,7 +139,7 @@ void TranslationConstraintIeJe::postInput()
     ConstraintIeJe::postInput();
 }
 
-void MbD::TranslationConstraintIeJe::calcG()
+void TranslationConstraintIeJe::calcG()
 {
     // aG = riIeJeIe->value() - aConstant;
     auto rIeJeIe = dispIeJeIe->rIeJeKe;
@@ -152,12 +152,12 @@ void TranslationConstraintIeJe::prePosIC()
     ConstraintIeJe::prePosIC();
 }
 
-void MbD::TranslationConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
+void TranslationConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::fillAccICIterError(FColDsptr col)
+void TranslationConstraintIeJe::fillAccICIterError(FColDsptr col)
 {
     //Do nothing.
 }
@@ -185,7 +185,7 @@ void TranslationConstraintIeJe::preDynOutput()
     ConstraintIeJe::preDynOutput();
 }
 
-void MbD::TranslationConstraintIeJe::preDyn()
+void TranslationConstraintIeJe::preDyn()
 {
     //Do nothing.
 }
@@ -214,32 +214,32 @@ void TranslationConstraintIeJe::preAccIC()
     ConstraintIeJe::preAccIC();
 }
 
-void MbD::TranslationConstraintIeJe::fillpFpy(SpMatDsptr mat)
+void TranslationConstraintIeJe::fillpFpy(SpMatDsptr mat)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::fillpFpydot(SpMatDsptr mat)
+void TranslationConstraintIeJe::fillpFpydot(SpMatDsptr mat)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::addToJointForceI(FColDsptr col)
+void TranslationConstraintIeJe::addToJointForceI(FColDsptr col)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::addToJointTorqueI(FColDsptr col)
+void TranslationConstraintIeJe::addToJointTorqueI(FColDsptr col)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::addToJointForceJ(FColDsptr col)
+void TranslationConstraintIeJe::addToJointForceJ(FColDsptr col)
 {
     //Do nothing.
 }
 
-void MbD::TranslationConstraintIeJe::addToJointTorqueJ(FColDsptr col)
+void TranslationConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 {
     //Do nothing.
 }
@@ -249,7 +249,7 @@ std::string TranslationConstraintIeJe::constraintSpec()
     return "TranslationConstraintIeJe";
 }
 
-void MbD::TranslationConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
+void TranslationConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
 {
     //Do nothing.
 }

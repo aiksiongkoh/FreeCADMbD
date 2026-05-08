@@ -7,14 +7,14 @@
  ***************************************************************************/
  
 #include "DirectionCosineIeqcJec.h"
-#include "EndFrameqc.h"
-#include "EndFramect.h"
+#include "EndFrameq.h"
+#include "EndFramet.h"
 
 using namespace MbD;
 
 std::shared_ptr<DirectionCosineIeqcJec> DirectionCosineIeqcJec::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
 {
-    if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
+    if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         throw SimulationStoppingError("To be implemented.");
     }
     assert(frmi->has_qX());
@@ -33,7 +33,7 @@ void DirectionCosineIeqcJec::initialize()
 
 void DirectionCosineIeqcJec::initializeGlobally()
 {
-    ppAjOIepEIpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->ppAjOepEpE(axisI);
+    ppAjOIepEIpEI = std::static_pointer_cast<EndFrameq>(eFrmI)->ppAjOepEpE(axisI);
 }
 
 FMatDsptr DirectionCosineIeqcJec::ppvaluepEIpEI()
@@ -50,7 +50,7 @@ void DirectionCosineIeqcJec::simUpdateAll()
 {
     //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     DirectionCosineIecJec::simUpdateAll();
-    pAjOIepEIT = std::static_pointer_cast<EndFrameqc>(eFrmI)->pAjOepET(axisI);
+    pAjOIepEIT = std::static_pointer_cast<EndFrameq>(eFrmI)->pAjOepET(axisI);
     for (size_t i = 0; i < 4; i++)
     {
         pAijIeJepEI->at(i) = pAjOIepEIT->at(i)->dot(aAjOJe);

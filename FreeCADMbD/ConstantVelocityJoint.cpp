@@ -9,7 +9,7 @@
 #include "ConstantVelocityJoint.h"
 #include "System.h"
 #include "ConstVelConstraintIJ.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -45,8 +45,8 @@ void ConstantVelocityJoint::initializeGlobally()
 void ConstantVelocityJoint::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     //"Subsequent prescribed motions may make frmi, frmj become prescribed end frames."
-    //"Use newCopyEndFrameqc to prevent efrms from becoming EndFrameqct."
+    //"Use newCopyEndFrameq to prevent efrms from becoming EndFrameqt."
 
-    eFrmI = frmi->newCopyEndFrameqc();
-    eFrmJ = frmj->newCopyEndFrameqc();
+    eFrmI = frmi->newCopyEndFrameq();
+    eFrmJ = frmj->newCopyEndFrameq();
 }

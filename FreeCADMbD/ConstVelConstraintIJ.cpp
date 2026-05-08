@@ -9,15 +9,15 @@
 #include "ConstVelConstraintIJ.h"
 #include "DirectionCosineIecJec.h"
 #include "ConstVelConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<ConstVelConstraintIJ> ConstVelConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<ConstVelConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -128,6 +128,6 @@ void ConstVelConstraintIJ::addToJointForceI(FColDsptr col)
     //Do nothing.
 }
 
-void MbD::ConstVelConstraintIJ::addToJointTorqueI(FColDsptr col)
+void ConstVelConstraintIJ::addToJointTorqueI(FColDsptr col)
 {
 }

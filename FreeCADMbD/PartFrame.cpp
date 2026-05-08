@@ -12,8 +12,8 @@
 #include "Part.h"
 #include "EulerConstraint.h"
 #include "AbsConstraint.h"
-#include "MarkerFramec.h"
-#include "MarkerFrameqc.h"
+#include "MarkerFrame.h"
+#include "MarkerFrameq.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
 #include "RedundantConstraint.h"
@@ -53,9 +53,9 @@ bool PartFrame::has_qX() const
     return true;
 }
 
-std::shared_ptr<MarkerFramec> MbD::PartFrame::createMarkerFrame(const std::string& str)
+std::shared_ptr<MarkerFrame> PartFrame::createMarkerFrame(const std::string& str)
 {
-    return MarkerFrameqc::With(str);
+    return MarkerFrameq::With(str);
 }
 
 System* PartFrame::root()
@@ -151,7 +151,7 @@ Part* PartFrame::getPart() const {
     return part;
 }
 
-void PartFrame::addMarkerFrame(std::shared_ptr<MarkerFramec> markerFrame)
+void PartFrame::addMarkerFrame(std::shared_ptr<MarkerFrame> markerFrame)
 {
     markerFrame->setPartFrame(this);
     markerFrames->push_back(markerFrame);
@@ -338,14 +338,14 @@ void PartFrame::fillqsu(FColDsptr col)
 {
     col->atiputFullColumn(iqX, qX);
     col->atiputFullColumn(iqE, qE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsu(col); 
         });
 }
 
 void PartFrame::fillqsuWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsuWeights(mat); 
         });
 }
@@ -354,7 +354,7 @@ void PartFrame::fillqsuddotlam(FColDsptr col)
 {
     col->atiputFullColumn(iqX, qXddot);
     col->atiputFullColumn(iqE, qEddot);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsuddotlam(col); 
         });
     aGeu->fillqsuddotlam(col);
@@ -367,7 +367,7 @@ void PartFrame::fillqsulam(FColDsptr col)
 {
     col->atiputFullColumn(iqX, qX);
     col->atiputFullColumn(iqE, qE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsulam(col); 
         });
     aGeu->fillqsulam(col);
@@ -381,7 +381,7 @@ void PartFrame::fillpqsumu(FColDsptr col)
     //"Fill q, s and lam into col."
     col->atiputFullColumn(iqX, qX);
     col->atiputFullColumn(iqE, qE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillpqsumu(col); 
         });
     aGeu->fillpqsumu(col);
@@ -394,7 +394,7 @@ void PartFrame::fillpqsumudot(FColDsptr col)
 {
     col->atiputFullColumn(iqX, qXdot);
     col->atiputFullColumn(iqE, qEdot);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillpqsumudot(col); 
         });
     aGeu->fillpqsumudot(col);
@@ -407,21 +407,21 @@ void PartFrame::fillqsudot(FColDsptr col)
 {
     col->atiputFullColumn(iqX, qXdot);
     col->atiputFullColumn(iqE, qEdot);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsudot(col); 
         });
 }
 
 void PartFrame::fillqsudotWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillqsudotWeights(mat); 
         });
 }
 
 void PartFrame::useEquationNumbers()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->useEquationNumbers(); 
         });
     aGeu->useEquationNumbers();
@@ -434,7 +434,7 @@ void PartFrame::setqsu(FColDsptr col)
 {
     qX->equalFullColumnAt(col, iqX);
     qE->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsu(col); 
         });
     aGeu->setqsu(col);
@@ -447,7 +447,7 @@ void PartFrame::setqsulam(FColDsptr col)
 {
     qX->equalFullColumnAt(col, iqX);
     qE->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsulam(col); 
         });
     aGeu->setqsulam(col);
@@ -460,7 +460,7 @@ void PartFrame::setqsudotlam(FColDsptr col)
 {
     qXdot->equalFullColumnAt(col, iqX);
     qEdot->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsudotlam(col); 
         });
     aGeu->setqsudotlam(col);
@@ -473,7 +473,7 @@ void PartFrame::setqsudot(FColDsptr col)
 {
     qXdot->equalFullColumnAt(col, iqX);
     qEdot->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsudot(col); 
         });
 }
@@ -481,7 +481,7 @@ void PartFrame::setqsudot(FColDsptr col)
 void PartFrame::postPosICIteration()
 {
     CartesianFrame::postPosICIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postPosICIteration(); 
         });
     aGeu->postPosICIteration();
@@ -492,7 +492,7 @@ void PartFrame::postPosICIteration()
 
 void PartFrame::fillPosICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosICError(col); 
         });
     aGeu->fillPosICError(col);
@@ -503,7 +503,7 @@ void PartFrame::fillPosICError(FColDsptr col)
 
 void PartFrame::fillPosICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosICJacob(mat); 
         });
     aGeu->fillPosICJacob(mat);
@@ -514,7 +514,7 @@ void PartFrame::fillPosICJacob(SpMatDsptr mat)
 
 void PartFrame::postPosIC()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postPosIC(); 
         });
     aGeu->postPosIC();
@@ -525,7 +525,7 @@ void PartFrame::postPosIC()
 
 void PartFrame::preDyn()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preDyn(); 
         });
     aGeu->preDyn();
@@ -536,7 +536,7 @@ void PartFrame::preDyn()
 
 void PartFrame::storeDynState()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->storeDynState(); 
         });
     aGeu->storeDynState();
@@ -547,7 +547,7 @@ void PartFrame::storeDynState()
 
 void PartFrame::fillPosKineError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosKineError(col); 
         });
     aGeu->fillPosKineError(col);
@@ -559,7 +559,7 @@ void PartFrame::fillPosKineError(FColDsptr col)
 void PartFrame::preVelIC()
 {
     CartesianFrame::preVelIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preVelIC(); 
         });
     aGeu->preVelIC();
@@ -572,7 +572,7 @@ void PartFrame::postVelIC()
 {
     qEdot->calcAdotBdotCdot();
     qEdot->calcpAdotpE();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postVelIC(); 
         });
     aGeu->postVelIC();
@@ -583,7 +583,7 @@ void PartFrame::postVelIC()
 
 void PartFrame::fillVelICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillVelICError(col); 
         });
     aGeu->fillVelICError(col);
@@ -594,7 +594,7 @@ void PartFrame::fillVelICError(FColDsptr col)
 
 void PartFrame::fillVelICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillVelICJacob(mat); 
         });
     aGeu->fillVelICJacob(mat);
@@ -608,7 +608,7 @@ void PartFrame::preAccIC()
     qXddot = std::make_shared<FullColumn<double>>(3, 0.0);
     qEddot = std::make_shared<FullColumn<double>>(4, 0.0);
     CartesianFrame::preAccIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preAccIC(); 
         });
     aGeu->preAccIC();
@@ -619,7 +619,7 @@ void PartFrame::preAccIC()
 
 void PartFrame::fillAccICIterError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillAccICIterError(col); 
         });
     aGeu->fillAccICIterError(col);
@@ -630,7 +630,7 @@ void PartFrame::fillAccICIterError(FColDsptr col)
 
 void PartFrame::fillAccICIterJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillAccICIterJacob(mat); 
         });
     aGeu->fillAccICIterJacob(mat);
@@ -643,7 +643,7 @@ void PartFrame::setqsuddotlam(FColDsptr col)
 {
     qXddot->equalFullColumnAt(col, iqX);
     qEddot->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setqsuddotlam(col); 
         });
     aGeu->setqsuddotlam(col);
@@ -659,7 +659,7 @@ FMatDsptr PartFrame::aBOp() const
 
 void PartFrame::fillPosKineJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillPosKineJacob(mat); 
         });
     aGeu->fillPosKineJacob(mat);
@@ -695,7 +695,7 @@ double PartFrame::suggestSmallerOrAcceptDynStepSize(double hnew)
         logString("MbD: Time step limited by rotation limit per step.");
         hnew2 = hrot;
     }
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         hnew2 = markerFrame->suggestSmallerOrAcceptDynStepSize(hnew2); 
         });
     hnew2 = aGeu->suggestSmallerOrAcceptDynStepSize(hnew2);
@@ -707,7 +707,7 @@ double PartFrame::suggestSmallerOrAcceptDynStepSize(double hnew)
 
 void PartFrame::postDynStep()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynStep(); 
         });
     aGeu->postDynStep();
@@ -720,7 +720,7 @@ void PartFrame::setpqsumu(FColDsptr col)
 {
     qX->equalFullColumnAt(col, iqX);
     qE->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumu(col); 
         });
     aGeu->setpqsumu(col);
@@ -733,7 +733,7 @@ void PartFrame::setpqsumudot(FColDsptr col)
 {
     qXdot->equalFullColumnAt(col, iqX);
     qEdot->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumudot(col); 
         });
     aGeu->setpqsumudot(col);
@@ -746,7 +746,7 @@ void PartFrame::setpqsumuddot(FColDsptr col)
 {
     qXddot->equalFullColumnAt(col, iqX);
     qEddot->equalFullColumnAt(col, iqE);
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->setpqsumuddot(col); 
         });
     aGeu->setpqsumuddot(col);
@@ -758,7 +758,7 @@ void PartFrame::setpqsumuddot(FColDsptr col)
 void PartFrame::postDynPredictor()
 {
     CartesianFrame::postDynPredictor();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynPredictor(); 
         });
     aGeu->postDynPredictor();
@@ -769,7 +769,7 @@ void PartFrame::postDynPredictor()
 
 void PartFrame::fillDynError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->fillDynError(col); 
         });
     aGeu->fillDynError(col);
@@ -780,7 +780,7 @@ void PartFrame::fillDynError(FColDsptr col)
 
 void PartFrame::fillpFpy(SpMatDsptr mat)
 {
-    //markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    //markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
     // markerFrame->fillpFpy(mat); 
     // });
     aGeu->fillpFpy(mat);
@@ -791,7 +791,7 @@ void PartFrame::fillpFpy(SpMatDsptr mat)
 
 void PartFrame::fillpFpydot(SpMatDsptr mat)
 {
-    //markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    //markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
     // markerFrame->fillpFpydot(mat); 
     // });
     aGeu->fillpFpydot(mat);
@@ -803,7 +803,7 @@ void PartFrame::fillpFpydot(SpMatDsptr mat)
 void PartFrame::postDynCorrectorIteration()
 {
     CartesianFrame::postDynCorrectorIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynCorrectorIteration(); 
         });
     aGeu->postDynCorrectorIteration();
@@ -815,7 +815,7 @@ void PartFrame::postDynCorrectorIteration()
 void PartFrame::preDynOutput()
 {
     CartesianFrame::preDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->preDynOutput(); 
         });
     aGeu->preDynOutput();
@@ -827,7 +827,7 @@ void PartFrame::preDynOutput()
 void PartFrame::postDynOutput()
 {
     CartesianFrame::postDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postDynOutput(); 
         });
     aGeu->postDynOutput();
@@ -850,7 +850,7 @@ void PartFrame::postInput()
     qXddot = std::make_shared<FullColumn<double>>(3, 0.0);
     qEddot = std::make_shared<FullColumn<double>>(4, 0.0);
     CartesianFrame::postInput();
-    markerFramesDo([&](std::shared_ptr<MarkerFramec> markerFrame) { 
+    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
         markerFrame->postInput(); 
         });
     aGeu->postInput();

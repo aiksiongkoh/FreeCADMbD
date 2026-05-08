@@ -8,15 +8,15 @@
  
 #include "DistancexyConstraintIJ.h"
 #include "DistancexyConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<DistancexyConstraintIJ> DistancexyConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<DistancexyConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -53,13 +53,13 @@ void DistancexyConstraintIJ::initializeLocally()
     yIeJeIe->initializeLocally();
 }
 
-void MbD::DistancexyConstraintIJ::useUniqueDispIeJeO()
+void DistancexyConstraintIJ::useUniqueDispIeJeO()
 {
     xIeJeIe->useUniqueDispIeJeO();
     yIeJeIe->useUniqueDispIeJeO();
 }
 
-void MbD::DistancexyConstraintIJ::useUniqueDispIeJeKe()
+void DistancexyConstraintIJ::useUniqueDispIeJeKe()
 {
     xIeJeIe->useUniqueDispIeJeKe();
     yIeJeIe->useUniqueDispIeJeKe();
