@@ -71,7 +71,7 @@ void ASMTForceTorque::compareResults(AnalysisType)
     lambda("TIOz", cTIO, 2, intzs, i, nDigit, torqueTol);
 }
 
-void MbD::ASMTForceTorque::compareResults2(AnalysisType type)
+void ASMTForceTorque::compareResults2(AnalysisType type)
 {
     if (dataSeriesIn == nullptr || dataSeriesIn->empty())
         return;

@@ -10,7 +10,7 @@
 #include <numbers>
 
 #include "ScrewConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "DispCompiIeJeIe.h"
 #include "AngleZIeqcJeqc.h"
 
@@ -86,8 +86,8 @@ void ScrewConstraintIqcJqc::fillAccICIterError(FColDsptr col)
     ScrewConstraintIqcJc::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = frmIeqc->qEdot();
     auto qXdotJ = frmJeqc->qXdot();
     auto qEdotJ = frmJeqc->qEdot();
@@ -142,7 +142,7 @@ void ScrewConstraintIqcJqc::fillVelICJacob(SpMatDsptr mat)
 void ScrewConstraintIqcJqc::useEquationNumbers()
 {
     ScrewConstraintIqcJc::useEquationNumbers();
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     iqXJ = frmJeqc->iqX();
     iqEJ = frmJeqc->iqE();
 }

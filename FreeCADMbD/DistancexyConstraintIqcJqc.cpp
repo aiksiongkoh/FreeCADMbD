@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DistancexyConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "DispCompiIeJeIe.h"
 
 using namespace MbD;
@@ -114,8 +114,8 @@ void DistancexyConstraintIqcJqc::fillAccICIterError(FColDsptr col)
     DistancexyConstraintIqcJc::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qXdotI = frmIeqc->qXdot();
     auto qEdotI = frmIeqc->qEdot();
     auto qXdotJ = frmJeqc->qXdot();
@@ -193,7 +193,7 @@ void DistancexyConstraintIqcJqc::init_xyIeJeIe()
 void DistancexyConstraintIqcJqc::useEquationNumbers()
 {
     DistancexyConstraintIqcJc::useEquationNumbers();
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     iqXJ = frmJeqc->iqX();
     iqEJ = frmJeqc->iqE();
 }

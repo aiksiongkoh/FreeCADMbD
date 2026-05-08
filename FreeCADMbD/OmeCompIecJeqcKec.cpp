@@ -1,5 +1,5 @@
 #include "OmeCompIecJeqcKec.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -37,7 +37,7 @@ void OmeCompIecJeqcKec::simUpdateAll()
     //omeIeJeKe = AKeO * omeIeJeO
     //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
     aAjOKe = efrmK->aAjOe(axisK);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     omeIeJeO = eFrmJqc->omeOeO(); //omeOIeO is zero
     omeiIeJeKe = aAjOKe->dot(omeIeJeO);
     auto pomeIeJeOpEJ = eFrmJqc->pomeOeOpE();

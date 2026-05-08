@@ -11,15 +11,15 @@
 
 #include "ScrewConstraintIJ.h"
 #include "ScrewConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<ScrewConstraintIJ> ScrewConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<ScrewConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;
@@ -61,13 +61,13 @@ void ScrewConstraintIJ::initializeLocally()
     thezIeJe->initializeLocally();
 }
 
-void MbD::ScrewConstraintIJ::useUniqueDispIeJeO()
+void ScrewConstraintIJ::useUniqueDispIeJeO()
 {
     zIeJeIe->useUniqueDispIeJeO();
     thezIeJe->useUniqueDispIeJeO();
 }
 
-void MbD::ScrewConstraintIJ::useUniqueDispIeJeKe()
+void ScrewConstraintIJ::useUniqueDispIeJeKe()
 {
     zIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();

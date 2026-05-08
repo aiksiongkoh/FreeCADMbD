@@ -7,9 +7,7 @@
  ***************************************************************************/
 
 #include "TranslationConstraintIeJeq.h"
-#include "DispCompIeqcJeqcKeqc.h"
-#include "DispCompIecJeqcKec.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -83,7 +81,7 @@ void TranslationConstraintIeJeq::addToJointTorqueI(FColDsptr col)
     }
     auto lampGpEJ = pGpEJ->transpose()->times(lam);  //lam * pGpEJ
     auto aTJeO = aBOJp->timesFullColumn(lampGpEJ->minusFullColumn(prOJeOpEJTaFJeO))->times(0.5);
-    auto rJeIeO = getrIeJeO()->negated();
+    auto rJeIeO = rIeJeO->negated();
     auto aFJeO = aFJeOT->transpose();
     auto aTIeO = rJeIeO->cross(aFJeO)->minusFullColumn(aTJeO);
     col->equalSelfPlus(aTIeO);
@@ -122,7 +120,7 @@ void TranslationConstraintIeJeq::fillVelICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
-void MbD::TranslationConstraintIeJeq::calcppGpEJpEJ()
+void TranslationConstraintIeJeq::calcppGpEJpEJ()
 {
     ppGpEJpEJ = riIeJeIe->ppvaluepEJpEJ();
 }
@@ -132,7 +130,7 @@ void TranslationConstraintIeJeq::fillAccICIterError(FColDsptr col)
     TranslationConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();
     double sum = pGpXJ->timesFullColumn(frmJeq->qXddot());
@@ -141,14 +139,14 @@ void TranslationConstraintIeJeq::fillAccICIterError(FColDsptr col)
     col->atiplusNumber(iG, sum);
 }
 
-void MbD::TranslationConstraintIeJeq::calcpGpXJ()
+void TranslationConstraintIeJeq::calcpGpXJ()
 {
     pGpXJ = riIeJeIe->pvaluepXJ();
     // auto prIeJeIepXJ = dispIeJeIe->getpVectorpXJ();
     // pGpXJ = prIeJeIepXJ->at(axisI);
 }
 
-void MbD::TranslationConstraintIeJeq::calcpGpEJ()
+void TranslationConstraintIeJeq::calcpGpEJ()
 {
     pGpEJ = riIeJeIe->pvaluepEJ();
 }

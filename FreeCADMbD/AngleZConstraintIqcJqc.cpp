@@ -8,7 +8,7 @@
 
 #include "AngleZConstraintIqcJqc.h"
 #include "AngleZIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -45,8 +45,8 @@ void AngleZConstraintIqcJqc::fillAccICIterError(FColDsptr col)
 {
     AngleZConstraintIqcJc::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = frmIeqc->qEdot();
     auto qXdotJ = frmJeqc->qXdot();
     auto qEdotJ = frmJeqc->qEdot();
@@ -90,6 +90,6 @@ void AngleZConstraintIqcJqc::fillVelICJacob(SpMatDsptr mat)
 void AngleZConstraintIqcJqc::useEquationNumbers()
 {
     AngleZConstraintIqcJc::useEquationNumbers();
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     iqEJ = frmJeqc->iqE();
 }

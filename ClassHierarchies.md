@@ -67,15 +67,15 @@ std::enable_shared_from_this<ASMTItem>
 std::enable_shared_from_this<Item>
 `- Item
    |- CartesianFrame
-   |  |- EndFramec
+   |  |- EndFrame
    |  |  |- EndFrameccq
-   |  |  |- EndFramect
-   |  |  `- EndFrameqc
+   |  |  |- EndFramet
+   |  |  `- EndFrameq
    |  |     |- EndFrameqccq
-   |  |     `- EndFrameqct
-   |  |        `- EndFrameqct2
-   |  |- MarkerFramec
-   |  |  `- MarkerFrameqc
+   |  |     `- EndFrameqt
+   |  |        `- EndFrameqt2
+   |  |- MarkerFrame
+   |  |  `- MarkerFrameq
    |  `- SpatialContainerFrame
    |     |- AssemblyFrame
    |     `- PartFrame
@@ -96,13 +96,12 @@ std::enable_shared_from_this<Item>
    |  |  |     `- DirectionCosineConstraintIeqJeq
    |  |  |        `- DirectionCosineConstraintIeqtJeq
    |  |  |           `- AllowZRotationConstraintIeqtJeq
-   |  |  `- TranslationConstraintIeJe
-   |  |     |- TranslationConstraintIeJeq
-   |  |     |  `- TranslationConstraintIetJeq
-   |  |     `- TranslationConstraintIeqJe
-   |  |        `- TranslationConstraintIeqJeq
-   |  |           `- TranslationConstraintIeqtJeq
-   |  |- ConstraintIJ
+   |  |  |- TranslationConstraintIeJe
+   |  |  |  |- TranslationConstraintIeJeq
+   |  |  |  |  `- TranslationConstraintIetJeq
+   |  |  |  `- TranslationConstraintIeqJe
+   |  |  |     `- TranslationConstraintIeqJeq
+   |  |  |        `- TranslationConstraintIeqtJeq
    |  |  |- AngleZConstraintIJ
    |  |  |  |- AngleZConstraintIcJqc
    |  |  |  `- AngleZConstraintIqcJc
@@ -193,26 +192,12 @@ std::enable_shared_from_this<Item>
    |  |  |  `- DirectionCosineIeqcJec
    |  |  |     `- DirectionCosineIeqcJeqc
    |  |  |        `- DirectionCosineIeqctJeqc
-   |  |  |- DispCompIecJecIe
-   |  |  |  |- DispCompIecJeqcIe
-   |  |  |  |  `- DispCompIectJeqcIe
-   |  |  |  `- DispCompIeqcJecIe
-   |  |  |     `- DispCompIeqcJeqcIe
-   |  |  |        `- DispCompIeqctJeqcIe
-   |  |  |- DispCompIecJecKec
-   |  |  |  |- DispCompIecJecKeqc
-   |  |  |  |  `- DispCompIeqcJecKeqc
-   |  |  |  |     `- DispCompIeqcJeqcKeqc
-   |  |  |  |        `- DispCompIeqcJeqcKeqct
-   |  |  |  |           `- DispCompIeqctJeqcKeqct
-   |  |  |  `- DispCompIecJeqcKec
-   |  |  |     `- DispCompIectJeqcKect
-   |  |  |- DispCompIecJecO
-   |  |  |  |- DispCompIecJeqcO
-   |  |  |  |  `- DispCompIectJeqcO
-   |  |  |  `- DispCompIeqcJecO
-   |  |  |     `- DispCompIeqcJeqcO
-   |  |  |        `- DispCompIeqctJeqcO
+   |  |  |- DistIeJe
+   |  |  |  |- DistIeqJe
+   |  |  |  |  `- DistIeqJeq
+   |  |  |  |     `- DistIeqtJeq
+   |  |  |  `- DistIeJeq
+   |  |  |     `- DistIetJeq
    |  |  |- DistIecJec
    |  |  |  |- DistIecJeqc
    |  |  |  |  `- DistIectJeqc

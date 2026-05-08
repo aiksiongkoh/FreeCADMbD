@@ -63,13 +63,13 @@ void OrbitAngleZIecJec::initializeLocally()
     yIeJeIe->initializeLocally();
 }
 
-void MbD::OrbitAngleZIecJec::useUniqueDispIeJeO()
+void OrbitAngleZIecJec::useUniqueDispIeJeO()
 {
     xIeJeIe->useUniqueDispIeJeO();
     yIeJeIe->useUniqueDispIeJeO();
 }
 
-void MbD::OrbitAngleZIecJec::useUniqueDispIeJeKe()
+void OrbitAngleZIecJec::useUniqueDispIeJeKe()
 {
     xIeJeIe->useUniqueDispIeJeKe();
     yIeJeIe->useUniqueDispIeJeKe();

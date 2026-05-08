@@ -12,8 +12,8 @@
 
 namespace MbD {
     class Constraint;
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class JointIJ : public ConstraintSet
     {

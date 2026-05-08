@@ -28,17 +28,14 @@ void DispCompiIeJeO::initialize()
 void DispCompiIeJeO::initializeLocally()
 {
     KinematicCompiIeJe::initializeLocally();
-    syncDispIeJeO();
-    dispIeJeO->initializeLocally();
 }
 
 void DispCompiIeJeO::initializeGlobally()
 {
-    syncDispIeJeO();
-    dispIeJeO->initializeGlobally();
+    KinematicCompiIeJe::initializeGlobally();
 }
 
-void MbD::DispCompiIeJeO::useUniqueDispIeJeO()
+void DispCompiIeJeO::useUniqueDispIeJeO()
 {
     auto dispIeJeOs = root()->dispIeJeOs;
     auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
@@ -58,9 +55,4 @@ std::shared_ptr<KinematicVectorIeJe> DispCompiIeJeO::kineVector() const
 FColDsptr DispCompiIeJeO::currentVector() const
 {
     return dispIeJeO->rIeJeO;
-}
-
-void DispCompiIeJeO::syncDispIeJeO() const
-{
-    dispIeJeO->withFrmIFrmJ(eFrmI, eFrmJ);
 }

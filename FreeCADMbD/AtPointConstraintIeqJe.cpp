@@ -7,8 +7,7 @@
  ***************************************************************************/
  
 #include "AtPointConstraintIeqJe.h"
-#include "DispCompIeqcJeqcO.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -49,7 +48,7 @@ void AtPointConstraintIeqJe::calcpGpEI()
 
 void AtPointConstraintIeqJe::calcppGpEIpEI()
 {
-    //ppGpEIpEI is constant for EndFrameqc, but not for EndFrameqct.
+    //ppGpEIpEI is constant for EndFrameq, but not for EndFrameqt.
     ppGpEIpEI = dispIeJeO->getppCompipEIpEI(axis);
 }
 
@@ -107,7 +106,7 @@ void AtPointConstraintIeqJe::fillVelICJacob(SpMatDsptr mat)
     mat->atijplusFullColumn(iqEI, iG, pGpEI->transpose());
 }
 
-void MbD::AtPointConstraintIeqJe::fillPosKineJacob(SpMatDsptr mat)
+void AtPointConstraintIeqJe::fillPosKineJacob(SpMatDsptr mat)
 {
     AtPointConstraintIeJe::fillPosKineJacob(mat);
     mat->atijplusFullRow(iG, iqXI, pGpXI);
@@ -119,7 +118,7 @@ void AtPointConstraintIeqJe::fillAccICIterError(FColDsptr col)
     AtPointConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qXdotI = frmIeq->qXdot();
     auto qEdotI = frmIeq->qEdot();
     auto sum = pGpXI->timesFullColumn(frmIeq->qXddot());

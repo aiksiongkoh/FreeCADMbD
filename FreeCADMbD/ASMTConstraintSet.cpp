@@ -11,7 +11,7 @@
 #include "ASMTMarker.h"
 #include "JointIJ.h"
 #include "FullMatrix.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "Part.h"
 #include "SimulationStoppingError.h"
 #include "ForceTorqueData.h"
@@ -31,8 +31,8 @@ void ASMTConstraintSet::createMbD()
     auto mbdJt = mbdClassNew();
     mbdObject = mbdJt;
     mbdJt->name = fullName("");
-    auto mrkI = std::static_pointer_cast<EndFramec>(markerI->mbdObject);
-    auto mrkJ = std::static_pointer_cast<EndFramec>(markerJ->mbdObject);
+    auto mrkI = std::static_pointer_cast<EndFrame>(markerI->mbdObject);
+    auto mrkJ = std::static_pointer_cast<EndFrame>(markerJ->mbdObject);
     mbdJt->connectsItoJ(mrkI, mrkJ);
 }
 
@@ -66,7 +66,7 @@ void ASMTConstraintSet::updateFromMbD()
     cTIO->push_back(aTIO);
 }
 
-std::shared_ptr<StateData> MbD::ASMTConstraintSet::dataFromMbD()
+std::shared_ptr<StateData> ASMTConstraintSet::dataFromMbD()
 {
     auto mbdUnts = mbdUnits();
     auto aConstraintSet = std::static_pointer_cast<ConstraintSet>(mbdObject);
@@ -123,7 +123,7 @@ void ASMTConstraintSet::compareResults(AnalysisType)
     lambda("TIOz", cTIO, 2, intzs, i, nDigit, torqueTol);
 }
 
-void MbD::ASMTConstraintSet::compareResults2(AnalysisType type)
+void ASMTConstraintSet::compareResults2(AnalysisType type)
 {
     // Redundant constraint removal is very sensitive to numerical noise.
     // Joint ForceTorque can change a lot when new and old redundant constraints are not the same.

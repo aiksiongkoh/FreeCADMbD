@@ -27,7 +27,7 @@ std::shared_ptr<GeneralSpline> GeneralSpline::With()
     return inst;
 }
 
-std::shared_ptr<GeneralSpline> MbD::GeneralSpline::With(Symsptr arg)
+std::shared_ptr<GeneralSpline> GeneralSpline::With(Symsptr arg)
 {
     auto inst = std::make_shared<GeneralSpline>(arg);
     inst->initialize();
@@ -239,7 +239,7 @@ Symsptr GeneralSpline::clonesptr()
     return std::make_shared<GeneralSpline>(*this);
 }
 
-Symsptr MbD::GeneralSpline::copyWith(Symsptr arg)
+Symsptr GeneralSpline::copyWith(Symsptr arg)
 {
     return GeneralSpline::With(arg);
 }
@@ -258,12 +258,12 @@ double GeneralSpline::y(double xxx)
     return ys->at(index) + sum;
 }
 
-Symsptr MbD::GeneralSpline::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
+Symsptr GeneralSpline::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
 {
     return sptr;
 }
 
-Symsptr MbD::GeneralSpline::simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
+Symsptr GeneralSpline::simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
 {
     return sptr;
 }

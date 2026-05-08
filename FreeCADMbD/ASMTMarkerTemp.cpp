@@ -12,7 +12,7 @@
 #include "ASMTAssembly.h"
 #include "Part.h"
 #include "PartFrame.h"
-#include "MarkerFrameqc.h"
+#include "MarkerFrameq.h"
 
 using namespace MbD;
 
@@ -89,8 +89,8 @@ void ASMTMarkerTemp::createMbD()
     auto asmtPrt = dynamic_cast<ASMTPart*>(partOrAssembly());
     auto prt = std::static_pointer_cast<Part>(asmtPrt->mbdObject);
     auto prtfrm = prt->partFrame;
-    auto mkr = MarkerFrameqc::With(name.c_str());
-    auto efrm = EndFrameqc::With();
+    auto mkr = MarkerFrameq::With(name.c_str());
+    auto efrm = EndFrameq::With();
     prtfrm->addMarkerFrame(mkr);
     mkr->rpmp = rpmp()->times(asmtUnits()->length);
     mkr->aApm = aApm();

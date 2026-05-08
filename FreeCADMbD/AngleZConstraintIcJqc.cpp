@@ -8,7 +8,7 @@
 
 #include "AngleZConstraintIcJqc.h"
 #include "AngleZIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -27,7 +27,7 @@ void AngleZConstraintIcJqc::calcppGpEJpEJ()
     ppGpEJpEJ = thezIeJe->ppvaluepEJpEJ();
 }
 
-void MbD::AngleZConstraintIcJqc::addToJointTorqueI(FColDsptr col)
+void AngleZConstraintIcJqc::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
     //frmIec does not have q, we use frmJeqc
@@ -55,8 +55,8 @@ void AngleZConstraintIcJqc::fillAccICIterError(FColDsptr col)
 {
     AngleZConstraintIJ::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = frmIeqc->qEdot();
     auto qXdotJ = frmJeqc->qXdot();
     auto qEdotJ = frmJeqc->qEdot();
@@ -96,6 +96,6 @@ void AngleZConstraintIcJqc::fillVelICJacob(SpMatDsptr mat)
 void AngleZConstraintIcJqc::useEquationNumbers()
 {
     AngleZConstraintIJ::useEquationNumbers();
-    auto frmJeqc = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmJeqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
     iqEJ = frmJeqc->iqE();
 }

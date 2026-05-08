@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DispIeJeqKeq.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -18,7 +18,7 @@ std::shared_ptr<DispIeJeqKeq> DispIeJeqKeq::With(EndFrmsptr frmi, EndFrmsptr frm
     return inst;
 }
 
-void MbD::DispIeJeqKeq::simUpdateAll()
+void DispIeJeqKeq::simUpdateAll()
 {
     DispIeJeKe::simUpdateAll();
     calcpVectorpEK();
@@ -27,36 +27,36 @@ void MbD::DispIeJeqKeq::simUpdateAll()
     calcppVectorpEKpEK();
 }
 
-void MbD::DispIeJeqKeq::calcppVectorpXJpEK()
+void DispIeJeqKeq::calcppVectorpXJpEK()
 {
     // pprIeJeKepXJpEK = pAOKeTpEK * prIeJeOpXJ
     auto prIeJeOpXJ = dispIeJeO->getpVectorpXJ();
     pprIeJeKepXJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpXJ);
 }
 
-void MbD::DispIeJeqKeq::calcppVectorpEJpEK()
+void DispIeJeqKeq::calcppVectorpEJpEK()
 {
     // pprIeJeKepEJpEK = pAOKeTpEK * prIeJeOpEJ
     auto prIeJeOpEJ = dispIeJeO->getpVectorpEJ();
     pprIeJeKepEJpEK = eFrmK->pAOeTpEtimesFullMatrix(prIeJeOpEJ);
 }
 
-FMatDsptr MbD::DispIeJeqKeq::getpVectorpEK()
+FMatDsptr DispIeJeqKeq::getpVectorpEK()
 {
     return prIeJeKepEK;
 }
 
-FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpXJpEK()
+FMatFColDsptr DispIeJeqKeq::getppVectorpXJpEK()
 {
     return pprIeJeKepXJpEK;
 }
 
-FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpEJpEK()
+FMatFColDsptr DispIeJeqKeq::getppVectorpEJpEK()
 {
     return pprIeJeKepEJpEK;
 }
 
-FMatFColDsptr MbD::DispIeJeqKeq::getppVectorpEKpEK()
+FMatFColDsptr DispIeJeqKeq::getppVectorpEKpEK()
 {
     return pprIeJeKepEKpEK;
 }

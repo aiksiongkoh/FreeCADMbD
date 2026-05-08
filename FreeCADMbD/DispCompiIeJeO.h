@@ -25,11 +25,11 @@ namespace MbD {
         void initializeGlobally() override;
         void useUniqueDispIeJeO() override;
 
-        std::shared_ptr<DispIeJeO> dispIeJeO;
+        // dispIeJeO is updated at global level
+        std::shared_ptr<DispIeJeO> dispIeJeO; 
 
     protected:
         std::shared_ptr<KinematicVectorIeJe> kineVector() const override;
         FColDsptr currentVector() const override;
-        void syncDispIeJeO() const;
     };
 }

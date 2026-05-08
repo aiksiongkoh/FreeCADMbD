@@ -7,9 +7,9 @@
  ***************************************************************************/
  
 #include "DispIeJeKe.h"
-#include "EndFramec.h"
-#include "EndFramect.h"
-#include "EndFrameqct.h"
+#include "EndFrame.h"
+#include "EndFramet.h"
+#include "EndFrameqt.h"
 #include "DispIeqJeKeq.h"
 #include "DispIeqJeqKeq.h"
 #include "DispIeJeqKe.h"
@@ -21,63 +21,63 @@ using namespace MbD;
 std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
 {
     std::shared_ptr<DispIeJeKe> inst;
-    if (std::dynamic_pointer_cast<EndFrameqct>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameqc>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(frmk->has_qX());
             inst = std::make_shared<DispIeqJeqKeq>(frmi, frmj, frmk);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             assert(frmk->has_qX());
             inst = std::make_shared<DispIeqJeKeq>(frmi, frmj, frmk);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramect>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(!frmk->has_qX());
             inst = std::make_shared<DispIetJeqKet>(frmi, frmj, frmk);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramec>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqct>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFrameqc>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(!frmk->has_qX());
             inst = std::make_shared<DispIeJeqKe>(frmi, frmj, frmk);
         }
-        else if (std::dynamic_pointer_cast<EndFramect>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
-        else if (std::dynamic_pointer_cast<EndFramec>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             throw SimulationStoppingError("To be implemented.");
         }
     }
@@ -86,12 +86,12 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, E
     return inst;
 }
 
-void MbD::DispIeJeKe::initialize()
+void DispIeJeKe::initialize()
 {
     dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
 }
 
-void MbD::DispIeJeKe::initializeGlobally()
+void DispIeJeKe::initializeGlobally()
 {
     //Do nothing.
 }
@@ -101,7 +101,7 @@ void DispIeJeKe::simUpdateAll()
     calcVector();
 }
 
-void MbD::DispIeJeKe::calcVector()
+void DispIeJeKe::calcVector()
 {
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
@@ -122,52 +122,52 @@ void MbD::DispIeJeKe::calcVector()
     rIeJeKe = aAOKe->transposeTimesFullColumn(rIeJeO);
 }
 
-FColDsptr MbD::DispIeJeKe::getVector()
+FColDsptr DispIeJeKe::getVector()
 {
     return rIeJeKe;
 }
 
-FMatDsptr MbD::DispIeJeKe::getpVectorpXI()
+FMatDsptr DispIeJeKe::getpVectorpXI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getpVectorpEI()
+FMatDsptr DispIeJeKe::getpVectorpEI()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getpVectorpXJ()
+FMatDsptr DispIeJeKe::getpVectorpXJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getpVectorpEJ()
+FMatDsptr DispIeJeKe::getpVectorpEJ()
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppCompipEIpEI(size_t axis)
+FMatDsptr DispIeJeKe::getppCompipEIpEI(size_t axis)
 {
     return FMatDsptr();
 }
 
-FMatDsptr MbD::DispIeJeKe::getppCompipEJpEJ(size_t axis)
+FMatDsptr DispIeJeKe::getppCompipEJpEJ(size_t axis)
 {
     return FMatDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getpVectorpt()
+FColDsptr DispIeJeKe::getpVectorpt()
 {
     return FColDsptr();
 }
 
-FColDsptr MbD::DispIeJeKe::getppVectorptpt()
+FColDsptr DispIeJeKe::getppVectorptpt()
 {
     return FColDsptr();
 }
 
-bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
+bool DispIeJeKe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const
 {
     auto disp = std::dynamic_pointer_cast<DispIeJeKe>(other);
     if (disp) {
@@ -176,7 +176,7 @@ bool MbD::DispIeJeKe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> 
     return false;
 }
 
-void MbD::DispIeJeKe::useUniqueDispIeJeO()
+void DispIeJeKe::useUniqueDispIeJeO()
 {
     auto dispIeJeOs = root()->dispIeJeOs;
     auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });

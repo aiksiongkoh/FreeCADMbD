@@ -134,7 +134,6 @@ set(FREECADMBD_SRC
 		ConstantVelocityJoint.cpp
 		Constraint.cpp
 		ConstraintIeJe.cpp
-		ConstraintIJ.cpp
 		ConstraintSet.cpp
 		ConstVelConstraintIJ.cpp
 		ConstVelConstraintIqcJc.cpp
@@ -170,26 +169,6 @@ set(FREECADMBD_SRC
 		DispCompiIeJeIe.cpp
 		DispCompiIeJeKe.cpp
 		DispCompiIeJeO.cpp
-		DispCompIecJecIe.cpp
-		DispCompIecJecKec.cpp
-		DispCompIecJecKeqc.cpp
-		DispCompIecJecO.cpp
-		DispCompIecJeqcIe.cpp
-		DispCompIecJeqcKec.cpp
-		DispCompIectJeqcKect.cpp
-		DispCompIecJeqcO.cpp
-		DispCompIectJeqcIe.cpp
-		DispCompIectJeqcO.cpp
-		DispCompIeqcJecIe.cpp
-		DispCompIeqcJecKeqc.cpp
-		DispCompIeqcJecO.cpp
-		DispCompIeqcJeqcIe.cpp
-		DispCompIeqcJeqcKeqc.cpp
-		DispCompIeqcJeqcKeqct.cpp
-		DispCompIeqcJeqcO.cpp
-		DispCompIeqctJeqcIe.cpp
-		DispCompIeqctJeqcKeqct.cpp
-		DispCompIeqctJeqcO.cpp
 		DispIeJeO.cpp
 		DispIeJeqO.cpp
 		DispIetJeqO.cpp
@@ -213,6 +192,11 @@ set(FREECADMBD_SRC
 		DistancexyConstraintIJ.cpp
 		DistancexyConstraintIqcJc.cpp
 		DistancexyConstraintIqcJqc.cpp
+		DistIeJe.cpp
+		DistIeJeq.cpp
+		DistIeqJe.cpp
+		DistIeqJeq.cpp
+		DistIeqtJeq.cpp
 		DistIecJec.cpp
 		DistIecJeqc.cpp
 		DistIectJeqc.cpp
@@ -225,13 +209,13 @@ set(FREECADMBD_SRC
 		DistxyIeqctJeqc.cpp
 		DynIntegrator.cpp
 		EigenDecomposition.cpp
-		EndFramec.cpp
+		EndFrame.cpp
 		EndFrameccq.cpp
-		EndFramect.cpp
-		EndFrameqc.cpp
+		EndFramet.cpp
+		EndFrameq.cpp
 		EndFrameqccq.cpp
-		EndFrameqct.cpp
-		EndFrameqct2.cpp
+		EndFrameqt.cpp
+		EndFrameqt2.cpp
 		EulerAngles.cpp
 		EulerAnglesDDot.cpp
 		EulerAnglesDot.cpp
@@ -312,8 +296,8 @@ set(FREECADMBD_SRC
 		Ln.cpp
 		Log10.cpp
 		LogN.cpp
-		MarkerFramec.cpp
-		MarkerFrameqc.cpp
+		MarkerFrame.cpp
+		MarkerFrameq.cpp
 		MatrixDecomposition.cpp
 		MatrixGaussElimination.cpp
 		MatrixLDU.cpp
@@ -607,7 +591,6 @@ set(FREECADMBD_HEADERS
 		ConstantVelocityJoint.h
 		Constraint.h
 		ConstraintIeJe.h
-		ConstraintIJ.h
 		ConstraintSet.h
 		ConstVelConstraintIJ.h
 		ConstVelConstraintIqcJc.h
@@ -643,26 +626,6 @@ set(FREECADMBD_HEADERS
 		DispCompiIeJeIe.h
 		DispCompiIeJeKe.h
 		DispCompiIeJeO.h
-		DispCompIecJecIe.h
-		DispCompIecJecKec.h
-		DispCompIecJecKeqc.h
-		DispCompIecJecO.h
-		DispCompIecJeqcIe.h
-		DispCompIecJeqcKec.h
-		DispCompIectJeqcKect.h
-		DispCompIecJeqcO.h
-		DispCompIectJeqcIe.h
-		DispCompIectJeqcO.h
-		DispCompIeqcJecIe.h
-		DispCompIeqcJecKeqc.h
-		DispCompIeqcJecO.h
-		DispCompIeqcJeqcIe.h
-		DispCompIeqcJeqcKeqc.h
-		DispCompIeqcJeqcKeqct.h
-		DispCompIeqcJeqcO.h
-		DispCompIeqctJeqcIe.h
-		DispCompIeqctJeqcKeqct.h
-		DispCompIeqctJeqcO.h
 		DispIeJeO.h
 		DispIeJeqO.h
 		DispIetJeqO.h
@@ -686,6 +649,12 @@ set(FREECADMBD_HEADERS
 		DistancexyConstraintIJ.h
 		DistancexyConstraintIqcJc.h
 		DistancexyConstraintIqcJqc.h
+		DistIeJe.h
+		DistIeqJe.h
+		DistIeqJeq.h
+		DistIeqtJeq.h
+		DistIeJeq.h
+		DistIetJeq.h
 		DistIecJec.h
 		DistIecJeqc.h
 		DistIectJeqc.h
@@ -698,13 +667,13 @@ set(FREECADMBD_HEADERS
 		DistxyIeqctJeqc.h
 		DynIntegrator.h
 		EigenDecomposition.h
-		EndFramec.h
+		EndFrame.h
 		EndFrameccq.h
-		EndFramect.h
-		EndFrameqc.h
+		EndFramet.h
+		EndFrameq.h
 		EndFrameqccq.h
-		EndFrameqct.h
-		EndFrameqct2.h
+		EndFrameqt.h
+		EndFrameqt2.h
 		enum.h
 		EulerAngles.h
 		EulerAnglesDDot.h
@@ -786,8 +755,8 @@ set(FREECADMBD_HEADERS
 		Ln.h
 		Log10.h
 		LogN.h
-		MarkerFramec.h
-		MarkerFrameqc.h
+		MarkerFrame.h
+		MarkerFrameq.h
 		MatrixDecomposition.h
 		MatrixGaussElimination.h
 		MatrixLDU.h

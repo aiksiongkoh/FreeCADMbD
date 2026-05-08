@@ -531,7 +531,7 @@ void ASMTAssembly::readWriteDynFile(const std::string &fileName)
     }
 }
 
-void MbD::ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
+void ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
 {
     auto lines = linesFromFile(infilename);
     auto assembly = ASMTAssembly::With();
@@ -585,7 +585,7 @@ void MbD::ASMTAssembly::readWriteDynFile2(const std::string &infilename, const s
     }
 }
 
-void MbD::ASMTAssembly::readWriteReadDynFile(const std::string &fileName)
+void ASMTAssembly::readWriteReadDynFile(const std::string &fileName)
 {
     ASMTAssembly::readWriteDynFile(fileName);
     ASMTAssembly::runDynFile("tempAssembly2.asmt");
@@ -1610,7 +1610,7 @@ void ASMTAssembly::updateFromMbD()
         forceTorque->updateFromMbD();
 }
 
-std::shared_ptr<StateData> MbD::ASMTAssembly::dataFromMbD()
+std::shared_ptr<StateData> ASMTAssembly::dataFromMbD()
 {
     auto data = PosVelAccData::With();
     auto zeroCol = FullColumn<double>::With(3, 0.0);
@@ -1637,7 +1637,7 @@ void ASMTAssembly::compareResults(AnalysisType type)
         forceTorque->compareResults(type);
 }
 
-void MbD::ASMTAssembly::compareResults2(AnalysisType type)
+void ASMTAssembly::compareResults2(AnalysisType type)
 {
     ASMTSpatialContainer::compareResults2(type);
     for (auto part : *parts)

@@ -125,7 +125,7 @@ double ForceTorqueFunction::value()
     return forTorFunc->getValue();
 }
 
-FRowDsptr MbD::ForceTorqueFunction::pvaluepX(SpatialContainerFrame* partFrame)
+FRowDsptr ForceTorqueFunction::pvaluepX(SpatialContainerFrame* partFrame)
 {
     auto answer = FullRow<double>::With(3, 0.0);
     for (size_t i = 0; i < kineIJs->size(); i++) {
@@ -140,7 +140,7 @@ FRowDsptr MbD::ForceTorqueFunction::pvaluepX(SpatialContainerFrame* partFrame)
     return answer;
 }
 
-FRowDsptr MbD::ForceTorqueFunction::pvaluepE(SpatialContainerFrame* partFrame)
+FRowDsptr ForceTorqueFunction::pvaluepE(SpatialContainerFrame* partFrame)
 {
     auto answer = FullRow<double>::With(4, 0.0);
     for (size_t i = 0; i < kineIJs->size(); i++) {
@@ -155,7 +155,7 @@ FRowDsptr MbD::ForceTorqueFunction::pvaluepE(SpatialContainerFrame* partFrame)
     return answer;
 }
 
-FRowDsptr MbD::ForceTorqueFunction::pvaluepXdot(SpatialContainerFrame* partFrame)
+FRowDsptr ForceTorqueFunction::pvaluepXdot(SpatialContainerFrame* partFrame)
 {
     auto answer = FullRow<double>::With(3, 0.0);
     for (size_t i = 0; i < kinedotIJs->size(); i++) {
@@ -170,7 +170,7 @@ FRowDsptr MbD::ForceTorqueFunction::pvaluepXdot(SpatialContainerFrame* partFrame
     return answer;
 }
 
-FRowDsptr MbD::ForceTorqueFunction::pvaluepEdot(SpatialContainerFrame* partFrame)
+FRowDsptr ForceTorqueFunction::pvaluepEdot(SpatialContainerFrame* partFrame)
 {
     auto answer = FullRow<double>::With(4, 0.0);
     for (size_t i = 0; i < kinedotIJs->size(); i++) {

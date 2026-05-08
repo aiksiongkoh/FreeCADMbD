@@ -7,8 +7,7 @@
  ***************************************************************************/
  
 #include "TranslationConstraintIeqtJeq.h"
-#include "DispCompIeqctJeqcKeqct.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -48,8 +47,8 @@ void TranslationConstraintIeqtJeq::preAccIC()
 void TranslationConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     TranslationConstraintIeqJeq::fillAccICIterError(col);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qXdotI = frmIeq->qXdot();
     auto qEdotI = frmIeq->qEdot();
     auto qXdotJ = frmJeq->qXdot();

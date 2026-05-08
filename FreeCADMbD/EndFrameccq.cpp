@@ -9,10 +9,10 @@
 #include <memory>
 
 #include "EndFrameccq.h"
-#include "EndFrameqct.h"
+#include "EndFrameqt.h"
 #include "Variable.h"
-#include "MarkerFrameqc.h"
-#include "EndFrameqct2.h"
+#include "MarkerFrameq.h"
+#include "EndFrameqt2.h"
 #include "EndFrameqccq.h"
 
 using namespace MbD;
@@ -43,7 +43,7 @@ void EndFrameccq::initializeGlobally()
 {
     //rOeO = rOmO + aAOm*rmem
     //aAOe = aAOm*aAme;
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
+    auto mkrFrmqc = static_cast<MarkerFrameq*>(markerFrame);
     for (size_t i = 0; i < 4; i++) {
         for (size_t j = 0; j < 4; j++) {
             auto pprOmOpEipEj = mkrFrmqc->pprOmOpEpE->at(i)->at(j);
@@ -54,24 +54,24 @@ void EndFrameccq::initializeGlobally()
     }
 }
 
-void EndFrameccq::initEndFrameqct()
+void EndFrameccq::initEndFrameqt()
 {
-    endFrameqct = EndFrameqct::With(name.data());
-    endFrameqct->prOeOpE = prOeOpE;
-    endFrameqct->pprOeOpEpE = pprOeOpEpE;
-    endFrameqct->pAOepE = pAOepE;
-    endFrameqct->ppAOepEpE = ppAOepEpE;
-    endFrameqct->setMarkerFrame(markerFrame);
+    endFrameqt = EndFrameqt::With(name.data());
+    endFrameqt->prOeOpE = prOeOpE;
+    endFrameqt->pprOeOpEpE = pprOeOpEpE;
+    endFrameqt->pAOepE = pAOepE;
+    endFrameqt->ppAOepEpE = ppAOepEpE;
+    endFrameqt->setMarkerFrame(markerFrame);
 }
 
-void EndFrameccq::initEndFrameqct2()
+void EndFrameccq::initEndFrameqt2()
 {
-    endFrameqct = EndFrameqct2::With(name.data());
-    endFrameqct->prOeOpE = prOeOpE;
-    endFrameqct->pprOeOpEpE = pprOeOpEpE;
-    endFrameqct->pAOepE = pAOepE;
-    endFrameqct->ppAOepEpE = ppAOepEpE;
-    endFrameqct->setMarkerFrame(markerFrame);
+    endFrameqt = EndFrameqt2::With(name.data());
+    endFrameqt->prOeOpE = prOeOpE;
+    endFrameqt->pprOeOpEpE = pprOeOpEpE;
+    endFrameqt->pAOepE = pAOepE;
+    endFrameqt->ppAOepEpE = ppAOepEpE;
+    endFrameqt->setMarkerFrame(markerFrame);
 }
 
 FMatFColDsptr EndFrameccq::ppAjOepEpE(size_t jj) const
@@ -92,8 +92,8 @@ void EndFrameccq::simUpdateAll()
 {
     //rOeO = rOmO + aAOm*rmem
     //aAOe = aAOm*aAme;
-    EndFramec::simUpdateAll();
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
+    EndFrame::simUpdateAll();
+    auto mkrFrmqc = static_cast<MarkerFrameq*>(markerFrame);
     for (size_t i = 0; i < 4; i++) {
         auto prOmOpEi = mkrFrmqc->prOmOpE->column(i);
         auto pAOmpEi = mkrFrmqc->pAOmpE->at(i);
@@ -148,12 +148,12 @@ FMatDsptr EndFrameccq::ppriOeOpEpE(size_t ii) const
 
 size_t EndFrameccq::iqX() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->iqX();
+    return static_cast<MarkerFrameq*>(markerFrame)->iqX();
 }
 
 size_t EndFrameccq::iqE() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->iqE();
+    return static_cast<MarkerFrameq*>(markerFrame)->iqE();
 }
 
 FRowDsptr EndFrameccq::priOeOpE(size_t i) const
@@ -163,27 +163,27 @@ FRowDsptr EndFrameccq::priOeOpE(size_t i) const
 
 FColDsptr EndFrameccq::qXdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qXdot();
+    return static_cast<MarkerFrameq*>(markerFrame)->qXdot();
 }
 
 std::shared_ptr<EulerParametersDot<double>> EndFrameccq::qEdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qEdot();
+    return static_cast<MarkerFrameq*>(markerFrame)->qEdot();
 }
 
 FColDsptr EndFrameccq::qXddot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qXddot();
+    return static_cast<MarkerFrameq*>(markerFrame)->qXddot();
 }
 
 FColDsptr EndFrameccq::qEddot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->qEddot();
+    return static_cast<MarkerFrameq*>(markerFrame)->qEddot();
 }
 
 FColDsptr EndFrameccq::rpep()
 {
-    auto mkrFrmqc = static_cast<MarkerFrameqc*>(markerFrame);
+    auto mkrFrmqc = static_cast<MarkerFrameq*>(markerFrame);
     auto rpmp = mkrFrmqc->rpmp;
     auto aApm = mkrFrmqc->aApm;
     auto rpep = rpmp->plusFullColumn(aApm->timesFullColumn(rmem));
@@ -192,40 +192,40 @@ FColDsptr EndFrameccq::rpep()
 
 FColFMatDsptr EndFrameccq::pAOppE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pAOppE();
+    return static_cast<MarkerFrameq*>(markerFrame)->pAOppE();
 }
 
 FMatDsptr EndFrameccq::aBOp() const
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->aBOp();
+    return static_cast<MarkerFrameq*>(markerFrame)->aBOp();
 }
 
-bool EndFrameccq::isEndFrameqc()
+bool EndFrameccq::isEndFrameq()
 {
     return true;
 }
 
 FMatDsptr EndFrameccq::pvOeOpE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pvOmOpE();
+    return static_cast<MarkerFrameq*>(markerFrame)->pvOmOpE();
 }
 
 FColDsptr EndFrameccq::omeOeO()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->omeOmO();
+    return static_cast<MarkerFrameq*>(markerFrame)->omeOmO();
 }
 
 FMatDsptr EndFrameccq::pomeOeOpE()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pomeOmOpE();
+    return static_cast<MarkerFrameq*>(markerFrame)->pomeOmOpE();
 }
 
 FMatDsptr EndFrameccq::pomeOeOpEdot()
 {
-    return static_cast<MarkerFrameqc*>(markerFrame)->pomeOmOpEdot();
+    return static_cast<MarkerFrameq*>(markerFrame)->pomeOmOpEdot();
 }
 
-std::shared_ptr<EndFramec> EndFrameccq::followEndFrame(EndFrmsptr frmi)
+std::shared_ptr<EndFrame> EndFrameccq::followEndFrame(EndFrmsptr frmi)
 {
     auto endFrm = EndFrameqccq::With();
     endFrm->name = name;
@@ -239,7 +239,7 @@ bool EndFrameccq::has_qX() const
     return true;
 }
 
-void EndFrameccq::setTargetFrame(std::shared_ptr<EndFramec> targetFrm)
+void EndFrameccq::setTargetFrame(std::shared_ptr<EndFrame> targetFrm)
 {
     targetFrame = targetFrm;
 }

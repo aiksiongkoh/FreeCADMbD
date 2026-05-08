@@ -37,7 +37,8 @@ namespace MbD {
         bool hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const override;
 
         EndFrmsptr eFrmK;
-        std::shared_ptr<DispIeJeO> dispIeJeO;
+        // dispIeJeO is updated at global level
+        std::shared_ptr<DispIeJeO> dispIeJeO; 
         FMatDsptr aAOKe;
         FColDsptr rIeJeO;
         FColDsptr rIeJeKe;

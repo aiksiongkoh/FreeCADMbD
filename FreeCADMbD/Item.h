@@ -22,8 +22,8 @@ namespace MbD {
     class System;
     class Constraint;
     class StateData;
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class Item : public std::enable_shared_from_this<Item>
     {

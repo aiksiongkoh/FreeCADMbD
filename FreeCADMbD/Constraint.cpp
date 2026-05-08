@@ -21,15 +21,15 @@ void Constraint::initialize()
 
 void Constraint::postInput()
 {
-    lam = 0.0;
     Item::postInput();
+    lam = 0.0;
 }
 
 void Constraint::prePosIC()
 {
+    Item::prePosIC();
     lam = 0.0;
     iG = SIZE_MAX;
-    Item::prePosIC();
 }
 
 void Constraint::prePosKine()
@@ -187,7 +187,7 @@ void Constraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_p
     }
 }
 
-void MbD::Constraint::addToJointForceI(FColDsptr col)
+void Constraint::addToJointForceI(FColDsptr col)
 {
     throw SimulationStoppingError("To be implemented.");
 }

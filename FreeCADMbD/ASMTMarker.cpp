@@ -15,8 +15,8 @@
 #include "Part.h"
 #include "PartFrame.h"
 #include "AssemblyFrame.h"
-#include "MarkerFramec.h"
-#include "MarkerFrameqc.h"
+#include "MarkerFrame.h"
+#include "MarkerFrameq.h"
 #include "Units.h"
 
 using namespace MbD;
@@ -88,22 +88,22 @@ FMatDsptr ASMTMarker::aApm()
 
 void ASMTMarker::createMbD()
 {
-    //ASMTMarker === MarkerFramec
+    //ASMTMarker === MarkerFrame
     //ASMTRefPoint is for CAD side and not MbD side
     auto asmtPrt = dynamic_cast<ASMTPart*>(partOrAssembly());
     auto asmtAsm = dynamic_cast<ASMTAssembly*>(partOrAssembly());
-    std::shared_ptr<MarkerFramec> mkr;
-    std::shared_ptr<EndFramec> efrm;
+    std::shared_ptr<MarkerFrame> mkr;
+    std::shared_ptr<EndFrame> efrm;
     std::shared_ptr<SpatialContainerFrame> scfrm;
     if (asmtPrt && !asmtAsm) {
         scfrm = std::static_pointer_cast<Part>(asmtPrt->mbdObject)->partFrame;
-        mkr = MarkerFrameqc::With(name.c_str());
-        efrm = EndFrameqc::With();
+        mkr = MarkerFrameq::With(name.c_str());
+        efrm = EndFrameq::With();
     }
     else if (!asmtPrt && asmtAsm) {
         scfrm = std::static_pointer_cast<System>(asmtAsm->mbdObject)->asmFrame;
-        mkr = MarkerFramec::With(name.c_str());
-        efrm = EndFramec::With();
+        mkr = MarkerFrame::With(name.c_str());
+        efrm = EndFrame::With();
     }
     scfrm->addMarkerFrame(mkr);
     mkr->rpmp = rpmp()->times(asmtUnits()->length);

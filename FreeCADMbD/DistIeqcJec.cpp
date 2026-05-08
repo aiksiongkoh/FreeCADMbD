@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DistIeqcJec.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -32,7 +32,7 @@ void DistIeqcJec::calcPrivate()
 {
     DistIecJec::calcPrivate();
     if (rIeJe == 0.0) return;
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto mprIeJeOpEI = frmIeqc->prOeOpE;
     mprIeJeOpEIT = mprIeJeOpEI->transpose();
     auto mpprIeJeOpEIpEI = frmIeqc->pprOeOpEpE;
@@ -96,7 +96,7 @@ FMatDsptr DistIeqcJec::ppvaluepXIpXI()
 FMatDsptr DistIeqcJec::puIeJeOpEI()
 {
     auto answer = FullMatrix<double>::With(3, 4);
-    auto mprIeJeOpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->prOeOpE;
+    auto mprIeJeOpEI = std::static_pointer_cast<EndFrameq>(eFrmI)->prOeOpE;
     auto m1OverrIeJe = -1.0 / rIeJe;
     auto m1OverrIeJeSq = m1OverrIeJe / rIeJe;
     for (size_t i = 0; i < 3; i++) {

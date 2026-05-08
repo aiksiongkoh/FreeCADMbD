@@ -32,7 +32,7 @@ void OrbitAngleZIeqcJeqc::initialize()
     ppthezpEJpEJ = FullMatrix<double>::With(4, 4);
 }
 
-void MbD::OrbitAngleZIeqcJeqc::init_xyIeJeIe()
+void OrbitAngleZIeqcJeqc::init_xyIeJeIe()
 {
     xIeJeIe = DispCompiIeJeIe::With(eFrmI, eFrmJ, 0);
     xIeJeIe->owner = this;

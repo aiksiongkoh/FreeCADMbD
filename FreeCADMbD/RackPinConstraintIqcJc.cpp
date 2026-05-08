@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "RackPinConstraintIqcJc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "AngleZIeqcJec.h"
 #include "DispCompiIeJeIe.h"
 
@@ -92,7 +92,7 @@ void RackPinConstraintIqcJc::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qXdotI = eFrmIqc->qXdot();
     auto qEdotI = eFrmIqc->qEdot();
     auto sum = pGpXI->timesFullColumn(eFrmIqc->qXddot());
@@ -137,7 +137,7 @@ void RackPinConstraintIqcJc::fillVelICJacob(SpMatDsptr mat)
 
 void RackPinConstraintIqcJc::useEquationNumbers()
 {
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     iqXI = frmIeqc->iqX();
     iqEI = frmIeqc->iqE();
 }

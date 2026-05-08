@@ -27,14 +27,14 @@ std::shared_ptr<DifferentiatedGeneralSpline> DifferentiatedGeneralSpline::With()
     return inst;
 }
 
-std::shared_ptr<DifferentiatedGeneralSpline> MbD::DifferentiatedGeneralSpline::With(Symsptr arg)
+std::shared_ptr<DifferentiatedGeneralSpline> DifferentiatedGeneralSpline::With(Symsptr arg)
 {
     auto inst = std::make_shared<DifferentiatedGeneralSpline>(arg);
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<DifferentiatedGeneralSpline> MbD::DifferentiatedGeneralSpline::With(Symsptr arg, Symsptr spline, size_t derivOrder)
+std::shared_ptr<DifferentiatedGeneralSpline> DifferentiatedGeneralSpline::With(Symsptr arg, Symsptr spline, size_t derivOrder)
 {
     auto inst = std::make_shared<DifferentiatedGeneralSpline>(arg, spline, derivOrder);
     inst->initialize();

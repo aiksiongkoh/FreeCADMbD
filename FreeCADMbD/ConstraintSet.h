@@ -13,14 +13,14 @@
 //#include <functional>
 
 #include "Item.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "TranslationConstraintIeJe.h"
 #include "ConstraintSet.h"
 
 namespace MbD {
     class Constraint;
-    class EndFramec;
-    using EndFrmsptr = std::shared_ptr<EndFramec>;
+    class EndFrame;
+    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class ConstraintSet : public Item
     {

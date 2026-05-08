@@ -14,7 +14,7 @@
 namespace MbD {
     class Symbolic;
     using Symsptr = std::shared_ptr<Symbolic>;
-    class EndFramec;
+    class EndFrame;
 
     class PrescribedMotion : public ConstraintSet
     {

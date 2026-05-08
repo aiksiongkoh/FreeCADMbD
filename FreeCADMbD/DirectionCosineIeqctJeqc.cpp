@@ -7,8 +7,8 @@
  ***************************************************************************/
  
 #include "DirectionCosineIeqctJeqc.h"
-#include "EndFrameqc.h"
-#include "EndFrameqct.h"
+#include "EndFrameq.h"
+#include "EndFrameqt.h"
 
 using namespace MbD;
 
@@ -28,7 +28,7 @@ void DirectionCosineIeqctJeqc::initialize()
 
 void DirectionCosineIeqctJeqc::initializeGlobally()
 {
-    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppAjOepEpE(axisJ);
+    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameq>(eFrmJ)->ppAjOepEpE(axisJ);
 }
 
 FRowDsptr DirectionCosineIeqctJeqc::ppvaluepEIpt()
@@ -51,14 +51,14 @@ void DirectionCosineIeqctJeqc::simUpdateAll()
     //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     //"ppAjOIepEIpEI is not longer constant and must be set before any calculation."
 
-    ppAjOIepEIpEI = std::static_pointer_cast<EndFrameqc>(eFrmI)->ppAjOepEpE(axisI);
+    ppAjOIepEIpEI = std::static_pointer_cast<EndFrameq>(eFrmI)->ppAjOepEpE(axisI);
     DirectionCosineIeqcJeqc::simUpdateAll();
 }
 
 void DirectionCosineIeqctJeqc::preVelIC()
 {
     Item::preVelIC();
-    auto pAjOIept = std::static_pointer_cast<EndFrameqct>(eFrmI)->pAjOept(axisI);
+    auto pAjOIept = std::static_pointer_cast<EndFrameqt>(eFrmI)->pAjOept(axisI);
     pAijIeJept = pAjOIept->dot(aAjOJe);
 }
 
@@ -71,9 +71,9 @@ void DirectionCosineIeqctJeqc::preAccIC()
 {
     //| ppAjOIepEITpt ppAjOIeptpt ppAjOIepEITpti pAjOIept |
     Item::preAccIC();
-    auto pAjOIept = std::static_pointer_cast<EndFrameqct>(eFrmI)->pAjOept(axisI);
-    auto ppAjOIepEITpt = std::static_pointer_cast<EndFrameqct>(eFrmI)->ppAjOepETpt(axisI);
-    auto ppAjOIeptpt = std::static_pointer_cast<EndFrameqct>(eFrmI)->ppAjOeptpt(axisI);
+    auto pAjOIept = std::static_pointer_cast<EndFrameqt>(eFrmI)->pAjOept(axisI);
+    auto ppAjOIepEITpt = std::static_pointer_cast<EndFrameqt>(eFrmI)->ppAjOepETpt(axisI);
+    auto ppAjOIeptpt = std::static_pointer_cast<EndFrameqt>(eFrmI)->ppAjOeptpt(axisI);
     for (size_t i = 0; i < 4; i++)
     {
         auto ppAjOIepEITpti = ppAjOIepEITpt->at(i);

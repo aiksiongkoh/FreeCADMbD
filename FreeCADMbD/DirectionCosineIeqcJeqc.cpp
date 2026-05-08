@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DirectionCosineIeqcJeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -29,7 +29,7 @@ void DirectionCosineIeqcJeqc::initialize()
 void DirectionCosineIeqcJeqc::initializeGlobally()
 {
     DirectionCosineIeqcJec::initializeGlobally();
-    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameqc>(eFrmJ)->ppAjOepEpE(axisJ);
+    ppAjOJepEJpEJ = std::static_pointer_cast<EndFrameq>(eFrmJ)->ppAjOepEpE(axisJ);
 }
 
 FMatDsptr DirectionCosineIeqcJeqc::ppvaluepEIpEJ()
@@ -41,7 +41,7 @@ void DirectionCosineIeqcJeqc::simUpdateAll()
 {
     //cos(the) = aAijIeJe = aAcoliOIe->dot(aAcoljOJe);
     DirectionCosineIeqcJec::simUpdateAll();
-    pAjOJepEJT = std::static_pointer_cast<EndFrameqc>(eFrmJ)->pAjOepET(axisJ);
+    pAjOJepEJT = std::static_pointer_cast<EndFrameq>(eFrmJ)->pAjOepET(axisJ);
     for (size_t i = 0; i < 4; i++)
     {
         pAijIeJepEJ->at(i) = aAjOIe->dot(pAjOJepEJT->at(i));

@@ -507,7 +507,7 @@ std::string MBDynItem::readStringNoSpacesOffTop(std::vector<std::string>& args)
     return str;
 }
 
-void MbD::MBDynItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
+void MBDynItem::readStringNoSpacesOffTopEqualOrThrow(std::vector<std::string> &lines, std::string str)
 {
     auto topString = readStringNoSpacesOffTop(lines);
     if (topString != str)

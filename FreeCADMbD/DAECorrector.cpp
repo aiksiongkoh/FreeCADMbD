@@ -77,7 +77,7 @@ void DAECorrector::basicSolveEquations()
     dx = matrixSolver->solvewithsaveOriginal(pypx, y->negated(), false);
 }
 
-void MbD::DAECorrector::solveEquations()
+void DAECorrector::solveEquations()
 {
     try {
         basicSolveEquations();

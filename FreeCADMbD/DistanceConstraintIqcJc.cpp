@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "DistanceConstraintIqcJc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "DistIeqcJec.h"
 
 using namespace MbD;
@@ -58,7 +58,7 @@ void DistanceConstraintIqcJc::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto qXdotI = eFrmIqc->qXdot();
     auto qEdotI = eFrmIqc->qEdot();
     auto sum = pGpXI->timesFullColumn(eFrmIqc->qXddot());
@@ -110,7 +110,7 @@ void DistanceConstraintIqcJc::init_distIeJe()
 
 void DistanceConstraintIqcJc::useEquationNumbers()
 {
-    auto frmIeqc = std::static_pointer_cast<EndFrameqc>(eFrmI);
+    auto frmIeqc = std::static_pointer_cast<EndFrameq>(eFrmI);
     iqXI = frmIeqc->iqX();
     iqEI = frmIeqc->iqE();
 }

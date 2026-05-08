@@ -8,15 +8,15 @@
  
 #include "DistanceConstraintIJ.h"
 #include "DistanceConstraintIqcJqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<DistanceConstraintIJ> DistanceConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    assert(frmi->isEndFrameqc());
-    assert(frmj->isEndFrameqc());
+    assert(frmi->isEndFrameq());
+    assert(frmj->isEndFrameq());
     auto inst = std::make_shared<DistanceConstraintIqcJqc>(frmi, frmj);
     inst->initialize();
     return inst;

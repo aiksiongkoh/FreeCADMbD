@@ -11,7 +11,7 @@ void ForceTorqueIJ::calcaFJeO()
 
 void ForceTorqueIJ::calcaTJeO()
 {
-    aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
 }
 
 void ForceTorqueIJ::calcpTIeOpXI()
@@ -36,14 +36,14 @@ void ForceTorqueIJ::calcpTIeOpEJ()
 
 void ForceTorqueIJ::calcpTJeOpXI()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
     if (dispIeJeO->getpVectorpXI()) {
         terms->equalSelfPlus(dispIeJeO->getpVectorpXI()->cross(aFIeO));
     }
     if (pFIeOpXI) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXI));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpXI));
     }
     if (pTIeOpXI) {
         terms->equalSelfMinus(pTIeOpXI);
@@ -58,14 +58,14 @@ void ForceTorqueIJ::calcpTJeOpXI()
 
 void ForceTorqueIJ::calcpTJeOpEI()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
     if (dispIeJeO->getpVectorpEI()) {
         terms->equalSelfPlus(dispIeJeO->getpVectorpEI()->cross(aFIeO));
     }
     if (pFIeOpEI) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEI));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpEI));
     }
     if (pTIeOpEI) {
         terms->equalSelfMinus(pTIeOpEI);
@@ -80,14 +80,14 @@ void ForceTorqueIJ::calcpTJeOpEI()
 
 void ForceTorqueIJ::calcpTJeOpXJ()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
     if (dispIeJeO->getpVectorpXJ()) {
         terms->equalSelfPlus(dispIeJeO->getpVectorpXJ()->cross(aFIeO));
     }
     if (pFIeOpXJ) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXJ));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpXJ));
     }
     if (pTIeOpXJ) {
         terms->equalSelfMinus(pTIeOpXJ);
@@ -102,14 +102,14 @@ void ForceTorqueIJ::calcpTJeOpXJ()
 
 void ForceTorqueIJ::calcpTJeOpEJ()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
     if (dispIeJeO->getpVectorpEJ()) {
         terms->equalSelfPlus(dispIeJeO->getpVectorpEJ()->cross(aFIeO));
     }
     if (pFIeOpEJ) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEJ));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpEJ));
     }
     if (pTIeOpEJ) {
         terms->equalSelfMinus(pTIeOpEJ);
@@ -144,11 +144,11 @@ void ForceTorqueIJ::calcpTIeOpEdotJ()
 
 void ForceTorqueIJ::calcpTJeOpXdotI()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
     if (pFIeOpXdotI) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXdotI));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpXdotI));
     }
     if (pTIeOpXdotI) {
         terms->equalSelfMinus(pTIeOpXdotI);
@@ -163,11 +163,11 @@ void ForceTorqueIJ::calcpTJeOpXdotI()
 
 void ForceTorqueIJ::calcpTJeOpEdotI()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
     if (pFIeOpEdotI) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEdotI));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpEdotI));
     }
     if (pTIeOpEdotI) {
         terms->equalSelfMinus(pTIeOpEdotI);
@@ -182,11 +182,11 @@ void ForceTorqueIJ::calcpTJeOpEdotI()
 
 void ForceTorqueIJ::calcpTJeOpXdotJ()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 3);
     terms->zeroSelf();
     if (pFIeOpXdotJ) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpXdotJ));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpXdotJ));
     }
     if (pTIeOpXdotJ) {
         terms->equalSelfMinus(pTIeOpXdotJ);
@@ -201,11 +201,11 @@ void ForceTorqueIJ::calcpTJeOpXdotJ()
 
 void ForceTorqueIJ::calcpTJeOpEdotJ()
 {
-    //aTJeO = dispIeJeO->rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
+    //aTJeO = rIeJeO->cross(aFIeO)->minusFullColumn(aTIeO);
     auto terms = FullMatrix<double>::With(3, 4);
     terms->zeroSelf();
     if (pFIeOpEdotJ) {
-        terms->equalSelfPlus(dispIeJeO->rIeJeO->crossMatrix(pFIeOpEdotJ));
+        terms->equalSelfPlus(rIeJeO->crossMatrix(pFIeOpEdotJ));
     }
     if (pTIeOpEdotJ) {
         terms->equalSelfMinus(pTIeOpEdotJ);
@@ -237,9 +237,9 @@ FColDsptr ForceTorqueIJ::aTX() const
 void ForceTorqueIJ::simUpdateAll()
 {
     //Order of functions matters here.
-    dispIeJeO->simUpdateAll();
+    rIeJeO = dispIeJeO->rIeJeO;
     if (has_qI) {
-        auto eFrmqcI = std::dynamic_pointer_cast<EndFrameqc>(eFrmI);
+        auto eFrmqcI = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
         prOIeOpEIT = eFrmqcI->prOeOpE->transpose();
         twoBOIT = eFrmqcI->aBOp()->transpose()->times(2.0);
     }
@@ -248,7 +248,7 @@ void ForceTorqueIJ::simUpdateAll()
         assert(!twoBOIT);
     }
     if (has_qJ) {
-        auto eFrmqcJ = std::dynamic_pointer_cast<EndFrameqc>(eFrmJ);
+        auto eFrmqcJ = std::dynamic_pointer_cast<EndFrameq>(eFrmJ);
         prOJeOpEJT = eFrmqcJ->prOeOpE->transpose();
         twoBOJT = eFrmqcJ->aBOp()->transpose()->times(2.0);
     }
@@ -567,7 +567,6 @@ void ForceTorqueIJ::initializeGlobally()
 {
     for (const auto func : *forceFunctions) func->initializeGlobally();
     for (const auto func : *torqueFunctions) func->initializeGlobally();
-    dispIeJeO->initializeGlobally();
     pprOIeOpEIpEI = eFrmI->getpprOeOpEpE();  //This is constant.
     pprOJeOpEJpEJ = eFrmJ->getpprOeOpEpE();  //This is constant.
     ForceTorqueItem::initializeGlobally();
@@ -581,7 +580,6 @@ void ForceTorqueIJ::initializeLocally()
     has_qJ = eFrmJ->has_qX();
     for (const auto func : *forceFunctions) func->initializeLocally();
     for (const auto func : *torqueFunctions) func->initializeLocally();
-    dispIeJeO->initializeLocally();
     ForceTorqueItem::initializeLocally();
 }
 
@@ -589,7 +587,6 @@ void ForceTorqueIJ::postInput()
 {
     for (const auto func : *forceFunctions) func->postInput();
     for (const auto func : *torqueFunctions) func->postInput();
-    dispIeJeO->postInput();
     ForceTorqueItem::postInput();
 }
 
@@ -602,7 +599,6 @@ void ForceTorqueIJ::preAccIC()
 {
     for (const auto func : *forceFunctions) func->preAccIC();
     for (const auto func : *torqueFunctions) func->preAccIC();
-    dispIeJeO->preAccIC();
     ForceTorqueItem::preAccIC();
 }
 
@@ -610,7 +606,6 @@ void ForceTorqueIJ::preDynOutput()
 {
     for (const auto func : *forceFunctions) func->preDynOutput();
     for (const auto func : *torqueFunctions) func->preDynOutput();
-    dispIeJeO->preDynOutput();
     ForceTorqueItem::preDynOutput();
 }
 
@@ -635,7 +630,6 @@ void ForceTorqueIJ::postAccICIteration()
 {
     for (const auto func : *forceFunctions) func->postAccICIteration();
     for (const auto func : *torqueFunctions) func->postAccICIteration();
-    dispIeJeO->postAccICIteration();
     ForceTorqueItem::postAccICIteration();
 }
 
@@ -653,7 +647,6 @@ void ForceTorqueIJ::postDynCorrectorIteration()
 {
     for (const auto func : *forceFunctions) func->postDynCorrectorIteration();
     for (const auto func : *torqueFunctions) func->postDynCorrectorIteration();
-    dispIeJeO->postDynCorrectorIteration();
     ForceTorqueItem::postDynCorrectorIteration();
 }
 
@@ -661,7 +654,6 @@ void ForceTorqueIJ::postDynOutput()
 {
     for (const auto func : *forceFunctions) func->postDynOutput();
     for (const auto func : *torqueFunctions) func->postDynOutput();
-    dispIeJeO->postDynOutput();
     ForceTorqueItem::postDynOutput();
 }
 
@@ -669,7 +661,6 @@ void ForceTorqueIJ::postDynPredictor()
 {
     for (const auto func : *forceFunctions) func->postDynPredictor();
     for (const auto func : *torqueFunctions) func->postDynPredictor();
-    dispIeJeO->postDynPredictor();
     ForceTorqueItem::postDynPredictor();
 }
 
@@ -1117,7 +1108,7 @@ void ForceTorqueIJ::calcpQEJpEdotJ()
     }
 }
 
-void MbD::ForceTorqueIJ::useUniqueDispIeJeO()
+void ForceTorqueIJ::useUniqueDispIeJeO()
 {
     auto dispIeJeOs = root()->dispIeJeOs;
     auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
@@ -1129,7 +1120,7 @@ void MbD::ForceTorqueIJ::useUniqueDispIeJeO()
     }
 }
 
-void MbD::ForceTorqueIJ::useUniqueDispIeJeKe()
+void ForceTorqueIJ::useUniqueDispIeJeKe()
 {
     // Do nothing.
 }

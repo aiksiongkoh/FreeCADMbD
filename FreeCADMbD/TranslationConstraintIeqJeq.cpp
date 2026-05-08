@@ -7,8 +7,7 @@
  ***************************************************************************/
  
 #include "TranslationConstraintIeqJeq.h"
-#include "DispCompIeqcJeqcKeqc.h"
-#include "EndFrameqc.h"
+#include "EndFrameq.h"
 
 using namespace MbD;
 
@@ -29,27 +28,27 @@ void TranslationConstraintIeqJeq::simUpdateAll()
     calcppGpEJpEJ();
 }
 
-void MbD::TranslationConstraintIeqJeq::calcpGpXJ()
+void TranslationConstraintIeqJeq::calcpGpXJ()
 {
     pGpXJ = riIeJeIe->pvaluepXJ();
 }
 
-void MbD::TranslationConstraintIeqJeq::calcpGpEJ()
+void TranslationConstraintIeqJeq::calcpGpEJ()
 {
     pGpEJ = riIeJeIe->pvaluepEJ();
 }
 
-void MbD::TranslationConstraintIeqJeq::calcppGpEIpXJ()
+void TranslationConstraintIeqJeq::calcppGpEIpXJ()
 {
     ppGpEIpXJ = riIeJeIe->ppvaluepXJpEK()->transpose();
 }
 
-void MbD::TranslationConstraintIeqJeq::calcppGpEIpEJ()
+void TranslationConstraintIeqJeq::calcppGpEIpEJ()
 {
     ppGpEIpEJ = riIeJeIe->ppvaluepEJpEK()->transpose();
 }
 
-void MbD::TranslationConstraintIeqJeq::calcppGpEJpEJ()
+void TranslationConstraintIeqJeq::calcppGpEJpEJ()
 {
     ppGpEJpEJ = riIeJeIe->ppvaluepEJpEJ();
 }
@@ -131,8 +130,8 @@ void TranslationConstraintIeqJeq::fillAccICIterError(FColDsptr col)
     TranslationConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameqc>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameqc>(eFrmJ);
+    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto qEdotI = frmIeq->qEdot();
     auto qXdotJ = frmJeq->qXdot();
     auto qEdotJ = frmJeq->qEdot();

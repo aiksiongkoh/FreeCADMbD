@@ -8,7 +8,7 @@
  
 #pragma once
 
-#include "EndFramec.h"
+#include "EndFrame.h"
 #include "Symbolic.h"
 #include "EulerParametersDot.h"
 #include "EulerParametersDDot.h"
@@ -16,21 +16,21 @@
 #include "FullMatrix.h"     //FMatDsptr is defined
 
 namespace MbD {
-    class EndFrameqct;
+    class EndFrameqt;
 
-    class EndFrameccq : public EndFramec
+    class EndFrameccq : public EndFrame
     {
         //prOeOpE pprOeOpEpE pAOepE ppAOepEpE
     public:
         EndFrameccq() {}
-        EndFrameccq(const std::string& str) : EndFramec(str) {}
+        EndFrameccq(const std::string& str) : EndFrame(str) {}
         static std::shared_ptr<EndFrameccq> With();
         static std::shared_ptr<EndFrameccq> With(const std::string& str);
         void initialize() override;
 
         void initializeGlobally() override;
-        void initEndFrameqct() override;
-        void initEndFrameqct2() override;
+        void initEndFrameqt() override;
+        void initEndFrameqt2() override;
         FMatFColDsptr ppAjOepEpE(size_t j) const;
         void simUpdateAll() override;
         FMatDsptr pAjOepE(size_t j) const override;
@@ -46,21 +46,21 @@ namespace MbD {
         FColDsptr rpep() override;
         FColFMatDsptr pAOppE() override;
         FMatDsptr aBOp() const override;
-        bool isEndFrameqc() override;
+        bool isEndFrameq() override;
         FMatDsptr pvOeOpE();
         FColDsptr omeOeO() override;
         FMatDsptr pomeOeOpE();
         FMatDsptr pomeOeOpEdot();
-        std::shared_ptr<EndFramec> followEndFrame(EndFrmsptr frmi) override;
+        std::shared_ptr<EndFrame> followEndFrame(EndFrmsptr frmi) override;
         bool has_qX() const override;
-        void setTargetFrame(std::shared_ptr<EndFramec> targetFrm) override;
+        void setTargetFrame(std::shared_ptr<EndFrame> targetFrm) override;
 
         FMatDsptr prOeOpE;
         FMatFColDsptr pprOeOpEpE;
         FColFMatDsptr pAOepE;
         FMatFMatDsptr ppAOepEpE;
         EndFrmsptr targetFrame;
-        std::shared_ptr<EndFrameqct> endFrameqct;
+        std::shared_ptr<EndFrameqt> endFrameqt;
     };
 }
 

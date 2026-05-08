@@ -258,7 +258,7 @@ void ASMTPart::updateFromMbD()
     alpzs->push_back(alpOPO->at(2));
 }
 
-std::shared_ptr<StateData> MbD::ASMTPart::dataFromMbD()
+std::shared_ptr<StateData> ASMTPart::dataFromMbD()
 {
     auto mbdUnts = mbdUnits();
     auto mbdPart = std::static_pointer_cast<Part>(mbdObject);
