@@ -80,7 +80,7 @@ void AtPointConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
 void AtPointConstraintIeJeq::addToJointForceI(FColDsptr col)
 {
     // aFIeO = lam * pGpXI
-    // frmIec does not have q, we use frmJeq
+    // frmIe does not have q, we use frmJeq
     // aFJeO = lam * pGpXJ
     // aFIeO = -aFJeO
     auto aFJeO = pGpXJ->transpose()->times(lam);

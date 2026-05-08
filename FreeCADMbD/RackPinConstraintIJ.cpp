@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "RackPinConstraintIJ.h"
-#include "RackPinConstraintIqcJqc.h"
+#include "RackPinConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -24,7 +24,7 @@ std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With(EndFrmsptr frmi, 
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<RackPinConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<RackPinConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }

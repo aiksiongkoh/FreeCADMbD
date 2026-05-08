@@ -22,6 +22,8 @@ namespace MbD {
         void simUpdateAll() override;
         virtual void calcPrivate();
         double value() override;
+        virtual FMatDsptr puIeJeOpX(SpatialContainerFrame* partFrame);
+        virtual FMatDsptr puIeJeOpE(SpatialContainerFrame* partFrame);
         FMatDsptr puIeJeOpEI() override;
         FMatDsptr puIeJeOpXI() override;
         FRowDsptr pvaluepEI() override;

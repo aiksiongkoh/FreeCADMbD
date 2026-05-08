@@ -167,9 +167,9 @@ FMatDsptr EndFrame::getaBOp() const
 
 std::shared_ptr<EndFrameq> EndFrame::newCopyEndFrameq()
 {
-    auto frmIeqc = EndFrameq::With();
-    markerFrame->addEndFrame(frmIeqc);
-    return frmIeqc;
+    auto frmIeq = EndFrameq::With();
+    markerFrame->addEndFrame(frmIeq);
+    return frmIeq;
 }
 
 std::shared_ptr<EndFrame> EndFrame::followEndFrame(EndFrmsptr frmi)

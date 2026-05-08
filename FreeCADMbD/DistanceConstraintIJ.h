@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "DistIecJec.h"
+#include "DistIeJe.h"
 
 namespace MbD {
     class DistanceConstraintIJ : public ConstraintIeJe
@@ -35,7 +35,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        std::shared_ptr<DistIecJec> distIeJe;
+        std::shared_ptr<DistIeJe> distIeJe;
 
     };
 }

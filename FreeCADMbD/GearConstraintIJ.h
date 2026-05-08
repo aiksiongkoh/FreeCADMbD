@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "OrbitAngleZIecJec.h"
+#include "OrbitAngleZIeJe.h"
 
 namespace MbD {
     class GearConstraintIJ : public ConstraintIeJe
@@ -37,7 +37,7 @@ namespace MbD {
         void preDynOutput() override;
         void postDynOutput() override;
 
-        std::shared_ptr<OrbitAngleZIecJec> orbitIeJe, orbitJeIe;
+        std::shared_ptr<OrbitAngleZIeJe> orbitIeJe, orbitJeIe;
         double radiusI = 0.0, radiusJ = 0.0;
     };
 }

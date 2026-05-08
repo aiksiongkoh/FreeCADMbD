@@ -102,6 +102,34 @@ double DistIeJe::value()
     return rIeJe;
 }
 
+FMatDsptr MbD::DistIeJe::puIeJeOpX(SpatialContainerFrame *partFrame)
+{
+{
+    if (prtFrmI == partFrame) {
+        return puIeJeOpXI();
+    }
+    else if (prtFrmJ == partFrame) {
+        return puIeJeOpXJ();
+    }
+    else {
+        throw SimulationStoppingError("To be implemented.");
+    }
+}
+}
+
+FMatDsptr MbD::DistIeJe::puIeJeOpE(SpatialContainerFrame *partFrame)
+{
+    if (prtFrmI == partFrame) {
+        return puIeJeOpEI();
+    }
+    else if (prtFrmJ == partFrame) {
+        return puIeJeOpEJ();
+    }
+    else {
+        throw SimulationStoppingError("To be implemented.");
+    }
+}
+
 FMatDsptr DistIeJe::puIeJeOpEI()
 {
     return FMatDsptr();

@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ForceTorqueItem.h"
-#include "DistIecJec.h"
+#include "DistIeJe.h"
 #include "ForceTorqueFunction.h"
 #include "DispIeJeO.h"
 #include "SpatialContainerFrame.h"

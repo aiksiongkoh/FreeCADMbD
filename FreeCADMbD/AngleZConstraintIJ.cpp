@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "AngleZConstraintIJ.h"
-#include "AngleZConstraintIqcJqc.h"
+#include "AngleZConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -17,7 +17,7 @@ std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, En
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<AngleZConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<AngleZConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }

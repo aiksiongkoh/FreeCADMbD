@@ -29,6 +29,12 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdClassNew()
     return std::shared_ptr<KinematicIJ>();
 }
 
+std::shared_ptr<KinematicIJ> MbD::ASMTSymbolicFunctionIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    throw SimulationStoppingError("To be implemented.");
+    return std::shared_ptr<KinematicIJ>();
+}
+
 std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdKineIqctJqct(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     throw SimulationStoppingError("To be implemented.");
@@ -125,69 +131,6 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdKineIcJc(EndFrmsptr frmi
     return std::shared_ptr<KinematicIJ>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJ::mbdKineIJWith(EndFrmsptr frmi, EndFrmsptr frmj)
-{
-    std::shared_ptr<KinematicIJ> inst;
-    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            inst = mbdKineIqctJqct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            inst = mbdKineIqctJqc(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            inst = mbdKineIqctJct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            inst = mbdKineIqctJc(frmi, frmj);
-        }
-    }
-    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            inst = mbdKineIqcJqct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            inst = mbdKineIqcJqc(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            inst = mbdKineIqcJct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            inst = mbdKineIqcJc(frmi, frmj);
-        }
-    }
-    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            inst = mbdKineIctJqct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            inst = mbdKineIctJqc(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            inst = mbdKineIctJct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            inst = mbdKineIctJc(frmi, frmj);
-        }
-    }
-    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            inst = mbdKineIcJqct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            inst = mbdKineIcJqc(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            inst = mbdKineIcJct(frmi, frmj);
-        }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            inst = mbdKineIcJc(frmi, frmj);
-        }
-    }
-    assert(inst);
-    return inst;
-}
-
 void ASMTSymbolicFunctionIJ::withFrmIFrmJ(EndFrmsptr eFrmI, EndFrmsptr eFrmJ)
 {
     throw SimulationStoppingError("To be implemented.");
@@ -198,7 +141,7 @@ void ASMTSymbolicFunctionIJ::createMbD()
     auto eFrmI = std::static_pointer_cast<EndFrame>(geoIJ->markerI->mbdObject);
     auto eFrmJ = std::static_pointer_cast<EndFrame>(geoIJ->markerJ->mbdObject);
     assert(eFrmJ->has_qX());
-    auto kineIJ = mbdKineIJWith(eFrmI, eFrmJ);
+    auto kineIJ = mbdKineIeJeWith(eFrmI, eFrmJ);
     auto symKineIJ = MbDSymbolicFunction::With(kineIJ);
     expression = Symbolic::times(symKineIJ, sptrConstant(asmtUnit()));
     xx = symKineIJ;

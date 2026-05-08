@@ -9,7 +9,7 @@
 #pragma once
 
 #include "DirectionCosineConstraintIeqJe.h"
-#include "DirectionCosineIecJec.h"
+#include "DirectionCosineIeJe.h"
 
 namespace MbD {
     class DirectionCosineConstraintIeqJeq : public DirectionCosineConstraintIeqJe

@@ -11,7 +11,7 @@
 #include "ConstraintIeJe.h"
 
 namespace MbD {
-    class DirectionCosineIecJec;
+    class DirectionCosineIeJe;
 
     class ConstVelConstraintIJ : public ConstraintIeJe
     {
@@ -38,7 +38,7 @@ namespace MbD {
         void addToJointForceI(FColDsptr col);
         void addToJointTorqueI(FColDsptr col) override;
 
-        std::shared_ptr<DirectionCosineIecJec> aA01IeJe, aA10IeJe;
+        std::shared_ptr<DirectionCosineIeJe> aA01IeJe, aA10IeJe;
     };
 }
 

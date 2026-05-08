@@ -281,7 +281,7 @@ void ForceTorqueInLine::calcaFIeO()
 void ForceTorqueInLine::initialize()
 {
     ForceTorqueIJ::initialize();
-    distIeJe = DistIecJec::With(geteFrmI(), geteFrmJ());
+    distIeJe = DistIeJe::With(geteFrmI(), geteFrmJ());
     distIeJe->owner = this;
     for (size_t i = 0; i < 1; i++)
     {

@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "AngleZIecJec.h"
+#include "AngleZIeJe.h"
 
 namespace MbD {
     class AngleZConstraintIJ : public ConstraintIeJe
@@ -35,6 +35,6 @@ namespace MbD {
         ConstraintType type() override;
         std::string constraintSpec() override;
 
-        std::shared_ptr<AngleZIecJec> thezIeJe;
+        std::shared_ptr<AngleZIeJe> thezIeJe;
     };
 }

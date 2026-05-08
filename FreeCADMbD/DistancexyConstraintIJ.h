@@ -38,7 +38,7 @@ namespace MbD {
         void postDynOutput() override;
 
         std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
-        //ToDo: Use DistxyIecJec instead of xIeJeIe, yIeJeIe
+        //ToDo: Use DistxyIeJe instead of xIeJeIe, yIeJeIe
 
     };
 }

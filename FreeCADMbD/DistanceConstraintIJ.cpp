@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DistanceConstraintIJ.h"
-#include "DistanceConstraintIqcJqc.h"
+#include "DistanceConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -17,7 +17,7 @@ std::shared_ptr<DistanceConstraintIJ> DistanceConstraintIJ::With(EndFrmsptr frmi
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<DistanceConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<DistanceConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }
@@ -36,7 +36,7 @@ void DistanceConstraintIJ::simUpdateAll()
 
 void DistanceConstraintIJ::init_distIeJe()
 {
-    throw SimulationStoppingError("To be implemented.");
+    distIeJe = DistIeJe::With(eFrmI, eFrmJ);
 }
 
 void DistanceConstraintIJ::initializeGlobally()

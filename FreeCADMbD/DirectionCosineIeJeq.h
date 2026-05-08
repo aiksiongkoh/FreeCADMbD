@@ -1,0 +1,35 @@
+/***************************************************************************
+ *   Copyright (c) 2023 Ondsel, Inc.                                       *
+ *                                                                         *
+ *   This file is part of OndselSolver.                                    *
+ *                                                                         *
+ *   See LICENSE file for details about copyright.                         *
+ ***************************************************************************/
+
+#pragma once
+
+#include "DirectionCosineIeJe.h"
+
+namespace MbD {
+    class DirectionCosineIeJeq : public DirectionCosineIeJe
+    {
+        //pAijIeJepEJ ppAijIeJepEIpEJ ppAijIeJepEJpEJ pAjOJepEJT ppAjOJepEJpEJ 
+    public:
+        DirectionCosineIeJeq() {}
+        DirectionCosineIeJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : DirectionCosineIeJe(frmi, frmj, axisi, axisj) {}
+        static std::shared_ptr<DirectionCosineIeJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
+        void initialize() override;
+
+        void simUpdateAll() override;
+        void initializeGlobally() override;
+        FMatDsptr ppvaluepEJpEJ() override;
+        FRowDsptr pvaluepEJ() override;
+
+        FRowDsptr pAijIeJepEJ;
+        FMatDsptr ppAijIeJepEJpEJ;
+        FMatDsptr pAjOJepEJT;
+        FMatFColDsptr ppAjOJepEJpEJ;
+
+    };
+}
+

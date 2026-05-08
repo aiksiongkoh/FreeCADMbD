@@ -18,13 +18,13 @@ set(FREECADMBD_SRC
 		AllowZRotationConstraintIeqtJeq.cpp
 		AngleJoint.cpp
 		AngleZConstraintIJ.cpp
-		AngleZConstraintIcJqc.cpp
-		AngleZConstraintIqcJc.cpp
-		AngleZConstraintIqcJqc.cpp
-		AngleZIecJec.cpp
-		AngleZIecJeqc.cpp
-		AngleZIeqcJec.cpp
-		AngleZIeqcJeqc.cpp
+		AngleZConstraintIeJeq.cpp
+		AngleZConstraintIeqJe.cpp
+		AngleZConstraintIeqJeq.cpp
+		AngleZIeJe.cpp
+		AngleZIeJeq.cpp
+		AngleZIeqJe.cpp
+		AngleZIeqJeq.cpp
 		AnyGeneralSpline.cpp
 		AnyPosICNewtonRaphson.cpp
 		ArcSine.cpp
@@ -136,19 +136,19 @@ set(FREECADMBD_SRC
 		ConstraintIeJe.cpp
 		ConstraintSet.cpp
 		ConstVelConstraintIJ.cpp
-		ConstVelConstraintIqcJc.cpp
-		ConstVelConstraintIqcJqc.cpp
+		ConstVelConstraintIeqJe.cpp
+		ConstVelConstraintIeqJeq.cpp
 		Cosine.cpp
 		CylindricalJoint.cpp
 		CylSphJoint.cpp
 		DAECorrector.cpp
 		DAEIntegrator.cpp
-		DAngleXIecJec.cpp
-		DAngleXIeqcJec.cpp
-		DAngleXIeqcJeqc.cpp
-		DAngleYIecJec.cpp
-		DAngleYIeqcJec.cpp
-		DAngleYIeqcJeqc.cpp
+		DAngleXIeJe.cpp
+		DAngleXIeqJe.cpp
+		DAngleXIeqJeq.cpp
+		DAngleYIeJe.cpp
+		DAngleYIeqJe.cpp
+		DAngleYIeqJeq.cpp
 		DiagonalMatrix.cpp
 		DifferenceOperator.cpp
 		DifferentialAlgebraicEquationSolver.cpp
@@ -159,12 +159,12 @@ set(FREECADMBD_SRC
 		DirectionCosineConstraintIeqJe.cpp
 		DirectionCosineConstraintIeqJeq.cpp
 		DirectionCosineConstraintIeqtJeq.cpp
-		DirectionCosineIecJec.cpp
-		DirectionCosineIecJeqc.cpp
-		DirectionCosineIectJeqc.cpp
-		DirectionCosineIeqcJec.cpp
-		DirectionCosineIeqcJeqc.cpp
-		DirectionCosineIeqctJeqc.cpp
+		DirectionCosineIeJe.cpp
+		DirectionCosineIeJeq.cpp
+		DirectionCosineIetJeq.cpp
+		DirectionCosineIeqJe.cpp
+		DirectionCosineIeqJeq.cpp
+		DirectionCosineIeqtJeq.cpp
 		DiscontinuityError.cpp
 		DispCompiIeJeIe.cpp
 		DispCompiIeJeKe.cpp
@@ -186,27 +186,21 @@ set(FREECADMBD_SRC
 		DispIetJeqKet.cpp
 		DispIeqtJeqKeqt.cpp
 		DistanceConstraintIJ.cpp
-		DistanceConstraintIqcJc.cpp
-		DistanceConstraintIqcJqc.cpp
-		DistanceConstraintIqctJqc.cpp
+		DistanceConstraintIeqJe.cpp
+		DistanceConstraintIeqJeq.cpp
+		DistanceConstraintIeqtJeq.cpp
 		DistancexyConstraintIJ.cpp
-		DistancexyConstraintIqcJc.cpp
-		DistancexyConstraintIqcJqc.cpp
+		DistancexyConstraintIeqJe.cpp
+		DistancexyConstraintIeqJeq.cpp
 		DistIeJe.cpp
 		DistIeJeq.cpp
 		DistIeqJe.cpp
 		DistIeqJeq.cpp
 		DistIeqtJeq.cpp
-		DistIecJec.cpp
-		DistIecJeqc.cpp
-		DistIectJeqc.cpp
-		DistIeqcJec.cpp
-		DistIeqcJeqc.cpp
-		DistIeqctJeqc.cpp
-		DistxyIecJec.cpp
-		DistxyIeqcJec.cpp
-		DistxyIeqcJeqc.cpp
-		DistxyIeqctJeqc.cpp
+		DistxyIeJe.cpp
+		DistxyIeqJe.cpp
+		DistxyIeqJeq.cpp
+		DistxyIeqtJeq.cpp
 		DynIntegrator.cpp
 		EigenDecomposition.cpp
 		EndFrame.cpp
@@ -253,8 +247,8 @@ set(FREECADMBD_SRC
 		FunctionXcParameter.cpp
 		FunctionXY.cpp
 		GearConstraintIJ.cpp
-		GearConstraintIqcJc.cpp
-		GearConstraintIqcJqc.cpp
+		GearConstraintIeqJe.cpp
+		GearConstraintIeqJeq.cpp
 		GearJoint.cpp
 		GEFullMat.cpp
 		GEFullMatFullPv.cpp
@@ -357,16 +351,16 @@ set(FREECADMBD_SRC
 		NoRotationJoint.cpp
 		NotKinematicError.cpp
 		Numeric.cpp
-		OmeCompIecJecKec.cpp
-		OmeCompIecJecO.cpp
-		OmeCompIecJeqcKec.cpp
-		OmeCompIeqcJecKeqc.cpp
-		OmeCompIeqcJecO.cpp
-		OmeCompIeqcJeqcKeqc.cpp
-		OmeCompIeqcJeqcO.cpp
-		OrbitAnglezIecJec.cpp
-		OrbitAnglezIeqcJec.cpp
-		OrbitAnglezIeqcJeqc.cpp
+		OmeCompIeJeKe.cpp
+		OmeCompIeJeO.cpp
+		OmeCompIeJeqKe.cpp
+		OmeCompIeqJeKeq.cpp
+		OmeCompIeqJeO.cpp
+		OmeCompIeqJeqKeq.cpp
+		OmeCompIeqJeqO.cpp
+		OrbitAnglezIeJe.cpp
+		OrbitAnglezIeqJe.cpp
+		OrbitAnglezIeqJeq.cpp
 		Orientation.cpp
 		ParallelAxesJoint.cpp
 		Part.cpp
@@ -390,8 +384,8 @@ set(FREECADMBD_SRC
 		QuasiIntegrator.cpp
 		QuasiStaticIntegrator.cpp
 		RackPinConstraintIJ.cpp
-		RackPinConstraintIqcJc.cpp
-		RackPinConstraintIqcJqc.cpp
+		RackPinConstraintIeqJe.cpp
+		RackPinConstraintIeqJeq.cpp
 		RackPinJoint.cpp
 		RampStepFunction.cpp
 		Reciprocal.cpp
@@ -403,8 +397,8 @@ set(FREECADMBD_SRC
 		RowTypeMatrix.cpp
 		ScalarNewtonRaphson.cpp
 		ScrewConstraintIJ.cpp
-		ScrewConstraintIqcJc.cpp
-		ScrewConstraintIqcJqc.cpp
+		ScrewConstraintIeqJe.cpp
+		ScrewConstraintIeqJeq.cpp
 		ScrewJoint.cpp
 		SimulationStoppingError.cpp
 		Sine.cpp
@@ -452,12 +446,12 @@ set(FREECADMBD_SRC
 		VelICKineSolver.cpp
 		VelICSolver.cpp
 		VelKineSolver.cpp
-		VelRadIecJec.cpp
-		VelRadIecJeqc.cpp
-		VelRadIectJeqc.cpp
-		VelRadIeqcJec.cpp
-		VelRadIeqcJeqc.cpp
-		VelRadIeqctJeqc.cpp
+		VelRadIeJe.cpp
+		VelRadIeJeq.cpp
+		VelRadIetJeq.cpp
+		VelRadIeqJe.cpp
+		VelRadIeqJeq.cpp
+		VelRadIeqtJeq.cpp
 		VelSolver.cpp
 		ZRotation.cpp
 		ZTranslation.cpp
@@ -475,13 +469,13 @@ set(FREECADMBD_HEADERS
 		AllowZRotationConstraintIeqtJeq.h
 		AngleJoint.h
 		AngleZConstraintIJ.h
-		AngleZConstraintIcJqc.h
-		AngleZConstraintIqcJc.h
-		AngleZConstraintIqcJqc.h
-		AngleZIecJec.h
-		AngleZIecJeqc.h
-		AngleZIeqcJec.h
-		AngleZIeqcJeqc.h
+		AngleZConstraintIeJeq.h
+		AngleZConstraintIeqJe.h
+		AngleZConstraintIeqJeq.h
+		AngleZIeJe.h
+		AngleZIeJeq.h
+		AngleZIeqJe.h
+		AngleZIeqJeq.h
 		AnyGeneralSpline.h
 		AnyPosICNewtonRaphson.h
 		ArcSine.h
@@ -593,19 +587,19 @@ set(FREECADMBD_HEADERS
 		ConstraintIeJe.h
 		ConstraintSet.h
 		ConstVelConstraintIJ.h
-		ConstVelConstraintIqcJc.h
-		ConstVelConstraintIqcJqc.h
+		ConstVelConstraintIeqJe.h
+		ConstVelConstraintIeqJeq.h
 		Cosine.h
 		CylindricalJoint.h
 		CylSphJoint.h
 		DAECorrector.h
 		DAEIntegrator.h
-		DAngleXIecJec.h
-		DAngleXIeqcJec.h
-		DAngleXIeqcJeqc.h
-		DAngleYIecJec.h
-		DAngleYIeqcJec.h
-		DAngleYIeqcJeqc.h
+		DAngleXIeJe.h
+		DAngleXIeqJe.h
+		DAngleXIeqJeq.h
+		DAngleYIeJe.h
+		DAngleYIeqJe.h
+		DAngleYIeqJeq.h
 		DiagonalMatrix.h
 		DifferenceOperator.h
 		DifferentialAlgebraicEquationSolver.h
@@ -616,12 +610,12 @@ set(FREECADMBD_HEADERS
 		DirectionCosineConstraintIeqJe.h
 		DirectionCosineConstraintIeqJeq.h
 		DirectionCosineConstraintIeqtJeq.h
-		DirectionCosineIecJec.h
-		DirectionCosineIecJeqc.h
-		DirectionCosineIectJeqc.h
-		DirectionCosineIeqcJec.h
-		DirectionCosineIeqcJeqc.h
-		DirectionCosineIeqctJeqc.h
+		DirectionCosineIeJe.h
+		DirectionCosineIeJeq.h
+		DirectionCosineIetJeq.h
+		DirectionCosineIeqJe.h
+		DirectionCosineIeqJeq.h
+		DirectionCosineIeqtJeq.h
 		DiscontinuityError.h
 		DispCompiIeJeIe.h
 		DispCompiIeJeKe.h
@@ -643,28 +637,22 @@ set(FREECADMBD_HEADERS
 		DispIetJeqKet.h
 		DispIeqtJeqKeqt.h
 		DistanceConstraintIJ.h
-		DistanceConstraintIqcJc.h
-		DistanceConstraintIqcJqc.h
-		DistanceConstraintIqctJqc.h
+		DistanceConstraintIeqJe.h
+		DistanceConstraintIeqJeq.h
+		DistanceConstraintIeqtJeq.h
 		DistancexyConstraintIJ.h
-		DistancexyConstraintIqcJc.h
-		DistancexyConstraintIqcJqc.h
+		DistancexyConstraintIeqJe.h
+		DistancexyConstraintIeqJeq.h
 		DistIeJe.h
 		DistIeqJe.h
 		DistIeqJeq.h
 		DistIeqtJeq.h
 		DistIeJeq.h
 		DistIetJeq.h
-		DistIecJec.h
-		DistIecJeqc.h
-		DistIectJeqc.h
-		DistIeqcJec.h
-		DistIeqcJeqc.h
-		DistIeqctJeqc.h
-		DistxyIecJec.h
-		DistxyIeqcJec.h
-		DistxyIeqcJeqc.h
-		DistxyIeqctJeqc.h
+		DistxyIeJe.h
+		DistxyIeqJe.h
+		DistxyIeqJeq.h
+		DistxyIeqtJeq.h
 		DynIntegrator.h
 		EigenDecomposition.h
 		EndFrame.h
@@ -712,8 +700,8 @@ set(FREECADMBD_HEADERS
 		FunctionXcParameter.h
 		FunctionXY.h
 		GearConstraintIJ.h
-		GearConstraintIqcJc.h
-		GearConstraintIqcJqc.h
+		GearConstraintIeqJe.h
+		GearConstraintIeqJeq.h
 		GearJoint.h
 		GEFullMat.h
 		GEFullMatFullPv.h
@@ -816,16 +804,16 @@ set(FREECADMBD_HEADERS
 		NoRotationJoint.h
 		NotKinematicError.h
 		Numeric.h
-		OmeCompIecJecKec.h
-		OmeCompIecJecO.h
-		OmeCompIecJeqcKec.h
-		OmeCompIeqcJecKeqc.h
-		OmeCompIeqcJecO.h
-		OmeCompIeqcJeqcKeqc.h
-		OmeCompIeqcJeqcO.h
-		OrbitAnglezIecJec.h
-		OrbitAnglezIeqcJec.h
-		OrbitAnglezIeqcJeqc.h
+		OmeCompIeJeKe.h
+		OmeCompIeJeO.h
+		OmeCompIeJeqKe.h
+		OmeCompIeqJeKeq.h
+		OmeCompIeqJeO.h
+		OmeCompIeqJeqKeq.h
+		OmeCompIeqJeqO.h
+		OrbitAnglezIeJe.h
+		OrbitAnglezIeqJe.h
+		OrbitAnglezIeqJeq.h
 		Orientation.h
 		ParallelAxesJoint.h
 		Part.h
@@ -849,8 +837,8 @@ set(FREECADMBD_HEADERS
 		QuasiIntegrator.h
 		QuasiStaticIntegrator.h
 		RackPinConstraintIJ.h
-		RackPinConstraintIqcJc.h
-		RackPinConstraintIqcJqc.h
+		RackPinConstraintIeqJe.h
+		RackPinConstraintIeqJeq.h
 		RackPinJoint.h
 		RampStepFunction.h
 		Reciprocal.h
@@ -863,8 +851,8 @@ set(FREECADMBD_HEADERS
 		RowTypeMatrix.h
 		ScalarNewtonRaphson.h
 		ScrewConstraintIJ.h
-		ScrewConstraintIqcJc.h
-		ScrewConstraintIqcJqc.h
+		ScrewConstraintIeqJe.h
+		ScrewConstraintIeqJeq.h
 		ScrewJoint.h
 		SimulationStoppingError.h
 		Sine.h
@@ -912,12 +900,12 @@ set(FREECADMBD_HEADERS
 		VelICKineSolver.h
 		VelICSolver.h
 		VelKineSolver.h
-		VelRadIecJec.h
-		VelRadIecJeqc.h
-		VelRadIectJeqc.h
-		VelRadIeqcJec.h
-		VelRadIeqcJeqc.h
-		VelRadIeqctJeqc.h
+		VelRadIeJe.h
+		VelRadIeJeq.h
+		VelRadIetJeq.h
+		VelRadIeqJe.h
+		VelRadIeqJeq.h
+		VelRadIeqtJeq.h
 		VelSolver.h
 		ZRotation.h
 		ZTranslation.h

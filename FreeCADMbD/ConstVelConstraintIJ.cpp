@@ -7,8 +7,8 @@
  ***************************************************************************/
  
 #include "ConstVelConstraintIJ.h"
-#include "DirectionCosineIecJec.h"
-#include "ConstVelConstraintIqcJqc.h"
+#include "DirectionCosineIeJe.h"
+#include "ConstVelConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
@@ -18,7 +18,7 @@ std::shared_ptr<ConstVelConstraintIJ> ConstVelConstraintIJ::With(EndFrmsptr frmi
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
-    auto inst = std::make_shared<ConstVelConstraintIqcJqc>(frmi, frmj);
+    auto inst = std::make_shared<ConstVelConstraintIeqJeq>(frmi, frmj);
     inst->initialize();
     return inst;
 }

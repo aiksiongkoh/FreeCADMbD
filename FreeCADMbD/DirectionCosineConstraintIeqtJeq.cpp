@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DirectionCosineConstraintIeqtJeq.h"
-#include "DirectionCosineIeqctJeqc.h"
+#include "DirectionCosineIeqtJeq.h"
 #include "EndFrameq.h"
 
 using namespace MbD;
@@ -22,20 +22,20 @@ std::shared_ptr<DirectionCosineConstraintIeqtJeq> DirectionCosineConstraintIeqtJ
 void DirectionCosineConstraintIeqtJeq::preAccIC()
 {
     DirectionCosineConstraintIeqJeq::preAccIC();
-    ppGpEIpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->ppAijIeJepEIpt;
-    ppGpEJpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->ppAijIeJepEJpt;
-    ppGptpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->ppAijIeJeptpt;
+    ppGpEIpt = std::static_pointer_cast<DirectionCosineIeqtJeq>(aAijIeJe)->ppAijIeJepEIpt;
+    ppGpEJpt = std::static_pointer_cast<DirectionCosineIeqtJeq>(aAijIeJe)->ppAijIeJepEJpt;
+    ppGptpt = std::static_pointer_cast<DirectionCosineIeqtJeq>(aAijIeJe)->ppAijIeJeptpt;
 }
 
 void DirectionCosineConstraintIeqtJeq::preVelIC()
 {
     DirectionCosineConstraintIeqJeq::preVelIC();
-    pGpt = std::static_pointer_cast<DirectionCosineIeqctJeqc>(aAijIeJe)->pAijIeJept;
+    pGpt = std::static_pointer_cast<DirectionCosineIeqtJeq>(aAijIeJe)->pAijIeJept;
 }
 
 void DirectionCosineConstraintIeqtJeq::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIeqctJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeqtJeq::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void DirectionCosineConstraintIeqtJeq::fillVelICError(FColDsptr col)

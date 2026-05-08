@@ -412,7 +412,7 @@ void ForceTorqueIJ::fillpFpydot(SpMatDsptr mat)
 
 void ForceTorqueIJ::calcpFIeOpXI()
 {
-    calcpFIeOpX(prtFrmI);
+    calcpFIeOpXI();
 }
 
 void ForceTorqueIJ::calcpFIeOpEI()

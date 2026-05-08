@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DirectionCosineConstraintIeqJe.h"
-#include "DirectionCosineIeqcJec.h"
+#include "DirectionCosineIeqJe.h"
 #include "EndFrameq.h"
 
 using namespace MbD;
@@ -28,7 +28,7 @@ void DirectionCosineConstraintIeqJe::simUpdateAll()
 
 void DirectionCosineConstraintIeqJe::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIeqcJec::With(eFrmI, eFrmJ, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeqJe::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void DirectionCosineConstraintIeqJe::calcpGpEI()

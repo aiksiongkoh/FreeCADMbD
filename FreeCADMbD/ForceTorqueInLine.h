@@ -10,7 +10,7 @@
 
 #include "ForceTorqueIJ.h"
 #include "MarkerFrame.h"
-#include "DistIecJec.h"
+#include "DistIeJe.h"
 
 namespace MbD {
     class ForceTorqueInLine : public ForceTorqueIJ
@@ -53,7 +53,7 @@ namespace MbD {
         void setTwist(Symsptr formula) override;
         void useEquationNumbers() override;
 
-        std::shared_ptr<DistIecJec> distIeJe;
+        std::shared_ptr<DistIeJe> distIeJe;
         FColDsptr uIeJeO;
         FMatDsptr puIeJeOpXI;
         FMatDsptr puIeJeOpEI;

@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "DirectionCosineConstraintIeJeq.h"
-#include "DirectionCosineIecJeqc.h"
+#include "DirectionCosineIeJeq.h"
 #include "EndFrameq.h"
 
 using namespace MbD;
@@ -28,7 +28,7 @@ void DirectionCosineConstraintIeJeq::simUpdateAll()
 
 void DirectionCosineConstraintIeJeq::initaAijIeJe()
 {
-    aAijIeJe = DirectionCosineIecJeqc::With(eFrmI, eFrmJ, axisI, axisJ);
+    aAijIeJe = DirectionCosineIeJeq::With(eFrmI, eFrmJ, axisI, axisJ);
 }
 
 void DirectionCosineConstraintIeJeq::calcpGpEJ()
@@ -63,7 +63,7 @@ void DirectionCosineConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
 void DirectionCosineConstraintIeJeq::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    //frmIec does not have q, we use frmJeqc
+    //frmIe does not have q, we use frmJeq
     //aFJeO = lam * pGpXJ = zero
     //aTJeO = 0.5 * aBOJp * (lam * pGpEJ)
     //aTIeO = rJeIeO cross aFJeO - aTJeO
