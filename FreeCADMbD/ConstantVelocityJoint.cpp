@@ -8,7 +8,7 @@
  
 #include "ConstantVelocityJoint.h"
 #include "System.h"
-#include "ConstVelConstraintIJ.h"
+#include "ConstVelConstraintIeJe.h"
 #include "EndFrameq.h"
 
 using namespace MbD;
@@ -32,7 +32,7 @@ void ConstantVelocityJoint::initializeGlobally()
     if (constraints->empty())
     {
         createAtPointConstraints();
-        auto constVelIJ = ConstVelConstraintIJ::With(eFrmI, eFrmJ);
+        auto constVelIJ = ConstVelConstraintIeJe::With(eFrmI, eFrmJ);
         constVelIJ->setConstant(0.0);
         addConstraint(constVelIJ);
         root()->hasChanged = true;

@@ -15,14 +15,14 @@ namespace MbD {
     class EndFrame;
     using EndFrmsptr = std::shared_ptr<EndFrame>;
 
-    class KinematicIJ : public Kinematic
+    class KinematicIeJe : public Kinematic
     {
         //eFrmI eFrmJ 
     public:
-        KinematicIJ() : Kinematic() {}
-        KinematicIJ(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), Kinematic() {}
-        static std::shared_ptr<KinematicIJ> With();
-        static std::shared_ptr<KinematicIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        KinematicIeJe() : Kinematic() {}
+        KinematicIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), Kinematic() {}
+        static std::shared_ptr<KinematicIeJe> With();
+        static std::shared_ptr<KinematicIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual void withFrmIFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
         virtual void withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);

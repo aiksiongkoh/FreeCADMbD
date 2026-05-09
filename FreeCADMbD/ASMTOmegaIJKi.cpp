@@ -12,17 +12,17 @@ std::shared_ptr<ASMTOmegaIJKi> ASMTOmegaIJKi::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTOmegaIJKi::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdClassNew()
 {
     return OmeCompIeqJeqKeq::With();
 }
 
-std::shared_ptr<KinematicIJ> ASMTOmegaIJKi::mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
     return OmeCompIeqJeqKeq::With(frmi, frmj, efrmK, axisK);
 }
 
-std::shared_ptr<KinematicIJ> ASMTOmegaIJKi::mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
     return OmeCompIeJeqKe::With(frmi, frmj, efrmK, axisK);
 }

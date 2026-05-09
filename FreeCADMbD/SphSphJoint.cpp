@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "SphSphJoint.h"
-#include "DistanceConstraintIJ.h"
+#include "DistanceConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -30,7 +30,7 @@ void SphSphJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto distxyIJ = DistanceConstraintIJ::With(eFrmI, eFrmJ);
+        auto distxyIJ = DistanceConstraintIeJe::With(eFrmI, eFrmJ);
         distxyIJ->setConstant(distanceIJ);
         addConstraint(distxyIJ);
         root()->hasChanged = true;

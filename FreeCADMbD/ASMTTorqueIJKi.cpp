@@ -10,9 +10,9 @@ std::shared_ptr<ASMTTorqueIJKi> ASMTTorqueIJKi::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTTorqueIJKi::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTTorqueIJKi::mbdClassNew()
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
 double ASMTTorqueIJKi::asmtUnit()

@@ -46,14 +46,14 @@ void AngleZConstraintIeJeq::addToJointTorqueI(FColDsptr col)
 void AngleZConstraintIeJeq::simUpdateAll()
 {
     //aG = thezIeJe - C
-    AngleZConstraintIJ::simUpdateAll();
+    AngleZConstraintIeJe::simUpdateAll();
     calcpGpEJ();
     calcppGpEJpEJ();
 }
 
 void AngleZConstraintIeJeq::fillAccICIterError(FColDsptr col)
 {
-    AngleZConstraintIJ::fillAccICIterError(col);
+    AngleZConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
     auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
     auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
@@ -68,13 +68,13 @@ void AngleZConstraintIeJeq::fillAccICIterError(FColDsptr col)
 
 void AngleZConstraintIeJeq::fillPosICError(FColDsptr col)
 {
-    AngleZConstraintIJ::fillPosICError(col);
+    AngleZConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
 }
 
 void AngleZConstraintIeJeq::fillPosICJacob(SpMatDsptr mat)
 {
-    AngleZConstraintIJ::fillPosICJacob(mat);
+    AngleZConstraintIeJe::fillPosICJacob(mat);
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
@@ -82,20 +82,20 @@ void AngleZConstraintIeJeq::fillPosICJacob(SpMatDsptr mat)
 
 void AngleZConstraintIeJeq::fillPosKineJacob(SpMatDsptr mat)
 {
-    AngleZConstraintIJ::fillPosKineJacob(mat);
+    AngleZConstraintIeJe::fillPosKineJacob(mat);
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
 }
 
 void AngleZConstraintIeJeq::fillVelICJacob(SpMatDsptr mat)
 {
-    AngleZConstraintIJ::fillVelICJacob(mat);
+    AngleZConstraintIeJe::fillVelICJacob(mat);
     mat->atijplusFullRow(iG, iqEJ, pGpEJ);
     mat->atijplusFullColumn(iqEJ, iG, pGpEJ->transpose());
 }
 
 void AngleZConstraintIeJeq::useEquationNumbers()
 {
-    AngleZConstraintIJ::useEquationNumbers();
+    AngleZConstraintIeJe::useEquationNumbers();
     auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     iqEJ = frmJeq->iqE();
 }

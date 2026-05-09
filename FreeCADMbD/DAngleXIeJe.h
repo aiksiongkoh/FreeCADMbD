@@ -7,11 +7,11 @@
  ***************************************************************************/
 
 #pragma once
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 
  //Small angle rotation
 namespace MbD {
-    class DAngleXIeJe : public KinematicIJ
+    class DAngleXIeJe : public KinematicIeJe
     {
     public:
 

@@ -11,9 +11,9 @@ std::shared_ptr<ASMTvIJ> ASMTvIJ::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTvIJ::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTvIJ::mbdClassNew()
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
 void ASMTvIJ::createMbD()

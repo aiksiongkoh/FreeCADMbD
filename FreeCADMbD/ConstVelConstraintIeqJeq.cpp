@@ -149,5 +149,5 @@ void ConstVelConstraintIeqJeq::fillpFpydot(SpMatDsptr mat)
 
 std::string ConstVelConstraintIeqJeq::constraintSpec()
 {
-    return "ConstVelConstraintIJ";
+    return "ConstVelConstraintIeJe";
 }

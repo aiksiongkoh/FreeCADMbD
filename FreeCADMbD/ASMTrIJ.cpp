@@ -11,7 +11,7 @@ std::shared_ptr<ASMTrIJ> ASMTrIJ::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> MbD::ASMTrIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<KinematicIeJe> MbD::ASMTrIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     return DistIeJe::With(frmi, frmj);
 }

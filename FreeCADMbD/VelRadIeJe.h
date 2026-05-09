@@ -8,16 +8,16 @@
 
 #pragma once
 
-#include "KinematicDotIJ.h"
+#include "KinematicDotIeJe.h"
 #include "DispIeJeO.h"
 
 namespace MbD {
-    class VelRadIeJe : public KinematicDotIJ
+    class VelRadIeJe : public KinematicDotIeJe
     {
         //rIeJe rIeJeO uIeJeO vIeJe vIeJeO 
     public:
         VelRadIeJe() {}
-        VelRadIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
+        VelRadIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIeJe(frmi, frmj) {}
         static std::shared_ptr<VelRadIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
@@ -25,7 +25,9 @@ namespace MbD {
 
         std::shared_ptr<DispIeJeO> dispIeJeO; 
         double rIeJe = 0.0, vIeJe = 0.0;
-        FColDsptr rIeJeO, uIeJeO, vIeJeO;
+        FColDsptr rIeJeO;
+        FColDsptr uIeJeO;
+        FColDsptr vIeJeO;
 
     };
 }

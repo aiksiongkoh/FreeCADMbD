@@ -89,7 +89,7 @@ std::shared_ptr<AngleZIeJe> AngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 
 void AngleZIeJe::initialize()
 {
-    KinematicIJ::initialize();
+    KinematicIeJe::initialize();
     this->init_aAijIeJe();
 }
 
@@ -124,7 +124,7 @@ void AngleZIeJe::initializeGlobally()
 
 void AngleZIeJe::initializeLocally()
 {
-    KinematicIJ::initializeLocally();
+    KinematicIeJe::initializeLocally();
     if (!aA00IeJe) init_aAijIeJe();
     aA00IeJe->initializeLocally();
     aA10IeJe->initializeLocally();
@@ -144,21 +144,21 @@ void AngleZIeJe::postInput()
             thez = Numeric::arcTan0to2piYoverX(sthez, cthez);
         }
     }
-    KinematicIJ::postInput();
+    KinematicIeJe::postInput();
 }
 
 void AngleZIeJe::postPosICIteration()
 {
     aA00IeJe->postPosICIteration();
     aA10IeJe->postPosICIteration();
-    KinematicIJ::postPosICIteration();
+    KinematicIeJe::postPosICIteration();
 }
 
 void AngleZIeJe::preAccIC()
 {
     aA00IeJe->preAccIC();
     aA10IeJe->preAccIC();
-    KinematicIJ::preAccIC();
+    KinematicIeJe::preAccIC();
 }
 
 void AngleZIeJe::prePosIC()
@@ -166,14 +166,14 @@ void AngleZIeJe::prePosIC()
     aA00IeJe->prePosIC();
     aA10IeJe->prePosIC();
     assert(thez != std::numeric_limits<double>::min());
-    KinematicIJ::prePosIC();
+    KinematicIeJe::prePosIC();
 }
 
 void AngleZIeJe::preVelIC()
 {
     aA00IeJe->preVelIC();
     aA10IeJe->preVelIC();
-    KinematicIJ::preVelIC();
+    KinematicIeJe::preVelIC();
 }
 
 double AngleZIeJe::value()
@@ -185,26 +185,26 @@ void AngleZIeJe::postDynPredictor()
 {
     aA00IeJe->postDynPredictor();
     aA10IeJe->postDynPredictor();
-    KinematicIJ::postDynPredictor();
+    KinematicIeJe::postDynPredictor();
 }
 
 void AngleZIeJe::postDynCorrectorIteration()
 {
     aA00IeJe->postDynCorrectorIteration();
     aA10IeJe->postDynCorrectorIteration();
-    KinematicIJ::postDynCorrectorIteration();
+    KinematicIeJe::postDynCorrectorIteration();
 }
 
 void AngleZIeJe::preDynOutput()
 {
     aA00IeJe->preDynOutput();
     aA10IeJe->preDynOutput();
-    KinematicIJ::preDynOutput();
+    KinematicIeJe::preDynOutput();
 }
 
 void AngleZIeJe::postDynOutput()
 {
     aA00IeJe->postDynOutput();
     aA10IeJe->postDynOutput();
-    KinematicIJ::postDynOutput();
+    KinematicIeJe::postDynOutput();
 }

@@ -24,7 +24,7 @@ std::shared_ptr<ConstVelConstraintIeqJe> ConstVelConstraintIeqJe::With(EndFrmspt
 
 void ConstVelConstraintIeqJe::initialize()
 {
-    ConstVelConstraintIJ::initialize();
+    ConstVelConstraintIeJe::initialize();
     pGpEI = FullRow<double>::With(4);
     ppGpEIpEI = FullMatrix<double>::With(4, 4);
 }
@@ -32,7 +32,7 @@ void ConstVelConstraintIeqJe::initialize()
 void ConstVelConstraintIeqJe::simUpdateAll()
 {
     //aG = aA01IeJe + aA10IeJe - aConstant;
-    ConstVelConstraintIJ::simUpdateAll();
+    ConstVelConstraintIeJe::simUpdateAll();
     auto aA01IeqcJec = std::dynamic_pointer_cast<DirectionCosineIeqJe>(aA01IeJe);
     auto pA01IeJepEI = aA01IeqcJec->pAijIeJepEI;
     auto ppA01IeJepEIpEI = aA01IeqcJec->ppAijIeJepEIpEI;
@@ -121,7 +121,7 @@ void ConstVelConstraintIeqJe::fillpFpydot(SpMatDsptr mat)
 
 std::string ConstVelConstraintIeqJe::constraintSpec()
 {
-    return "ConstVelConstraintIJ";
+    return "ConstVelConstraintIeJe";
 }
 
 void ConstVelConstraintIeqJe::addToJointTorqueI(FColDsptr col)

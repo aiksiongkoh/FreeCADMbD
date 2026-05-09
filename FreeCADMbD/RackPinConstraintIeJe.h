@@ -5,40 +5,45 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "OrbitAngleZIeJe.h"
+#include "DispCompiIeJeIe.h"
+#include "AngleZIeJe.h"
 
 namespace MbD {
-    class GearConstraintIJ : public ConstraintIeJe
+    class RackPinConstraintIeJe : public ConstraintIeJe
     {
-        //orbitIeJe orbitJeIe radiusI radiusJ 
+        //xIeJeIe thezIeJe pitchRadius 
     public:
-        GearConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<GearConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        RackPinConstraintIeJe() {}
+        RackPinConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<RackPinConstraintIeJe> With();
+        static std::shared_ptr<RackPinConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
+        virtual void initxIeJeIe();
+        virtual void initthezIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
         void useUniqueDispIeJeO() override;
         void useUniqueDispIeJeKe() override;
-        virtual void initorbitsIJ();
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        double ratio();
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        std::string constraintSpec() override;
 
-        std::shared_ptr<OrbitAngleZIeJe> orbitIeJe, orbitJeIe;
-        double radiusI = 0.0, radiusJ = 0.0;
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe;
+        std::shared_ptr<AngleZIeJe> thezIeJe;
+        double pitchRadius = 0.0;
     };
 }
 

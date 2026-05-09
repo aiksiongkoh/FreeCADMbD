@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "CylSphJoint.h"
-#include "DistancexyConstraintIJ.h"
+#include "DistancexyConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -30,7 +30,7 @@ void CylSphJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto distxyIJ = DistancexyConstraintIJ::With(eFrmI, eFrmJ);
+        auto distxyIJ = DistancexyConstraintIeJe::With(eFrmI, eFrmJ);
         distxyIJ->setConstant(distanceIJ);
         addConstraint(distxyIJ);
         root()->hasChanged = true;

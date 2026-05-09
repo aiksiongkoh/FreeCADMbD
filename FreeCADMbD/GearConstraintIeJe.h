@@ -5,45 +5,40 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
-
+ 
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "DispCompiIeJeIe.h"
-#include "AngleZIeJe.h"
+#include "OrbitAngleZIeJe.h"
 
 namespace MbD {
-    class RackPinConstraintIJ : public ConstraintIeJe
+    class GearConstraintIeJe : public ConstraintIeJe
     {
-        //xIeJeIe thezIeJe pitchRadius 
+        //orbitIeJe orbitJeIe radiusI radiusJ 
     public:
-        RackPinConstraintIJ() {}
-        RackPinConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<RackPinConstraintIJ> With();
-        static std::shared_ptr<RackPinConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        GearConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<GearConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
-        virtual void initxIeJeIe();
-        virtual void initthezIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
         void useUniqueDispIeJeO() override;
         void useUniqueDispIeJeKe() override;
+        virtual void initorbitsIJ();
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
+        double ratio();
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
-        std::string constraintSpec() override;
 
-        std::shared_ptr<DispCompiIeJeIe> xIeJeIe;
-        std::shared_ptr<AngleZIeJe> thezIeJe;
-        double pitchRadius = 0.0;
+        std::shared_ptr<OrbitAngleZIeJe> orbitIeJe, orbitJeIe;
+        double radiusI = 0.0, radiusJ = 0.0;
     };
 }
 

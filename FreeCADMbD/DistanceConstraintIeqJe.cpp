@@ -45,7 +45,7 @@ void DistanceConstraintIeqJe::addToJointTorqueI(FColDsptr col)
 void DistanceConstraintIeqJe::simUpdateAll()
 {
     //aG = rIeJe - C;
-    DistanceConstraintIJ::simUpdateAll();
+    DistanceConstraintIeJe::simUpdateAll();
     pGpXI = distIeJe->pvaluepXI();
     pGpEI = distIeJe->pvaluepEI();
     ppGpXIpXI = distIeJe->ppvaluepXIpXI();
@@ -70,7 +70,7 @@ void DistanceConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void DistanceConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    DistanceConstraintIJ::fillPosICError(col);
+    DistanceConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }
@@ -128,5 +128,5 @@ void DistanceConstraintIeqJe::fillpFpydot(SpMatDsptr mat)
 
 std::string DistanceConstraintIeqJe::constraintSpec()
 {
-    return "DistanceConstraintIJ";
+    return "DistanceConstraintIeJe";
 }

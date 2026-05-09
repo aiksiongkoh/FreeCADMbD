@@ -9,23 +9,25 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
+#include "DispCompiIeJeIe.h"
+#include "AngleZIeJe.h"
 
 namespace MbD {
-    class DirectionCosineIeJe;
-
-    class ConstVelConstraintIJ : public ConstraintIeJe
+    class ScrewConstraintIeJe : public ConstraintIeJe
     {
-        //aA01IeJe aA10IeJe 
+        //zIeJeIe thezIeJe pitch 
     public:
-        ConstVelConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<ConstVelConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        ScrewConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<ScrewConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
-        virtual void initA01IeJe();
-        virtual void initA10IeJe();
+        virtual void initzIeJeIe();
+        virtual void initthezIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
@@ -35,10 +37,12 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
-        void addToJointForceI(FColDsptr col);
-        void addToJointTorqueI(FColDsptr col) override;
 
-        std::shared_ptr<DirectionCosineIeJe> aA01IeJe, aA10IeJe;
+        std::shared_ptr<DispCompiIeJeIe> zIeJeIe;
+        std::shared_ptr<AngleZIeJe> thezIeJe;
+        double pitch = 0.0;
+
+
     };
 }
 

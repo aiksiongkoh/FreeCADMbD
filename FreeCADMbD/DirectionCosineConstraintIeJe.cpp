@@ -129,6 +129,7 @@ void DirectionCosineConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     aAijIeJe = DirectionCosineIeJe::With(eFrmI, eFrmJ, axisI, axisJ);
+    aAijIeJe->owner = this;
 }
 
 void DirectionCosineConstraintIeJe::initializeLocally()

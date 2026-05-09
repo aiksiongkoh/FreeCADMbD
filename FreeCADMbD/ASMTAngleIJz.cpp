@@ -19,17 +19,17 @@ std::shared_ptr<ASMTAngleIJz> ASMTAngleIJz::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTAngleIJz::mbdClassNew()
 {
     return AngleZIeqJeq::With();
 }
 
-std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<KinematicIeJe> ASMTAngleIJz::mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     return AngleZIeqJeq::With(frmi, frmj);
 }
 
-std::shared_ptr<KinematicIJ> ASMTAngleIJz::mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<KinematicIeJe> ASMTAngleIJz::mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     return AngleZIeJeq::With(frmi, frmj);
 }

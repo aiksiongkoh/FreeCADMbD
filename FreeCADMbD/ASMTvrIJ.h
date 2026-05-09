@@ -16,11 +16,11 @@ namespace MbD {
         //
     public:
         static std::shared_ptr<ASMTvrIJ> With();
-        std::shared_ptr<KinematicIJ> mbdClassNew() override;
-        std::shared_ptr<KinematicIJ> mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
-        std::shared_ptr<KinematicIJ> mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
-        std::shared_ptr<KinematicIJ> mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
-        std::shared_ptr<KinematicIJ> mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
+        std::shared_ptr<KinematicIeJe> mbdClassNew() override;
+        std::shared_ptr<KinematicIeJe> mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
+        std::shared_ptr<KinematicIeJe> mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
+        std::shared_ptr<KinematicIeJe> mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
+        std::shared_ptr<KinematicIeJe> mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj) override;
         double asmtUnit() override;
 
     };

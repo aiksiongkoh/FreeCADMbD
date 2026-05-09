@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "RotationLimitIJ.h"
-#include "AngleZConstraintIJ.h"
+#include "AngleZConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -22,7 +22,7 @@ std::shared_ptr<RotationLimitIJ> RotationLimitIJ::With()
 void RotationLimitIJ::initializeGlobally()
 {
     if (constraints->empty()) {
-        auto angleZConIJ = AngleZConstraintIJ::With(eFrmI, eFrmJ);
+        auto angleZConIJ = AngleZConstraintIeJe::With(eFrmI, eFrmJ);
         angleZConIJ->setConstant(limit);
         addConstraint(angleZConIJ);
         this->root()->hasChanged = true;

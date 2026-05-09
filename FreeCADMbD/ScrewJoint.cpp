@@ -8,7 +8,7 @@
  
 #include "ScrewJoint.h"
 #include "System.h"
-#include "ScrewConstraintIJ.h"
+#include "ScrewConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -30,7 +30,7 @@ void ScrewJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto screwIJ = ScrewConstraintIJ::With(eFrmI, eFrmJ);
+        auto screwIJ = ScrewConstraintIeJe::With(eFrmI, eFrmJ);
         screwIJ->setConstant(std::numeric_limits<double>::min());
         screwIJ->pitch = pitch;
         addConstraint(screwIJ);

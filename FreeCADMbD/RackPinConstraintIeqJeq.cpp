@@ -39,6 +39,7 @@ void RackPinConstraintIeqJeq::initxIeJeIe()
 void RackPinConstraintIeqJeq::initthezIeJe()
 {
     thezIeJe = AngleZIeqJeq::With(eFrmI, eFrmJ);
+    thezIeJe->owner = this;
 }
 
 void RackPinConstraintIeqJeq::calcpGpEJ()

@@ -9,14 +9,14 @@
 #include <cmath>
 #include <numbers>
 
-#include "ScrewConstraintIJ.h"
+#include "ScrewConstraintIeJe.h"
 #include "ScrewConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<ScrewConstraintIJ> ScrewConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<ScrewConstraintIeJe> ScrewConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -25,55 +25,56 @@ std::shared_ptr<ScrewConstraintIJ> ScrewConstraintIJ::With(EndFrmsptr frmi, EndF
     return inst;
 }
 
-void ScrewConstraintIJ::initialize()
+void ScrewConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     initzIeJeIe();
     initthezIeJe();
 }
 
-void ScrewConstraintIJ::simUpdateAll()
+void ScrewConstraintIeJe::simUpdateAll()
 {
     auto z = zIeJeIe->value();
     auto thez = thezIeJe->thez;
     aG = (2.0 * std::numbers::pi * z) - (pitch * thez) - aConstant;
 }
 
-void ScrewConstraintIJ::initzIeJeIe()
+void ScrewConstraintIeJe::initzIeJeIe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void ScrewConstraintIJ::initthezIeJe()
+void ScrewConstraintIeJe::initthezIeJe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void ScrewConstraintIJ::initializeGlobally()
+void ScrewConstraintIeJe::initializeGlobally()
 {
     zIeJeIe->initializeGlobally();
     thezIeJe->initializeGlobally();
 }
 
-void ScrewConstraintIJ::initializeLocally()
+void ScrewConstraintIeJe::initializeLocally()
 {
     zIeJeIe->initializeLocally();
     thezIeJe->initializeLocally();
 }
 
-void ScrewConstraintIJ::useUniqueDispIeJeO()
+void ScrewConstraintIeJe::useUniqueDispIeJeO()
 {
+    ConstraintIeJe::useUniqueDispIeJeO();
     zIeJeIe->useUniqueDispIeJeO();
     thezIeJe->useUniqueDispIeJeO();
 }
 
-void ScrewConstraintIJ::useUniqueDispIeJeKe()
+void ScrewConstraintIeJe::useUniqueDispIeJeKe()
 {
     zIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();
 }
 
-void ScrewConstraintIJ::postInput()
+void ScrewConstraintIeJe::postInput()
 {
     zIeJeIe->postInput();
     thezIeJe->postInput();
@@ -81,56 +82,56 @@ void ScrewConstraintIJ::postInput()
     ConstraintIeJe::postInput();
 }
 
-void ScrewConstraintIJ::postPosICIteration()
+void ScrewConstraintIeJe::postPosICIteration()
 {
     zIeJeIe->postPosICIteration();
     thezIeJe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void ScrewConstraintIJ::preAccIC()
+void ScrewConstraintIeJe::preAccIC()
 {
     zIeJeIe->preAccIC();
     thezIeJe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void ScrewConstraintIJ::prePosIC()
+void ScrewConstraintIeJe::prePosIC()
 {
     zIeJeIe->prePosIC();
     thezIeJe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void ScrewConstraintIJ::preVelIC()
+void ScrewConstraintIeJe::preVelIC()
 {
     zIeJeIe->preVelIC();
     thezIeJe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-void ScrewConstraintIJ::postDynPredictor()
+void ScrewConstraintIeJe::postDynPredictor()
 {
     zIeJeIe->postDynPredictor();
     thezIeJe->postDynPredictor();
     ConstraintIeJe::postDynPredictor();
 }
 
-void ScrewConstraintIJ::postDynCorrectorIteration()
+void ScrewConstraintIeJe::postDynCorrectorIteration()
 {
     zIeJeIe->postDynCorrectorIteration();
     thezIeJe->postDynCorrectorIteration();
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
-void ScrewConstraintIJ::preDynOutput()
+void ScrewConstraintIeJe::preDynOutput()
 {
     zIeJeIe->preDynOutput();
     thezIeJe->preDynOutput();
     ConstraintIeJe::preDynOutput();
 }
 
-void ScrewConstraintIJ::postDynOutput()
+void ScrewConstraintIeJe::postDynOutput()
 {
     zIeJeIe->postDynOutput();
     thezIeJe->postDynOutput();

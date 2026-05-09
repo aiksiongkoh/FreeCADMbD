@@ -10,7 +10,6 @@
 
 #include "ConstraintIeJe.h"
 #include "DispCompiIeJeIe.h"
-#include "DispIeJeKe.h"
 
 namespace MbD {
     class TranslationConstraintIeJe : public ConstraintIeJe
@@ -70,7 +69,6 @@ namespace MbD {
 
         size_t axisI = SIZE_MAX;
         std::shared_ptr<DispCompiIeJeIe> riIeJeIe;
-        std::shared_ptr<DispIeJeKe> dispIeJeIe;
     };
 }
 

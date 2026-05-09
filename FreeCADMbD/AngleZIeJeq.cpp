@@ -73,7 +73,9 @@ void AngleZIeJeq::simUpdateAll()
 void AngleZIeJeq::init_aAijIeJe()
 {
     aA00IeJe = DirectionCosineIeJeq::With(eFrmI, eFrmJ, 0, 0);
+    aA00IeJe->owner = this;
     aA10IeJe = DirectionCosineIeJeq::With(eFrmI, eFrmJ, 1, 0);
+    aA10IeJe->owner = this;
 }
 
 FMatDsptr AngleZIeJeq::ppvaluepEJpEJ()

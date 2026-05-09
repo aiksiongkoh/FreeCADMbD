@@ -7,7 +7,7 @@ AccNewtonRaphson.h
 AllowZRotation.h
 AllowZRotationConstraintIeqtJeq.h
 AngleJoint.h
-AngleZConstraintIJ.h
+AngleZConstraintIeJe.h
 AngleZConstraintIeJeq.h
 AngleZConstraintIeqJe.h
 AngleZConstraintIeqJeq.h
@@ -117,7 +117,7 @@ ConstantGravity.h
 ConstantVelocityJoint.h
 Constraint.h
 ConstraintSet.h
-ConstVelConstraintIJ.h
+ConstVelConstraintIeJe.h
 ConstVelConstraintIeqJe.h
 ConstVelConstraintIeqJeq.h
 Cosine.h
@@ -143,11 +143,11 @@ DirectionCosineIeqJeq.h
 DirectionCosineIeqtJeq.h
 DiscontinuityError.h
 DispCompiIeJeIe.h
-DistanceConstraintIJ.h
+DistanceConstraintIeJe.h
 DistanceConstraintIeqJe.h
 DistanceConstraintIeqJeq.h
 DistanceConstraintIeqtJeq.h
-DistancexyConstraintIJ.h
+DistancexyConstraintIeJe.h
 DistancexyConstraintIeqJe.h
 DistancexyConstraintIeqJeq.h
 DistIeJe.h
@@ -227,7 +227,7 @@ FunctionWithManyArgs.h
 FunctionX.h
 FunctionXcParameter.h
 FunctionXY.h
-GearConstraintIJ.h
+GearConstraintIeJe.h
 GearConstraintIeqJe.h
 GearConstraintIeqJeq.h
 GearJoint.h
@@ -254,8 +254,8 @@ Item.h
 JointIJ.h
 KineIntegrator.h
 Kinematic.h
-KinematicDotIJ.h
-KinematicIJ.h
+KinematicDotIeJe.h
+KinematicIeJe.h
 LDUFullMat.h
 LDUFullMatParPv.h
 LDUFullMatParPvRobust.h
@@ -362,7 +362,7 @@ PrescribedMotion.h
 Product.h
 QuasiIntegrator.h
 QuasiStaticIntegrator.h
-RackPinConstraintIJ.h
+RackPinConstraintIeJe.h
 RackPinConstraintIeqJe.h
 RackPinConstraintIeqJeq.h
 RackPinJoint.h
@@ -376,7 +376,7 @@ RevRevJoint.h
 RotationLimitIJ.h
 RowTypeMatrix.h
 ScalarNewtonRaphson.h
-ScrewConstraintIJ.h
+ScrewConstraintIeJe.h
 ScrewConstraintIeqJe.h
 ScrewConstraintIeqJeq.h
 ScrewJoint.h

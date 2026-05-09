@@ -41,7 +41,7 @@ void AngleZConstraintIeqJe::calcppGpEIpEI()
 void AngleZConstraintIeqJe::simUpdateAll()
 {
     //aG = thezIeJe - C
-    AngleZConstraintIJ::simUpdateAll();
+    AngleZConstraintIeJe::simUpdateAll();
     calcpGpEI();
     calcppGpEIpEI();
 }
@@ -59,7 +59,7 @@ void AngleZConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void AngleZConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    AngleZConstraintIJ::fillPosICError(col);
+    AngleZConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }
 

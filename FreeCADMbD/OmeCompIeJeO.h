@@ -7,10 +7,10 @@
  ***************************************************************************/
 
 #pragma once
-#include "KinematicDotIJ.h"
+#include "KinematicDotIeJe.h"
 
 namespace MbD {
-    class OmeCompIeJeO : public KinematicDotIJ
+    class OmeCompIeJeO : public KinematicDotIeJe
     {
     public:
         void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) override;

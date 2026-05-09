@@ -10,9 +10,9 @@ std::shared_ptr<ASMTvIJKi> ASMTvIJKi::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTvIJKi::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTvIJKi::mbdClassNew()
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
 double ASMTvIJKi::asmtUnit()

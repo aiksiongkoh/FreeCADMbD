@@ -10,14 +10,14 @@
 
 #include <cstdint>
 
-#include "AngleZConstraintIJ.h"
+#include "AngleZConstraintIeJe.h"
 
 namespace MbD {
-    class AngleZConstraintIeJeq : public AngleZConstraintIJ
+    class AngleZConstraintIeJeq : public AngleZConstraintIeJe
     {
         //pGpEJ ppGpEIpEJ ppGpEJpEJ iqEJ 
     public:
-        AngleZConstraintIeJeq(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZConstraintIJ(frmi, frmj) {}
+        AngleZConstraintIeJeq(EndFrmsptr frmi, EndFrmsptr frmj) : AngleZConstraintIeJe(frmi, frmj) {}
 
         void initthezIeJe() override;
         void calcpGpEJ();

@@ -18,9 +18,9 @@ std::shared_ptr<ASMTForceIJKi> ASMTForceIJKi::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTForceIJKi::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTForceIJKi::mbdClassNew()
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
 double ASMTForceIJKi::asmtUnit()

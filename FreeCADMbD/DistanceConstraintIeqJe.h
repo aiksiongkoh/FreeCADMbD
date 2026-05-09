@@ -8,14 +8,14 @@
  
 #pragma once
 
-#include "DistanceConstraintIJ.h"
+#include "DistanceConstraintIeJe.h"
 
 namespace MbD {
-    class DistanceConstraintIeqJe : public DistanceConstraintIJ
+    class DistanceConstraintIeqJe : public DistanceConstraintIeJe
     {
         //pGpXI pGpEI ppGpXIpXI ppGpXIpEI ppGpEIpEI iqXI iqEI 
     public:
-        DistanceConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : DistanceConstraintIJ(frmi, frmj) {}
+        DistanceConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : DistanceConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<DistanceConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void addToJointForceI(FColDsptr col) override;

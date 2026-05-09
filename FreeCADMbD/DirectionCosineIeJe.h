@@ -10,18 +10,18 @@
 
 #include <memory>
 
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 
 namespace MbD {
     template<typename T>
     class FullColumn;
 
-    class DirectionCosineIeJe : public KinematicIJ
+    class DirectionCosineIeJe : public KinematicIeJe
     {
         //aAijIeJe axisI axisJ aAjOIe aAjOJe 
     public:
         DirectionCosineIeJe() {}
-        DirectionCosineIeJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : KinematicIJ(frmi, frmj), axisI(axisi), axisJ(axisj) {}
+        DirectionCosineIeJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj) : KinematicIeJe(frmi, frmj), axisI(axisi), axisJ(axisj) {}
         static std::shared_ptr<DirectionCosineIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj);
 
         void simUpdateAll() override;

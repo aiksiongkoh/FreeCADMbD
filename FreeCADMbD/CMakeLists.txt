@@ -17,7 +17,7 @@ set(FREECADMBD_SRC
 		AllowZRotationConstraintIetJeq.cpp
 		AllowZRotationConstraintIeqtJeq.cpp
 		AngleJoint.cpp
-		AngleZConstraintIJ.cpp
+		AngleZConstraintIeJe.cpp
 		AngleZConstraintIeJeq.cpp
 		AngleZConstraintIeqJe.cpp
 		AngleZConstraintIeqJeq.cpp
@@ -135,7 +135,7 @@ set(FREECADMBD_SRC
 		Constraint.cpp
 		ConstraintIeJe.cpp
 		ConstraintSet.cpp
-		ConstVelConstraintIJ.cpp
+		ConstVelConstraintIeJe.cpp
 		ConstVelConstraintIeqJe.cpp
 		ConstVelConstraintIeqJeq.cpp
 		Cosine.cpp
@@ -185,11 +185,11 @@ set(FREECADMBD_SRC
 		DispIeJeKeq.cpp
 		DispIetJeqKet.cpp
 		DispIeqtJeqKeqt.cpp
-		DistanceConstraintIJ.cpp
+		DistanceConstraintIeJe.cpp
 		DistanceConstraintIeqJe.cpp
 		DistanceConstraintIeqJeq.cpp
 		DistanceConstraintIeqtJeq.cpp
-		DistancexyConstraintIJ.cpp
+		DistancexyConstraintIeJe.cpp
 		DistancexyConstraintIeqJe.cpp
 		DistancexyConstraintIeqJeq.cpp
 		DistIeJe.cpp
@@ -246,7 +246,7 @@ set(FREECADMBD_SRC
 		FunctionX.cpp
 		FunctionXcParameter.cpp
 		FunctionXY.cpp
-		GearConstraintIJ.cpp
+		GearConstraintIeJe.cpp
 		GearConstraintIeqJe.cpp
 		GearConstraintIeqJeq.cpp
 		GearJoint.cpp
@@ -274,8 +274,8 @@ set(FREECADMBD_SRC
 		KineIntegrator.cpp
 		Kinematic.cpp
 		KinematicCompiIeJe.cpp
-		KinematicDotIJ.cpp
-		KinematicIJ.cpp
+		KinematicDotIeJe.cpp
+		KinematicIeJe.cpp
 		KinematicVectorIeJe.cpp
 		LDUFullMat.cpp
 		LDUFullMatParPv.cpp
@@ -383,7 +383,7 @@ set(FREECADMBD_SRC
 		Product.cpp
 		QuasiIntegrator.cpp
 		QuasiStaticIntegrator.cpp
-		RackPinConstraintIJ.cpp
+		RackPinConstraintIeJe.cpp
 		RackPinConstraintIeqJe.cpp
 		RackPinConstraintIeqJeq.cpp
 		RackPinJoint.cpp
@@ -396,7 +396,7 @@ set(FREECADMBD_SRC
 		RotationLimitIJ.cpp
 		RowTypeMatrix.cpp
 		ScalarNewtonRaphson.cpp
-		ScrewConstraintIJ.cpp
+		ScrewConstraintIeJe.cpp
 		ScrewConstraintIeqJe.cpp
 		ScrewConstraintIeqJeq.cpp
 		ScrewJoint.cpp
@@ -468,7 +468,7 @@ set(FREECADMBD_HEADERS
 		AllowZRotationConstraintIetJeq.h
 		AllowZRotationConstraintIeqtJeq.h
 		AngleJoint.h
-		AngleZConstraintIJ.h
+		AngleZConstraintIeJe.h
 		AngleZConstraintIeJeq.h
 		AngleZConstraintIeqJe.h
 		AngleZConstraintIeqJeq.h
@@ -586,7 +586,7 @@ set(FREECADMBD_HEADERS
 		Constraint.h
 		ConstraintIeJe.h
 		ConstraintSet.h
-		ConstVelConstraintIJ.h
+		ConstVelConstraintIeJe.h
 		ConstVelConstraintIeqJe.h
 		ConstVelConstraintIeqJeq.h
 		Cosine.h
@@ -636,11 +636,11 @@ set(FREECADMBD_HEADERS
 		DispIeJeKeq.h
 		DispIetJeqKet.h
 		DispIeqtJeqKeqt.h
-		DistanceConstraintIJ.h
+		DistanceConstraintIeJe.h
 		DistanceConstraintIeqJe.h
 		DistanceConstraintIeqJeq.h
 		DistanceConstraintIeqtJeq.h
-		DistancexyConstraintIJ.h
+		DistancexyConstraintIeJe.h
 		DistancexyConstraintIeqJe.h
 		DistancexyConstraintIeqJeq.h
 		DistIeJe.h
@@ -699,7 +699,7 @@ set(FREECADMBD_HEADERS
 		FunctionX.h
 		FunctionXcParameter.h
 		FunctionXY.h
-		GearConstraintIJ.h
+		GearConstraintIeJe.h
 		GearConstraintIeqJe.h
 		GearConstraintIeqJeq.h
 		GearJoint.h
@@ -727,8 +727,8 @@ set(FREECADMBD_HEADERS
 		KineIntegrator.h
 		Kinematic.h
 		KinematicCompiIeJe.h
-		KinematicDotIJ.h
-		KinematicIJ.h
+		KinematicDotIeJe.h
+		KinematicIeJe.h
 		KinematicVectorIeJe.h
 		LDUFullMat.h
 		LDUFullMatParPv.h
@@ -836,7 +836,7 @@ set(FREECADMBD_HEADERS
 		Product.h
 		QuasiIntegrator.h
 		QuasiStaticIntegrator.h
-		RackPinConstraintIJ.h
+		RackPinConstraintIeJe.h
 		RackPinConstraintIeqJe.h
 		RackPinConstraintIeqJeq.h
 		RackPinJoint.h
@@ -850,7 +850,7 @@ set(FREECADMBD_HEADERS
 		RotationLimitIJ.h
 		RowTypeMatrix.h
 		ScalarNewtonRaphson.h
-		ScrewConstraintIJ.h
+		ScrewConstraintIeJe.h
 		ScrewConstraintIeqJe.h
 		ScrewConstraintIeqJeq.h
 		ScrewJoint.h

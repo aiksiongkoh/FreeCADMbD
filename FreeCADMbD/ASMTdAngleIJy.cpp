@@ -18,7 +18,7 @@ std::shared_ptr<ASMTdAngleIJy> ASMTdAngleIJy::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTdAngleIJy::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTdAngleIJy::mbdClassNew()
 {
     return DAngleYIeqJeq::With();
 }

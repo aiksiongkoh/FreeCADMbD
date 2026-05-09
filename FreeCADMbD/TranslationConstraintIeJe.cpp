@@ -92,22 +92,11 @@ void TranslationConstraintIeJe::simUpdateAll()
 void TranslationConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
-    dispIeJeIe = DispIeJeKe::With(eFrmI, eFrmJ, eFrmI);
-    dispIeJeIe->owner = this;
     initriIeJeIe();
 }
 
 void TranslationConstraintIeJe::useUniqueDispIeJeKe()
 {
-    if (!dispIeJeIe) return;
-    auto dispIeJeKes = root()->dispIeJeKes;
-    auto it = std::find_if(dispIeJeKes->begin(), dispIeJeKes->end(), [&](auto disp) { return disp->hasSameEndFrms(dispIeJeIe); });
-    if (it == dispIeJeKes->end()) {
-        dispIeJeKes->push_back(dispIeJeIe);
-    }
-    else {
-        dispIeJeIe = *it;
-    }
     riIeJeIe->useUniqueDispIeJeKe();
 }
 
@@ -123,7 +112,7 @@ void TranslationConstraintIeJe::initializeGlobally()
 
 void TranslationConstraintIeJe::useUniqueDispIeJeO()
 {
-    dispIeJeIe->useUniqueDispIeJeO();
+    ConstraintIeJe::useUniqueDispIeJeO();
     riIeJeIe->useUniqueDispIeJeO();
 }
 
@@ -141,9 +130,7 @@ void TranslationConstraintIeJe::postInput()
 
 void TranslationConstraintIeJe::calcG()
 {
-    // aG = riIeJeIe->value() - aConstant;
-    auto rIeJeIe = dispIeJeIe->rIeJeKe;
-    aG = rIeJeIe->at(axisI) - aConstant;
+    aG = riIeJeIe->value() - aConstant;
 }
 
 void TranslationConstraintIeJe::prePosIC()

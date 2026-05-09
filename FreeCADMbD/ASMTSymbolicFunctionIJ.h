@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ASMTSymbolicFunction.h"
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 
 namespace MbD {
     class ASMTSymbolicFunctionIJ : public ASMTSymbolicFunction
@@ -20,24 +20,24 @@ namespace MbD {
         ASMTSymbolicFunctionIJ(std::shared_ptr<ASMTItemIJ> itemIJ);
         static std::shared_ptr<ASMTSymbolicFunctionIJ> With();
 
-        virtual std::shared_ptr<KinematicIJ> mbdClassNew();
-        virtual std::shared_ptr<KinematicIJ> mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqctJqct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqctJct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqctJc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqcJqct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqcJct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIqcJc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIctJqct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIctJct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIctJc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIcJqct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIcJct(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual std::shared_ptr<KinematicIJ> mbdKineIcJc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdClassNew();
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqctJqct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqctJqc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqctJct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqctJc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqcJqct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqcJqc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqcJct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIqcJc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIctJqct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIctJqc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIctJct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIctJc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIcJqct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIcJqc(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIcJct(EndFrmsptr frmi, EndFrmsptr frmj);
+        virtual std::shared_ptr<KinematicIeJe> mbdKineIcJc(EndFrmsptr frmi, EndFrmsptr frmj);
         virtual void withFrmIFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
         void createMbD() override;
         virtual double asmtUnit();

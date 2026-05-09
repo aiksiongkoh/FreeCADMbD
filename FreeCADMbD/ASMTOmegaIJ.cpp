@@ -11,9 +11,9 @@ std::shared_ptr<ASMTOmegaIJ> ASMTOmegaIJ::With()
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTOmegaIJ::mbdClassNew()
+std::shared_ptr<KinematicIeJe> ASMTOmegaIJ::mbdClassNew()
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
 void ASMTOmegaIJ::createMbD()

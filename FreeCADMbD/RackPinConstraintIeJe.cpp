@@ -6,21 +6,21 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
  
-#include "RackPinConstraintIJ.h"
+#include "RackPinConstraintIeJe.h"
 #include "RackPinConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With()
+std::shared_ptr<RackPinConstraintIeJe> RackPinConstraintIeJe::With()
 {
-    auto inst = std::make_shared<RackPinConstraintIJ>();
+    auto inst = std::make_shared<RackPinConstraintIeJe>();
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<RackPinConstraintIeJe> RackPinConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -29,55 +29,56 @@ std::shared_ptr<RackPinConstraintIJ> RackPinConstraintIJ::With(EndFrmsptr frmi, 
     return inst;
 }
 
-void RackPinConstraintIJ::initialize()
+void RackPinConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     initxIeJeIe();
     initthezIeJe();
 }
 
-void RackPinConstraintIJ::simUpdateAll()
+void RackPinConstraintIeJe::simUpdateAll()
 {
     auto x = xIeJeIe->value();
     auto thez = thezIeJe->value();
     aG = x + (pitchRadius * thez) - aConstant;
 }
 
-void RackPinConstraintIJ::initxIeJeIe()
+void RackPinConstraintIeJe::initxIeJeIe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void RackPinConstraintIJ::initthezIeJe()
+void RackPinConstraintIeJe::initthezIeJe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void RackPinConstraintIJ::initializeGlobally()
+void RackPinConstraintIeJe::initializeGlobally()
 {
     xIeJeIe->initializeGlobally();
     thezIeJe->initializeGlobally();
 }
 
-void RackPinConstraintIJ::initializeLocally()
+void RackPinConstraintIeJe::initializeLocally()
 {
     xIeJeIe->initializeLocally();
     thezIeJe->initializeLocally();
 }
 
-void RackPinConstraintIJ::useUniqueDispIeJeO()
+void RackPinConstraintIeJe::useUniqueDispIeJeO()
 {
+    ConstraintIeJe::useUniqueDispIeJeO();
     xIeJeIe->useUniqueDispIeJeO();
     thezIeJe->useUniqueDispIeJeO();
 }
 
-void RackPinConstraintIJ::useUniqueDispIeJeKe()
+void RackPinConstraintIeJe::useUniqueDispIeJeKe()
 {
     xIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();
 }
 
-void RackPinConstraintIJ::postInput()
+void RackPinConstraintIeJe::postInput()
 {
     xIeJeIe->postInput();
     thezIeJe->postInput();
@@ -87,63 +88,63 @@ void RackPinConstraintIJ::postInput()
     ConstraintIeJe::postInput();
 }
 
-void RackPinConstraintIJ::postPosICIteration()
+void RackPinConstraintIeJe::postPosICIteration()
 {
     xIeJeIe->postPosICIteration();
     thezIeJe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void RackPinConstraintIJ::preAccIC()
+void RackPinConstraintIeJe::preAccIC()
 {
     xIeJeIe->preAccIC();
     thezIeJe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void RackPinConstraintIJ::prePosIC()
+void RackPinConstraintIeJe::prePosIC()
 {
     xIeJeIe->prePosIC();
     thezIeJe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void RackPinConstraintIJ::preVelIC()
+void RackPinConstraintIeJe::preVelIC()
 {
     xIeJeIe->preVelIC();
     thezIeJe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-void RackPinConstraintIJ::postDynPredictor()
+void RackPinConstraintIeJe::postDynPredictor()
 {
     xIeJeIe->postDynPredictor();
     thezIeJe->postDynPredictor();
     ConstraintIeJe::postDynPredictor();
 }
 
-void RackPinConstraintIJ::postDynCorrectorIteration()
+void RackPinConstraintIeJe::postDynCorrectorIteration()
 {
     xIeJeIe->postDynCorrectorIteration();
     thezIeJe->postDynCorrectorIteration();
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
-void RackPinConstraintIJ::preDynOutput()
+void RackPinConstraintIeJe::preDynOutput()
 {
     xIeJeIe->preDynOutput();
     thezIeJe->preDynOutput();
     ConstraintIeJe::preDynOutput();
 }
 
-void RackPinConstraintIJ::postDynOutput()
+void RackPinConstraintIeJe::postDynOutput()
 {
     xIeJeIe->postDynOutput();
     thezIeJe->postDynOutput();
     ConstraintIeJe::postDynOutput();
 }
 
-std::string RackPinConstraintIJ::constraintSpec()
+std::string RackPinConstraintIeJe::constraintSpec()
 {
-    return "RackPinConstraintIJ";
+    return "RackPinConstraintIeJe";
 }

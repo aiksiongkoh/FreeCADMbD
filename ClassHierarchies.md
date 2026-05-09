@@ -102,27 +102,27 @@ std::enable_shared_from_this<Item>
    |  |  |  `- TranslationConstraintIeqJe
    |  |  |     `- TranslationConstraintIeqJeq
    |  |  |        `- TranslationConstraintIeqtJeq
-   |  |  |- AngleZConstraintIJ
+   |  |  |- AngleZConstraintIeJe
    |  |  |  |- AngleZConstraintIeJeq
    |  |  |  `- AngleZConstraintIeqJe
    |  |  |     `- AngleZConstraintIeqJeq
-   |  |  |- ConstVelConstraintIJ
+   |  |  |- ConstVelConstraintIeJe
    |  |  |  `- ConstVelConstraintIeqJe
    |  |  |     `- ConstVelConstraintIeqJeq
-   |  |  |- DistanceConstraintIJ
+   |  |  |- DistanceConstraintIeJe
    |  |  |  `- DistanceConstraintIeqJe
    |  |  |     `- DistanceConstraintIeqJeq
    |  |  |        `- DistanceConstraintIeqtJeq
-   |  |  |- DistancexyConstraintIJ
+   |  |  |- DistancexyConstraintIeJe
    |  |  |  `- DistancexyConstraintIeqJe
    |  |  |     `- DistancexyConstraintIeqJeq
-   |  |  |- GearConstraintIJ
+   |  |  |- GearConstraintIeJe
    |  |  |  `- GearConstraintIeqJe
    |  |  |     `- GearConstraintIeqJeq
-   |  |  |- RackPinConstraintIJ
+   |  |  |- RackPinConstraintIeJe
    |  |  |  `- RackPinConstraintIeqJe
    |  |  |     `- RackPinConstraintIeqJeq
-   |  |  `- ScrewConstraintIJ
+   |  |  `- ScrewConstraintIeJe
    |  |     `- ScrewConstraintIeqJe
    |  |        `- ScrewConstraintIeqJeq
    |  |- EulerConstraint
@@ -172,7 +172,7 @@ std::enable_shared_from_this<Item>
    |     |- ForceTorqueGeneral
    |     `- ForceTorqueInLine
    |- Kinematic
-   |  |- KinematicIJ
+   |  |- KinematicIeJe
    |  |  |- KinematicCompiIeJe
    |  |  |  |- DispCompiIeJeIe
    |  |  |  |- DispCompiIeJeKe
@@ -202,7 +202,7 @@ std::enable_shared_from_this<Item>
    |  |  |  `- DistxyIeqJe
    |  |  |     `- DistxyIeqJeq
    |  |  |        `- DistxyIeqtJeq
-   |  |  |- KinematicDotIJ
+   |  |  |- KinematicDotIeJe
    |  |  |  |- OmeCompIeJeKe
    |  |  |  |  |- OmeCompIeJeqKe
    |  |  |  |  `- OmeCompIeqJeKeq
