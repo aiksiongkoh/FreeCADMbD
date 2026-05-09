@@ -62,6 +62,7 @@ void DistancexyConstraintIeJe::useUniqueDispIeJeO()
 
 void DistancexyConstraintIeJe::useUniqueDispIeJeKe()
 {
+    ConstraintIeJe::useUniqueDispIeJeKe();
     xIeJeIe->useUniqueDispIeJeKe();
     yIeJeIe->useUniqueDispIeJeKe();
 }

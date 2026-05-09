@@ -74,6 +74,7 @@ void RackPinConstraintIeJe::useUniqueDispIeJeO()
 
 void RackPinConstraintIeJe::useUniqueDispIeJeKe()
 {
+    ConstraintIeJe::useUniqueDispIeJeKe();
     xIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();
 }

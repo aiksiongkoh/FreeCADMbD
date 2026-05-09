@@ -105,11 +105,11 @@ void DirectionCosineConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotI = eFrmIqc->qEdot();
-    auto qEdotJ = eFrmJqc->qEdot();
-    double sum = pGpEJ->timesFullColumn(eFrmJqc->qEddot());
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotI = eFrmIeq->qEdot();
+    auto qEdotJ = eFrmJeq->qEdot();
+    double sum = pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ)));
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
     col->atiplusNumber(iG, sum);

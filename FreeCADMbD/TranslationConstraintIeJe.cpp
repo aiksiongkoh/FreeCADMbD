@@ -95,11 +95,6 @@ void TranslationConstraintIeJe::initialize()
     initriIeJeIe();
 }
 
-void TranslationConstraintIeJe::useUniqueDispIeJeKe()
-{
-    riIeJeIe->useUniqueDispIeJeKe();
-}
-
 void TranslationConstraintIeJe::initializeLocally()
 {
     riIeJeIe->initializeLocally();
@@ -114,6 +109,12 @@ void TranslationConstraintIeJe::useUniqueDispIeJeO()
 {
     ConstraintIeJe::useUniqueDispIeJeO();
     riIeJeIe->useUniqueDispIeJeO();
+}
+
+void MbD::TranslationConstraintIeJe::useUniqueDispIeJeKe()
+{
+    ConstraintIeJe::useUniqueDispIeJeKe();
+    riIeJeIe->useUniqueDispIeJeKe();
 }
 
 void TranslationConstraintIeJe::initriIeJeIe()

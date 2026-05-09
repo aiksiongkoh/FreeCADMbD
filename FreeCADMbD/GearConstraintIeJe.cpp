@@ -54,6 +54,7 @@ void GearConstraintIeJe::useUniqueDispIeJeO()
 
 void GearConstraintIeJe::useUniqueDispIeJeKe()
 {
+    ConstraintIeJe::useUniqueDispIeJeKe();
     orbitIeJe->useUniqueDispIeJeKe();
     orbitJeIe->useUniqueDispIeJeKe();
 }

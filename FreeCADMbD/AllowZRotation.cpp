@@ -42,12 +42,12 @@ void AllowZRotation::initializeGlobally()
     if (constraints->empty()) {
         initMotions();
         std::shared_ptr<Constraint> dirCosCon;
-        auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
-        auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
-        if (eFrmIct && !eFrmIqt) {
+        auto eFrmIet = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+        auto eFrmIeqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+        if (eFrmIet && !eFrmIeqt) {
             dirCosCon = AllowZRotationConstraintIetJeq::With(eFrmI, eFrmJ, 1, 0);
         }
-        else if (!eFrmIct && eFrmIqt) {
+        else if (!eFrmIet && eFrmIeqt) {
             dirCosCon = AllowZRotationConstraintIeqtJeq::With(eFrmI, eFrmJ, 1, 0);
         }
         else {

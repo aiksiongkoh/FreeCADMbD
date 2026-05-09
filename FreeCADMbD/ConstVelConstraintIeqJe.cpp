@@ -61,10 +61,10 @@ void ConstVelConstraintIeqJe::simUpdateAll()
 void ConstVelConstraintIeqJe::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto qEdotI = eFrmIqc->qEdot();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto qEdotI = eFrmIeq->qEdot();
     double sum = 0.0;
-    sum += pGpEI->timesFullColumn(eFrmIqc->qEddot());
+    sum += pGpEI->timesFullColumn(eFrmIeq->qEddot());
     sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));
     col->atiplusNumber(iG, sum);
 }

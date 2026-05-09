@@ -36,20 +36,20 @@ void OmeCompIeqJeqKeq::simUpdateAll()
     //omeIeJeO = omeOJeO - omeOIeO
     //omeIeJeKe = AKeO * omeIeJeO
     //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     auto efrmKqc = std::static_pointer_cast<EndFrameq>(efrmK);
     aAjOKe = efrmKqc->aAjOe(axisK);
-    omeIeJeO = eFrmJqc->omeOeO()->minusFullColumn(eFrmIqc->omeOeO());
+    omeIeJeO = eFrmJeq->omeOeO()->minusFullColumn(eFrmIeq->omeOeO());
     omeiIeJeKe = aAjOKe->dot(omeIeJeO);
     auto pAjOKepEK = efrmKqc->pAjOepE(axisK);
     pomeiIeJeKepEK = pAjOKepEK->dot(omeIeJeO);
-    auto pomeIeJeOpEI = eFrmIqc->pomeOeOpE()->negated();
-    auto pomeIeJeOpEdotI = eFrmIqc->pomeOeOpEdot()->negated();
+    auto pomeIeJeOpEI = eFrmIeq->pomeOeOpE()->negated();
+    auto pomeIeJeOpEdotI = eFrmIeq->pomeOeOpEdot()->negated();
     pomeiIeJeKepEI = pomeIeJeOpEI->dot(aAjOKe);
     pomeiIeJeKepEdotI = pomeIeJeOpEdotI->dot(aAjOKe);
-    auto pomeIeJeOpEJ = eFrmJqc->pomeOeOpE();
-    auto pomeIeJeOpEdotJ = eFrmJqc->pomeOeOpEdot();
+    auto pomeIeJeOpEJ = eFrmJeq->pomeOeOpE();
+    auto pomeIeJeOpEdotJ = eFrmJeq->pomeOeOpEdot();
     pomeiIeJeKepEJ = pomeIeJeOpEJ->dot(aAjOKe);
     pomeiIeJeKepEdotJ = pomeIeJeOpEdotJ->dot(aAjOKe);
 }

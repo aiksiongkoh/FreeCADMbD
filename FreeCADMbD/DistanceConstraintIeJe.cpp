@@ -58,6 +58,7 @@ void MbD::DistanceConstraintIeJe::useUniqueDispIeJeO()
 
 void MbD::DistanceConstraintIeJe::useUniqueDispIeJeKe()
 {
+    ConstraintIeJe::useUniqueDispIeJeKe();
     distIeJe->useUniqueDispIeJeKe();
 }
 
