@@ -6,14 +6,14 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
  
-#include "GearConstraintIJ.h"
+#include "GearConstraintIeJe.h"
 #include "GearConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<GearConstraintIJ> GearConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<GearConstraintIeJe> GearConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -22,47 +22,48 @@ std::shared_ptr<GearConstraintIJ> GearConstraintIJ::With(EndFrmsptr frmi, EndFrm
     return inst;
 }
 
-void GearConstraintIJ::initialize()
+void GearConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     initorbitsIJ();
 }
 
-void GearConstraintIJ::simUpdateAll()
+void GearConstraintIeJe::simUpdateAll()
 {
     aG = orbitJeIe->value() + (ratio() * orbitIeJe->value()) - aConstant;
 }
 
-void GearConstraintIJ::initializeGlobally()
+void GearConstraintIeJe::initializeGlobally()
 {
     orbitIeJe->initializeGlobally();
     orbitJeIe->initializeGlobally();
 }
 
-void GearConstraintIJ::initializeLocally()
+void GearConstraintIeJe::initializeLocally()
 {
     orbitIeJe->initializeLocally();
     orbitJeIe->initializeLocally();
 }
 
-void GearConstraintIJ::useUniqueDispIeJeO()
+void GearConstraintIeJe::useUniqueDispIeJeO()
 {
+    ConstraintIeJe::useUniqueDispIeJeO();
     orbitIeJe->useUniqueDispIeJeO();
     orbitJeIe->useUniqueDispIeJeO();
 }
 
-void GearConstraintIJ::useUniqueDispIeJeKe()
+void GearConstraintIeJe::useUniqueDispIeJeKe()
 {
     orbitIeJe->useUniqueDispIeJeKe();
     orbitJeIe->useUniqueDispIeJeKe();
 }
 
-void GearConstraintIJ::initorbitsIJ()
+void GearConstraintIeJe::initorbitsIJ()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void GearConstraintIJ::postInput()
+void GearConstraintIeJe::postInput()
 {
     orbitIeJe->postInput();
     orbitJeIe->postInput();
@@ -72,61 +73,61 @@ void GearConstraintIJ::postInput()
     ConstraintIeJe::postInput();
 }
 
-void GearConstraintIJ::postPosICIteration()
+void GearConstraintIeJe::postPosICIteration()
 {
     orbitIeJe->postPosICIteration();
     orbitJeIe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void GearConstraintIJ::preAccIC()
+void GearConstraintIeJe::preAccIC()
 {
     orbitIeJe->preAccIC();
     orbitJeIe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void GearConstraintIJ::prePosIC()
+void GearConstraintIeJe::prePosIC()
 {
     orbitIeJe->prePosIC();
     orbitJeIe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void GearConstraintIJ::preVelIC()
+void GearConstraintIeJe::preVelIC()
 {
     orbitIeJe->preVelIC();
     orbitJeIe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-double GearConstraintIJ::ratio()
+double GearConstraintIeJe::ratio()
 {
     return radiusI / radiusJ;
 }
 
-void GearConstraintIJ::postDynPredictor()
+void GearConstraintIeJe::postDynPredictor()
 {
     orbitIeJe->postDynPredictor();
     orbitJeIe->postDynPredictor();
     ConstraintIeJe::postDynPredictor();
 }
 
-void GearConstraintIJ::postDynCorrectorIteration()
+void GearConstraintIeJe::postDynCorrectorIteration()
 {
     orbitIeJe->postDynCorrectorIteration();
     orbitJeIe->postDynCorrectorIteration();
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
-void GearConstraintIJ::preDynOutput()
+void GearConstraintIeJe::preDynOutput()
 {
     orbitIeJe->preDynOutput();
     orbitJeIe->preDynOutput();
     ConstraintIeJe::preDynOutput();
 }
 
-void GearConstraintIJ::postDynOutput()
+void GearConstraintIeJe::postDynOutput()
 {
     orbitIeJe->postDynOutput();
     orbitJeIe->postDynOutput();

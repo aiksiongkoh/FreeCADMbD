@@ -6,43 +6,43 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-#include "KinematicDotIJ.h"
+#include "KinematicDotIeJe.h"
 #include "EndFrame.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With()
+std::shared_ptr<KinematicDotIeJe> KinematicDotIeJe::With()
 {
-    auto inst = std::make_shared<KinematicDotIJ>();
+    auto inst = std::make_shared<KinematicDotIeJe>();
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<KinematicDotIJ> KinematicDotIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<KinematicDotIeJe> KinematicDotIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     throw SimulationStoppingError("To be implemented.");
-    auto inst = std::make_shared<KinematicDotIJ>(frmi, frmj);
+    auto inst = std::make_shared<KinematicDotIeJe>(frmi, frmj);
     inst->initialize();
     return inst;
 }
 
-void KinematicDotIJ::simUpdateAll()
+void KinematicDotIeJe::simUpdateAll()
 {
     //Do nothing.
 }
 
-bool KinematicDotIJ::isKineIJ()
+bool KinematicDotIeJe::isKineIJ()
 {
     return false;
 }
 
-bool KinematicDotIJ::isKinedotIJ()
+bool KinematicDotIeJe::isKinedotIJ()
 {
     return true;
 }
 
-FRowDsptr KinematicDotIJ::pvaluepXdot(SpatialContainerFrame* partFrame)
+FRowDsptr KinematicDotIeJe::pvaluepXdot(SpatialContainerFrame* partFrame)
 {
     if (partFrame == prtFrmI)
     {
@@ -55,7 +55,7 @@ FRowDsptr KinematicDotIJ::pvaluepXdot(SpatialContainerFrame* partFrame)
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepEdot(SpatialContainerFrame* partFrame)
+FRowDsptr KinematicDotIeJe::pvaluepEdot(SpatialContainerFrame* partFrame)
 {
     if (partFrame == prtFrmI)
     {
@@ -68,32 +68,32 @@ FRowDsptr KinematicDotIJ::pvaluepEdot(SpatialContainerFrame* partFrame)
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepEdotI()
+FRowDsptr KinematicDotIeJe::pvaluepEdotI()
 {
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepEdotJ()
+FRowDsptr KinematicDotIeJe::pvaluepEdotJ()
 {
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepEdotK()
+FRowDsptr KinematicDotIeJe::pvaluepEdotK()
 {
     return FullRow<double>::With(0);
 }
 
-FRowDsptr KinematicDotIJ::pvaluepXdotI()
+FRowDsptr KinematicDotIeJe::pvaluepXdotI()
 {
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepXdotJ()
+FRowDsptr KinematicDotIeJe::pvaluepXdotJ()
 {
     return FRowDsptr();
 }
 
-FRowDsptr KinematicDotIJ::pvaluepXdotK()
+FRowDsptr KinematicDotIeJe::pvaluepXdotK()
 {
     return FullRow<double>::With(0);
 }

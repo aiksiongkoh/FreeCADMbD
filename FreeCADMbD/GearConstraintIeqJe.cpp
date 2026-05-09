@@ -70,7 +70,7 @@ void GearConstraintIeqJe::calcppGpXIpXI()
 
 void GearConstraintIeqJe::simUpdateAll()
 {
-    GearConstraintIJ::simUpdateAll();
+    GearConstraintIeJe::simUpdateAll();
     calcpGpXI();
     calcpGpEI();
     calcppGpXIpXI();
@@ -95,7 +95,7 @@ void GearConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void GearConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    GearConstraintIJ::fillPosICError(col);
+    GearConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }

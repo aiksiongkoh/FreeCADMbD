@@ -8,16 +8,16 @@
  
 #pragma once
 
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 #include "DispCompiIeJeIe.h"
 
 namespace MbD {
-    class OrbitAngleZIeJe : public KinematicIJ
+    class OrbitAngleZIeJe : public KinematicIeJe
     {
         //thez xIeJeIe yIeJeIe cosOverSSq sinOverSSq twoCosSinOverSSqSq dSqOverSSqSq 
     public:
         OrbitAngleZIeJe() {}
-        OrbitAngleZIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
+        OrbitAngleZIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIeJe(frmi, frmj) {}
         static std::shared_ptr<OrbitAngleZIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

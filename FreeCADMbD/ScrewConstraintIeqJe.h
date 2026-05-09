@@ -8,14 +8,14 @@
  
 #pragma once
 
-#include "ScrewConstraintIJ.h"
+#include "ScrewConstraintIeJe.h"
 
 namespace MbD {
-    class ScrewConstraintIeqJe : public ScrewConstraintIJ
+    class ScrewConstraintIeqJe : public ScrewConstraintIeJe
     {
         //pGpXI pGpEI ppGpXIpEI ppGpEIpEI iqXI iqEI 
     public:
-        ScrewConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : ScrewConstraintIJ(frmi, frmj) {}
+        ScrewConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : ScrewConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<ScrewConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

@@ -1744,9 +1744,9 @@ void ASMTAssembly::storeOnLevelParts(std::ofstream &os, size_t level)
 void ASMTAssembly::storeOnLevelKinematicIJs(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "KinematicIJs");
-    for (auto kinematicIJ : *kinematicIJs)
+    for (auto KinematicIeJe : *kinematicIJs)
     {
-        kinematicIJ->storeOnLevel(os, level);
+        KinematicIeJe->storeOnLevel(os, level);
     }
 }
 

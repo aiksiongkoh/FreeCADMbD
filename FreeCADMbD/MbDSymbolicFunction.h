@@ -11,14 +11,14 @@
 #include "CADSymbolicFunction.h"
 
 namespace MbD {
-    class KinematicIJ;
+    class KinematicIeJe;
 
     class MbDSymbolicFunction : public CADSymbolicFunction
     {
         //
     public:
         MbDSymbolicFunction(std::shared_ptr<Item> kineIJ) : mbdObject(kineIJ) {}
-        static std::shared_ptr<MbDSymbolicFunction> With(std::shared_ptr<KinematicIJ> kineIJ);
+        static std::shared_ptr<MbDSymbolicFunction> With(std::shared_ptr<KinematicIeJe> kineIJ);
         void initialize() override;
 
         double getValue() override;

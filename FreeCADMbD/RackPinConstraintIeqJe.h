@@ -8,14 +8,14 @@
  
 #pragma once
 
-#include "RackPinConstraintIJ.h"
+#include "RackPinConstraintIeJe.h"
 
 namespace MbD {
-    class RackPinConstraintIeqJe : public RackPinConstraintIJ
+    class RackPinConstraintIeqJe : public RackPinConstraintIeJe
     {
         //pGpXI pGpEI ppGpXIpEI ppGpEIpEI iqXI iqEI 
     public:
-        RackPinConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : RackPinConstraintIJ(frmi, frmj) {}
+        RackPinConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : RackPinConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<RackPinConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

@@ -25,7 +25,7 @@ std::shared_ptr<ScrewConstraintIeqJe> ScrewConstraintIeqJe::With(EndFrmsptr frmi
 
 void ScrewConstraintIeqJe::initialize()
 {
-    ScrewConstraintIJ::initialize();
+    ScrewConstraintIeJe::initialize();
     pGpXI = FullRow<double>::With(3);
     pGpEI = FullRow<double>::With(4);
     ppGpXIpEI = FullMatrix<double>::With(3, 4);
@@ -84,7 +84,7 @@ void ScrewConstraintIeqJe::calcppGpXIpEI()
 
 void ScrewConstraintIeqJe::simUpdateAll()
 {
-    ScrewConstraintIJ::simUpdateAll();
+    ScrewConstraintIeJe::simUpdateAll();
     calcpGpXI();
     calcpGpEI();
     calcppGpXIpEI();
@@ -107,7 +107,7 @@ void ScrewConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void ScrewConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    ScrewConstraintIJ::fillPosICError(col);
+    ScrewConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }
@@ -163,5 +163,5 @@ void ScrewConstraintIeqJe::fillpFpydot(SpMatDsptr mat)
 
 std::string ScrewConstraintIeqJe::constraintSpec()
 {
-    return "ScrewConstraintIJ";
+    return "ScrewConstraintIeJe";
 }

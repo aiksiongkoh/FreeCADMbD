@@ -6,14 +6,14 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
  
-#include "DistancexyConstraintIJ.h"
+#include "DistancexyConstraintIeJe.h"
 #include "DistancexyConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<DistancexyConstraintIJ> DistancexyConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<DistancexyConstraintIeJe> DistancexyConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -22,13 +22,13 @@ std::shared_ptr<DistancexyConstraintIJ> DistancexyConstraintIJ::With(EndFrmsptr 
     return inst;
 }
 
-void DistancexyConstraintIJ::initialize()
+void DistancexyConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     init_xyIeJeIe();
 }
 
-void DistancexyConstraintIJ::simUpdateAll()
+void DistancexyConstraintIeJe::simUpdateAll()
 {
     //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
     auto x = xIeJeIe->value();
@@ -36,97 +36,98 @@ void DistancexyConstraintIJ::simUpdateAll()
     aG = x * x + (y * y) - (aConstant * aConstant);
 }
 
-void DistancexyConstraintIJ::init_xyIeJeIe()
+void DistancexyConstraintIeJe::init_xyIeJeIe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void DistancexyConstraintIJ::initializeGlobally()
+void DistancexyConstraintIeJe::initializeGlobally()
 {
     xIeJeIe->initializeGlobally();
     yIeJeIe->initializeGlobally();
 }
 
-void DistancexyConstraintIJ::initializeLocally()
+void DistancexyConstraintIeJe::initializeLocally()
 {
     xIeJeIe->initializeLocally();
     yIeJeIe->initializeLocally();
 }
 
-void DistancexyConstraintIJ::useUniqueDispIeJeO()
+void DistancexyConstraintIeJe::useUniqueDispIeJeO()
 {
+    ConstraintIeJe::useUniqueDispIeJeO();
     xIeJeIe->useUniqueDispIeJeO();
     yIeJeIe->useUniqueDispIeJeO();
 }
 
-void DistancexyConstraintIJ::useUniqueDispIeJeKe()
+void DistancexyConstraintIeJe::useUniqueDispIeJeKe()
 {
     xIeJeIe->useUniqueDispIeJeKe();
     yIeJeIe->useUniqueDispIeJeKe();
 }
 
-void DistancexyConstraintIJ::postInput()
+void DistancexyConstraintIeJe::postInput()
 {
     xIeJeIe->postInput();
     yIeJeIe->postInput();
     ConstraintIeJe::postInput();
 }
 
-void DistancexyConstraintIJ::postPosICIteration()
+void DistancexyConstraintIeJe::postPosICIteration()
 {
     xIeJeIe->postPosICIteration();
     yIeJeIe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void DistancexyConstraintIJ::preAccIC()
+void DistancexyConstraintIeJe::preAccIC()
 {
     xIeJeIe->preAccIC();
     yIeJeIe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void DistancexyConstraintIJ::prePosIC()
+void DistancexyConstraintIeJe::prePosIC()
 {
     xIeJeIe->prePosIC();
     yIeJeIe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void DistancexyConstraintIJ::preVelIC()
+void DistancexyConstraintIeJe::preVelIC()
 {
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-ConstraintType DistancexyConstraintIJ::type()
+ConstraintType DistancexyConstraintIeJe::type()
 {
     return displacement;
 }
 
-void DistancexyConstraintIJ::postDynPredictor()
+void DistancexyConstraintIeJe::postDynPredictor()
 {
     xIeJeIe->postDynPredictor();
     yIeJeIe->postDynPredictor();
     ConstraintIeJe::postDynPredictor();
 }
 
-void DistancexyConstraintIJ::postDynCorrectorIteration()
+void DistancexyConstraintIeJe::postDynCorrectorIteration()
 {
     xIeJeIe->postDynCorrectorIteration();
     yIeJeIe->postDynCorrectorIteration();
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
-void DistancexyConstraintIJ::preDynOutput()
+void DistancexyConstraintIeJe::preDynOutput()
 {
     xIeJeIe->preDynOutput();
     yIeJeIe->preDynOutput();
     ConstraintIeJe::preDynOutput();
 }
 
-void DistancexyConstraintIJ::postDynOutput()
+void DistancexyConstraintIeJe::postDynOutput()
 {
     xIeJeIe->postDynOutput();
     yIeJeIe->postDynOutput();

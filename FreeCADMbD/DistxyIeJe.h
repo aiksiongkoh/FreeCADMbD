@@ -8,16 +8,16 @@
  
 #pragma once
 
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 #include "DispCompiIeJeIe.h"
 
 namespace MbD {
-    class DistxyIeJe : public KinematicIJ
+    class DistxyIeJe : public KinematicIeJe
     {
         //distxy xIeJeIe yIeJeIe
     public:
         DistxyIeJe() {}
-        DistxyIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
+        DistxyIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIeJe(frmi, frmj) {}
         static std::shared_ptr<DistxyIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 

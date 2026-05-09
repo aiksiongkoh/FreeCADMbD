@@ -16,6 +16,7 @@
 #include "DistIeqJeq.h"
 #include "DistIeJeq.h"
 #include "DistIetJeq.h"
+#include "System.h"
 
 using namespace MbD;
 
@@ -81,6 +82,28 @@ std::shared_ptr<DistIeJe> DistIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
     assert(inst);
     inst->initialize();
     return inst;
+}
+
+void MbD::DistIeJe::initialize()
+{
+    dispIeJeO = DispIeJeO::With(eFrmI, eFrmJ);
+    dispIeJeO->owner = this;
+}
+
+void MbD::DistIeJe::useUniqueDispIeJeO()
+{
+    auto dispIeJeOs = root()->dispIeJeOs;
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
+    if (it == dispIeJeOs->end()) {
+        dispIeJeOs->push_back(dispIeJeO);
+    }
+    else {
+        dispIeJeO = *it;
+    }
+}
+
+void MbD::DistIeJe::useUniqueDispIeJeKe()
+{
 }
 
 void DistIeJe::simUpdateAll()

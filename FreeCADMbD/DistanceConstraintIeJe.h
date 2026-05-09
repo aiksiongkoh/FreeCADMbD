@@ -12,18 +12,20 @@
 #include "DistIeJe.h"
 
 namespace MbD {
-    class DistanceConstraintIJ : public ConstraintIeJe
+    class DistanceConstraintIeJe : public ConstraintIeJe
     {
         //distIeJe
     public:
-        DistanceConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<DistanceConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        DistanceConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<DistanceConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
         virtual void init_distIeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;

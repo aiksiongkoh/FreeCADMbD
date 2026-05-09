@@ -10,20 +10,18 @@
 
 #include "ConstraintIeJe.h"
 #include "DispCompiIeJeIe.h"
-#include "AngleZIeJe.h"
 
 namespace MbD {
-    class ScrewConstraintIJ : public ConstraintIeJe
+    class DistancexyConstraintIeJe : public ConstraintIeJe
     {
-        //zIeJeIe thezIeJe pitch 
+        //xIeJeIe yIeJeIe 
     public:
-        ScrewConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<ScrewConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        DistancexyConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<DistancexyConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
-        virtual void initzIeJeIe();
-        virtual void initthezIeJe();
+        virtual void init_xyIeJeIe();
         void initializeGlobally() override;
         void initializeLocally() override;
         void useUniqueDispIeJeO() override;
@@ -33,15 +31,14 @@ namespace MbD {
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
+        ConstraintType type() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
 
-        std::shared_ptr<DispCompiIeJeIe> zIeJeIe;
-        std::shared_ptr<AngleZIeJe> thezIeJe;
-        double pitch = 0.0;
-
+        std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
+        //ToDo: Use DistxyIeJe instead of xIeJeIe, yIeJeIe
 
     };
 }

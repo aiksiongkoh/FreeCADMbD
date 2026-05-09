@@ -9,37 +9,36 @@
 #pragma once
 
 #include "ConstraintIeJe.h"
-#include "DispCompiIeJeIe.h"
 
 namespace MbD {
-    class DistancexyConstraintIJ : public ConstraintIeJe
+    class DirectionCosineIeJe;
+
+    class ConstVelConstraintIeJe : public ConstraintIeJe
     {
-        //xIeJeIe yIeJeIe 
+        //aA01IeJe aA10IeJe 
     public:
-        DistancexyConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
-        static std::shared_ptr<DistancexyConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        ConstVelConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        static std::shared_ptr<ConstVelConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void initialize() override;
 
         void simUpdateAll() override;
-        virtual void init_xyIeJeIe();
+        virtual void initA01IeJe();
+        virtual void initA10IeJe();
         void initializeGlobally() override;
         void initializeLocally() override;
-        void useUniqueDispIeJeO() override;
-        void useUniqueDispIeJeKe() override;
         void postInput() override;
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
         void preVelIC() override;
-        ConstraintType type() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void addToJointForceI(FColDsptr col);
+        void addToJointTorqueI(FColDsptr col) override;
 
-        std::shared_ptr<DispCompiIeJeIe> xIeJeIe, yIeJeIe;
-        //ToDo: Use DistxyIeJe instead of xIeJeIe, yIeJeIe
-
+        std::shared_ptr<DirectionCosineIeJe> aA01IeJe, aA10IeJe;
     };
 }
 

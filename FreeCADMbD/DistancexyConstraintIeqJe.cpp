@@ -47,7 +47,7 @@ void DistancexyConstraintIeqJe::addToJointTorqueI(FColDsptr col)
 void DistancexyConstraintIeqJe::simUpdateAll()
 {
     //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
-    DistancexyConstraintIJ::simUpdateAll();
+    DistancexyConstraintIeJe::simUpdateAll();
     calcpGpXI();
     calcpGpEI();
     calcppGpXIpXI();
@@ -111,7 +111,7 @@ void DistancexyConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void DistancexyConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    DistancexyConstraintIJ::fillPosICError(col);
+    DistancexyConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }
@@ -169,7 +169,7 @@ void DistancexyConstraintIeqJe::fillpFpydot(SpMatDsptr mat)
 
 std::string DistancexyConstraintIeqJe::constraintSpec()
 {
-    return "DistancexyConstraintIJ";
+    return "DistancexyConstraintIeJe";
 }
 
 

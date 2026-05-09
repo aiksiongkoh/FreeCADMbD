@@ -8,17 +8,20 @@
 
 #pragma once
 
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 #include "DispIeJeO.h"
 
 namespace MbD {
-    class DistIeJe : public KinematicIJ
+    class DistIeJe : public KinematicIeJe
     {
     public:
         DistIeJe() {}
-        DistIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIJ(frmi, frmj) {}
+        DistIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicIeJe(frmi, frmj) {}
         static std::shared_ptr<DistIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
+        void initialize() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void simUpdateAll() override;
         virtual void calcPrivate();
         double value() override;

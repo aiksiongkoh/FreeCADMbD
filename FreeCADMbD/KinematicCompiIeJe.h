@@ -8,16 +8,16 @@
 
 #pragma once
 
-#include "KinematicIJ.h"
+#include "KinematicIeJe.h"
 
 namespace MbD {
     class KinematicVectorIeJe;
 
-    class KinematicCompiIeJe : public KinematicIJ
+    class KinematicCompiIeJe : public KinematicIeJe
     {
     public:
         KinematicCompiIeJe() {}
-        KinematicCompiIeJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) : KinematicIJ(frmi, frmj), axis(axis) {}
+        KinematicCompiIeJe(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis) : KinematicIeJe(frmi, frmj), axis(axis) {}
 
         void useUniqueDispIeJeO() override;
         void simUpdateAll() override;

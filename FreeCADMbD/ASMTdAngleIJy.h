@@ -16,7 +16,7 @@ namespace MbD {
         //
     public:
         static std::shared_ptr<ASMTdAngleIJy> With();
-        std::shared_ptr<KinematicIJ> mbdClassNew() override;
+        std::shared_ptr<KinematicIeJe> mbdClassNew() override;
 
     };
 }

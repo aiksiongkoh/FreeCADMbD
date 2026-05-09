@@ -8,7 +8,7 @@
 
 #include "RevRevJoint.h"
 #include "DirectionCosineConstraintIeJe.h"
-#include "DistancexyConstraintIJ.h"
+#include "DistancexyConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -31,7 +31,7 @@ void RevRevJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto distxyIJ = DistancexyConstraintIJ::With(eFrmI, eFrmJ);
+        auto distxyIJ = DistancexyConstraintIeJe::With(eFrmI, eFrmJ);
         distxyIJ->setConstant(distanceIJ);
         addConstraint(distxyIJ);
         addConstraint(TranslationConstraintIeJe::With(eFrmI, eFrmJ, 2));

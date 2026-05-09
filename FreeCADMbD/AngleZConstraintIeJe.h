@@ -12,13 +12,13 @@
 #include "AngleZIeJe.h"
 
 namespace MbD {
-    class AngleZConstraintIJ : public ConstraintIeJe
+    class AngleZConstraintIeJe : public ConstraintIeJe
     {
         //thezIeJe 
     public:
-        AngleZConstraintIJ(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
+        AngleZConstraintIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : ConstraintIeJe(frmi, frmj) {}
 
-        static std::shared_ptr<AngleZConstraintIJ> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        static std::shared_ptr<AngleZConstraintIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void simUpdateAll() override;
         void addToJointForceI(FColDsptr col) override;

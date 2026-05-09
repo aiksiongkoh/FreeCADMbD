@@ -21,7 +21,7 @@ void ASMTSymbolicFunctionIJKi::createMbD()
     auto eFrmI = std::static_pointer_cast<EndFrame>(geoIJ->markerI->mbdObject);
     auto eFrmJ = std::static_pointer_cast<EndFrame>(geoIJ->markerJ->mbdObject);
     assert(eFrmJ->has_qX());
-    std::shared_ptr<KinematicIJ> kineIJ;
+    std::shared_ptr<KinematicIeJe> kineIJ;
     if (markerKSign == "O") {
         kineIJ = mbdKineIJaxisWith(eFrmI, eFrmJ, axisK);
     }
@@ -50,9 +50,9 @@ void ASMTSymbolicFunctionIJKi::withFrmIFrmJfrmK(EndFrmsptr eFrmi, EndFrmsptr eFr
     throw SimulationStoppingError("To be implemented.");
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJaxisWith(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIJaxisWith(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    std::shared_ptr<KinematicIJ> inst;
+    std::shared_ptr<KinematicIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqctJqctaxis(frmi, frmj, axisK);
@@ -113,9 +113,9 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJaxisWith(EndFrms
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJKaxisKWith(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIJKaxisKWith(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    std::shared_ptr<KinematicIJ> inst;
+    std::shared_ptr<KinematicIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
             inst = mbdKineIqctJqctKaxisK(frmi, frmj, efrmK, axisK);
@@ -176,162 +176,162 @@ std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIJKaxisKWith(EndFr
     return inst;
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJqctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJqcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJctaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJcaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqctJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqctJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIqcJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIqcJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIctJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIctJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJqctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJctKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }
 
-std::shared_ptr<KinematicIJ> ASMTSymbolicFunctionIJKi::mbdKineIcJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJKi::mbdKineIcJcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
 {
-    return std::shared_ptr<KinematicIJ>();
+    return std::shared_ptr<KinematicIeJe>();
 }

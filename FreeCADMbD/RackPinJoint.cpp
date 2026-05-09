@@ -8,7 +8,7 @@
  
 #include "RackPinJoint.h"
 #include "System.h"
-#include "RackPinConstraintIJ.h"
+#include "RackPinConstraintIeJe.h"
 
 using namespace MbD;
 
@@ -30,7 +30,7 @@ void RackPinJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto rackPinIJ = RackPinConstraintIJ::With(eFrmI, eFrmJ);
+        auto rackPinIJ = RackPinConstraintIeJe::With(eFrmI, eFrmJ);
         rackPinIJ->setConstant(std::numeric_limits<double>::min());
         rackPinIJ->pitchRadius = pitchRadius;
         addConstraint(rackPinIJ);

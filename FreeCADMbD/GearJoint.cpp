@@ -7,7 +7,7 @@
  ***************************************************************************/
  
 #include "GearJoint.h"
-#include "GearConstraintIJ.h"
+#include "GearConstraintIeJe.h"
 #include "System.h"
 
 using namespace MbD;
@@ -30,7 +30,7 @@ void GearJoint::initializeGlobally()
 {
     if (constraints->empty())
     {
-        auto gearIJ = GearConstraintIJ::With(eFrmI, eFrmJ);
+        auto gearIJ = GearConstraintIeJe::With(eFrmI, eFrmJ);
         gearIJ->radiusI = radiusI;
         gearIJ->radiusJ = radiusJ;
         gearIJ->setConstant(std::numeric_limits<double>::min());

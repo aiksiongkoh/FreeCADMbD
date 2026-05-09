@@ -21,7 +21,7 @@ std::shared_ptr<DistxyIeJe> DistxyIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 
 void DistxyIeJe::initialize()
 {
-    KinematicIJ::initialize();
+    KinematicIeJe::initialize();
     init_xyIeJeIe();
 }
 
@@ -41,7 +41,7 @@ void DistxyIeJe::initializeGlobally()
 
 void DistxyIeJe::initializeLocally()
 {
-    KinematicIJ::initializeLocally();
+    KinematicIeJe::initializeLocally();
     xIeJeIe->initializeLocally();
     yIeJeIe->initializeLocally();
 }
@@ -65,35 +65,35 @@ void DistxyIeJe::postInput()
 {
     xIeJeIe->postInput();
     yIeJeIe->postInput();
-    KinematicIJ::postInput();
+    KinematicIeJe::postInput();
 }
 
 void DistxyIeJe::postPosICIteration()
 {
     xIeJeIe->postPosICIteration();
     yIeJeIe->postPosICIteration();
-    KinematicIJ::postPosICIteration();
+    KinematicIeJe::postPosICIteration();
 }
 
 void DistxyIeJe::preAccIC()
 {
     xIeJeIe->preAccIC();
     yIeJeIe->preAccIC();
-    KinematicIJ::preAccIC();
+    KinematicIeJe::preAccIC();
 }
 
 void DistxyIeJe::prePosIC()
 {
     xIeJeIe->prePosIC();
     yIeJeIe->prePosIC();
-    KinematicIJ::prePosIC();
+    KinematicIeJe::prePosIC();
 }
 
 void DistxyIeJe::preVelIC()
 {
     xIeJeIe->preVelIC();
     yIeJeIe->preVelIC();
-    KinematicIJ::preVelIC();
+    KinematicIeJe::preVelIC();
 }
 
 double DistxyIeJe::value()

@@ -22,7 +22,7 @@ std::shared_ptr<RackPinConstraintIeqJe> RackPinConstraintIeqJe::With(EndFrmsptr 
 
 void RackPinConstraintIeqJe::initialize()
 {
-    RackPinConstraintIJ::initialize();
+    RackPinConstraintIeJe::initialize();
     pGpXI = FullRow<double>::With(3);
     pGpEI = FullRow<double>::With(4);
     ppGpXIpEI = FullMatrix<double>::With(3, 4);
@@ -81,7 +81,7 @@ void RackPinConstraintIeqJe::calcppGpXIpEI()
 
 void RackPinConstraintIeqJe::simUpdateAll()
 {
-    RackPinConstraintIJ::simUpdateAll();
+    RackPinConstraintIeJe::simUpdateAll();
     calcpGpXI();
     calcpGpEI();
     calcppGpXIpEI();
@@ -104,7 +104,7 @@ void RackPinConstraintIeqJe::fillAccICIterError(FColDsptr col)
 
 void RackPinConstraintIeqJe::fillPosICError(FColDsptr col)
 {
-    RackPinConstraintIJ::fillPosICError(col);
+    RackPinConstraintIeJe::fillPosICError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
 }

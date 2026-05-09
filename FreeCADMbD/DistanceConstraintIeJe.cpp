@@ -5,15 +5,15 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
-#include "DistanceConstraintIJ.h"
+
+#include "DistanceConstraintIeJe.h"
 #include "DistanceConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<DistanceConstraintIJ> DistanceConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<DistanceConstraintIeJe> DistanceConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -22,87 +22,99 @@ std::shared_ptr<DistanceConstraintIJ> DistanceConstraintIJ::With(EndFrmsptr frmi
     return inst;
 }
 
-void DistanceConstraintIJ::initialize()
+void DistanceConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     init_distIeJe();
 }
 
-void DistanceConstraintIJ::simUpdateAll()
+void DistanceConstraintIeJe::simUpdateAll()
 {
-    //aG = rIeJe - C;
+    // aG = rIeJe - C;
     aG = distIeJe->value() - aConstant;
 }
 
-void DistanceConstraintIJ::init_distIeJe()
+void DistanceConstraintIeJe::init_distIeJe()
 {
     distIeJe = DistIeJe::With(eFrmI, eFrmJ);
+    distIeJe->owner = this;
 }
 
-void DistanceConstraintIJ::initializeGlobally()
+void DistanceConstraintIeJe::initializeGlobally()
 {
     distIeJe->initializeGlobally();
 }
 
-void DistanceConstraintIJ::initializeLocally()
+void DistanceConstraintIeJe::initializeLocally()
 {
     distIeJe->initializeLocally();
 }
 
-void DistanceConstraintIJ::postInput()
+void MbD::DistanceConstraintIeJe::useUniqueDispIeJeO()
+{
+    ConstraintIeJe::useUniqueDispIeJeO();
+    distIeJe->useUniqueDispIeJeO();
+}
+
+void MbD::DistanceConstraintIeJe::useUniqueDispIeJeKe()
+{
+    distIeJe->useUniqueDispIeJeKe();
+}
+
+void DistanceConstraintIeJe::postInput()
 {
     distIeJe->postInput();
     ConstraintIeJe::postInput();
 }
 
-void DistanceConstraintIJ::postPosICIteration()
+void DistanceConstraintIeJe::postPosICIteration()
 {
     distIeJe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void DistanceConstraintIJ::preAccIC()
+void DistanceConstraintIeJe::preAccIC()
 {
     distIeJe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void DistanceConstraintIJ::prePosIC()
+void DistanceConstraintIeJe::prePosIC()
 {
     distIeJe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void DistanceConstraintIJ::preVelIC()
+void DistanceConstraintIeJe::preVelIC()
 {
     distIeJe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-ConstraintType DistanceConstraintIJ::type()
+ConstraintType DistanceConstraintIeJe::type()
 {
     return ConstraintType::displacement;
 }
 
-void DistanceConstraintIJ::postDynPredictor()
+void DistanceConstraintIeJe::postDynPredictor()
 {
     distIeJe->postDynPredictor();
     ConstraintIeJe::postDynPredictor();
 }
 
-void DistanceConstraintIJ::postDynCorrectorIteration()
+void DistanceConstraintIeJe::postDynCorrectorIteration()
 {
     distIeJe->postDynCorrectorIteration();
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
-void DistanceConstraintIJ::preDynOutput()
+void DistanceConstraintIeJe::preDynOutput()
 {
     distIeJe->preDynOutput();
     ConstraintIeJe::preDynOutput();
 }
 
-void DistanceConstraintIJ::postDynOutput()
+void DistanceConstraintIeJe::postDynOutput()
 {
     distIeJe->postDynOutput();
     ConstraintIeJe::postDynOutput();

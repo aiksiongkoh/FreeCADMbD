@@ -6,14 +6,14 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-#include "AngleZConstraintIJ.h"
+#include "AngleZConstraintIeJe.h"
 #include "AngleZConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
 
-std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<AngleZConstraintIeJe> AngleZConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
     assert(frmj->isEndFrameq());
@@ -22,77 +22,77 @@ std::shared_ptr<AngleZConstraintIJ> AngleZConstraintIJ::With(EndFrmsptr frmi, En
     return inst;
 }
 
-void AngleZConstraintIJ::simUpdateAll()
+void AngleZConstraintIeJe::simUpdateAll()
 {
     //aG = thezIeJe - C
     auto thez = thezIeJe->value();
     aG = thez - aConstant;
 }
 
-void AngleZConstraintIJ::addToJointForceI(FColDsptr col)
+void AngleZConstraintIeJe::addToJointForceI(FColDsptr col)
 {
     //aFIeO = lam * pGpXI
     //aFIeO = lam * zero
     //Do nothing.
 }
 
-void AngleZConstraintIJ::initthezIeJe()
+void AngleZConstraintIeJe::initthezIeJe()
 {
     throw SimulationStoppingError("To be implemented.");
 }
 
-void AngleZConstraintIJ::initialize()
+void AngleZConstraintIeJe::initialize()
 {
     ConstraintIeJe::initialize();
     this->initthezIeJe();
 }
 
-void AngleZConstraintIJ::initializeGlobally()
+void AngleZConstraintIeJe::initializeGlobally()
 {
     thezIeJe->initializeGlobally();
 }
 
-void AngleZConstraintIJ::initializeLocally()
+void AngleZConstraintIeJe::initializeLocally()
 {
     thezIeJe->initializeLocally();
 }
 
-void AngleZConstraintIJ::postInput()
+void AngleZConstraintIeJe::postInput()
 {
     assert(aConstant != std::numeric_limits<double>::min());
     ConstraintIeJe::postInput();
 }
 
-void AngleZConstraintIJ::postPosICIteration()
+void AngleZConstraintIeJe::postPosICIteration()
 {
     thezIeJe->postPosICIteration();
     ConstraintIeJe::postPosICIteration();
 }
 
-void AngleZConstraintIJ::preAccIC()
+void AngleZConstraintIeJe::preAccIC()
 {
     thezIeJe->preAccIC();
     ConstraintIeJe::preAccIC();
 }
 
-void AngleZConstraintIJ::prePosIC()
+void AngleZConstraintIeJe::prePosIC()
 {
     thezIeJe->prePosIC();
     ConstraintIeJe::prePosIC();
 }
 
-void AngleZConstraintIJ::preVelIC()
+void AngleZConstraintIeJe::preVelIC()
 {
     thezIeJe->preVelIC();
     ConstraintIeJe::preVelIC();
 }
 
-ConstraintType AngleZConstraintIJ::type()
+ConstraintType AngleZConstraintIeJe::type()
 {
     return essential;
 }
 
-std::string AngleZConstraintIJ::constraintSpec()
+std::string AngleZConstraintIeJe::constraintSpec()
 {
-    return "AngleZConstraintIJ";
+    return "AngleZConstraintIeJe";
 }

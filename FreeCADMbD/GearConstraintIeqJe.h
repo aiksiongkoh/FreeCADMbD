@@ -8,14 +8,14 @@
  
 #pragma once
 
-#include "GearConstraintIJ.h"
+#include "GearConstraintIeJe.h"
 
 namespace MbD {
-    class GearConstraintIeqJe : public GearConstraintIJ
+    class GearConstraintIeqJe : public GearConstraintIeJe
     {
         //pGpXI pGpEI ppGpXIpXI ppGpXIpEI ppGpEIpEI iqXI iqEI 
     public:
-        GearConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : GearConstraintIJ(frmi, frmj) {}
+        GearConstraintIeqJe(EndFrmsptr frmi, EndFrmsptr frmj) : GearConstraintIeJe(frmi, frmj) {}
         static std::shared_ptr<GearConstraintIeqJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void addToJointForceI(FColDsptr col) override;

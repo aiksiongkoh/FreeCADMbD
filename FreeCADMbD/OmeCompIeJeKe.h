@@ -7,16 +7,16 @@
  ***************************************************************************/
 
 #pragma once
-#include "KinematicDotIJ.h"
+#include "KinematicDotIeJe.h"
 
 namespace MbD {
-    class OmeCompIeJeKe : public KinematicDotIJ
+    class OmeCompIeJeKe : public KinematicDotIeJe
     {
         //efrmK axisK omeiIeJeKe aAjOKe omeIeJeO 
     public:
         OmeCompIeJeKe() {}
-        OmeCompIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIJ(frmi, frmj) {}
-        OmeCompIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : KinematicDotIJ(frmi, frmj), efrmK(efrmK), axisK(axisK) {}
+        OmeCompIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIeJe(frmi, frmj) {}
+        OmeCompIeJeKe(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : KinematicDotIeJe(frmi, frmj), efrmK(efrmK), axisK(axisK) {}
         static std::shared_ptr<OmeCompIeJeKe> With();
         static std::shared_ptr<OmeCompIeJeKe> With(EndFrmsptr frmi, EndFrmsptr frmj);
         void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis) override;
