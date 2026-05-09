@@ -70,6 +70,7 @@ void ScrewConstraintIeJe::useUniqueDispIeJeO()
 
 void ScrewConstraintIeJe::useUniqueDispIeJeKe()
 {
+    ConstraintIeJe::useUniqueDispIeJeKe();
     zIeJeIe->useUniqueDispIeJeKe();
     thezIeJe->useUniqueDispIeJeKe();
 }

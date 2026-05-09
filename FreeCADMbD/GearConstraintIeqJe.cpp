@@ -82,11 +82,11 @@ void GearConstraintIeqJe::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto qXdotI = eFrmIqc->qXdot();
-    auto qEdotI = eFrmIqc->qEdot();
-    auto sum = pGpXI->timesFullColumn(eFrmIqc->qXddot());
-    sum += pGpEI->timesFullColumn(eFrmIqc->qEddot());
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto qXdotI = eFrmIeq->qXdot();
+    auto qEdotI = eFrmIeq->qEdot();
+    auto sum = pGpXI->timesFullColumn(eFrmIeq->qXddot());
+    sum += pGpEI->timesFullColumn(eFrmIeq->qEddot());
     sum += qXdotI->transposeTimesFullColumn(ppGpXIpXI->timesFullColumn(qXdotI));
     sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpEI->timesFullColumn(qEdotI)));
     sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));

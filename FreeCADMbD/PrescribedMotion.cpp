@@ -41,15 +41,15 @@ void PrescribedMotion::initMotions()
     auto xyzBlkList = std::initializer_list<Symsptr>{ xBlk, yBlk, zBlk };
     auto xyzRotBlkList = std::initializer_list<Symsptr>{ the1xBlk, the2yBlk, the3zBlk };
 
-    auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
-    auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
-    if (eFrmIct && !eFrmIqt) {
-        eFrmIct->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
-        eFrmIct->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
+    auto eFrmIet = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+    auto eFrmIeqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+    if (eFrmIet && !eFrmIeqt) {
+        eFrmIet->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
+        eFrmIet->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
-    else if (!eFrmIct && eFrmIqt) {
-        eFrmIqt->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
-        eFrmIqt->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
+    else if (!eFrmIet && eFrmIeqt) {
+        eFrmIeqt->rmemBlks = (std::make_shared<FullColumn<Symsptr>>(xyzBlkList));
+        eFrmIeqt->the1x2y3zBlks = (std::make_shared<FullColumn<Symsptr>>(xyzRotBlkList));
     }
 }
 

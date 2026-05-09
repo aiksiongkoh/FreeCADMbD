@@ -49,10 +49,10 @@ void AngleZConstraintIeqJe::simUpdateAll()
 void AngleZConstraintIeqJe::fillAccICIterError(FColDsptr col)
 {
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto qXdotI = eFrmIqc->qXdot();
-    auto qEdotI = eFrmIqc->qEdot();
-    auto sum = pGpEI->timesFullColumn(eFrmIqc->qEddot());
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto qXdotI = eFrmIeq->qXdot();
+    auto qEdotI = eFrmIeq->qEdot();
+    auto sum = pGpEI->timesFullColumn(eFrmIeq->qEddot());
     sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));
     col->atiplusNumber(iG, sum);
 }

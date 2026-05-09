@@ -60,14 +60,14 @@ void FullMotion::initializeGlobally()
 
 void FullMotion::initMotions()
 {
-    auto eFrmIct = std::dynamic_pointer_cast<EndFramet>(eFrmI);
-    auto eFrmIqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
-    if (eFrmIct && !eFrmIqt) {
-        eFrmIct->rmemBlks = frIJI;
-        eFrmIct->the1x2y3zBlks = fangIJJ;
+    auto eFrmIet = std::dynamic_pointer_cast<EndFramet>(eFrmI);
+    auto eFrmIeqt = std::dynamic_pointer_cast<EndFrameqt>(eFrmI);
+    if (eFrmIet && !eFrmIeqt) {
+        eFrmIet->rmemBlks = frIJI;
+        eFrmIet->the1x2y3zBlks = fangIJJ;
     }
-    else if (!eFrmIct && eFrmIqt) {
-        eFrmIqt->rmemBlks = frIJI;
-        eFrmIqt->the1x2y3zBlks = fangIJJ;
+    else if (!eFrmIet && eFrmIeqt) {
+        eFrmIeqt->rmemBlks = frIJI;
+        eFrmIeqt->the1x2y3zBlks = fangIJJ;
     }
 }

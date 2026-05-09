@@ -44,10 +44,10 @@ void ConstraintSet::initializeGlobally()
 
 void ConstraintSet::initializeLocally()
 {
-    auto frmIqc = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
-    if (frmIqc) {
-        if (frmIqc->endFrameqt) {
-            eFrmI = frmIqc->endFrameqt;
+    auto frmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
+    if (frmIeq) {
+        if (frmIeq->endFrameqt) {
+            eFrmI = frmIeq->endFrameqt;
         }
     }
     else {
@@ -292,8 +292,8 @@ void ConstraintSet::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 FColDsptr ConstraintSet::aFIeIe() const
 {
     //"aFIeIe is joint force on end frame Ie expresses in Ie components."
-    auto frmIqc = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
-    return frmIqc->aAeO()->timesFullColumn(aFIeO());
+    auto frmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
+    return frmIeq->aAeO()->timesFullColumn(aFIeO());
 }
 
 FColDsptr ConstraintSet::aFIeO() const

@@ -74,12 +74,12 @@ void ConstVelConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     ConstVelConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto eFrmIqc = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto qEdotI = eFrmIqc->qEdot();
-    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotJ = eFrmJqc->qEdot();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto qEdotI = eFrmIeq->qEdot();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotJ = eFrmJeq->qEdot();
     double sum = 0.0;
-    sum += pGpEJ->timesFullColumn(eFrmJqc->qEddot());
+    sum += pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += 2.0 * qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ));
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
     col->atiplusNumber(iG, sum);

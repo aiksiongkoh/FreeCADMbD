@@ -37,11 +37,11 @@ void OmeCompIeJeqKe::simUpdateAll()
     //omeIeJeKe = AKeO * omeIeJeO
     //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
     aAjOKe = efrmK->aAjOe(axisK);
-    auto eFrmJqc = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    omeIeJeO = eFrmJqc->omeOeO(); //omeOIeO is zero
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    omeIeJeO = eFrmJeq->omeOeO(); //omeOIeO is zero
     omeiIeJeKe = aAjOKe->dot(omeIeJeO);
-    auto pomeIeJeOpEJ = eFrmJqc->pomeOeOpE();
-    auto pomeIeJeOpEdotJ = eFrmJqc->pomeOeOpEdot();
+    auto pomeIeJeOpEJ = eFrmJeq->pomeOeOpE();
+    auto pomeIeJeOpEdotJ = eFrmJeq->pomeOeOpEdot();
     pomeiIeJeKepEJ = pomeIeJeOpEJ->dot(aAjOKe);
     pomeiIeJeKepEdotJ = pomeIeJeOpEdotJ->dot(aAjOKe);
 }
