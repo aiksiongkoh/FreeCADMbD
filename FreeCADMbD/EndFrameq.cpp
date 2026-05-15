@@ -237,9 +237,9 @@ FMatDsptr EndFrameq::pomeOeOpEdot()
     return static_cast<MarkerFrameq *>(markerFrame)->pomeOmOpEdot();
 }
 
-std::shared_ptr<EndFrame> EndFrameq::followEndFrame(EndFrmsptr frmi)
+EndFrmsptr EndFrameq::followEndFrame(EndFrmsptr frmi)
 {
-    std::shared_ptr<EndFrame> endFrm;
+    EndFrmsptr endFrm;
     if (std::dynamic_pointer_cast<EndFrameq>(frmi))
     {
 

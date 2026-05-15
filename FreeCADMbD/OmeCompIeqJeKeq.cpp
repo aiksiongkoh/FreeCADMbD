@@ -10,9 +10,9 @@ std::shared_ptr<OmeCompIeqJeKeq> OmeCompIeqJeKeq::With()
     return inst;
 }
 
-std::shared_ptr<OmeCompIeqJeKeq> OmeCompIeqJeKeq::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<OmeCompIeqJeKeq> OmeCompIeqJeKeq::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
-    auto inst = std::make_shared<OmeCompIeqJeKeq>(frmi, frmj);
+    auto inst = std::make_shared<OmeCompIeqJeKeq>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
 }
@@ -29,12 +29,12 @@ void OmeCompIeqJeKeq::simUpdateAll()
     //omeIeJeO = omeOJeO - omeOIeO
     //omeIeJeKe = AKeO * omeIeJeO
     //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
-    aAjOKe = efrmK->aAjOe(axisK);
+    aAjOKe = eFrmK->aAjOe(axisK);
     auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto efrmKqc = std::static_pointer_cast<EndFrameq>(efrmK);
+    auto eFrmKeq = std::static_pointer_cast<EndFrameq>(eFrmK);
     omeIeJeO = eFrmIeq->omeOeO()->negated();    //omeOJeO is zero
     omeiIeJeKe = aAjOKe->dot(omeIeJeO);
-    auto pAjOKepEK = efrmKqc->pAjOepE(axisK);
+    auto pAjOKepEK = eFrmKeq->pAjOepE(axisK);
     pomeiIeJeKepEK = pAjOKepEK->dot(omeIeJeO);
     auto pomeIeJeOpEI = eFrmIeq->pomeOeOpE()->negated();    //pomeOJeOpE is zero
     auto pomeIeJeOpEdotI = eFrmIeq->pomeOeOpEdot()->negated();    //pomeOJeOpEdot is zero

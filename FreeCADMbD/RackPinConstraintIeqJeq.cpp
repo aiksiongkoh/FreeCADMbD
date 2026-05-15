@@ -84,14 +84,14 @@ void RackPinConstraintIeqJeq::fillAccICIterError(FColDsptr col)
     RackPinConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotI = frmIeq->qEdot();
-    auto qXdotJ = frmJeq->qXdot();
-    auto qEdotJ = frmJeq->qEdot();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotI = eFrmIeq->qEdot();
+    auto qXdotJ = eFrmJeq->qXdot();
+    auto qEdotJ = eFrmJeq->qEdot();
     double sum = 0.0;
-    sum += pGpXJ->timesFullColumn(frmJeq->qXddot());
-    sum += pGpEJ->timesFullColumn(frmJeq->qEddot());
+    sum += pGpXJ->timesFullColumn(eFrmJeq->qXddot());
+    sum += pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpXJ->timesFullColumn(qXdotJ)));
     sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ)));
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
@@ -140,9 +140,9 @@ void RackPinConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
 void RackPinConstraintIeqJeq::useEquationNumbers()
 {
     RackPinConstraintIeqJe::useEquationNumbers();
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    iqXJ = frmJeq->iqX();
-    iqEJ = frmJeq->iqE();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    iqXJ = eFrmJeq->iqX();
+    iqEJ = eFrmJeq->iqE();
 }
 
 void RackPinConstraintIeqJeq::fillpFpy(SpMatDsptr mat)

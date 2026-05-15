@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 //#include <string>
@@ -23,7 +23,9 @@ namespace MbD {
     class Constraint;
     class StateData;
     class EndFrame;
+    class MarkerFrame;
     using EndFrmsptr = std::shared_ptr<EndFrame>;
+    using MkrFrmsptr = std::shared_ptr<MarkerFrame>;
 
     class Item : public std::enable_shared_from_this<Item>
     {

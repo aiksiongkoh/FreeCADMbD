@@ -25,10 +25,10 @@ void VelRadIeqJe::simUpdateAll()
     VelRadIeJe::simUpdateAll();
     if (rIeJe == 0.0) return;
     auto muIeJeO = uIeJeO->negated();
-    auto efrmqcI = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto mprIeJeOpEI = efrmqcI->prOeOpE;
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto mprIeJeOpEI = eFrmIeq->prOeOpE;
     auto mprIeJeOpEIT = mprIeJeOpEI->transpose();
-    auto mpvIeJeOpEIT = efrmqcI->pvOeOpE()->transpose();
+    auto mpvIeJeOpEIT = eFrmIeq->pvOeOpE()->transpose();
     auto muIeJeOT = muIeJeO->transpose();
     auto prIeJepXI = muIeJeOT;
     auto prIeJepEI = muIeJeOT->timesFullMatrix(mprIeJeOpEI);

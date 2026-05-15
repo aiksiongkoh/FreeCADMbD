@@ -406,26 +406,6 @@ double KinematicIeJe::value()
     return 0.0;
 }
 
-void KinematicIeJe::withFrmIFrmJ(EndFrmsptr eFrmi, EndFrmsptr eFrmj)
-{
-    eFrmI = eFrmi;
-    eFrmJ = eFrmj;
-}
-
-void KinematicIeJe::withFrmIFrmJaxis(EndFrmsptr eFrmI, EndFrmsptr eFrmJ, size_t axis)
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void KinematicIeJe::withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void KinematicIeJe::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrmj, EndFrmsptr eFrmk, size_t axis)
-{
-}
-
 void KinematicIeJe::initializeLocally()
 {
     prtFrmI = eFrmI->getPartFrame();

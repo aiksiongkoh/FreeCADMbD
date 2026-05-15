@@ -21,7 +21,6 @@ namespace MbD {
     class SpatialContainerFrame;
     class PartFrame;
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class MarkerFrameq : public MarkerFrame
     {

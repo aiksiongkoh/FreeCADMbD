@@ -21,15 +21,14 @@ namespace MbD {
     class SpatialContainerFrame;
     class PartFrame;
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class MarkerFrame : public CartesianFrame
     {
-        //partFrame rpmp aApm rOmO aAOm endFrames 
+        //partFrame rpmp aApm rOmO aAOm endFrames
     public:
         MarkerFrame() {}
         MarkerFrame(const std::string& str) : CartesianFrame(str) {}
-        static std::shared_ptr<MarkerFrame> With(const std::string& str);
+        static MkrFrmsptr With(const std::string& str);
         void initialize() override;
         System* root() override;
         void addEndFrame(EndFrmsptr x);

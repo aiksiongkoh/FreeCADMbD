@@ -27,12 +27,12 @@ namespace MbD {
 
     class SpatialContainerFrame : public CartesianFrame
     {
-        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames 
+        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames
     public:
         SpatialContainerFrame() {}
         SpatialContainerFrame(const std::string& str) : CartesianFrame(str) {}
 
-        virtual std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) = 0;
+        virtual MkrFrmsptr createMarkerFrame(const std::string& str) = 0;
 
         void initialize() override;
 
@@ -40,9 +40,9 @@ namespace MbD {
         void initializeGlobally() override;
         void postInput() override;
 
-        void addMarkerFrame(std::shared_ptr<MarkerFrame> x);
+        void addMarkerFrame(MkrFrmsptr x);
         EndFrmsptr endFrame(std::string name) const;
-        void markerFramesDo(const std::function <void(std::shared_ptr<MarkerFrame>)>& f) const;
+        void markerFramesDo(const std::function <void(MkrFrmsptr)>& f) const;
 
         void prePosIC() override;
         void prePosKine() override;
@@ -109,7 +109,7 @@ namespace MbD {
         virtual FMatDsptr aBOp() const;
         virtual FColDsptr aOmO() const;
 
-        std::shared_ptr<std::vector<std::shared_ptr<MarkerFrame>>> markerFrames;
+        std::shared_ptr<std::vector<MkrFrmsptr>> markerFrames;
     };
 }
 

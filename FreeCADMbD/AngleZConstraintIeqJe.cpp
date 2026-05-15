@@ -83,6 +83,6 @@ void AngleZConstraintIeqJe::fillVelICJacob(SpMatDsptr mat)
 
 void AngleZConstraintIeqJe::useEquationNumbers()
 {
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    iqEI = frmIeq->iqE();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    iqEI = eFrmIeq->iqE();
 }

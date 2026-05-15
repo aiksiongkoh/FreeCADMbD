@@ -9,7 +9,7 @@ std::shared_ptr<EndFrameqccq> EndFrameqccq::With()
     return inst;
 }
 
-void EndFrameqccq::setTargetFrame(std::shared_ptr<EndFrame> targetFrm)
+void EndFrameqccq::setTargetFrame(EndFrmsptr targetFrm)
 {
     targetFrame = targetFrm;
 }

@@ -14,37 +14,39 @@
 #include "DispIeqJeqKeq.h"
 #include "DispIeJeqKe.h"
 #include "DispIetJeqKet.h"
+#include "SimulationStoppingError.h"
 #include "System.h"
 
 using namespace MbD;
 
 std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
 {
+    const auto factoryName = "DispIeJeKe::With";
     std::shared_ptr<DispIeJeKe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(frmk->has_qX());
             inst = std::make_shared<DispIeqJeqKeq>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             assert(frmk->has_qX());
@@ -53,32 +55,32 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, E
     }
     else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(!frmk->has_qX());
             inst = std::make_shared<DispIetJeqKet>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             assert(!frmk->has_qX());
             inst = std::make_shared<DispIeJeqKe>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     assert(inst);

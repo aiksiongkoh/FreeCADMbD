@@ -14,7 +14,7 @@
 namespace MbD {
     class TranslationConstraintIeJe : public ConstraintIeJe
     {
-    //frmIe = frmKe
+    //eFrmI = eFrmK
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
     //prIeJeKepXI = aAOKeT * prIeJeOpXI

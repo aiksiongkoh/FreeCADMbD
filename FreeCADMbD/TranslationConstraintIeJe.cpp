@@ -17,35 +17,37 @@
 #include "EndFrameq.h"
 #include "EndFramet.h"
 #include "EndFrame.h"
+#include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<TranslationConstraintIeJe> TranslationConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi)
 {
+    const auto factoryName = "TranslationConstraintIeJe::With";
     std::shared_ptr<TranslationConstraintIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqtJeq>(frmi, frmj, axisi);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqJeq>(frmi, frmj, axisi);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeqJe>(frmi, frmj, axisi);
@@ -53,30 +55,30 @@ std::shared_ptr<TranslationConstraintIeJe> TranslationConstraintIeJe::With(EndFr
     }
     else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIetJeq>(frmi, frmj, axisi);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<TranslationConstraintIeJeq>(frmi, frmj, axisi);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     assert(inst);

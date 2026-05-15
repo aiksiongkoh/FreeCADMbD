@@ -13,7 +13,6 @@
 namespace MbD {
     class SpatialContainerFrame;
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class KinematicVectorIeJe : public Kinematic
     {
@@ -23,10 +22,6 @@ namespace MbD {
         KinematicVectorIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : eFrmI(frmi), eFrmJ(frmj), Kinematic() {}
         static std::shared_ptr<KinematicVectorIeJe> With();
         static std::shared_ptr<KinematicVectorIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual void withFrmIFrmJ(EndFrmsptr frmi, EndFrmsptr frmj);
-        virtual void withFrmIFrmJaxis(EndFrmsptr frmi, EndFrmsptr frmj, size_t axis);
-        virtual void withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk);
-        virtual void withFrmIFrmJFrmKaxis(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axis);
 
         void initializeLocally() override;
         void initializeGlobally() override;

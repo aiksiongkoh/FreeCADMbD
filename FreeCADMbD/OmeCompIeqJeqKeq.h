@@ -12,15 +12,12 @@
 namespace MbD {
     class OmeCompIeqJeqKeq : public OmeCompIeqJeKeq
     {
-        //pomeiIeJeKepEJ pomeiIeJeKepEdotJ 
+        //pomeiIeJeKepEJ pomeiIeJeKepEdotJ
     public:
         OmeCompIeqJeqKeq() {}
-        OmeCompIeqJeqKeq(EndFrmsptr frmi, EndFrmsptr frmj) : OmeCompIeqJeKeq(frmi, frmj) {}
-        OmeCompIeqJeqKeq(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : OmeCompIeqJeKeq(frmi, frmj, efrmK, axisK) {}
+        OmeCompIeqJeqKeq(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk) : OmeCompIeqJeKeq(frmi, frmj, frmk, axisk) {}
         static std::shared_ptr<OmeCompIeqJeqKeq> With();
-        static std::shared_ptr<OmeCompIeqJeqKeq> With(EndFrmsptr frmi, EndFrmsptr frmj);
-        //static std::shared_ptr<OmeCompIeqJeqKeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisK);
-        static std::shared_ptr<OmeCompIeqJeqKeq> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK);
+        static std::shared_ptr<OmeCompIeqJeqKeq> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk);
         void initialize() override;
 
         void simUpdateAll() override;

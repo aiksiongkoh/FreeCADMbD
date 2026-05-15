@@ -18,14 +18,14 @@
 
 using namespace MbD;
 
-std::shared_ptr<EndFrame> EndFrame::With()
+EndFrmsptr EndFrame::With()
 {
     auto inst = std::make_shared<EndFrame>();
     inst->initialize();
     return inst;
 }
 
-std::shared_ptr<EndFrame> EndFrame::With(const std::string &str)
+EndFrmsptr EndFrame::With(const std::string &str)
 {
     auto inst = std::make_shared<EndFrame>(str);
     inst->initialize();
@@ -167,15 +167,15 @@ FMatDsptr EndFrame::getaBOp() const
 
 std::shared_ptr<EndFrameq> EndFrame::newCopyEndFrameq()
 {
-    auto frmIeq = EndFrameq::With();
-    markerFrame->addEndFrame(frmIeq);
-    return frmIeq;
+    auto eFrm = EndFrameq::With();
+    markerFrame->addEndFrame(eFrm);
+    return eFrm;
 }
 
-std::shared_ptr<EndFrame> EndFrame::followEndFrame(EndFrmsptr frmi)
+EndFrmsptr EndFrame::followEndFrame(EndFrmsptr frmi)
 {
     throw SimulationStoppingError("Fixed eFrm cannot move to follow.");
-    return std::shared_ptr<EndFrame>();
+    return EndFrmsptr();
 }
 
 bool EndFrame::isEndFrameq()

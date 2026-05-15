@@ -93,16 +93,16 @@ void ASMTForceTorqueGeneral::createMbD()
     }
     else
     {
-        std::shared_ptr<EndFrame> efrmK;
+        EndFrmsptr eFrmK;
         if (markerKSign == "J")
         {
-            efrmK = eFrmJ;
+            eFrmK = eFrmJ;
         }
         else
         {
-            efrmK = eFrmI;
+            eFrmK = eFrmI;
         }
-        forceTorqueGeneral = ForceTorqueGeneral::With(eFrmI, eFrmJ, efrmK);
+        forceTorqueGeneral = ForceTorqueGeneral::With(eFrmI, eFrmJ, eFrmK);
     }
     forceTorqueGeneral->name = fullName("");
     auto aFIeKeFunc = FullColumn<Symsptr>::With(3);

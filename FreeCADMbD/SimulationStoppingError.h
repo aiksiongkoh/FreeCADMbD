@@ -9,6 +9,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <string>
 
 namespace MbD {
     class SimulationStoppingError : virtual public std::runtime_error
@@ -18,4 +19,6 @@ namespace MbD {
         explicit SimulationStoppingError(const std::string& msg) : std::runtime_error(msg) {
         }
     };
+
+    [[noreturn]] void throwUnsupportedFrameCombination(const std::string& factoryName);
 }

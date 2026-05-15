@@ -25,30 +25,31 @@ using namespace MbD;
 
 std::shared_ptr<AngleZIeJe> AngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
+    const auto factoryName = "AngleZIeJe::With";
     std::shared_ptr<AngleZIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AngleZIeqJeq>(frmi, frmj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<AngleZIeqJe>(frmi, frmj);
@@ -56,30 +57,30 @@ std::shared_ptr<AngleZIeJe> AngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
     }
     else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AngleZIeJeq>(frmi, frmj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     assert(inst);

@@ -92,8 +92,8 @@ void ASMTMarker::createMbD()
     //ASMTRefPoint is for CAD side and not MbD side
     auto asmtPrt = dynamic_cast<ASMTPart*>(partOrAssembly());
     auto asmtAsm = dynamic_cast<ASMTAssembly*>(partOrAssembly());
-    std::shared_ptr<MarkerFrame> mkr;
-    std::shared_ptr<EndFrame> efrm;
+    MkrFrmsptr mkr;
+    EndFrmsptr efrm;
     std::shared_ptr<SpatialContainerFrame> scfrm;
     if (asmtPrt && !asmtAsm) {
         scfrm = std::static_pointer_cast<Part>(asmtPrt->mbdObject)->partFrame;

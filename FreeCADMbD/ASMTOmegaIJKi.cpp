@@ -1,7 +1,7 @@
 #include "ASMTOmegaIJKi.h"
 #include "Units.h"
 #include "OmeCompIeqJeqKeq.h"
-#include "OmeCompIeJeqKe.h"
+#include "OmeCompIeJeKe.h"
 
 using namespace MbD;
 
@@ -17,14 +17,9 @@ std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdClassNew()
     return OmeCompIeqJeqKeq::With();
 }
 
-std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdKineIqcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
+std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::kinematicWith(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
-    return OmeCompIeqJeqKeq::With(frmi, frmj, efrmK, axisK);
-}
-
-std::shared_ptr<KinematicIeJe> ASMTOmegaIJKi::mbdKineIcJqcKaxisK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
-{
-    return OmeCompIeJeqKe::With(frmi, frmj, efrmK, axisK);
+    return OmeCompIeJeKe::With(frmi, frmj, frmk, axisk);
 }
 
 double ASMTOmegaIJKi::asmtUnit()

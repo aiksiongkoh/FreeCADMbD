@@ -71,6 +71,16 @@
 #if __GNUC__ >= 8
 #include <filesystem>
 #endif
+namespace
+{
+    constexpr auto FreeCADMotionHeader = "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
+    constexpr auto OndselSolverHeader = "OndselSolver";
+
+    bool isASMTHeader(const std::string& line)
+    {
+        return line == FreeCADMotionHeader || line == OndselSolverHeader;
+    }
+}
 
 using namespace MbD;
 
@@ -379,22 +389,8 @@ void ASMTAssembly::runSinglePendulum()
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &fileName)
 {
-    std::ifstream stream(fileName);
-    if (stream.fail())
-    {
-        throw std::invalid_argument("File not found.");
-    }
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(stream, line))
-    {
-        lines.push_back(line);
-    }
+    auto lines = linesFromFile(fileName);
     auto assembly = ASMTAssembly::With();
-    auto str = assembly->popOffTop(lines);
-    bool bool1 = str == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
-    bool bool2 = str == "OndselSolver";
-    assert(bool1 || bool2);
     assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
     assembly->setinFileName(fileName);
     assembly->parseASMT(lines);
@@ -403,25 +399,17 @@ std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &
 
 void ASMTAssembly::runDynFile(const std::string &fileName)
 {
-    auto lines = linesFromFile(fileName);
-    auto assembly = ASMTAssembly::With();
+    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
     const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
-    assembly->setinFileName(fileName);
-    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
-    assembly->parseASMT(lines);
     assembly->runDYNAMIC();
 }
 
 void ASMTAssembly::runKineFile(const std::string &fileName)
 {
-    auto lines = linesFromFile(fileName);
-    auto assembly = ASMTAssembly::With();
+    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
     const std::string &str("\n\n\nStarting KINEMATIC simulation");
     assembly->logString(str);
-    assembly->setinFileName(fileName);
-    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
-    assembly->parseASMT(lines);
     assembly->runKINEMATIC();
 }
 
@@ -442,130 +430,43 @@ std::vector<std::string> ASMTAssembly::linesFromFile(const std::string &fileName
     {
         lines.push_back(line);
     }
-    bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
-    bool bool2 = lines[0] == "OndselSolver";
-    assert(bool1 || bool2);
+    if (lines.empty() || !isASMTHeader(lines.front()))
+    {
+        throw std::invalid_argument("Invalid ASMT file header.");
+    }
     lines.erase(lines.begin());
     return lines;
 }
 
 void ASMTAssembly::readWriteKineFile(const std::string &fileName)
 {
-    std::ifstream stream(fileName);
-    if (stream.fail())
-    {
-        throw std::invalid_argument("File not found.");
-    }
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(stream, line))
-    {
-        lines.push_back(line);
-    }
-    bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
-    bool bool2 = lines[0] == "OndselSolver";
-    assert(bool1 || bool2);
-    lines.erase(lines.begin());
-
-    if (lines[0] == "Assembly")
-    {
-        lines.erase(lines.begin());
-        auto assembly = ASMTAssembly::With();
-        assembly->parseASMT(lines);
-        assembly->runKINEMATIC();
-        assembly->outputFile("assemblyKine.asmt");
+    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
+    assembly->runKINEMATIC();
+    assembly->outputFile("assemblyKine.asmt");
 #ifndef NDEBUG
-        ASMTAssembly::runKineFile("assemblyKine.asmt");
+    ASMTAssembly::runKineFile("assemblyKine.asmt");
 #endif
-    }
 }
 
 void ASMTAssembly::readWriteDynFile(const std::string &fileName)
 {
-    std::ifstream stream(fileName);
-    if (stream.fail())
-    {
-        throw std::invalid_argument("File not found.");
-    }
-    std::string line;
-    std::vector<std::string> lines;
-    while (std::getline(stream, line))
-    {
-        lines.push_back(line);
-    }
-    bool bool1 = lines[0] == "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
-    bool bool2 = lines[0] == "OndselSolver";
-    assert(bool1 || bool2);
-    lines.erase(lines.begin());
-
-    if (lines[0] == "Assembly")
-    {
-        lines.erase(lines.begin());
-        auto assembly = ASMTAssembly::With();
-        assembly->parseASMT(lines);
-        assembly->runDYNAMIC();
-        assembly->outputFile("tempAssembly.asmt");
-        // tempAssembly2.asmt has input from filename and TimeSeries from tempAssembly.asmt
-        // Otherwise redundant constraints may not be the same even with very very small differences in input.
-        std::ifstream in(fileName);
-        if (!in)
-            throw std::runtime_error("Cannot open input file");
-        std::ifstream in2("tempAssembly.asmt");
-        if (!in2)
-            throw std::runtime_error("Cannot open input file");
-        std::ofstream out("tempAssembly2.asmt");
-        if (!out)
-            throw std::runtime_error("Cannot open output file");
-        std::string data((std::istreambuf_iterator<char>(in)),
-                         std::istreambuf_iterator<char>());
-        std::string data2((std::istreambuf_iterator<char>(in2)),
-                          std::istreambuf_iterator<char>());
-        std::size_t pos = data.find("TimeSeries");
-        if (pos == std::string::npos)
-            pos = data.size();
-        std::size_t pos2 = data2.find("TimeSeries");
-        out.write(data.data(), static_cast<std::streamsize>(pos));
-        out.write(data2.data() + pos2,
-                  static_cast<std::streamsize>(data2.size() - pos2));
-        out.close();
-    }
+    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
+    assembly->runDYNAMIC();
+    assembly->outputFile("tempAssembly.asmt");
+    assembly->combineInputInitialConditionsWithCalculationResults();
 }
 
 void ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
 {
-    auto lines = linesFromFile(infilename);
-    auto assembly = ASMTAssembly::With();
+    auto assembly = ASMTAssembly::assemblyFromFile(infilename);
     const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
-    assembly->setinFileName(infilename);
     assembly->setoutFileName(outfilename);
-    assembly->readStringNoSpacesOffTopEqualOrThrow(lines, "Assembly");
-    assembly->parseASMT(lines);
     assembly->runDYNAMIC();
     assembly->outputFile("tempAssembly.asmt");
     // Create tempAssembly2.asmt from input data from filename and TimeSeries from tempAssembly.asmt
     // Otherwise redundant constraints may not be the same even with very very small differences in input.
-    std::ifstream in(infilename);
-    if (!in)
-        throw std::runtime_error("Cannot open input file");
-    std::ifstream in2("tempAssembly.asmt");
-    if (!in2)
-        throw std::runtime_error("Cannot open input file");
-    std::ofstream out("tempAssembly2.asmt");
-    if (!out)
-        throw std::runtime_error("Cannot open output file");
-    std::string data((std::istreambuf_iterator<char>(in)),
-                     std::istreambuf_iterator<char>());
-    std::string data2((std::istreambuf_iterator<char>(in2)),
-                      std::istreambuf_iterator<char>());
-    std::size_t pos = data.find("TimeSeries");
-    if (pos == std::string::npos)
-        pos = data.size();
-    std::size_t pos2 = data2.find("TimeSeries");
-    out.write(data.data(), static_cast<std::streamsize>(pos));
-    out.write(data2.data() + pos2,
-              static_cast<std::streamsize>(data2.size() - pos2));
-    out.close();
+    assembly->combineInputInitialConditionsWithCalculationResults();
 
     namespace fs = std::filesystem;
     if (fs::exists("tempAssembly2.asmt"))
@@ -1852,4 +1753,33 @@ void ASMTAssembly::updateFromInputState()
         joint->updateFromInputState();
     for (auto motion : *motions)
         motion->updateFromInputState();
+}
+
+void MbD::ASMTAssembly::combineInputInitialConditionsWithCalculationResults()
+{
+        // tempAssembly.asmt has data from calculations
+        // Its initial conditions is not exactly the same as inFileName
+        // Therefore, the redundant constraints removed can be different between the two files
+        // To prevent that, tempAssembly2.asmt has the initial conditions of inFileName and results from tempAssembly.asmt
+        std::ifstream in(inFileName);
+        if (!in)
+            throw std::runtime_error("Cannot open input file");
+        std::ifstream in2("tempAssembly.asmt");
+        if (!in2)
+            throw std::runtime_error("Cannot open input file");
+        std::ofstream out("tempAssembly2.asmt");
+        if (!out)
+            throw std::runtime_error("Cannot open output file");
+        std::string data((std::istreambuf_iterator<char>(in)),
+                         std::istreambuf_iterator<char>());
+        std::string data2((std::istreambuf_iterator<char>(in2)),
+                          std::istreambuf_iterator<char>());
+        std::size_t pos = data.find("TimeSeries");
+        if (pos == std::string::npos)
+            pos = data.size();
+        std::size_t pos2 = data2.find("TimeSeries");
+        out.write(data.data(), static_cast<std::streamsize>(pos));
+        out.write(data2.data() + pos2,
+                  static_cast<std::streamsize>(data2.size() - pos2));
+        out.close();
 }

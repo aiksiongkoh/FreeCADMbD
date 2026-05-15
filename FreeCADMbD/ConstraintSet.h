@@ -20,7 +20,6 @@
 namespace MbD {
     class Constraint;
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class ConstraintSet : public Item
     {

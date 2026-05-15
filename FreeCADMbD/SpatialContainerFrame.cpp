@@ -22,24 +22,24 @@ using namespace MbD;
 
 void SpatialContainerFrame::initialize()
 {
-    markerFrames = std::make_shared<std::vector<std::shared_ptr<MarkerFrame>>>();
+    markerFrames = std::make_shared<std::vector<MkrFrmsptr>>();
 }
 
 void SpatialContainerFrame::initializeLocally()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->initializeLocally(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->initializeLocally();
         });
 }
 
 void SpatialContainerFrame::initializeGlobally()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->initializeGlobally(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->initializeGlobally();
         });
 }
 
-void SpatialContainerFrame::addMarkerFrame(std::shared_ptr<MarkerFrame> markerFrame)
+void SpatialContainerFrame::addMarkerFrame(MkrFrmsptr markerFrame)
 {
     markerFrame->setPartFrame(this);
     markerFrames->push_back(markerFrame);
@@ -51,7 +51,7 @@ EndFrmsptr SpatialContainerFrame::endFrame(std::string name) const
     return (*match)->endFrames->at(0);
 }
 
-void SpatialContainerFrame::markerFramesDo(const std::function<void(std::shared_ptr<MarkerFrame>)>& f) const
+void SpatialContainerFrame::markerFramesDo(const std::function<void(MkrFrmsptr)>& f) const
 {
     for (const auto markerFrame : *markerFrames) f(markerFrame);
 }
@@ -59,297 +59,297 @@ void SpatialContainerFrame::markerFramesDo(const std::function<void(std::shared_
 void SpatialContainerFrame::prePosIC()
 {
     CartesianFrame::prePosIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrm) { 
-        markerFrm->prePosIC(); 
+    markerFramesDo([&](MkrFrmsptr markerFrm) {
+        markerFrm->prePosIC();
         });
 }
 
 void SpatialContainerFrame::prePosKine()
 {
     CartesianFrame::prePosKine();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrm) { 
-        markerFrm->prePosKine(); 
+    markerFramesDo([&](MkrFrmsptr markerFrm) {
+        markerFrm->prePosKine();
         });
 }
 
 void SpatialContainerFrame::fillqsuWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillqsuWeights(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillqsuWeights(mat);
         });
 }
 
 void SpatialContainerFrame::fillqsuddotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillqsuddotlam(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillqsuddotlam(col);
         });
 }
 
 void SpatialContainerFrame::fillqsulam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillqsulam(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillqsulam(col);
         });
 }
 
 void SpatialContainerFrame::fillpqsumu(FColDsptr col)
 {
     //"Fill q, s and lam into col."
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillpqsumu(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillpqsumu(col);
         });
 }
 
 void SpatialContainerFrame::fillpqsumudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillpqsumudot(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillpqsumudot(col);
         });
 }
 
 void SpatialContainerFrame::fillqsudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillqsudot(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillqsudot(col);
         });
 }
 
 void SpatialContainerFrame::fillqsudotWeights(DiagMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillqsudotWeights(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillqsudotWeights(mat);
         });
 }
 
 void SpatialContainerFrame::useEquationNumbers()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->useEquationNumbers(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->useEquationNumbers();
         });
 }
 
 void SpatialContainerFrame::setqsu(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setqsu(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setqsu(col);
         });
 }
 
 void SpatialContainerFrame::setqsulam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setqsulam(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setqsulam(col);
         });
 }
 
 void SpatialContainerFrame::setqsudotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setqsudotlam(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setqsudotlam(col);
         });
 }
 
 void SpatialContainerFrame::setqsudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setqsudot(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setqsudot(col);
         });
 }
 
 void SpatialContainerFrame::postPosICIteration()
 {
     CartesianFrame::postPosICIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postPosICIteration(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postPosICIteration();
         });
 }
 
 void SpatialContainerFrame::fillPosICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillPosICError(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillPosICError(col);
         });
 }
 
 void SpatialContainerFrame::fillPosICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillPosICJacob(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillPosICJacob(mat);
         });
 }
 
 void SpatialContainerFrame::postPosIC()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postPosIC(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postPosIC();
         });
 }
 
 void SpatialContainerFrame::preDyn()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->preDyn(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->preDyn();
         });
 }
 
 void SpatialContainerFrame::storeDynState()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->storeDynState(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->storeDynState();
         });
 }
 
 void SpatialContainerFrame::fillPosKineError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillPosKineError(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillPosKineError(col);
         });
 }
 
 void SpatialContainerFrame::preVelIC()
 {
     CartesianFrame::preVelIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->preVelIC(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->preVelIC();
         });
 }
 
 void SpatialContainerFrame::postVelIC()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postVelIC(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postVelIC();
         });
 }
 
 void SpatialContainerFrame::fillVelICError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillVelICError(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillVelICError(col);
         });
 }
 
 void SpatialContainerFrame::fillVelICJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillVelICJacob(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillVelICJacob(mat);
         });
 }
 
 void SpatialContainerFrame::preAccIC()
 {
     CartesianFrame::preAccIC();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->preAccIC(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->preAccIC();
         });
 }
 
 void SpatialContainerFrame::fillAccICIterError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillAccICIterError(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillAccICIterError(col);
         });
 }
 
 void SpatialContainerFrame::fillAccICIterJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillAccICIterJacob(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillAccICIterJacob(mat);
         });
 }
 
 void SpatialContainerFrame::setqsuddotlam(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
         markerFrame->setqsuddotlam(col);
         });
 }
 
 void SpatialContainerFrame::fillPosKineJacob(SpMatDsptr mat)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillPosKineJacob(mat); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillPosKineJacob(mat);
         });
 }
 
 void SpatialContainerFrame::postDynStep()
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postDynStep(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postDynStep();
         });
 }
 
 void SpatialContainerFrame::setpqsumu(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setpqsumu(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setpqsumu(col);
         });
 }
 
 void SpatialContainerFrame::setpqsumudot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setpqsumudot(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setpqsumudot(col);
         });
 }
 
 void SpatialContainerFrame::setpqsumuddot(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->setpqsumuddot(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->setpqsumuddot(col);
         });
 }
 
 void SpatialContainerFrame::postDynPredictor()
 {
     CartesianFrame::postDynPredictor();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postDynPredictor(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postDynPredictor();
         });
 }
 
 void SpatialContainerFrame::fillDynError(FColDsptr col)
 {
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->fillDynError(col); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->fillDynError(col);
         });
 }
 
 void SpatialContainerFrame::fillpFpy(SpMatDsptr mat)
 {
-    //markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-    // markerFrame->fillpFpy(mat); 
+    //markerFramesDo([&](MkrFrmsptr markerFrame) {
+    // markerFrame->fillpFpy(mat);
     // });
 }
 
 void SpatialContainerFrame::fillpFpydot(SpMatDsptr mat)
 {
-    //markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-    // markerFrame->fillpFpydot(mat); 
+    //markerFramesDo([&](MkrFrmsptr markerFrame) {
+    // markerFrame->fillpFpydot(mat);
     // });
 }
 
 void SpatialContainerFrame::postDynCorrectorIteration()
 {
     CartesianFrame::postDynCorrectorIteration();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postDynCorrectorIteration(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postDynCorrectorIteration();
         });
 }
 
 void SpatialContainerFrame::preDynOutput()
 {
     CartesianFrame::preDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->preDynOutput(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->preDynOutput();
         });
 }
 
 void SpatialContainerFrame::postDynOutput()
 {
     CartesianFrame::postDynOutput();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postDynOutput(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postDynOutput();
         });
 }
 
@@ -473,7 +473,7 @@ FColDsptr SpatialContainerFrame::aOmO() const
 void SpatialContainerFrame::postInput()
 {
     CartesianFrame::postInput();
-    markerFramesDo([&](std::shared_ptr<MarkerFrame> markerFrame) { 
-        markerFrame->postInput(); 
+    markerFramesDo([&](MkrFrmsptr markerFrame) {
+        markerFrame->postInput();
         });
 }

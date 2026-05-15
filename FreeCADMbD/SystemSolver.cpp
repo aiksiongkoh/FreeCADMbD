@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <string>
 
 #include "SystemSolver.h"
 #include "System.h"
@@ -75,21 +76,35 @@ void SystemSolver::runAllIC()
     {
         initializeLocally();
         initializeGlobally();
+
         runPosIC();
         while (needToRedoPosIC())
         {
             runPosIC();
         }
+
         runVelIC();
         runAccIC();
+
         auto discontinuities = system->discontinuitiesAtIC();
-        if (discontinuities->size() == 0) break;
-        if (std::find(discontinuities->begin(), discontinuities->end(), "REBOUND") != discontinuities->end())
+        if (discontinuities->empty())
         {
-            preCollision();
-            runCollisionDerivativeIC();
-            runBasicCollision();
+            break;
         }
+
+        if (std::ranges::find(*discontinuities, "REBOUND") == discontinuities->end())
+        {
+            std::string message = "Unhandled discontinuity at IC:";
+            for (const auto& discontinuity : *discontinuities)
+            {
+                message += " " + discontinuity;
+            }
+            throw SimulationStoppingError(message);
+        }
+
+        preCollision();
+        runCollisionDerivativeIC();
+        runBasicCollision();
     }
 }
 
@@ -445,11 +460,6 @@ bool SystemSolver::limitsSatisfied()
 void SystemSolver::deactivateLimits()
 {
     system->deactivateLimits();
-}
-
-void System::deactivateLimits()
-{
-    for (const auto limit : *limits) limit->deactivate();
 }
 
 void SystemSolver::useKineTrialStepStats(std::shared_ptr<SolverStatistics> stats)

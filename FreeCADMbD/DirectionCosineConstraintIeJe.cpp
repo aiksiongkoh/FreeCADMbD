@@ -13,35 +13,37 @@
 #include "DirectionCosineConstraintIeqtJeq.h"
 #include "DirectionCosineConstraintIetJeq.h"
 #include "DirectionCosineConstraintIeJe.h"
+#include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<DirectionCosineConstraintIeJe> DirectionCosineConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
 {
+    const auto factoryName = "DirectionCosineConstraintIeJe::With";
     std::shared_ptr<DirectionCosineConstraintIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DirectionCosineConstraintIeqtJeq>(frmi, frmj, axisi, axisj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DirectionCosineConstraintIeqJeq>(frmi, frmj, axisi, axisj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<DirectionCosineConstraintIeqJe>(frmi, frmj, axisi, axisj);
@@ -49,30 +51,30 @@ std::shared_ptr<DirectionCosineConstraintIeJe> DirectionCosineConstraintIeJe::Wi
     }
     else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DirectionCosineConstraintIetJeq>(frmi, frmj, axisi, axisj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<DirectionCosineConstraintIeJeq>(frmi, frmj, axisi, axisj);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     assert(inst);

@@ -45,9 +45,9 @@ void TranslationConstraintIetJeq::preAccIC()
 void TranslationConstraintIetJeq::fillAccICIterError(FColDsptr col)
 {
     TranslationConstraintIeJeq::fillAccICIterError(col);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qXdotJ = frmJeq->qXdot();
-    auto qEdotJ = frmJeq->qEdot();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qXdotJ = eFrmJeq->qXdot();
+    auto qEdotJ = eFrmJeq->qEdot();
     auto sum = 2.0 * ppGpXJpt->timesFullColumn(qXdotJ);
     sum += 2.0 * ppGpEJpt->timesFullColumn(qEdotJ);
     sum += ppGptpt;

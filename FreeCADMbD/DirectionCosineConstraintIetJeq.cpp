@@ -50,8 +50,8 @@ ConstraintType DirectionCosineConstraintIetJeq::type()
 void DirectionCosineConstraintIetJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeJeq::fillAccICIterError(col);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotJ = frmJeq->qEdot();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotJ = eFrmJeq->qEdot();
     double sum = 0.0;
     sum += (ppGpEJpt->timesFullColumn(qEdotJ)) * 2.0;
     sum += ppGptpt;

@@ -12,13 +12,12 @@
 namespace MbD {
     class OmeCompIeqJeKeq : public OmeCompIeJeKe
     {
-        //pomeiIeJeKepEI pomeiIeJeKepEdotI 
+        //pomeiIeJeKepEI pomeiIeJeKepEdotI
     public:
         OmeCompIeqJeKeq() {}
-        OmeCompIeqJeKeq(EndFrmsptr frmi, EndFrmsptr frmj) : OmeCompIeJeKe(frmi, frmj) {}
-        OmeCompIeqJeKeq(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK) : OmeCompIeJeKe(frmi, frmj, efrmK, axisK) {}
+        OmeCompIeqJeKeq(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk) : OmeCompIeJeKe(frmi, frmj, frmk, axisk) {}
         static std::shared_ptr<OmeCompIeqJeKeq> With();
-        static std::shared_ptr<OmeCompIeqJeKeq> With(EndFrmsptr frmi, EndFrmsptr frmj);
+        static std::shared_ptr<OmeCompIeqJeKeq> With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk);
         void initialize() override;
 
         void simUpdateAll() override;

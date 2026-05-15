@@ -35,7 +35,7 @@ void TranslationConstraintIeqJe::calcpGpXI()
 
 void TranslationConstraintIeqJe::calcpGpEI()
 {
-    //frmIe = frmKe
+    //eFrmI = eFrmK
     pGpEI = (riIeJeIe->pvaluepEI())->plusFullRow(riIeJeIe->pvaluepEK());
 }
 
@@ -46,7 +46,7 @@ void TranslationConstraintIeqJe::calcppGpXIpEI()
 
 void TranslationConstraintIeqJe::calcppGpEIpEI()
 {
-    //frmIe = frmKe
+    //eFrmI = eFrmK
     //rIeJeO = rOJeO - rOIeO
     //rIeJeKe = aAKeO * rIeJeO
     //prIeJeKepXI = aAOKeT * prIeJeOpXI
@@ -132,11 +132,11 @@ void TranslationConstraintIeqJe::fillAccICIterError(FColDsptr col)
     TranslationConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXI, pGpXI, lam);
     col->atiplusFullVectortimes(iqEI, pGpEI, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto qXdotI = frmIeq->qXdot();
-    auto qEdotI = frmIeq->qEdot();
-    auto sum = pGpXI->timesFullColumn(frmIeq->qXddot());
-    sum += pGpEI->timesFullColumn(frmIeq->qEddot());
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto qXdotI = eFrmIeq->qXdot();
+    auto qEdotI = eFrmIeq->qEdot();
+    auto sum = pGpXI->timesFullColumn(eFrmIeq->qXddot());
+    sum += pGpEI->timesFullColumn(eFrmIeq->qEddot());
     sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpEI->timesFullColumn(qEdotI)));
     sum += qEdotI->transposeTimesFullColumn(ppGpEIpEI->timesFullColumn(qEdotI));
     col->atiplusNumber(iG, sum);

@@ -13,7 +13,6 @@
 namespace MbD {
     class Constraint;
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class JointIJ : public ConstraintSet
     {
