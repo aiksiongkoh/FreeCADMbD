@@ -13,35 +13,37 @@
 #include "AtPointConstraintIeqJeq.h"
 #include "AtPointConstraintIetJeq.h"
 #include "AtPointConstraintIeqtJeq.h"
+#include "SimulationStoppingError.h"
 
 using namespace MbD;
 
 std::shared_ptr<AtPointConstraintIeJe> AtPointConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisO)
 {
+    const auto factoryName = "AtPointConstraintIeJe::With";
     std::shared_ptr<AtPointConstraintIeJe> inst;
     if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AtPointConstraintIeqtJeq>(frmi, frmj, axisO);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AtPointConstraintIeqJeq>(frmi, frmj, axisO);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
             inst = std::make_shared<AtPointConstraintIeqJe>(frmi, frmj, axisO);
@@ -49,30 +51,30 @@ std::shared_ptr<AtPointConstraintIeJe> AtPointConstraintIeJe::With(EndFrmsptr fr
     }
     else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AtPointConstraintIetJeq>(frmi, frmj, axisO);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
         if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
             inst = std::make_shared<AtPointConstraintIeJeq>(frmi, frmj, axisO);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
-            throw SimulationStoppingError("To be implemented.");
+            throwUnsupportedFrameCombination(factoryName);
         }
     }
     assert(inst);

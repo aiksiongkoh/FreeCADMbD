@@ -6,8 +6,11 @@
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
 
-#include <cassert>
-
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void MbD::throwUnsupportedFrameCombination(const std::string& factoryName)
+{
+    throw SimulationStoppingError("Unsupported frame combination in " + factoryName + ".");
+}

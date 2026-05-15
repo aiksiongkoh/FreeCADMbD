@@ -136,6 +136,7 @@ namespace MbD {
         void setinFileName(const std::string& str);
         void setoutFileName(const std::string& str);
         void updateFromInputState() override;
+        void combineInputInitialConditionsWithCalculationResults();
 
         std::string inFileName = "";
         std::string outFileName = "";

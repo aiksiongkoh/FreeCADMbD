@@ -10,16 +10,9 @@ std::shared_ptr<OmeCompIeJeqKe> OmeCompIeJeqKe::With()
     return inst;
 }
 
-std::shared_ptr<OmeCompIeJeqKe> OmeCompIeJeqKe::With(EndFrmsptr frmi, EndFrmsptr frmj)
+std::shared_ptr<OmeCompIeJeqKe> OmeCompIeJeqKe::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk, size_t axisk)
 {
-    auto inst = std::make_shared<OmeCompIeJeqKe>(frmi, frmj);
-    inst->initialize();
-    return inst;
-}
-
-std::shared_ptr<OmeCompIeJeqKe> OmeCompIeJeqKe::With(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr efrmK, size_t axisK)
-{
-    auto inst = std::make_shared<OmeCompIeJeqKe>(frmi, frmj, efrmK, axisK);
+    auto inst = std::make_shared<OmeCompIeJeqKe>(frmi, frmj, frmk, axisk);
     inst->initialize();
     return inst;
 }
@@ -36,7 +29,7 @@ void OmeCompIeJeqKe::simUpdateAll()
     //omeIeJeO = omeOJeO - omeOIeO
     //omeIeJeKe = AKeO * omeIeJeO
     //omeiIeJeKe = ArowiKeO dot omeIeJeO = AcoljOKe dot omeIeJeO
-    aAjOKe = efrmK->aAjOe(axisK);
+    aAjOKe = eFrmK->aAjOe(axisK);
     auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
     omeIeJeO = eFrmJeq->omeOeO(); //omeOIeO is zero
     omeiIeJeKe = aAjOKe->dot(omeIeJeO);

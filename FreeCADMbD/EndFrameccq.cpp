@@ -225,7 +225,7 @@ FMatDsptr EndFrameccq::pomeOeOpEdot()
     return static_cast<MarkerFrameq*>(markerFrame)->pomeOmOpEdot();
 }
 
-std::shared_ptr<EndFrame> EndFrameccq::followEndFrame(EndFrmsptr frmi)
+EndFrmsptr EndFrameccq::followEndFrame(EndFrmsptr frmi)
 {
     auto endFrm = EndFrameqccq::With();
     endFrm->name = name;
@@ -239,7 +239,7 @@ bool EndFrameccq::has_qX() const
     return true;
 }
 
-void EndFrameccq::setTargetFrame(std::shared_ptr<EndFrame> targetFrm)
+void EndFrameccq::setTargetFrame(EndFrmsptr targetFrm)
 {
     targetFrame = targetFrm;
 }

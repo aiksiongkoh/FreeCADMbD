@@ -13,7 +13,6 @@
 
 namespace MbD {
     class EndFrame;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
     
     class ConstraintIeJe : public Constraint
     {

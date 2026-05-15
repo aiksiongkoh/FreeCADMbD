@@ -137,9 +137,9 @@ void RackPinConstraintIeqJe::fillVelICJacob(SpMatDsptr mat)
 
 void RackPinConstraintIeqJe::useEquationNumbers()
 {
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    iqXI = frmIeq->iqX();
-    iqEI = frmIeq->iqE();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    iqXI = eFrmIeq->iqX();
+    iqEI = eFrmIeq->iqE();
 }
 
 void RackPinConstraintIeqJe::fillpFpy(SpMatDsptr mat)

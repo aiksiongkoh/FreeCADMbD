@@ -45,13 +45,13 @@ void AngleZConstraintIeqJeq::fillAccICIterError(FColDsptr col)
 {
     AngleZConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotI = frmIeq->qEdot();
-    auto qXdotJ = frmJeq->qXdot();
-    auto qEdotJ = frmJeq->qEdot();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotI = eFrmIeq->qEdot();
+    auto qXdotJ = eFrmJeq->qXdot();
+    auto qEdotJ = eFrmJeq->qEdot();
     double sum = 0.0;
-    sum += pGpEJ->timesFullColumn(frmJeq->qEddot());
+    sum += pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpEJ->timesFullColumn(qEdotJ)));
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
     col->atiplusNumber(iG, sum);
@@ -90,6 +90,6 @@ void AngleZConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
 void AngleZConstraintIeqJeq::useEquationNumbers()
 {
     AngleZConstraintIeqJe::useEquationNumbers();
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    iqEJ = frmJeq->iqE();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    iqEJ = eFrmJeq->iqE();
 }

@@ -140,9 +140,9 @@ void ScrewConstraintIeqJe::fillVelICJacob(SpMatDsptr mat)
 
 void ScrewConstraintIeqJe::useEquationNumbers()
 {
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    iqXI = frmIeq->iqX();
-    iqEI = frmIeq->iqE();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    iqXI = eFrmIeq->iqX();
+    iqEI = eFrmIeq->iqE();
 }
 
 void ScrewConstraintIeqJe::fillpFpy(SpMatDsptr mat)

@@ -44,17 +44,17 @@ void ConstraintSet::initializeGlobally()
 
 void ConstraintSet::initializeLocally()
 {
-    auto frmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
-    if (frmIeq) {
-        if (frmIeq->endFrameqt) {
-            eFrmI = frmIeq->endFrameqt;
+    auto eFrmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
+    if (eFrmIeq) {
+        if (eFrmIeq->endFrameqt) {
+            eFrmI = eFrmIeq->endFrameqt;
         }
     }
     else {
-        auto frmIc = std::dynamic_pointer_cast<EndFrame>(eFrmI);
-        if (frmIc) {
-            if (frmIc->endFramet) {
-                eFrmI = std::static_pointer_cast<EndFrame>(frmIc->endFramet);
+        auto eFrmIe = std::dynamic_pointer_cast<EndFrame>(eFrmI);
+        if (eFrmIe) {
+            if (eFrmIe->endFramet) {
+                eFrmI = std::static_pointer_cast<EndFrame>(eFrmIe->endFramet);
             }
         }
     }
@@ -292,8 +292,8 @@ void ConstraintSet::connectsItoJ(EndFrmsptr frmi, EndFrmsptr frmj)
 FColDsptr ConstraintSet::aFIeIe() const
 {
     //"aFIeIe is joint force on end frame Ie expresses in Ie components."
-    auto frmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
-    return frmIeq->aAeO()->timesFullColumn(aFIeO());
+    auto eFrmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
+    return eFrmIeq->aAeO()->timesFullColumn(aFIeO());
 }
 
 FColDsptr ConstraintSet::aFIeO() const

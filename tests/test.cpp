@@ -2,6 +2,7 @@
 #include <cmath>
 #include <CADSystem.h>
 #include <ASMTAssembly.h>
+#include <ASMTPart.h>
 #include <ASMTTime.h>
 #include <GESpMatParPvPrecise.h>
 #include <MomentOfInertiaSolver.h>
@@ -90,6 +91,22 @@ TEST(FreeCADMbD, quasikine) {
 TEST(FreeCADMbD, piston) {
     ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
     EXPECT_TRUE(true);
+}
+TEST(FreeCADMbD, pistonRegression) {
+    auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+
+    assembly->runDYNAMIC();
+
+    auto piston = assembly->partNamed("/Assembly1/Part3");
+    ASSERT_EQ(27, assembly->times->size());
+    ASSERT_EQ(27, piston->ys->size());
+
+    const auto last = piston->ys->size() - 1;
+    EXPECT_NEAR(1.0, assembly->times->at(last), 1.0e-12);
+    EXPECT_NEAR(1.024695076596, piston->ys->at(last), 1.0e-8);
+    EXPECT_NEAR(5.0265482457437, piston->vys->at(last), 1.0e-5);
+    EXPECT_NEAR(24.65727399679, piston->ays->at(last), 2.0e-3);
+    EXPECT_NEAR(-1.5707963267949, piston->bryxs->at(last), 1.0e-12);
 }
 TEST(FreeCADMbD, Springs) {
     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/springs.asmt");

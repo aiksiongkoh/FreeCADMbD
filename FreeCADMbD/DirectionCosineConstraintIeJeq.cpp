@@ -63,7 +63,7 @@ void DirectionCosineConstraintIeJeq::fillpFpydot(SpMatDsptr mat)
 void DirectionCosineConstraintIeJeq::addToJointTorqueI(FColDsptr col)
 {
     //aTIeO = 0.5 * aBOIp * (lam * pGpEI - prOIeOpEIT * aFIeO)
-    //frmIe does not have q, we use frmJeq
+    //frmIe does not have q, we use eFrmJeq
     //aFJeO = lam * pGpXJ = zero
     //aTJeO = 0.5 * aBOJp * (lam * pGpEJ)
     //aTIeO = rJeIeO cross aFJeO - aTJeO
@@ -107,9 +107,9 @@ void DirectionCosineConstraintIeJeq::fillAccICIterError(FColDsptr col)
 {
     DirectionCosineConstraintIeJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qEdotJ = frmJeq->qEdot();
-    double sum = pGpEJ->timesFullColumn(frmJeq->qEddot());
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qEdotJ = eFrmJeq->qEdot();
+    double sum = pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += qEdotJ->transposeTimesFullColumn(ppGpEJpEJ->timesFullColumn(qEdotJ));
     col->atiplusNumber(iG, sum);
 }

@@ -20,7 +20,6 @@ namespace MbD {
     class EndFrameq;
     class EndFrame;
     class EndFramet;
-    using EndFrmsptr = std::shared_ptr<EndFrame>;
 
     class EndFrame : public CartesianFrame
     {
@@ -28,8 +27,8 @@ namespace MbD {
     public:
         EndFrame() {}
         EndFrame(const std::string& str) : CartesianFrame(str) {}
-        static std::shared_ptr<EndFrame> With();
-        static std::shared_ptr<EndFrame> With(const std::string& str);
+        static EndFrmsptr With();
+        static EndFrmsptr With(const std::string& str);
 
         virtual FMatDsptr aAeO() const;
         virtual FColDsptr aAjOe(size_t j) const;
@@ -39,7 +38,7 @@ namespace MbD {
         virtual FColDsptr aOeO() const;
         void simUpdateAll() override;
         virtual void fillContactEndFrames(std::set<EndFrame*> efrms);
-        virtual std::shared_ptr<EndFrame> followEndFrame(EndFrmsptr frmi);
+        virtual EndFrmsptr followEndFrame(EndFrmsptr frmi);
         virtual MarkerFrame* getMarkerFrame() const;
         virtual SpatialContainerFrame* getPartFrame() const;
         virtual FColDsptr ieO() const;
@@ -62,7 +61,7 @@ namespace MbD {
         virtual FColDsptr rpep();
         virtual FColDsptr rpmp();
         virtual void setMarkerFrame(MarkerFrame* markerFrm);
-        virtual void setTargetFrame(std::shared_ptr<EndFrame> targetFrm) {}
+        virtual void setTargetFrame(EndFrmsptr targetFrm) {}
         virtual FColDsptr vOeO() const;
         virtual FMatDsptr getprOeOpE() const;
         virtual FMatFColDsptr getpprOeOpEpE() const;
@@ -85,6 +84,5 @@ namespace MbD {
         FMatDsptr aAOe = FullMatrix<double>::identitysptr(3);
         std::shared_ptr<EndFramet> endFramet;
     };
-    //using EndFrmsptr = std::shared_ptr<EndFrame>;
 }
 

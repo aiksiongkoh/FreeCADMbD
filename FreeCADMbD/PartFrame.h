@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 //#include <memory>
@@ -27,7 +27,7 @@ namespace MbD {
 
     class PartFrame : public SpatialContainerFrame
     {
-        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames 
+        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames
     public:
         PartFrame() {}
         PartFrame(const std::string& str);
@@ -35,7 +35,7 @@ namespace MbD {
         static std::shared_ptr<PartFrame> With(const std::string& str);
         void initialize() override;
         bool has_qX() const override;
-        std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) override;
+        MkrFrmsptr createMarkerFrame(const std::string& str) override;
         System* root() override;
         void initializeLocally() override;
         void initializeGlobally() override;
@@ -60,7 +60,7 @@ namespace MbD {
 
         void setPart(Part* x);
         Part* getPart() const;
-        void addMarkerFrame(std::shared_ptr<MarkerFrame> x);
+        void addMarkerFrame(MkrFrmsptr x);
         EndFrmsptr endFrame(std::string name);
         void aGabsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
         void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;

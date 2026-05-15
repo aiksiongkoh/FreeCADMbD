@@ -51,7 +51,7 @@ namespace MbD {
         FColDsptr omeOeO() override;
         FMatDsptr pomeOeOpE();
         FMatDsptr pomeOeOpEdot();
-        std::shared_ptr<EndFrame> followEndFrame(EndFrmsptr frmi) override;
+        EndFrmsptr followEndFrame(EndFrmsptr frmi) override;
         bool has_qX() const override;
         FMatDsptr getprOeOpE() const override;
         FMatFColDsptr getpprOeOpEpE() const override;

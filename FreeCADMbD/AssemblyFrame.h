@@ -27,14 +27,14 @@ namespace MbD {
 
     class AssemblyFrame : public SpatialContainerFrame
     {
-        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames 
+        //ToDo: part iqX iqE qX qE qXdot qEdot qXddot qEddot aGeu aGabs markerFrames
     public:
         AssemblyFrame() {}
         AssemblyFrame(const std::string& str);
         static std::shared_ptr<AssemblyFrame> With();
         static std::shared_ptr<AssemblyFrame> With(const std::string& str);
 
-        std::shared_ptr<MarkerFrame> createMarkerFrame(const std::string& str) override;
+        MkrFrmsptr createMarkerFrame(const std::string& str) override;
         System* root() override;
         void initializeLocally() override;
         void initializeGlobally() override;

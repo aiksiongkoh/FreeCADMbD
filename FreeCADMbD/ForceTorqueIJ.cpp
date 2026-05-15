@@ -239,18 +239,18 @@ void ForceTorqueIJ::simUpdateAll()
     //Order of functions matters here.
     rIeJeO = dispIeJeO->rIeJeO;
     if (has_qI) {
-        auto eFrmqcI = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
-        prOIeOpEIT = eFrmqcI->prOeOpE->transpose();
-        twoBOIT = eFrmqcI->aBOp()->transpose()->times(2.0);
+        auto eFrmIeq = std::dynamic_pointer_cast<EndFrameq>(eFrmI);
+        prOIeOpEIT = eFrmIeq->prOeOpE->transpose();
+        twoBOIT = eFrmIeq->aBOp()->transpose()->times(2.0);
     }
     else {
         assert(!prOIeOpEIT);
         assert(!twoBOIT);
     }
     if (has_qJ) {
-        auto eFrmqcJ = std::dynamic_pointer_cast<EndFrameq>(eFrmJ);
-        prOJeOpEJT = eFrmqcJ->prOeOpE->transpose();
-        twoBOJT = eFrmqcJ->aBOp()->transpose()->times(2.0);
+        auto eFrmJeq = std::dynamic_pointer_cast<EndFrameq>(eFrmJ);
+        prOJeOpEJT = eFrmJeq->prOeOpE->transpose();
+        twoBOJT = eFrmJeq->aBOp()->transpose()->times(2.0);
     }
     else {
         assert(!prOJeOpEJT);

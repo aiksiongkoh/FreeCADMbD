@@ -409,6 +409,11 @@ bool System::limitsSatisfied() const
     return  std::all_of(limits->cbegin(), limits->cend(), [](auto limit) { return limit->satisfied(); });
 }
 
+void System::deactivateLimits()
+{
+    for (const auto limit : *limits) limit->deactivate();
+}
+
 void System::useKineTrialStepStats(std::shared_ptr<SolverStatistics> stats) const
 {
     externalSystem->useKineTrialStepStats(stats);

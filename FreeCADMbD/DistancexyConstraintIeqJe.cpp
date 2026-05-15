@@ -145,9 +145,9 @@ void DistancexyConstraintIeqJe::fillVelICJacob(SpMatDsptr mat)
 
 void DistancexyConstraintIeqJe::useEquationNumbers()
 {
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    iqXI = frmIeq->iqX();
-    iqEI = frmIeq->iqE();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    iqXI = eFrmIeq->iqX();
+    iqEI = eFrmIeq->iqE();
 }
 
 void DistancexyConstraintIeqJe::fillpFpy(SpMatDsptr mat)

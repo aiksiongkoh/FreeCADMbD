@@ -373,26 +373,6 @@ bool KinematicVectorIeJe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIe
     return false;
 }
 
-void KinematicVectorIeJe::withFrmIFrmJ(EndFrmsptr eFrmi, EndFrmsptr eFrmj)
-{
-    eFrmI = eFrmi;
-    eFrmJ = eFrmj;
-}
-
-void KinematicVectorIeJe::withFrmIFrmJaxis(EndFrmsptr eFrmI, EndFrmsptr eFrmJ, size_t axis)
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void KinematicVectorIeJe::withFrmIFrmJfrmK(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk)
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void KinematicVectorIeJe::withFrmIFrmJFrmKaxis(EndFrmsptr eFrmi, EndFrmsptr eFrmj, EndFrmsptr eFrmk, size_t axis)
-{
-}
-
 void KinematicVectorIeJe::initializeLocally()
 {
 }

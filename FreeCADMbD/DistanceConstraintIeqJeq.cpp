@@ -38,15 +38,15 @@ void DistanceConstraintIeqJeq::fillAccICIterError(FColDsptr col)
     DistanceConstraintIeqJe::fillAccICIterError(col);
     col->atiplusFullVectortimes(iqXJ, pGpXJ, lam);
     col->atiplusFullVectortimes(iqEJ, pGpEJ, lam);
-    auto frmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    auto qXdotI = frmIeq->qXdot();
-    auto qEdotI = frmIeq->qEdot();
-    auto qXdotJ = frmJeq->qXdot();
-    auto qEdotJ = frmJeq->qEdot();
+    auto eFrmIeq = std::static_pointer_cast<EndFrameq>(eFrmI);
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    auto qXdotI = eFrmIeq->qXdot();
+    auto qEdotI = eFrmIeq->qEdot();
+    auto qXdotJ = eFrmJeq->qXdot();
+    auto qEdotJ = eFrmJeq->qEdot();
     double sum = 0.0;
-    sum += pGpXJ->timesFullColumn(frmJeq->qXddot());
-    sum += pGpEJ->timesFullColumn(frmJeq->qEddot());
+    sum += pGpXJ->timesFullColumn(eFrmJeq->qXddot());
+    sum += pGpEJ->timesFullColumn(eFrmJeq->qEddot());
     sum += 2.0 * (qXdotI->transposeTimesFullColumn(ppGpXIpXJ->timesFullColumn(qXdotJ)));
     sum += 2.0 * (qEdotI->transposeTimesFullColumn(ppGpEIpXJ->timesFullColumn(qXdotJ)));
     sum += qXdotJ->transposeTimesFullColumn(ppGpXJpXJ->timesFullColumn(qXdotJ));
@@ -109,9 +109,9 @@ void DistanceConstraintIeqJeq::fillVelICJacob(SpMatDsptr mat)
 void DistanceConstraintIeqJeq::useEquationNumbers()
 {
     DistanceConstraintIeqJe::useEquationNumbers();
-    auto frmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
-    iqXJ = frmJeq->iqX();
-    iqEJ = frmJeq->iqE();
+    auto eFrmJeq = std::static_pointer_cast<EndFrameq>(eFrmJ);
+    iqXJ = eFrmJeq->iqX();
+    iqEJ = eFrmJeq->iqE();
 }
 
 void DistanceConstraintIeqJeq::fillpFpy(SpMatDsptr mat)
