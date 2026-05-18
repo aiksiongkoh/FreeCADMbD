@@ -30,12 +30,14 @@ namespace MbD {
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
+        void preStatic() override;
         void preVelIC() override;
         double ratio();
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
 
         std::shared_ptr<OrbitAngleZIeJe> orbitIeJe, orbitJeIe;
         double radiusI = 0.0, radiusJ = 0.0;

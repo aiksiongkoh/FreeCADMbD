@@ -5,13 +5,27 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "DistancexyConstraintIeJe.h"
 #include "DistancexyConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void DistancexyConstraintIeJe::postStaticIteration()
+{
+    xIeJeIe->postStaticIteration();
+    yIeJeIe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void DistancexyConstraintIeJe::preStatic()
+{
+    xIeJeIe->preStatic();
+    yIeJeIe->preStatic();
+    ConstraintIeJe::preStatic();
+}
 
 std::shared_ptr<DistancexyConstraintIeJe> DistancexyConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -30,7 +44,7 @@ void DistancexyConstraintIeJe::initialize()
 
 void DistancexyConstraintIeJe::simUpdateAll()
 {
-    //aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
+    // aG = xIeJeIe^2 + yIeJeIe^2 - C^2;
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
     aG = x * x + (y * y) - (aConstant * aConstant);

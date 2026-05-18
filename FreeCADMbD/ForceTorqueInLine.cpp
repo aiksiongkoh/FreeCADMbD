@@ -3,8 +3,19 @@
 #include "SimulationStoppingError.h"
 #include "PartFrame.h"
 
-
 using namespace MbD;
+
+void ForceTorqueInLine::postStaticIteration()
+{
+    distIeJe->postStaticIteration();
+    ForceTorqueIJ::postStaticIteration();
+}
+
+void ForceTorqueInLine::preStatic()
+{
+    distIeJe->preStatic();
+    ForceTorqueIJ::preStatic();
+}
 
 std::shared_ptr<ForceTorqueInLine> ForceTorqueInLine::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -18,102 +29,124 @@ void ForceTorqueInLine::useEquationNumbers()
     ForceTorqueIJ::useEquationNumbers();
 }
 
-void ForceTorqueInLine::calcpFIeOpX(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpFIeOpX(SpatialContainerFrame *partFrame)
 {
-    //aFIeO = tension * uIeJeO
-    //pFIeOpX = uIeJeO * ptensionpX + tension * puIeJeOpX
+    // aFIeO = tension * uIeJeO
+    // pFIeOpX = uIeJeO * ptensionpX + tension * puIeJeOpX
     auto pFIeOpX = FullMatrix<double>::With(3, 3);
     auto ptensionpX = forceFunctions->front()->pvaluepX(partFrame);
-    if (!ptensionpX->isZero()) {
+    if (!ptensionpX->isZero())
+    {
         pFIeOpX->equalSelfPlus(uIeJeO->timesFullRow(ptensionpX));
     }
     auto puIeJeOpX = distIeJe->puIeJeOpX(partFrame);
-    if (puIeJeOpX) {
+    if (puIeJeOpX)
+    {
         pFIeOpX->equalSelfPlus(puIeJeOpX->times(tension));
     }
-    if (pFIeOpX->isZero()) {
+    if (pFIeOpX->isZero())
+    {
         pFIeOpX = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pFIeOpXI = pFIeOpX;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pFIeOpXJ = pFIeOpX;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpFIeOpE(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpFIeOpE(SpatialContainerFrame *partFrame)
 {
-    //aFIeO = tension * uIeJeO
-    //pFIeOpE = uIeJeO * ptensionpE + tension * puIeJeOpE
+    // aFIeO = tension * uIeJeO
+    // pFIeOpE = uIeJeO * ptensionpE + tension * puIeJeOpE
     auto pFIeOpE = FullMatrix<double>::With(3, 4);
     auto ptensionpE = forceFunctions->front()->pvaluepE(partFrame);
-    if (!ptensionpE->isZero()) {
+    if (!ptensionpE->isZero())
+    {
         pFIeOpE->equalSelfPlus(uIeJeO->timesFullRow(ptensionpE));
     }
     auto puIeJeOpE = distIeJe->puIeJeOpE(partFrame);
-    if (puIeJeOpE) {
+    if (puIeJeOpE)
+    {
         pFIeOpE->equalSelfPlus(puIeJeOpE->times(tension));
     }
-    if (pFIeOpE->isZero()) {
+    if (pFIeOpE->isZero())
+    {
         pFIeOpE = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pFIeOpEI = pFIeOpE;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pFIeOpEJ = pFIeOpE;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpFIeOpXdot(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpFIeOpXdot(SpatialContainerFrame *partFrame)
 {
-    //aFIeO = tension * uIeJeO
-    //pFIeOpXdot = uIeJeO * ptensionpXdot
+    // aFIeO = tension * uIeJeO
+    // pFIeOpXdot = uIeJeO * ptensionpXdot
     auto pFIeOpXdot = FullMatrix<double>::With(3, 3);
     auto ptensionpXdot = forceFunctions->front()->pvaluepXdot(partFrame);
-    if (!ptensionpXdot->isZero()) {
+    if (!ptensionpXdot->isZero())
+    {
         pFIeOpXdot->equalSelfPlus(uIeJeO->timesFullRow(ptensionpXdot));
     }
-    if (pFIeOpXdot->isZero()) {
+    if (pFIeOpXdot->isZero())
+    {
         pFIeOpXdot = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pFIeOpXdotI = pFIeOpXdot;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pFIeOpXdotJ = pFIeOpXdot;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpFIeOpEdot(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpFIeOpEdot(SpatialContainerFrame *partFrame)
 {
-    //aFIeO = tension * uIeJeO
-    //pFIeOpEdot = uIeJeO * ptensionpEdot
+    // aFIeO = tension * uIeJeO
+    // pFIeOpEdot = uIeJeO * ptensionpEdot
     auto pFIeOpEdot = FullMatrix<double>::With(3, 4);
     auto ptensionpEdot = forceFunctions->front()->pvaluepEdot(partFrame);
-    if (!ptensionpEdot->isZero()) {
+    if (!ptensionpEdot->isZero())
+    {
         pFIeOpEdot->equalSelfPlus(uIeJeO->timesFullRow(ptensionpEdot));
     }
-    if (pFIeOpEdot->isZero()) {
+    if (pFIeOpEdot->isZero())
+    {
         pFIeOpEdot = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pFIeOpEdotI = pFIeOpEdot;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pFIeOpEdotJ = pFIeOpEdot;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
@@ -123,102 +156,124 @@ void ForceTorqueInLine::calcaTIeO()
     aTIeO = uIeJeO->times(twist);
 }
 
-void ForceTorqueInLine::calcpTIeOpX(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpTIeOpX(SpatialContainerFrame *partFrame)
 {
-    //aTIeO = twist * uIeJeO
-    //pTIeOpX = uIeJeO * ptwistpX + twist * puIeJeOpX
+    // aTIeO = twist * uIeJeO
+    // pTIeOpX = uIeJeO * ptwistpX + twist * puIeJeOpX
     auto pTIeOpX = FullMatrix<double>::With(3, 3);
     auto ptwistpX = torqueFunctions->front()->pvaluepX(partFrame);
-    if (!ptwistpX->isZero()) {
+    if (!ptwistpX->isZero())
+    {
         pTIeOpX->equalSelfPlus(uIeJeO->timesFullRow(ptwistpX));
     }
     auto puIeJeOpX = distIeJe->puIeJeOpX(partFrame);
-    if (puIeJeOpX) {
+    if (puIeJeOpX)
+    {
         pTIeOpX->equalSelfPlus(puIeJeOpX->times(twist));
     }
-    if (pTIeOpX->isZero()) {
+    if (pTIeOpX->isZero())
+    {
         pTIeOpX = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pTIeOpXI = pTIeOpX;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pTIeOpXJ = pTIeOpX;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpTIeOpE(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpTIeOpE(SpatialContainerFrame *partFrame)
 {
-    //aTIeO = twist * uIeJeO
-    //pTIeOpE = uIeJeO * ptwistpE + twist * puIeJeOpE
+    // aTIeO = twist * uIeJeO
+    // pTIeOpE = uIeJeO * ptwistpE + twist * puIeJeOpE
     auto pTIeOpE = FullMatrix<double>::With(3, 4);
     auto ptwistpE = torqueFunctions->front()->pvaluepE(partFrame);
-    if (!ptwistpE->isZero()) {
+    if (!ptwistpE->isZero())
+    {
         pTIeOpE->equalSelfPlus(uIeJeO->timesFullRow(ptwistpE));
     }
     auto puIeJeOpE = distIeJe->puIeJeOpE(partFrame);
-    if (puIeJeOpE) {
+    if (puIeJeOpE)
+    {
         pTIeOpE->equalSelfPlus(puIeJeOpE->times(twist));
     }
-    if (pTIeOpE->isZero()) {
+    if (pTIeOpE->isZero())
+    {
         pTIeOpE = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pTIeOpEI = pTIeOpE;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pTIeOpEJ = pTIeOpE;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpTIeOpXdot(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpTIeOpXdot(SpatialContainerFrame *partFrame)
 {
-    //aTIeO = twist * uIeJeO
-    //pTIeOpXdot = uIeJeO * ptwistpXdot
+    // aTIeO = twist * uIeJeO
+    // pTIeOpXdot = uIeJeO * ptwistpXdot
     auto pTIeOpXdot = FullMatrix<double>::With(3, 3);
     auto ptwistpXdot = torqueFunctions->front()->pvaluepXdot(partFrame);
-    if (!ptwistpXdot->isZero()) {
+    if (!ptwistpXdot->isZero())
+    {
         pTIeOpXdot->equalSelfPlus(uIeJeO->timesFullRow(ptwistpXdot));
     }
-    if (pTIeOpXdot->isZero()) {
+    if (pTIeOpXdot->isZero())
+    {
         pTIeOpXdot = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pTIeOpXdotI = pTIeOpXdot;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pTIeOpXdotJ = pTIeOpXdot;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
 
-void ForceTorqueInLine::calcpTIeOpEdot(SpatialContainerFrame* partFrame)
+void ForceTorqueInLine::calcpTIeOpEdot(SpatialContainerFrame *partFrame)
 {
-    //aTIeO = twist * uIeJeO
-    //pTIeOpEdot = uIeJeO * ptwistpEdot
+    // aTIeO = twist * uIeJeO
+    // pTIeOpEdot = uIeJeO * ptwistpEdot
     auto pTIeOpEdot = FullMatrix<double>::With(3, 4);
     auto ptwistpEdot = torqueFunctions->front()->pvaluepEdot(partFrame);
-    if (!ptwistpEdot->isZero()) {
+    if (!ptwistpEdot->isZero())
+    {
         pTIeOpEdot->equalSelfPlus(uIeJeO->timesFullRow(ptwistpEdot));
     }
-    if (pTIeOpEdot->isZero()) {
+    if (pTIeOpEdot->isZero())
+    {
         pTIeOpEdot = FMatDsptr();
     }
-    if (prtFrmI == partFrame) {
+    if (prtFrmI == partFrame)
+    {
         pTIeOpEdotI = pTIeOpEdot;
     }
-    else if (prtFrmJ == partFrame) {
+    else if (prtFrmJ == partFrame)
+    {
         pTIeOpEdotJ = pTIeOpEdot;
     }
-    else {
+    else
+    {
         throw SimulationStoppingError("To be implemented.");
     }
 }
@@ -243,12 +298,20 @@ void ForceTorqueInLine::setTwist(Symsptr formula)
     torqueFunctions->front()->setformula(formula);
 }
 
+void MbD::ForceTorqueInLine::useUniqueDispIeJeO()
+{
+    ForceTorqueIJ::useUniqueDispIeJeO();
+    distIeJe->useUniqueDispIeJeO();
+}
+
 void ForceTorqueInLine::simUpdateAll()
 {
     distIeJe->simUpdateAll();
     calcuIeJeO();
-    for (const auto func : *forceFunctions) func->simUpdateAll();
-    for (const auto func : *torqueFunctions) func->simUpdateAll();
+    for (const auto func : *forceFunctions)
+        func->simUpdateAll();
+    for (const auto func : *torqueFunctions)
+        func->simUpdateAll();
     calctension();
     calctwist();
     ForceTorqueIJ::simUpdateAll();
@@ -296,22 +359,32 @@ void ForceTorqueInLine::initialize()
 
 void ForceTorqueInLine::fillAccICIterError(FColDsptr col)
 {
-    //if (has_qI) {
-    //    col->atiplusFullColumn(iqXI, aFIeO);
-    //    col->atiplusFullColumn(iqEI, (prOeOpEIT->timesFullColumn(aFIeO)));
-    //    col->atiplusFullColumn(iqEI, (twoBIT->timesFullColumn(aTIeO)));
-    //}
-    //col->atiplusFullColumn(iqXJ, aFJeO);
-    //col->atiplusFullColumn(iqEJ, (prOeOpEJT->timesFullColumn(aFJeO)));
-    //col->atiplusFullColumn(iqEJ, (twoBJT->timesFullColumn(aTJeO)));
+    // if (has_qI) {
+    //     col->atiplusFullColumn(iqXI, aFIeO);
+    //     col->atiplusFullColumn(iqEI, (prOeOpEIT->timesFullColumn(aFIeO)));
+    //     col->atiplusFullColumn(iqEI, (twoBIT->timesFullColumn(aTIeO)));
+    // }
+    // col->atiplusFullColumn(iqXJ, aFJeO);
+    // col->atiplusFullColumn(iqEJ, (prOeOpEJT->timesFullColumn(aFJeO)));
+    // col->atiplusFullColumn(iqEJ, (twoBJT->timesFullColumn(aTJeO)));
     ForceTorqueIJ::fillAccICIterError(col);
 }
 
 void ForceTorqueInLine::fillAccICIterJacob(SpMatDsptr mat)
 {
-    //Only pQ/pqddot, pQ/pLambda contribute
-    //Coulomb friction contributes
+    // Only pQ/pqddot, pQ/pLambda contribute
+    // Coulomb friction contributes
     ForceTorqueIJ::fillAccICIterJacob(mat);
+}
+
+void MbD::ForceTorqueInLine::fillStaticError(FColDsptr col)
+{
+    ForceTorqueIJ::fillStaticError(col);
+}
+
+void MbD::ForceTorqueInLine::fillStaticJacob(SpMatDsptr mat)
+{
+    ForceTorqueIJ::fillStaticJacob(mat);
 }
 
 void ForceTorqueInLine::postDynCorrectorIteration()

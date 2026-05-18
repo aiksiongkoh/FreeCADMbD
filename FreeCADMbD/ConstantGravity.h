@@ -20,6 +20,7 @@ namespace MbD {
         void fillAccICIterError(FColDsptr col) override;
         void fillDynError(FColDsptr col) override;
         void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
         void postAccICIteration() override;
         void postDynCorrectorIteration() override;
         void postDynOutput() override;

@@ -5,11 +5,18 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "DistxyIeJe.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void DistxyIeJe::preStatic()
+{
+    xIeJeIe->preStatic();
+    yIeJeIe->preStatic();
+    KinematicIeJe::preStatic();
+}
 
 std::shared_ptr<DistxyIeJe> DistxyIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -27,7 +34,7 @@ void DistxyIeJe::initialize()
 
 void DistxyIeJe::simUpdateAll()
 {
-    //rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
+    // rxyIeJe = sqrt(xIeJeIe^2 + yIeJeIe^2);
     auto x = xIeJeIe->value();
     auto y = yIeJeIe->value();
     distxy = std::sqrt(x * x + (y * y));

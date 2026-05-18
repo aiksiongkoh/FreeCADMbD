@@ -89,6 +89,14 @@ void Item::initializeLocally()
     //"Default is do nothing."
 }
 
+void MbD::Item::useUniqueDispIeJeO()
+{
+}
+
+void MbD::Item::useUniqueDispIeJeKe()
+{
+}
+
 void Item::postInput()
 {
     //Called once after input
@@ -182,12 +190,12 @@ void Item::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<
 
 void Item::fillStaticError(FColDsptr col)
 {
-    throw SimulationStoppingError("To be implemented.");
+    // Do nothing.
 }
 
 void Item::fillStaticJacob(SpMatDsptr mat)
 {
-    throw SimulationStoppingError("To be implemented.");
+    // Do nothing.
 }
 
 void Item::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>>)
@@ -643,7 +651,7 @@ void Item::prePosKine()
 
 void Item::preStatic()
 {
-    throw SimulationStoppingError("To be implemented.");
+    simUpdateAll();
 }
 
 void Item::postPosIC()
@@ -658,12 +666,16 @@ void Item::postPosICIteration()
 
 void Item::postStatic()
 {
-    throw SimulationStoppingError("To be implemented.");
+	// Assume runSTATICS ended successfully.
+	// Called once at the end of runSTATICS.
+	// Update all instance variables dependent on p,q,s,u,mu,pdot,qdot,sdot,udot,mudot (lam) 
+	// regardless of whether they are needed.
+	// Default is do nothing.
 }
 
 void Item::postStaticIteration()
 {
-    throw SimulationStoppingError("To be implemented.");
+    simUpdateAll();
 }
 
 void Item::fillPosICError(FColDsptr col)

@@ -67,12 +67,10 @@ namespace MbD {
         void postInput() override;
         void postPosIC() override;
         void postPosICIteration() override;
-        void postStaticIteration() override;
         void postVelIC() override;
         void preAccIC() override;
         void preDyn() override;
         void preDynOutput() override;
-        void preStatic() override;
         void preVelIC() override;
         FMatDsptr pvOmOpE();
         FColDsptr qEddot() const;

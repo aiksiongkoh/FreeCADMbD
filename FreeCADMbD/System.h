@@ -61,6 +61,7 @@ namespace MbD {
         void runDragStep(std::shared_ptr<std::vector<std::shared_ptr<Part>>> dragParts) const;
         void runKINEMATIC(std::shared_ptr<System> self);
         void runDYNAMIC(std::shared_ptr<System> self);
+        void runQUASISTATIC(std::shared_ptr<System> self);
         std::shared_ptr<std::vector<std::string>> discontinuitiesAtIC();
         void jointsMotionsLimitsDo(const std::function <void(std::shared_ptr<ConstraintSet>)>& f) const;
         void partsJointsMotionsLimitsDo(const std::function <void(std::shared_ptr<Item>)>& f) const;

@@ -417,6 +417,7 @@ set(FREECADMBD_SRC
 		StartingBasicDAEIntegrator.cpp
 		StartingBDF.cpp
 		StateData.cpp
+		StaticICNewtonRaphson.cpp
 		StepFunction.cpp
 		Sum.cpp
 		Symbolic.cpp
@@ -871,6 +872,7 @@ set(FREECADMBD_HEADERS
 		StartingBasicDAEIntegrator.h
 		StartingBDF.h
 		StateData.h
+		StaticICNewtonRaphson.h
 		StepFunction.h
 		Sum.h
 		Symbolic.h

@@ -24,6 +24,8 @@ namespace MbD {
         virtual std::shared_ptr<KinematicIeJe> mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj);
         void createMbD() override;
         virtual double asmtUnit();
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         std::shared_ptr<ASMTItemIJ> geoIJ;
     };

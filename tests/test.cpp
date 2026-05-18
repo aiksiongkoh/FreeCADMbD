@@ -85,14 +85,14 @@ TEST(FreeCADMbD, cirpendu2) {
     EXPECT_TRUE(true);
 }
 TEST(FreeCADMbD, quasikine) {
-    ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/quasikine.asmt");    //Under constrained. Testing ICKine.
+    ASMTAssembly::runKineFile(std::string(TEST_DATA_PATH) + "/ASMT/quasikine.asmt");    //Under constrained. Testing ICKine.
     EXPECT_TRUE(true);
 }
 TEST(FreeCADMbD, piston) {
     ASMTAssembly::readWriteDynFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
     EXPECT_TRUE(true);
 }
-TEST(FreeCADMbD, pistonRegression) {
+TEST(FreeCADMbD, pistonDynRegression) {
     auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
 
     assembly->runDYNAMIC();
@@ -108,8 +108,28 @@ TEST(FreeCADMbD, pistonRegression) {
     EXPECT_NEAR(24.65727399679, piston->ays->at(last), 2.0e-3);
     EXPECT_NEAR(-1.5707963267949, piston->bryxs->at(last), 1.0e-12);
 }
+TEST(FreeCADMbD, pistonKineRegression) {
+    auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/piston.asmt");
+
+    assembly->runKINEMATIC();
+
+    auto piston = assembly->partNamed("/Assembly1/Part3");
+    ASSERT_EQ(27, assembly->times->size());
+    ASSERT_EQ(27, piston->ys->size());
+
+    const auto last = piston->ys->size() - 1;
+    EXPECT_NEAR(1.0, assembly->times->at(last), 1.0e-12);
+    EXPECT_NEAR(1.024695076596, piston->ys->at(last), 1.0e-8);
+    EXPECT_NEAR(5.0265482457437, piston->vys->at(last), 1.0e-5);
+    EXPECT_NEAR(24.65727399679, piston->ays->at(last), 2.0e-3);
+    EXPECT_NEAR(-1.5707963267949, piston->bryxs->at(last), 1.0e-12);
+}
 TEST(FreeCADMbD, Springs) {
     ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/springs.asmt");
+    EXPECT_TRUE(true);
+}
+TEST(FreeCADMbD, SpringsQuasiStatic) {
+    ASMTAssembly::runQuasiStaticFile(std::string(TEST_DATA_PATH) + "/ASMT/springsStatic.asmt");
     EXPECT_TRUE(true);
 }
 TEST(FreeCADMbD, Torsion) {

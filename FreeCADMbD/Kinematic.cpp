@@ -15,16 +15,6 @@ void Kinematic::initialize()
     Item::initialize();
 }
 
-void Kinematic::useUniqueDispIeJeO()
-{
-    //Do nothing.
-}
-
-void Kinematic::useUniqueDispIeJeKe()
-{
-    //Do nothing.
-}
-
 void Kinematic::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
     //Do nothing.

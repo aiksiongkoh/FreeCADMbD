@@ -34,6 +34,7 @@ namespace MbD {
         void fillVelICJacob(SpMatDsptr mat) override;
 
         void preAccIC() override;
+        void preStatic() override;
         void fillAccICIterError(FColDsptr col) override;
 
         void preDyn() override;
@@ -41,6 +42,7 @@ namespace MbD {
         void postDynOutput() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration();
+        void postStaticIteration() override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;
         void addToJointForceI(FColDsptr col) override;

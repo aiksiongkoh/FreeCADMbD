@@ -46,6 +46,7 @@ namespace MbD {
 		void runPosIC();
 		void runVelIC();
 		void runAccIC();
+		void runStaticIC();
 		bool needToRedoPosIC();
 		void preCollision();
 		void runCollisionDerivativeIC();
@@ -54,6 +55,7 @@ namespace MbD {
 		void runPreDrag();
 		void runDragStep(std::shared_ptr<std::vector<std::shared_ptr<Part>>> dragParts);
 		void runQuasiKinematic();
+		void runQuasiStatic();
 		void runBasicDynamic();
 		void runPosKine();
 		void runVelKine();

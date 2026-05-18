@@ -36,6 +36,11 @@ void ConstantGravity::fillStaticError(FColDsptr col)
     fillDynError(col);
 }
 
+void MbD::ConstantGravity::fillStaticJacob(SpMatDsptr mat)
+{
+    //Do nothing.
+}
+
 void ConstantGravity::postAccICIteration()
 {
     //Do nothing.

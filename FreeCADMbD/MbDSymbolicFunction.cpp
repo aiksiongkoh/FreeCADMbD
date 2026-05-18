@@ -233,3 +233,13 @@ SpatialContainerFrame* MbDSymbolicFunction::partFrameK()
 {
     return nullptr;
 }
+
+void MbD::MbDSymbolicFunction::useUniqueDispIeJeO()
+{
+    mbdObject->useUniqueDispIeJeO();
+}
+
+void MbD::MbDSymbolicFunction::useUniqueDispIeJeKe()
+{
+    mbdObject->useUniqueDispIeJeKe();
+}

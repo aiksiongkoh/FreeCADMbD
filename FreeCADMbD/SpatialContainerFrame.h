@@ -46,6 +46,7 @@ namespace MbD {
 
         void prePosIC() override;
         void prePosKine() override;
+        void preStatic() override;
         void fillqsuWeights(DiagMatDsptr mat) override;
         void fillqsuddotlam(FColDsptr col) override;
         void fillqsulam(FColDsptr col) override;

@@ -78,6 +78,7 @@ namespace MbD {
         void fillVelICError(FColDsptr col) override;
         void fillVelICJacob(SpMatDsptr mat) override;
         void preAccIC() override;
+        void preStatic() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
         void fillPosKineJacob(SpMatDsptr mat) override;

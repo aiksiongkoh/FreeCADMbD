@@ -91,6 +91,7 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, E
 void DispIeJeKe::initialize()
 {
     dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
+    dispIeJeO->owner = this;
 }
 
 void DispIeJeKe::initializeGlobally()

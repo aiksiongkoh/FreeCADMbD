@@ -48,6 +48,7 @@ namespace MbD {
         virtual void evalppAmeptpt();
         //FColDsptr rpep() override;
         void preAccIC() override;
+        void preStatic() override;
         void postDynPredictor() override;
         void preDynOutput() override;
         void postDynOutput() override;

@@ -34,11 +34,13 @@ namespace MbD {
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
+        void preStatic() override;
         void preVelIC() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
         std::string constraintSpec() override;
 
         std::shared_ptr<DispCompiIeJeIe> xIeJeIe;

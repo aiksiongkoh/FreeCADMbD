@@ -39,6 +39,7 @@ namespace MbD {
         void fillPosKineJacob(SpMatDsptr mat) override;
         void preVelIC() override;
         void preAccIC() override;
+        void preStatic() override;
         void fillAccICIterError(FColDsptr col) override;
         void setqsuddotlam(FColDsptr col) override;
         void discontinuityAtaddTypeTo(double t, std::shared_ptr<std::vector<DiscontinuityType>> disconTypes) override;
@@ -47,6 +48,7 @@ namespace MbD {
         void setpqsumuddot(FColDsptr col) override;
         void postDynPredictor() override;
         void postPosICIteration() override;
+        void postStaticIteration() override;
         void fillDynError(FColDsptr col) override;
         void fillpFpy(SpMatDsptr mat) override;
         void fillpFpydot(SpMatDsptr mat) override;

@@ -51,3 +51,13 @@ double ASMTSymbolicFunctionIJ::asmtUnit()
     throw SimulationStoppingError("To be implemented.");
     return 0.0;
 }
+
+void MbD::ASMTSymbolicFunctionIJ::useUniqueDispIeJeO()
+{
+    xx->useUniqueDispIeJeO();
+}
+
+void MbD::ASMTSymbolicFunctionIJ::useUniqueDispIeJeKe()
+{
+    xx->useUniqueDispIeJeKe();
+}

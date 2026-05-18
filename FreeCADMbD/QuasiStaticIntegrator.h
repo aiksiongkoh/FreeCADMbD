@@ -21,6 +21,7 @@ namespace MbD {
     public:
         static std::shared_ptr<QuasiStaticIntegrator> With();
 
+        void runInitialConditionTypeSolution() override;
         void useTrialStepStats(std::shared_ptr<SolverStatistics> stats);
 
 

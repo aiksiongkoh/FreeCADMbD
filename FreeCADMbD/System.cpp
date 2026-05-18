@@ -170,6 +170,7 @@ double System::calcCharacteristicLength() const
 void System::runKINEMATIC(std::shared_ptr<System> self)
 {
     externalSystem->preMbDrun(self);
+    calcCharacteristicDimensions();
     while (true)
     {
         initializeLocally();
@@ -203,6 +204,27 @@ void System::runDYNAMIC(std::shared_ptr<System> self)
     systemSolver->runAllIC();
     externalSystem->outputFor(INITIALCONDITION);
     systemSolver->runBasicDynamic();
+    externalSystem->postMbDrun();
+}
+
+void System::runQUASISTATIC(std::shared_ptr<System> self)
+{
+    externalSystem->preMbDrun(self);
+    calcCharacteristicDimensions();
+    while (true)
+    {
+        initializeLocally();
+        initializeGlobally();
+        if (!hasChanged) break;
+    }
+    partsJointsMotionsLimitsForcesTorquesDo([&](std::shared_ptr<Item> item) {
+        item->postInput();
+        });
+    externalSystem->outputFor(INPUT);
+    systemSolver->runAllIC();
+    systemSolver->runStaticIC();
+    externalSystem->outputFor(STATIC);
+    systemSolver->runQuasiStatic();
     externalSystem->postMbDrun();
 }
 

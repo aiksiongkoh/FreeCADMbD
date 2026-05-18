@@ -31,6 +31,7 @@ namespace MbD {
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
+        void preStatic() override;
         void preVelIC() override;
         double value() override;
 

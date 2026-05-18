@@ -42,6 +42,9 @@ namespace MbD {
         virtual void initializeGlobally();
         virtual void initializeLocally();
 
+        virtual void useUniqueDispIeJeO();
+        virtual void useUniqueDispIeJeKe();
+
         virtual void postInput();
         virtual void simUpdateAll();
         virtual void useEquationNumbers();

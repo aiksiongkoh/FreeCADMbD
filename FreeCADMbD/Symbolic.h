@@ -36,6 +36,8 @@ namespace MbD {
         static Symsptr sum(Symsptr arg, Symsptr arg1);
         static Symsptr raisedTo(Symsptr x, Symsptr y);
         virtual void initialize();
+        virtual void useUniqueDispIeJeO();
+        virtual void useUniqueDispIeJeKe();
 
         virtual Symsptr differentiateWRT(Symsptr var);
         virtual Symsptr integrateWRT(Symsptr var);

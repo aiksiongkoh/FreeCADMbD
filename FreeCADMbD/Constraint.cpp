@@ -13,6 +13,12 @@
 
 using namespace MbD;
 
+void Constraint::preStatic()
+{
+    Item::preStatic();
+    iG = SIZE_MAX;
+}
+
 void Constraint::initialize()
 {
     Item::initialize();
@@ -64,6 +70,17 @@ void Constraint::fillDynError(FColDsptr col)
 {
     //"Same as fillPosICError: col."
     fillPosICError(col);
+}
+
+void MbD::Constraint::fillStaticError(FColDsptr col)
+{
+    fillPosICError(col);
+}
+
+void MbD::Constraint::fillStaticJacob(SpMatDsptr mat)
+{
+    //"Same as posIC."
+    fillPosICJacob(mat);
 }
 
 void Constraint::fillqsulam(FColDsptr col)

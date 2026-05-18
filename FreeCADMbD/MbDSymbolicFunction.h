@@ -61,6 +61,8 @@ namespace MbD {
         SpatialContainerFrame* partFrameI();
         SpatialContainerFrame* partFrameJ();
         SpatialContainerFrame* partFrameK();
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         std::shared_ptr<Item> mbdObject;
     };

@@ -18,6 +18,8 @@
 #include "RedundantConstraint.h"
 #include "NotKinematicError.h"
 #include "ICKineIntegrator.h"
+#include "StaticICNewtonRaphson.h"
+#include "QuasiStaticIntegrator.h"
 #include "KineIntegrator.h"
 #include "DiscontinuityError.h"
 #include "PosICKineNewtonRaphson.h"
@@ -129,6 +131,13 @@ void SystemSolver::runAccIC()
     icTypeSolver->run();
 }
 
+void MbD::SystemSolver::runStaticIC()
+{
+    icTypeSolver = StaticICNewtonRaphson::With();
+    icTypeSolver->setSystem(this);
+    icTypeSolver->run();
+}
+
 bool SystemSolver::needToRedoPosIC()
 {
     auto allRedunCons = allRedundantConstraints();
@@ -211,6 +220,7 @@ void SystemSolver::runDragStep(std::shared_ptr<std::vector<std::shared_ptr<Part>
 
 void SystemSolver::runQuasiKinematic()
 {
+    if (tstart == tend) return;
     try {
         basicIntegrator = ICKineIntegrator::With();
         basicIntegrator->setSystem(this);
@@ -221,8 +231,22 @@ void SystemSolver::runQuasiKinematic()
     }
 }
 
+void SystemSolver::runQuasiStatic()
+{
+    if (tstart == tend) return;
+    try {
+        basicIntegrator = QuasiStaticIntegrator::With();
+        basicIntegrator->setSystem(this);
+        basicIntegrator->run();
+    }
+    catch (DiscontinuityError ex) {
+        discontinuityBlock();
+    }
+}
+
 void SystemSolver::runBasicDynamic()
 {
+    if (tstart == tend) return;
     try {
         basicIntegrator = DynIntegrator::With();
         basicIntegrator->setSystem(this);

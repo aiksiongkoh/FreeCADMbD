@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "ConstraintIeJe.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
@@ -13,9 +13,14 @@
 
 using namespace MbD;
 
+void ConstraintIeJe::preStatic()
+{
+    Constraint::preStatic();
+}
+
 std::shared_ptr<ConstraintIeJe> ConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
-    //Should not create abstract class.
+    // Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
     return std::shared_ptr<ConstraintIeJe>();
 }
@@ -38,18 +43,21 @@ void ConstraintIeJe::initializeGlobally()
 void ConstraintIeJe::useUniqueDispIeJeO()
 {
     auto dispIeJeOs = root()->dispIeJeOs;
-    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp) {return disp->hasSameEndFrms(dispIeJeO); });
-    if (it == dispIeJeOs->end()) {
+    auto it = std::find_if(dispIeJeOs->begin(), dispIeJeOs->end(), [&](auto disp)
+                           { return disp->hasSameEndFrms(dispIeJeO); });
+    if (it == dispIeJeOs->end())
+    {
         dispIeJeOs->push_back(dispIeJeO);
     }
-    else {
+    else
+    {
         dispIeJeO = *it;
     }
 }
 
 void ConstraintIeJe::useUniqueDispIeJeKe()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void ConstraintIeJe::prePosIC()
@@ -92,8 +100,8 @@ void ConstraintIeJe::postInput()
 
 void ConstraintIeJe::simUpdateAll()
 {
-    //Update locally only.
-    //Objects that Constraints depend on have already executed simUpdateAll().
+    // Update locally only.
+    // Objects that Constraints depend on have already executed simUpdateAll().
     rIeJeO = dispIeJeO->rIeJeO;
     calcG();
     // calcpGpXI();
@@ -199,12 +207,12 @@ ConstraintType ConstraintIeJe::type()
 
 void ConstraintIeJe::addToJointForceJ(FColDsptr col)
 {
-    //aFJeO = lam * pGpXJ
+    // aFJeO = lam * pGpXJ
     throw SimulationStoppingError("To be implemented.");
 }
 
 void ConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 {
-    //aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
+    // aTJeO = 0.5 * aBOJp * (lam * pGpEJ - prOJeOpEJT * aFJeO)
     throw SimulationStoppingError("To be implemented.");
 }

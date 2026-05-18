@@ -26,8 +26,8 @@ namespace MbD {
         void initialize() override;
         void initializeLocally() override;
         void initializeGlobally() override;
-        virtual void useUniqueDispIeJeO();
-        virtual void useUniqueDispIeJeKe();
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         void postInput() override;
         void simUpdateAll() override;
@@ -41,6 +41,7 @@ namespace MbD {
 
         void preDyn() override;
         void preDynOutput() override;
+        void preStatic() override;
         void addToJointForceJ(FColDsptr col) override;
         void addToJointTorqueJ(FColDsptr col) override;
 

@@ -72,6 +72,14 @@ void SpatialContainerFrame::prePosKine()
         });
 }
 
+void MbD::SpatialContainerFrame::preStatic()
+{
+    CartesianFrame::preStatic();
+    markerFramesDo([&](MkrFrmsptr markerFrm) {
+        markerFrm->preStatic();
+        });
+}
+
 void SpatialContainerFrame::fillqsuWeights(DiagMatDsptr mat)
 {
     markerFramesDo([&](MkrFrmsptr markerFrame) {

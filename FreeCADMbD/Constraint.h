@@ -31,6 +31,8 @@ namespace MbD {
         void fillPosICError(FColDsptr col) override;
         void fillPosKineError(FColDsptr col) override;
         void fillDynError(FColDsptr col) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
         void fillqsuddotlam(FColDsptr col) override;
         void fillqsulam(FColDsptr col) override;
         void fillpqsumu(FColDsptr col) override;
@@ -41,6 +43,7 @@ namespace MbD {
         void preDyn() override;
         void prePosIC() override;
         void prePosKine() override;
+        void preStatic() override;
         void reactivateRedundantConstraints() override;
         void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;
         void setConstant(double value);

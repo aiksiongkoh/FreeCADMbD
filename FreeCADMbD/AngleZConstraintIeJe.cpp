@@ -13,6 +13,12 @@
 
 using namespace MbD;
 
+void AngleZConstraintIeJe::preStatic()
+{
+    thezIeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
+
 std::shared_ptr<AngleZConstraintIeJe> AngleZConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());
@@ -24,16 +30,16 @@ std::shared_ptr<AngleZConstraintIeJe> AngleZConstraintIeJe::With(EndFrmsptr frmi
 
 void AngleZConstraintIeJe::simUpdateAll()
 {
-    //aG = thezIeJe - C
+    // aG = thezIeJe - C
     auto thez = thezIeJe->value();
     aG = thez - aConstant;
 }
 
 void AngleZConstraintIeJe::addToJointForceI(FColDsptr col)
 {
-    //aFIeO = lam * pGpXI
-    //aFIeO = lam * zero
-    //Do nothing.
+    // aFIeO = lam * pGpXI
+    // aFIeO = lam * zero
+    // Do nothing.
 }
 
 void AngleZConstraintIeJe::initthezIeJe()

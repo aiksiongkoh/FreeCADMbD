@@ -20,6 +20,9 @@ namespace MbD {
         VelRadIeJe(EndFrmsptr frmi, EndFrmsptr frmj) : KinematicDotIeJe(frmi, frmj) {}
         static std::shared_ptr<VelRadIeJe> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
+        void initialize() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
         void simUpdateAll() override;
         double value() override;
 

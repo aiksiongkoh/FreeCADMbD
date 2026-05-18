@@ -42,14 +42,15 @@ namespace MbD {
         static void runSinglePendulumSimplified();
         static void runSinglePendulum();
         static std::shared_ptr<ASMTAssembly> assemblyFromFile(const std::string& str);
-        static void runDynFile(const std::string& fileName);
-        static void runKineFile(const std::string& fileName);
-        static void runDraggingTest();
+        static std::shared_ptr<ASMTAssembly> runDynFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> runKineFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> runQuasiStaticFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> runDraggingTest();
         static std::vector<std::string> linesFromFile(const std::string& fileName);
-        static void readWriteKineFile(const std::string& fileName);
-        static void readWriteDynFile(const std::string& fileName);
-        static void readWriteDynFile2(const std::string& infilename, const std::string& outfilename);
-        static void readWriteReadDynFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> readWriteKineFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> readWriteDynFile(const std::string& fileName);
+        static std::shared_ptr<ASMTAssembly> readWriteDynFile2(const std::string& infilename, const std::string& outfilename);
+        static std::shared_ptr<ASMTAssembly> readWriteReadDynFile(const std::string& fileName);
 
         ASMTAssembly* root() override;
         void setNotes(const std::string& str);
@@ -102,6 +103,7 @@ namespace MbD {
         void runPostDrag();
         void runKINEMATIC();
         void runDYNAMIC();
+        void runQUASISTATIC();
         std::shared_ptr<ASMTSpatialContainer> spatialContainerAt(std::shared_ptr<ASMTAssembly> self, std::string& longname) const;
         std::shared_ptr<ASMTPart> partAt(const std::string& longname) const;
         std::shared_ptr<ASMTMarker> markerAt(std::string& longname) const;
