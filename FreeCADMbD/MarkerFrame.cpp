@@ -95,7 +95,10 @@ void MarkerFrame::prePosKine()
 
 void MarkerFrame::preStatic()
 {
-    throw SimulationStoppingError("To be implemented.");
+    CartesianFrame::preStatic();
+    endFramesDo([&](EndFrmsptr endFrame) { 
+        endFrame->preStatic(); 
+        });
 }
 
 size_t MarkerFrame::iqX() const
@@ -261,7 +264,10 @@ void MarkerFrame::postPosICIteration()
 
 void MarkerFrame::postStaticIteration()
 {
-    throw SimulationStoppingError("To be implemented.");
+    CartesianFrame::postStaticIteration();
+    endFramesDo([&](EndFrmsptr endFrame) {
+        endFrame->postStaticIteration();
+        });
 }
 
 void MarkerFrame::postPosIC()

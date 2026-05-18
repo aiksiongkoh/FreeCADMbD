@@ -69,6 +69,7 @@ namespace MbD {
 
         void prePosIC() override;
         void prePosKine() override;
+        void preStatic() override;
         FColDsptr rOpO() const;
         FMatDsptr aAOp() override;
         FMatDsptr aC() override;
@@ -114,6 +115,8 @@ namespace MbD {
         void preAccIC() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
         void fillPosKineJacob(SpMatDsptr mat) override;
         double suggestSmallerOrAcceptDynStepSize(double hnew) override;
         void postDynStep() override;
@@ -127,6 +130,7 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
 
         Part* part = nullptr; //Use raw pointer when pointing backwards.
         size_t iqX = SIZE_MAX;

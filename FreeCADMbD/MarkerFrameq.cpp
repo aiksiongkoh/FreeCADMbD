@@ -92,11 +92,6 @@ void MarkerFrameq::simUpdateAll()
     }
 }
 
-void MarkerFrameq::preStatic()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 size_t MarkerFrameq::iqX() const
 {
     auto prtFrmPtr = static_cast<PartFrame*>(partFrame);
@@ -256,11 +251,6 @@ void MarkerFrameq::postPosICIteration()
     endFramesDo([&](EndFrmsptr endFrame) { 
         endFrame->postPosICIteration(); 
         });
-}
-
-void MarkerFrameq::postStaticIteration()
-{
-    throw SimulationStoppingError("To be implemented.");
 }
 
 void MarkerFrameq::postPosIC()

@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <cmath>
 #include <numbers>
 
@@ -14,6 +14,20 @@
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void OrbitAngleZIeJe::postStaticIteration()
+{
+    xIeJeIe->postStaticIteration();
+    yIeJeIe->postStaticIteration();
+    KinematicIeJe::postStaticIteration();
+}
+
+void OrbitAngleZIeJe::preStatic()
+{
+    xIeJeIe->preStatic();
+    yIeJeIe->preStatic();
+    KinematicIeJe::preStatic();
+}
 
 std::shared_ptr<OrbitAngleZIeJe> OrbitAngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -46,7 +60,7 @@ void OrbitAngleZIeJe::simUpdateAll()
 
 void OrbitAngleZIeJe::init_xyIeJeIe()
 {
-    //Subclasses must implement.
+    // Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -79,13 +93,16 @@ void OrbitAngleZIeJe::postInput()
 {
     xIeJeIe->postInput();
     yIeJeIe->postInput();
-    if (thez == std::numeric_limits<double>::min()) {
+    if (thez == std::numeric_limits<double>::min())
+    {
         auto x = xIeJeIe->value();
         auto y = yIeJeIe->value();
-        if (x > 0.0) {
+        if (x > 0.0)
+        {
             thez = std::atan2(y, x);
         }
-        else {
+        else
+        {
             thez = Numeric::arcTan0to2piYoverX(y, x);
         }
     }
@@ -101,7 +118,8 @@ void OrbitAngleZIeJe::postPosICIteration()
 
 void OrbitAngleZIeJe::preAccIC()
 {
-    if (thez == std::numeric_limits<double>::min()) prePosIC();
+    if (thez == std::numeric_limits<double>::min())
+        prePosIC();
     xIeJeIe->preAccIC();
     yIeJeIe->preAccIC();
     KinematicIeJe::preAccIC();

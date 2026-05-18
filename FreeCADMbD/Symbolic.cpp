@@ -35,6 +35,16 @@ void Symbolic::initialize()
     //Do nothing.
 }
 
+void MbD::Symbolic::useUniqueDispIeJeO()
+{
+    //Do nothing.
+}
+
+void MbD::Symbolic::useUniqueDispIeJeKe()
+{
+    //Do nothing.
+}
+
 Symsptr Symbolic::times(Symsptr arg, Symsptr arg1)
 {
     if (arg->isProduct()) {

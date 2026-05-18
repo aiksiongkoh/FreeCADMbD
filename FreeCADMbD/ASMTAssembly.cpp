@@ -397,20 +397,31 @@ std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &
     return assembly;
 }
 
-void ASMTAssembly::runDynFile(const std::string &fileName)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::runDynFile(const std::string &fileName)
 {
     auto assembly = ASMTAssembly::assemblyFromFile(fileName);
     const std::string &str("\n\n\nStarting DYNAMIC simulation");
     assembly->logString(str);
     assembly->runDYNAMIC();
+    return assembly;
 }
 
-void ASMTAssembly::runKineFile(const std::string &fileName)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::runKineFile(const std::string &fileName)
 {
     auto assembly = ASMTAssembly::assemblyFromFile(fileName);
     const std::string &str("\n\n\nStarting KINEMATIC simulation");
     assembly->logString(str);
     assembly->runKINEMATIC();
+    return assembly;
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::runQuasiStaticFile(const std::string &fileName)
+{
+    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
+    const std::string &str("\n\n\nStarting QUASI STATIC simulation");
+    assembly->logString(str);
+    assembly->runQUASISTATIC();
+    return assembly;
 }
 
 std::vector<std::string> ASMTAssembly::linesFromFile(const std::string &fileName)
@@ -438,31 +449,26 @@ std::vector<std::string> ASMTAssembly::linesFromFile(const std::string &fileName
     return lines;
 }
 
-void ASMTAssembly::readWriteKineFile(const std::string &fileName)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::readWriteKineFile(const std::string &fileName)
 {
-    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
-    assembly->runKINEMATIC();
-    assembly->outputFile("assemblyKine.asmt");
-#ifndef NDEBUG
-    ASMTAssembly::runKineFile("assemblyKine.asmt");
-#endif
-}
-
-void ASMTAssembly::readWriteDynFile(const std::string &fileName)
-{
-    auto assembly = ASMTAssembly::assemblyFromFile(fileName);
-    assembly->runDYNAMIC();
+    auto assembly = ASMTAssembly::runKineFile(fileName);
     assembly->outputFile("tempAssembly.asmt");
     assembly->combineInputInitialConditionsWithCalculationResults();
+    return assembly;
 }
 
-void ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::readWriteDynFile(const std::string &fileName)
 {
-    auto assembly = ASMTAssembly::assemblyFromFile(infilename);
-    const std::string &str("\n\n\nStarting DYNAMIC simulation");
-    assembly->logString(str);
+    auto assembly = ASMTAssembly::runDynFile(fileName);
+    assembly->outputFile("tempAssembly.asmt");
+    assembly->combineInputInitialConditionsWithCalculationResults();
+    return assembly;
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::string &outfilename)
+{
+    auto assembly = ASMTAssembly::runDynFile(infilename);
     assembly->setoutFileName(outfilename);
-    assembly->runDYNAMIC();
     assembly->outputFile("tempAssembly.asmt");
     // Create tempAssembly2.asmt from input data from filename and TimeSeries from tempAssembly.asmt
     // Otherwise redundant constraints may not be the same even with very very small differences in input.
@@ -484,15 +490,17 @@ void ASMTAssembly::readWriteDynFile2(const std::string &infilename, const std::s
     {
         std::cerr << "SOLVER ERROR: tempAssembly2.asmt not found." << std::endl;
     }
+    return assembly;
 }
 
-void ASMTAssembly::readWriteReadDynFile(const std::string &fileName)
+std::shared_ptr<ASMTAssembly> ASMTAssembly::readWriteReadDynFile(const std::string &fileName)
 {
-    ASMTAssembly::readWriteDynFile(fileName);
-    ASMTAssembly::runDynFile("tempAssembly2.asmt");
+    auto assembly = ASMTAssembly::readWriteDynFile(fileName);
+    auto assembly2 = ASMTAssembly::runDynFile("tempAssembly2.asmt");
+    return assembly2;
 }
 
-void ASMTAssembly::runDraggingTest()
+std::shared_ptr<ASMTAssembly> ASMTAssembly::runDraggingTest()
 {
     auto assembly = ASMTAssembly::assemblyFromFile("../testapp/dragCrankSlider.asmt");
     auto dragPart = assembly->parts->at(0);
@@ -509,6 +517,7 @@ void ASMTAssembly::runDraggingTest()
     dragPart->updateMbDFromPosition3D(pos3D->plusFullColumn(delta));
     assembly->runDragStep(dragParts);
     assembly->runPostDrag(); // Do this after last drag
+    return assembly;
 }
 
 ASMTAssembly *ASMTAssembly::root()
@@ -1371,12 +1380,24 @@ void ASMTAssembly::runKINEMATIC()
 
 void ASMTAssembly::runDYNAMIC()
 {
-    auto mbdSys = System::With();
-    mbdSystem = mbdSys;
+    mbdSystem = System::With();
     mbdSystem->externalSystem->asmtAssembly = this;
     try
     {
         mbdSystem->runDYNAMIC(mbdSystem);
+    }
+    catch (SimulationStoppingError ex)
+    {
+    }
+}
+
+void ASMTAssembly::runQUASISTATIC()
+{
+    mbdSystem = System::With();
+    mbdSystem->externalSystem->asmtAssembly = this;
+    try
+    {
+        mbdSystem->runQUASISTATIC(mbdSystem);
     }
     catch (SimulationStoppingError ex)
     {

@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "ConstVelConstraintIeJe.h"
 #include "DirectionCosineIeJe.h"
 #include "ConstVelConstraintIeqJeq.h"
@@ -13,6 +13,20 @@
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void ConstVelConstraintIeJe::postStaticIteration()
+{
+    aA01IeJe->postStaticIteration();
+    aA10IeJe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void ConstVelConstraintIeJe::preStatic()
+{
+    aA01IeJe->preStatic();
+    aA10IeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
 
 std::shared_ptr<ConstVelConstraintIeJe> ConstVelConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -32,7 +46,7 @@ void ConstVelConstraintIeJe::initialize()
 
 void ConstVelConstraintIeJe::simUpdateAll()
 {
-    //aG = aA01IeJe + aA10IeJe - aConstant;
+    // aG = aA01IeJe + aA10IeJe - aConstant;
     aG = aA01IeJe->aAijIeJe + aA10IeJe->aAijIeJe - aConstant;
 }
 
@@ -123,9 +137,9 @@ void ConstVelConstraintIeJe::postDynOutput()
 
 void ConstVelConstraintIeJe::addToJointForceI(FColDsptr col)
 {
-    //aFIeO = lam * pGpXI
-    //aFIeO = lam * zero
-    //Do nothing.
+    // aFIeO = lam * pGpXI
+    // aFIeO = lam * zero
+    // Do nothing.
 }
 
 void ConstVelConstraintIeJe::addToJointTorqueI(FColDsptr col)

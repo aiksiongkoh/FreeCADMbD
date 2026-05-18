@@ -13,12 +13,12 @@ using namespace MbD;
 
 void ForceTorqueItem::fillStaticError(FColDsptr col)
 {
-    throw SimulationStoppingError("To be implemented.");
+    fillDynError(col);
 }
 
 void ForceTorqueItem::fillStaticJacob(SpMatDsptr mat)
 {
-    throw SimulationStoppingError("To be implemented.");
+    fillpFpy(mat);
 }
 
 void ForceTorqueItem::postAccICIteration()

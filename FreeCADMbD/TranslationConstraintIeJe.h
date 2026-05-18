@@ -48,6 +48,7 @@ namespace MbD {
         void fillVelICJacob(SpMatDsptr mat) override;
 
         void preAccIC() override;
+        void preStatic() override;
         void fillAccICIterError(FColDsptr col) override;
 
         void preDyn() override;
@@ -65,6 +66,7 @@ namespace MbD {
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
         std::string constraintSpec() override;
 
         size_t axisI = SIZE_MAX;

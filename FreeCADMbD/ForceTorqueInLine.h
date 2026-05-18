@@ -20,6 +20,7 @@ namespace MbD {
         ForceTorqueInLine(EndFrmsptr frmi, EndFrmsptr frmj) : ForceTorqueIJ(frmi, frmj) {}
         static std::shared_ptr<ForceTorqueInLine> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
+        void useUniqueDispIeJeO() override;
         void simUpdateAll() override;
         void calcuIeJeO();
         void calctension();
@@ -40,11 +41,15 @@ namespace MbD {
         void preDynOutput() override;
         void postDynPredictor() override;
         void preAccIC() override;
+        void preStatic() override;
         void postInput() override;
         void initializeLocally() override;
         void initializeGlobally() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
+        void postStaticIteration() override;
 
         double getTension() override;
         double getTwist() override;

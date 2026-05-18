@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "FunctionWithManyArgs.h"
 #include "Symbolic.h"
 #include "SimulationStoppingError.h"
@@ -32,7 +32,8 @@ FunctionWithManyArgs::FunctionWithManyArgs(Symsptr term, Symsptr term1, Symsptr 
     terms->push_back(term2);
 }
 
-FunctionWithManyArgs::FunctionWithManyArgs(std::shared_ptr<std::vector<Symsptr>> _terms) {
+FunctionWithManyArgs::FunctionWithManyArgs(std::shared_ptr<std::vector<Symsptr>> _terms)
+{
     terms = std::make_shared<std::vector<Symsptr>>();
     for (size_t i = 0; i < _terms->size(); i++)
         terms->push_back(_terms->at(i));
@@ -52,7 +53,10 @@ std::shared_ptr<std::vector<Symsptr>> FunctionWithManyArgs::getTerms()
 
 void FunctionWithManyArgs::createMbD()
 {
-    for (auto term : *terms) term->createMbD();
+    for (auto term : *terms)
+    {
+        term->createMbD();
+    }
 }
 
 void FunctionWithManyArgs::arguments(Symsptr)
@@ -62,37 +66,58 @@ void FunctionWithManyArgs::arguments(Symsptr)
 
 bool FunctionWithManyArgs::isConstant()
 {
-    for (auto term : *terms) {
-        if (!term->isConstant()) return false;
+    for (auto term : *terms)
+    {
+        if (!term->isConstant())
+            return false;
     }
     return true;
 }
 
 void FunctionWithManyArgs::fillKineIJs(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> kineIJs)
 {
-    for (auto term : *terms) {
+    for (auto term : *terms)
+    {
         term->fillKineIJs(kineIJs);
     }
 }
 
 void FunctionWithManyArgs::fillKinedotIJs(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> kinedotIJs)
 {
-    for (auto term : *terms) {
+    for (auto term : *terms)
+    {
         term->fillKinedotIJs(kinedotIJs);
     }
 }
 
 void FunctionWithManyArgs::fillJointForces(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> jointForces)
 {
-    for (auto term : *terms) {
+    for (auto term : *terms)
+    {
         term->fillJointForces(jointForces);
     }
 }
 
 void FunctionWithManyArgs::fillJointTorques(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> jointTorques)
 {
-    for (auto term : *terms) {
+    for (auto term : *terms)
+    {
         term->fillJointTorques(jointTorques);
     }
 }
 
+void MbD::FunctionWithManyArgs::useUniqueDispIeJeO()
+{
+    for (auto term : *terms)
+    {
+        term->useUniqueDispIeJeO();
+    }
+}
+
+void MbD::FunctionWithManyArgs::useUniqueDispIeJeKe()
+{
+    for (auto term : *terms)
+    {
+        term->useUniqueDispIeJeKe();
+    }
+}

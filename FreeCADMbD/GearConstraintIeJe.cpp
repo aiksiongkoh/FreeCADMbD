@@ -5,13 +5,27 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "GearConstraintIeJe.h"
 #include "GearConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void GearConstraintIeJe::postStaticIteration()
+{
+    orbitIeJe->postStaticIteration();
+    orbitJeIe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void GearConstraintIeJe::preStatic()
+{
+    orbitIeJe->preStatic();
+    orbitJeIe->preStatic();
+    ConstraintIeJe::preStatic();
+}
 
 std::shared_ptr<GearConstraintIeJe> GearConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
@@ -68,7 +82,8 @@ void GearConstraintIeJe::postInput()
 {
     orbitIeJe->postInput();
     orbitJeIe->postInput();
-    if (aConstant == std::numeric_limits<double>::min()) {
+    if (aConstant == std::numeric_limits<double>::min())
+    {
         aConstant = orbitJeIe->value() + (ratio() * orbitIeJe->value());
     }
     ConstraintIeJe::postInput();

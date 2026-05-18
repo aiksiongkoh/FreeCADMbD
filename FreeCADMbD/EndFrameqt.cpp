@@ -25,6 +25,14 @@
 
 using namespace MbD;
 
+void EndFrameqt::preStatic()
+{
+    time = root()->mbdTimeValue();
+    evalrmem();
+    evalAme();
+    Item::preStatic();
+}
+
 std::shared_ptr<EndFrameqt> EndFrameqt::With()
 {
     auto inst = std::make_shared<EndFrameqt>();
@@ -32,7 +40,7 @@ std::shared_ptr<EndFrameqt> EndFrameqt::With()
     return inst;
 }
 
-std::shared_ptr<EndFrameqt> EndFrameqt::With(const std::string& str)
+std::shared_ptr<EndFrameqt> EndFrameqt::With(const std::string &str)
 {
     auto inst = std::make_shared<EndFrameqt>(str);
     inst->initialize();
@@ -57,12 +65,14 @@ void EndFrameqt::initialize()
 void EndFrameqt::initializeLocally()
 {
     EndFrameq::initializeLocally();
-    if (!rmemBlks) {
+    if (!rmemBlks)
+    {
         rmem->zeroSelf();
         prmempt->zeroSelf();
         pprmemptpt->zeroSelf();
     }
-    if (!the1x2y3zBlks) {
+    if (!the1x2y3zBlks)
+    {
         aAme->identity();
         pAmept->zeroSelf();
         ppAmeptpt->zeroSelf();
@@ -72,11 +82,13 @@ void EndFrameqt::initializeLocally()
 void EndFrameqt::initializeGlobally()
 {
     EndFrameq::initializeGlobally();
-    if (rmemBlks) {
+    if (rmemBlks)
+    {
         initprmemptBlks();
         initpprmemptptBlks();
     }
-    if (the1x2y3zBlks) {
+    if (the1x2y3zBlks)
+    {
         initpthe1x2y3zptBlks();
         initppthe1x2y3zptptBlks();
     }
@@ -85,8 +97,9 @@ void EndFrameqt::initializeGlobally()
 void EndFrameqt::initprmemptBlks()
 {
     auto mbdTime = root()->time;
-    prmemptBlks = std::make_shared< FullColumn<Symsptr>>(3);
-    for (size_t i = 0; i < 3; i++) {
+    prmemptBlks = std::make_shared<FullColumn<Symsptr>>(3);
+    for (size_t i = 0; i < 3; i++)
+    {
         auto disp = rmemBlks->at(i);
         auto var = disp->differentiateWRT(mbdTime);
         auto vel = var->simplified(var);
@@ -97,8 +110,9 @@ void EndFrameqt::initprmemptBlks()
 void EndFrameqt::initpprmemptptBlks()
 {
     auto mbdTime = root()->time;
-    pprmemptptBlks = std::make_shared< FullColumn<Symsptr>>(3);
-    for (size_t i = 0; i < 3; i++) {
+    pprmemptptBlks = std::make_shared<FullColumn<Symsptr>>(3);
+    for (size_t i = 0; i < 3; i++)
+    {
         auto vel = prmemptBlks->at(i);
         auto var = vel->differentiateWRT(mbdTime);
         auto acc = var->simplified(var);
@@ -109,30 +123,32 @@ void EndFrameqt::initpprmemptptBlks()
 void EndFrameqt::initpthe1x2y3zptBlks()
 {
     auto mbdTime = root()->time;
-    pthe1x2y3zptBlks = std::make_shared< FullColumn<Symsptr>>(3);
-    for (size_t i = 0; i < 3; i++) {
+    pthe1x2y3zptBlks = std::make_shared<FullColumn<Symsptr>>(3);
+    for (size_t i = 0; i < 3; i++)
+    {
         auto angle = the1x2y3zBlks->at(i);
         auto var = angle->differentiateWRT(mbdTime);
-        //std::cout << "var " << *var << std::endl;
+        // std::cout << "var " << *var << std::endl;
         auto vel = var->simplified(var);
-        //std::cout << "vel " << *vel << std::endl;
+        // std::cout << "vel " << *vel << std::endl;
         pthe1x2y3zptBlks->at(i) = vel;
-        //std::cout << *angle << std::endl;
-        //std::cout << *vel << std::endl;
+        // std::cout << *angle << std::endl;
+        // std::cout << *vel << std::endl;
     }
 }
 
 void EndFrameqt::initppthe1x2y3zptptBlks()
 {
     auto mbdTime = root()->time;
-    ppthe1x2y3zptptBlks = std::make_shared< FullColumn<Symsptr>>(3);
-    for (size_t i = 0; i < 3; i++) {
+    ppthe1x2y3zptptBlks = std::make_shared<FullColumn<Symsptr>>(3);
+    for (size_t i = 0; i < 3; i++)
+    {
         auto angleVel = pthe1x2y3zptBlks->at(i);
         auto var = angleVel->differentiateWRT(mbdTime);
         auto angleAcc = var->simplified(var);
         ppthe1x2y3zptptBlks->at(i) = angleAcc;
-        //std::cout << *angleVel << std::endl;
-        //std::cout << *angleAcc << std::endl;
+        // std::cout << *angleVel << std::endl;
+        // std::cout << *angleAcc << std::endl;
     }
 }
 
@@ -145,10 +161,10 @@ void EndFrameqt::postInput()
 
 void EndFrameqt::simUpdateAll()
 {
-    //rOeO = rOmO + aAOm*rmem(t)
-    //aAOe = aAOm*aAme(t);
+    // rOeO = rOmO + aAOm*rmem(t)
+    // aAOe = aAOm*aAme(t);
     EndFrameq::simUpdateAll();
-    auto mkrFrmqc = static_cast<MarkerFrameq*>(markerFrame);
+    auto mkrFrmqc = static_cast<MarkerFrameq *>(markerFrame);
     auto rOmO = markerFrame->rOmO;
     auto aAOm = markerFrame->aAOm;
     rOeO = rOmO->plusFullColumn(aAOm->timesFullColumn(rmem));
@@ -206,7 +222,8 @@ void EndFrameqt::prePosIC()
 
 void EndFrameqt::evalrmem() const
 {
-    if (rmemBlks) {
+    if (rmemBlks)
+    {
         for (size_t i = 0; i < 3; i++)
         {
             auto expression = rmemBlks->at(i);
@@ -218,7 +235,8 @@ void EndFrameqt::evalrmem() const
 
 void EndFrameqt::evalAme()
 {
-    if (the1x2y3zBlks) {
+    if (the1x2y3zBlks)
+    {
         auto the1x2y3z = EulerAngles<double>::With();
         for (size_t i = 0; i < 3; i++)
         {
@@ -246,7 +264,7 @@ void EndFrameqt::preVelIC()
 
 void EndFrameqt::postVelIC()
 {
-    auto mkrFrmqc = static_cast<MarkerFrameq*>(markerFrame);
+    auto mkrFrmqc = static_cast<MarkerFrameq *>(markerFrame);
     auto pAOmpE = mkrFrmqc->pAOmpE;
     for (size_t i = 0; i < 3; i++)
     {
@@ -306,7 +324,8 @@ double EndFrameqt::ppriOeOptpt(size_t i) const
 
 void EndFrameqt::evalprmempt() const
 {
-    if (rmemBlks) {
+    if (rmemBlks)
+    {
         for (size_t i = 0; i < 3; i++)
         {
             auto derivative = prmemptBlks->at(i);
@@ -318,7 +337,8 @@ void EndFrameqt::evalprmempt() const
 
 void EndFrameqt::evalpAmept()
 {
-    if (the1x2y3zBlks) {
+    if (the1x2y3zBlks)
+    {
         auto the1x2y3z = EulerAngles<double>::With();
         auto the1x2y3zDot = EulerAnglesDot<double>::With();
         the1x2y3zDot->aEulerAngles = the1x2y3z.get();
@@ -339,7 +359,8 @@ void EndFrameqt::evalpAmept()
 
 void EndFrameqt::evalpprmemptpt() const
 {
-    if (rmemBlks) {
+    if (rmemBlks)
+    {
         for (size_t i = 0; i < 3; i++)
         {
             auto secondDerivative = pprmemptptBlks->at(i);
@@ -351,7 +372,8 @@ void EndFrameqt::evalpprmemptpt() const
 
 void EndFrameqt::evalppAmeptpt()
 {
-    if (the1x2y3zBlks) {
+    if (the1x2y3zBlks)
+    {
         auto the1x2y3z = EulerAngles<double>::With();
         auto the1x2y3zDot = EulerAnglesDot<double>::With();
         the1x2y3zDot->aEulerAngles = the1x2y3z.get();

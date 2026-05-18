@@ -412,7 +412,7 @@ void ForceTorqueIJ::fillpFpydot(SpMatDsptr mat)
 
 void ForceTorqueIJ::calcpFIeOpXI()
 {
-    calcpFIeOpXI();
+    calcpFIeOpX(prtFrmI);
 }
 
 void ForceTorqueIJ::calcpFIeOpEI()
@@ -561,6 +561,7 @@ void ForceTorqueIJ::initialize()
     forceFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
     torqueFunctions = std::make_shared<std::vector<std::shared_ptr<ForceTorqueFunction>>>();
     dispIeJeO = DispIeJeO::With(geteFrmI(), geteFrmJ());
+    dispIeJeO->owner = this;
 }
 
 void ForceTorqueIJ::initializeGlobally()
@@ -592,7 +593,9 @@ void ForceTorqueIJ::postInput()
 
 void ForceTorqueIJ::postStaticIteration()
 {
-    throw SimulationStoppingError("To be implemented.");
+    for (const auto func : *forceFunctions) func->postStaticIteration();
+    for (const auto func : *torqueFunctions) func->postStaticIteration();
+    ForceTorqueItem::postStaticIteration();
 }
 
 void ForceTorqueIJ::preAccIC()
@@ -611,7 +614,9 @@ void ForceTorqueIJ::preDynOutput()
 
 void ForceTorqueIJ::preStatic()
 {
-    throw SimulationStoppingError("To be implemented.");
+    for (const auto func : *forceFunctions) func->preStatic();
+    for (const auto func : *torqueFunctions) func->preStatic();
+    ForceTorqueItem::preStatic();
 }
 
 void ForceTorqueIJ::useEquationNumbers()
@@ -1118,11 +1123,14 @@ void ForceTorqueIJ::useUniqueDispIeJeO()
     else {
         dispIeJeO = *it;
     }
+    for (const auto func : *forceFunctions) func->useUniqueDispIeJeO();
+    for (const auto func : *torqueFunctions) func->useUniqueDispIeJeO();
 }
 
 void ForceTorqueIJ::useUniqueDispIeJeKe()
 {
-    // Do nothing.
+    for (const auto func : *forceFunctions) func->useUniqueDispIeJeKe();
+    for (const auto func : *torqueFunctions) func->useUniqueDispIeJeKe();
 }
 
 void ForceTorqueIJ::calcaQXI()

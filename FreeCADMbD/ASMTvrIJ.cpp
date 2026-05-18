@@ -20,3 +20,8 @@ double ASMTvrIJ::asmtUnit()
 {
     return asmtUnits()->velocity;
 }
+
+std::shared_ptr<KinematicIeJe> MbD::ASMTvrIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
+{
+    return VelRadIeJe::With(frmi, frmj);
+}

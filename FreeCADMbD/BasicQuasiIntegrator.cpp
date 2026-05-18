@@ -30,6 +30,14 @@ void BasicQuasiIntegrator::firstStep()
     incrementTime();
     runInitialConditionTypeSolution();
     reportTrialStepStats();
+    while (isRedoingFirstStep())
+    {
+        incrementTry();
+        orderNew = 1;
+        selectFirstStepSize();
+        runInitialConditionTypeSolution();
+        reportTrialStepStats();
+    }
     postFirstStep();
     reportStepStats();
 }
@@ -72,10 +80,12 @@ void BasicQuasiIntegrator::runInitialConditionTypeSolution()
 
 void BasicQuasiIntegrator::selectFirstStepSize()
 {
-    if (iTry == 1) {
+    if (iTry == 1)
+    {
         hnew = direction * (system->tout - t);
     }
-    else {
+    else
+    {
         hnew = 0.25 * h;
     }
     hnew = system->suggestSmallerOrAcceptFirstStepSize(hnew);
@@ -83,10 +93,12 @@ void BasicQuasiIntegrator::selectFirstStepSize()
 
 void BasicQuasiIntegrator::selectStepSize()
 {
-    if (iTry == 1) {
+    if (iTry == 1)
+    {
         hnew = direction * (system->tout - t);
     }
-    else {
+    else
+    {
         hnew = 0.25 * h;
     }
     hnew = system->suggestSmallerOrAcceptStepSize(hnew);

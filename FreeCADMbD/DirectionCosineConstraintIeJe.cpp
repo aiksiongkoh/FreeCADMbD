@@ -17,63 +17,89 @@
 
 using namespace MbD;
 
+void DirectionCosineConstraintIeJe::preStatic()
+{
+    aAijIeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
+
 std::shared_ptr<DirectionCosineConstraintIeJe> DirectionCosineConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi, size_t axisj)
 {
     const auto factoryName = "DirectionCosineConstraintIeJe::With";
     std::shared_ptr<DirectionCosineConstraintIeJe> inst;
-    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<DirectionCosineConstraintIeqtJeq>(frmi, frmj, axisi, axisj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<DirectionCosineConstraintIeqJeq>(frmi, frmj, axisi, axisj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             inst = std::make_shared<DirectionCosineConstraintIeqJe>(frmi, frmj, axisi, axisj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<DirectionCosineConstraintIetJeq>(frmi, frmj, axisi, axisj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<DirectionCosineConstraintIeJeq>(frmi, frmj, axisi, axisj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
@@ -89,32 +115,32 @@ void DirectionCosineConstraintIeJe::simUpdateAll()
 
 void DirectionCosineConstraintIeJe::calcG()
 {
-    //aG = aAijIeJe - aConstant;
+    // aG = aAijIeJe - aConstant;
     aG = aAijIeJe->value() - aConstant;
 }
 
 void DirectionCosineConstraintIeJe::addToJointForceI(FColDsptr col)
 {
-    //aFIeO = lam * pGpXI
-    //aFIeO = lam * zero
-    //Do nothing.
+    // aFIeO = lam * pGpXI
+    // aFIeO = lam * zero
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::addToJointForceJ(FColDsptr col)
 {
-    //aFJeO = lam * pGpXJ
-    //aFJeO = lam * zero
-    //Do nothing.
+    // aFJeO = lam * pGpXJ
+    // aFJeO = lam * zero
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::addToJointTorqueI(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 ConstraintType DirectionCosineConstraintIeJe::type()
@@ -172,7 +198,7 @@ void DirectionCosineConstraintIeJe::preVelIC()
 
 void DirectionCosineConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::preAccIC()
@@ -183,7 +209,7 @@ void DirectionCosineConstraintIeJe::preAccIC()
 
 void DirectionCosineConstraintIeJe::fillAccICIterError(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::preDyn()
@@ -216,17 +242,23 @@ void DirectionCosineConstraintIeJe::postDynCorrectorIteration()
     ConstraintIeJe::postDynCorrectorIteration();
 }
 
+void MbD::DirectionCosineConstraintIeJe::postStaticIteration()
+{
+    aAijIeJe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
 void DirectionCosineConstraintIeJe::fillpFpy(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::fillpFpydot(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void DirectionCosineConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }

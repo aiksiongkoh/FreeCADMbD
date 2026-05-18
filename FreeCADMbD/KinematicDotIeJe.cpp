@@ -32,6 +32,11 @@ void KinematicDotIeJe::simUpdateAll()
     //Do nothing.
 }
 
+void MbD::KinematicDotIeJe::postStaticIteration()
+{
+    //Do nothing.
+}
+
 bool KinematicDotIeJe::isKineIJ()
 {
     return false;

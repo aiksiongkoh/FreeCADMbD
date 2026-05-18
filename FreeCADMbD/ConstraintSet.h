@@ -63,6 +63,9 @@ namespace MbD {
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillVelICError(FColDsptr col) override;
         void fillVelICJacob(SpMatDsptr mat) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
+        void postStaticIteration() override;
         FColDsptr jointForceI() const;
         FColDsptr jointTorqueI() const;
         void postDynCorrectorIteration() override;
@@ -76,6 +79,7 @@ namespace MbD {
         void preDyn() override;
         void prePosIC() override;
         void prePosKine() override;
+        void preStatic() override;
         void preVelIC() override;
         void reactivateRedundantConstraints() override;
         void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;

@@ -31,12 +31,14 @@ namespace MbD {
         void postPosICIteration() override;
         void preAccIC() override;
         void prePosIC() override;
+        void preStatic() override;
         void preVelIC() override;
         double value() override;
         void postDynPredictor() override;
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
 
         double thez = std::numeric_limits<double>::min();
         double cosOverSSq = 0.0, sinOverSSq = 0.0, twoCosSinOverSSqSq = 0.0, dSqOverSSqSq = 0.0;

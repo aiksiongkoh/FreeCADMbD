@@ -18,6 +18,8 @@ namespace MbD {
     public:
         static std::shared_ptr<ForceTorqueFunction> With();
         void initialize() override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         void simUpdateAll() override;
         Symsptr getformula();

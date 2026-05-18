@@ -13,6 +13,18 @@
 
 using namespace MbD;
 
+void DistanceConstraintIeJe::postStaticIteration()
+{
+    distIeJe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void DistanceConstraintIeJe::preStatic()
+{
+    distIeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
+
 std::shared_ptr<DistanceConstraintIeJe> DistanceConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     assert(frmi->isEndFrameq());

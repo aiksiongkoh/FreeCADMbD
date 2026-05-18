@@ -5,11 +5,21 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "RedundantConstraint.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void RedundantConstraint::postStaticIteration()
+{
+    // Do nothing.
+}
+
+void RedundantConstraint::preStatic()
+{
+    // Do nothing.
+}
 
 std::shared_ptr<RedundantConstraint> RedundantConstraint::With()
 {
@@ -41,27 +51,27 @@ ConstraintType RedundantConstraint::type()
 
 void RedundantConstraint::fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillDispConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> dispConstraints)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillPerpenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> perpenConstraints)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints)
 {
-        redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
+    redunConstraints->push_back(std::static_pointer_cast<Constraint>(shared_from_this()));
 }
 
 void RedundantConstraint::fillqsuddotlam(FColDsptr col)
@@ -86,12 +96,12 @@ void RedundantConstraint::fillpqsumudot(FColDsptr col)
 
 void RedundantConstraint::postInput()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::prePosIC()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::setqsulam(FColDsptr col)
@@ -121,12 +131,12 @@ void RedundantConstraint::fillPosKineJacob(SpMatDsptr mat)
 
 void RedundantConstraint::preVelIC()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::preAccIC()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillAccICIterError(FColDsptr col)
@@ -144,9 +154,9 @@ void RedundantConstraint::discontinuityAtaddTypeTo(double, std::shared_ptr<std::
     //"Reactivate all constraints."
     throw SimulationStoppingError("To be implemented.");
     //| newSelf |
-    //newSelf : = self constraint.
-    //newSelf discontinuityAt : tstartNew addTypeTo : collection.
-    //self become : newSelf
+    // newSelf : = self constraint.
+    // newSelf discontinuityAt : tstartNew addTypeTo : collection.
+    // self become : newSelf
 }
 
 void RedundantConstraint::setpqsumu(FColDsptr col)
@@ -166,12 +176,12 @@ void RedundantConstraint::setpqsumuddot(FColDsptr col)
 
 void RedundantConstraint::postDynPredictor()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::postPosICIteration()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::fillDynError(FColDsptr col)
@@ -191,17 +201,17 @@ void RedundantConstraint::fillpFpydot(SpMatDsptr mat)
 
 void RedundantConstraint::postDynCorrectorIteration()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::preDynOutput()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::postDynOutput()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void RedundantConstraint::addToJointForceI(FColDsptr col)

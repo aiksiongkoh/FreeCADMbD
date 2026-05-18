@@ -65,6 +65,7 @@ namespace MbD {
 
         void prePosIC() override;
         void prePosKine() override;
+        void preStatic() override;
         size_t iqX() const;
         size_t iqE() const;
         void iqX(size_t eqnNo);
@@ -100,6 +101,8 @@ namespace MbD {
         void postVelIC() override;
         void fillVelICError(FColDsptr col) override;
         void fillVelICJacob(SpMatDsptr mat) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
         void preAccIC() override;
         void calcp();
         void calcpdot();
@@ -126,6 +129,7 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
 
         System* system = nullptr;    //Use raw pointer when pointing backwards.
         size_t ipX = SIZE_MAX; 

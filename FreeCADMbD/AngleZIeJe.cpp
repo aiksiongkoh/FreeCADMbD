@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <cmath>
 #include <numbers>
 
@@ -23,63 +23,97 @@
 
 using namespace MbD;
 
+void AngleZIeJe::postStaticIteration()
+{
+    aA00IeJe->postStaticIteration();
+    aA10IeJe->postStaticIteration();
+    KinematicIeJe::postStaticIteration();
+}
+
+void AngleZIeJe::preStatic()
+{
+    aA00IeJe->preStatic();
+    aA10IeJe->preStatic();
+    KinematicIeJe::preStatic();
+}
+
 std::shared_ptr<AngleZIeJe> AngleZIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     const auto factoryName = "AngleZIeJe::With";
     std::shared_ptr<AngleZIeJe> inst;
-    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<AngleZIeqJeq>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             inst = std::make_shared<AngleZIeqJe>(frmi, frmj);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<AngleZIeJeq>(frmi, frmj);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
@@ -96,8 +130,8 @@ void AngleZIeJe::initialize()
 
 void AngleZIeJe::simUpdateAll()
 {
-    //thezIeJe = atan2(sthez, cthez)
-    //thezIeJe = atan2(aA10IeJe, aA00IeJe)
+    // thezIeJe = atan2(sthez, cthez)
+    // thezIeJe = atan2(aA10IeJe, aA00IeJe)
     auto cthez = aA00IeJe->value();
     auto sthez = aA10IeJe->value();
     auto sumOfSquares = cthez * cthez + (sthez * sthez);
@@ -113,7 +147,7 @@ void AngleZIeJe::simUpdateAll()
 
 void AngleZIeJe::init_aAijIeJe()
 {
-    //Subclasses must implement.
+    // Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
 }
 
@@ -126,7 +160,8 @@ void AngleZIeJe::initializeGlobally()
 void AngleZIeJe::initializeLocally()
 {
     KinematicIeJe::initializeLocally();
-    if (!aA00IeJe) init_aAijIeJe();
+    if (!aA00IeJe)
+        init_aAijIeJe();
     aA00IeJe->initializeLocally();
     aA10IeJe->initializeLocally();
 }
@@ -135,13 +170,16 @@ void AngleZIeJe::postInput()
 {
     aA00IeJe->postInput();
     aA10IeJe->postInput();
-    if (thez == std::numeric_limits<double>::min()) {
+    if (thez == std::numeric_limits<double>::min())
+    {
         auto cthez = aA00IeJe->value();
         auto sthez = aA10IeJe->value();
-        if (cthez > 0.0) {
+        if (cthez > 0.0)
+        {
             thez = std::atan2(sthez, cthez);
         }
-        else {
+        else
+        {
             thez = Numeric::arcTan0to2piYoverX(sthez, cthez);
         }
     }

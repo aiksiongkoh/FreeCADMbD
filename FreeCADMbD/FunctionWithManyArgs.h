@@ -34,6 +34,8 @@ namespace MbD {
         void fillKinedotIJs(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> kineIJs) override;
         void fillJointForces(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> jointForces) override;
         void fillJointTorques(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> jointTorques) override;
+        void useUniqueDispIeJeO() override;
+        void useUniqueDispIeJeKe() override;
 
         std::shared_ptr<std::vector<Symsptr>> terms;
     };

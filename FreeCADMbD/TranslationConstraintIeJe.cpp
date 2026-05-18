@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <algorithm>
 
 #include "TranslationConstraintIeJe.h"
@@ -21,63 +21,95 @@
 
 using namespace MbD;
 
+void TranslationConstraintIeJe::postStaticIteration()
+{
+    riIeJeIe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void TranslationConstraintIeJe::preStatic()
+{
+    riIeJeIe->preStatic();
+    ConstraintIeJe::preStatic();
+}
+
 std::shared_ptr<TranslationConstraintIeJe> TranslationConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi)
 {
     const auto factoryName = "TranslationConstraintIeJe::With";
     std::shared_ptr<TranslationConstraintIeJe> inst;
-    if (std::dynamic_pointer_cast<EndFrameqt>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    if (std::dynamic_pointer_cast<EndFrameqt>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<TranslationConstraintIeqtJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrameq>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrameq>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<TranslationConstraintIeqJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             inst = std::make_shared<TranslationConstraintIeqJe>(frmi, frmj, axisi);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFramet>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFramet>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<TranslationConstraintIetJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
-    else if (std::dynamic_pointer_cast<EndFrame>(frmi)) {
-        if (std::dynamic_pointer_cast<EndFrameqt>(frmj)) {
+    else if (std::dynamic_pointer_cast<EndFrame>(frmi))
+    {
+        if (std::dynamic_pointer_cast<EndFrameqt>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrameq>(frmj))
+        {
             inst = std::make_shared<TranslationConstraintIeJeq>(frmi, frmj, axisi);
         }
-        else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFramet>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
-        else if (std::dynamic_pointer_cast<EndFrame>(frmj)) {
+        else if (std::dynamic_pointer_cast<EndFrame>(frmj))
+        {
             throwUnsupportedFrameCombination(factoryName);
         }
     }
@@ -144,12 +176,12 @@ void TranslationConstraintIeJe::prePosIC()
 
 void TranslationConstraintIeJe::fillVelICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::fillAccICIterError(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 ConstraintType TranslationConstraintIeJe::type()
@@ -177,7 +209,7 @@ void TranslationConstraintIeJe::preDynOutput()
 
 void TranslationConstraintIeJe::preDyn()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::postDynOutput()
@@ -206,32 +238,32 @@ void TranslationConstraintIeJe::preAccIC()
 
 void TranslationConstraintIeJe::fillpFpy(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::fillpFpydot(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::addToJointForceI(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::addToJointTorqueI(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::addToJointForceJ(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 void TranslationConstraintIeJe::addToJointTorqueJ(FColDsptr col)
 {
-    //Do nothing.
+    // Do nothing.
 }
 
 std::string TranslationConstraintIeJe::constraintSpec()
@@ -241,5 +273,5 @@ std::string TranslationConstraintIeJe::constraintSpec()
 
 void TranslationConstraintIeJe::fillPosICJacob(SpMatDsptr mat)
 {
-    //Do nothing.
+    // Do nothing.
 }

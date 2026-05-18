@@ -5,13 +5,27 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "RackPinConstraintIeJe.h"
 #include "RackPinConstraintIeqJeq.h"
 #include "EndFrameq.h"
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void RackPinConstraintIeJe::postStaticIteration()
+{
+    xIeJeIe->postStaticIteration();
+    thezIeJe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void RackPinConstraintIeJe::preStatic()
+{
+    xIeJeIe->preStatic();
+    thezIeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
 
 std::shared_ptr<RackPinConstraintIeJe> RackPinConstraintIeJe::With()
 {
@@ -83,7 +97,8 @@ void RackPinConstraintIeJe::postInput()
 {
     xIeJeIe->postInput();
     thezIeJe->postInput();
-    if (aConstant == std::numeric_limits<double>::min()) {
+    if (aConstant == std::numeric_limits<double>::min())
+    {
         aConstant = xIeJeIe->value() + (pitchRadius * thezIeJe->value());
     }
     ConstraintIeJe::postInput();

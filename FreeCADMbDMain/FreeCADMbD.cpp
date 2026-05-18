@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         }
         return 0;
     }
-    switch (0)
+    switch (1)
     {
     case 0:
     {
@@ -59,7 +59,8 @@ int main(int argc, char *argv[])
     }
     case 1:
     {
-        ASMTAssembly::readWriteDynFile2(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt", "");
+        ASMTAssembly::runDynFile(std::string(TEST_DATA_PATH) + "/ASMT/springdamper2.asmt");
+        // ASMTAssembly::readWriteDynFile2(std::string(TEST_DATA_PATH) + "/ASMT/torsionSprDmpTol8.asmt", "");
         break;
     }
     case 2:

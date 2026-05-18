@@ -104,12 +104,12 @@ void ForceTorqueGeneral::fillpFpy(SpMatDsptr mat)
 
 void ForceTorqueGeneral::fillStaticError(FColDsptr col)
 {
-    throw SimulationStoppingError("To be implemented.");
+    ForceTorqueIJ::fillStaticError(col);
 }
 
 void ForceTorqueGeneral::fillStaticJacob(SpMatDsptr mat)
 {
-    throw SimulationStoppingError("To be implemented.");
+    ForceTorqueIJ::fillStaticJacob(mat);
 }
 
 void ForceTorqueGeneral::setforceFunctions(FColsptr<Symsptr> col)
@@ -164,7 +164,7 @@ void ForceTorqueGeneral::postInput()
 
 void ForceTorqueGeneral::postStaticIteration()
 {
-    throw SimulationStoppingError("To be implemented.");
+    ForceTorqueIJ::postStaticIteration();
 }
 
 void ForceTorqueGeneral::preAccIC()
@@ -179,7 +179,7 @@ void ForceTorqueGeneral::preDynOutput()
 
 void ForceTorqueGeneral::preStatic()
 {
-    throw SimulationStoppingError("To be implemented.");
+    ForceTorqueIJ::preStatic();
 }
 
 void ForceTorqueGeneral::settorqueFunctions(FColsptr<Symsptr> col)

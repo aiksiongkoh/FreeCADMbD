@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <cmath>
 #include <numbers>
 
@@ -15,6 +15,20 @@
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+void ScrewConstraintIeJe::postStaticIteration()
+{
+    zIeJeIe->postStaticIteration();
+    thezIeJe->postStaticIteration();
+    ConstraintIeJe::postStaticIteration();
+}
+
+void ScrewConstraintIeJe::preStatic()
+{
+    zIeJeIe->preStatic();
+    thezIeJe->preStatic();
+    ConstraintIeJe::preStatic();
+}
 
 std::shared_ptr<ScrewConstraintIeJe> ScrewConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr frmj)
 {
