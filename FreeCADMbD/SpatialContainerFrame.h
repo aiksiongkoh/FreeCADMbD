@@ -74,6 +74,8 @@ namespace MbD {
         void preAccIC() override;
         void fillAccICIterError(FColDsptr col) override;
         void fillAccICIterJacob(SpMatDsptr mat) override;
+        void fillStaticError(FColDsptr col) override;
+        void fillStaticJacob(SpMatDsptr mat) override;
         void fillPosKineJacob(SpMatDsptr mat) override;
         void postDynStep() override;
         void setpqsumu(FColDsptr col) override;
@@ -86,6 +88,7 @@ namespace MbD {
         void postDynCorrectorIteration() override;
         void preDynOutput() override;
         void postDynOutput() override;
+        void postStaticIteration() override;
         size_t iqX() const override;
         size_t iqE() const override;
         virtual FColDsptr qX();

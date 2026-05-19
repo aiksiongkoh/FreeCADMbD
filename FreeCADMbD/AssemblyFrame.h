@@ -36,9 +36,6 @@ namespace MbD {
 
         MkrFrmsptr createMarkerFrame(const std::string& str) override;
         System* root() override;
-        void initializeLocally() override;
-        void initializeGlobally() override;
-        void postInput() override;
         void simUpdateAll() override;
         void setAssembly(System* x);
         System* getAssembly() const;
@@ -52,48 +49,6 @@ namespace MbD {
         void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
         void fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints) override;
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
-        void fillqsu(FColDsptr col) override;
-        void fillqsuWeights(DiagMatDsptr mat) override;
-        void fillqsuddotlam(FColDsptr col) override;
-        void fillqsulam(FColDsptr col) override;
-        void fillpqsumu(FColDsptr col) override;
-        void fillpqsumudot(FColDsptr col) override;
-        void fillqsudot(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr mat) override;
-        void useEquationNumbers() override;
-        void setqsu(FColDsptr col) override;
-        void setqsulam(FColDsptr col) override;
-        void setqsudotlam(FColDsptr col) override;
-        void setqsudot(FColDsptr col) override;
-        void setqsuddotlam(FColDsptr col) override;
-        void postPosICIteration() override;
-        void fillPosICError(FColDsptr col) override;
-        void fillPosICJacob(SpMatDsptr mat) override;
-        void postPosIC() override;
-        void preDyn() override;
-        void storeDynState() override;
-        void fillPosKineError(FColDsptr col) override;
-        void preVelIC() override;
-        void postVelIC() override;
-        void fillVelICError(FColDsptr col) override;
-        void fillVelICJacob(SpMatDsptr mat) override;
-        void preAccIC() override;
-        void preStatic() override;
-        void fillAccICIterError(FColDsptr col) override;
-        void fillAccICIterJacob(SpMatDsptr mat) override;
-        void fillPosKineJacob(SpMatDsptr mat) override;
-        void postDynStep() override;
-        void setpqsumu(FColDsptr col) override;
-        void setpqsumudot(FColDsptr col) override;
-        void setpqsumuddot(FColDsptr col) override;
-        void postDynPredictor() override;
-        void fillDynError(FColDsptr col) override;
-        void fillpFpy(SpMatDsptr mat) override;
-        void fillpFpydot(SpMatDsptr mat) override;
-        void postDynCorrectorIteration() override;
-        void preDynOutput() override;
-        void postDynOutput() override;
-        double suggestSmallerOrAcceptDynStepSize(double hnew) override;
 
         System* assembly = nullptr; //Use raw pointer when pointing backwards.
     };
