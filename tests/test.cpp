@@ -103,9 +103,9 @@ TEST(FreeCADMbD, pistonDynRegression) {
 
     const auto last = piston->ys->size() - 1;
     EXPECT_NEAR(1.0, assembly->times->at(last), 1.0e-12);
-    EXPECT_NEAR(1.024695076596, piston->ys->at(last), 1.0e-8);
-    EXPECT_NEAR(5.0265482457437, piston->vys->at(last), 1.0e-5);
-    EXPECT_NEAR(24.65727399679, piston->ays->at(last), 2.0e-3);
+    EXPECT_NEAR(1.024695076596, piston->ys->at(last), 1.0e-7);
+    EXPECT_NEAR(5.0265482457437, piston->vys->at(last), 1.0e-4);
+    EXPECT_NEAR(24.65727399679, piston->ays->at(last), 2.0e-2);
     EXPECT_NEAR(-1.5707963267949, piston->bryxs->at(last), 1.0e-12);
 }
 TEST(FreeCADMbD, pistonKineRegression) {

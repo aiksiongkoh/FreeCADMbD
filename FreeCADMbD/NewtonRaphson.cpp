@@ -112,9 +112,9 @@ bool NewtonRaphson::isConvergedToNumericalLimit()
     auto nDivergenceMax = 3;
     auto dxNormIterNo = dxNorms->at(iterNo);
     if (iterNo > 0) {
-        auto dxNormIterNoOld = dxNorms->at(iterNo);
+        auto dxNormIterNoOld = dxNorms->at(iterNo - 1);
         auto farTooLargeError = dxNormIterNo > tooLargeTol;
-        auto worthIterating = dxNormIterNo > (smallEnoughTol * pow(10.0, (iterNo / iterMax) * nDecade));
+        auto worthIterating = dxNormIterNo > (smallEnoughTol * pow(10.0, ((iterNo - 1) / iterMax) * nDecade));
         bool stillConverging;
         if (dxNormIterNo < (0.5 * dxNormIterNoOld)) {
             stillConverging = true;

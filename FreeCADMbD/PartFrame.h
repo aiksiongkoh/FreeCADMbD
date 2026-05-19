@@ -60,8 +60,6 @@ namespace MbD {
 
         void setPart(Part* x);
         Part* getPart() const;
-        void addMarkerFrame(MkrFrmsptr x);
-        EndFrmsptr endFrame(std::string name);
         void aGabsDo(const std::function <void(std::shared_ptr<Constraint>)>& f) const;
         void removeRedundantConstraints(std::shared_ptr<std::vector<size_t>> redundantEqnNos) override;
         void reactivateRedundantConstraints() override;
@@ -88,13 +86,11 @@ namespace MbD {
         void fillRedundantConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> redunConstraints) override;
         void fillConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> allConstraints) override;
         void fillqsu(FColDsptr col) override;
-        void fillqsuWeights(DiagMatDsptr mat) override;
         void fillqsuddotlam(FColDsptr col) override;
         void fillqsulam(FColDsptr col) override;
         void fillpqsumu(FColDsptr col) override;
         void fillpqsumudot(FColDsptr col) override;
         void fillqsudot(FColDsptr col) override;
-        void fillqsudotWeights(DiagMatDsptr mat) override;
         void useEquationNumbers() override;
         void setqsu(FColDsptr col) override;
         void setqsulam(FColDsptr col) override;
