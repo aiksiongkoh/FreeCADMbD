@@ -87,5 +87,4 @@ void Integrator::selectStepSize()
 size_t Integrator::iterMax()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0;
 }

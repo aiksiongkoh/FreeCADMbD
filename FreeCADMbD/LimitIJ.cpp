@@ -22,7 +22,6 @@ bool LimitIJ::satisfied() const
         return constraint->aG > -tol;
     }
     throw SimulationStoppingError("To be implemented.");
-    return true;
 }
 
 void LimitIJ::deactivate()

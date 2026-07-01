@@ -175,7 +175,6 @@ std::shared_ptr<EndFrameq> EndFrame::newCopyEndFrameq()
 EndFrmsptr EndFrame::followEndFrame(EndFrmsptr frmi)
 {
     throw SimulationStoppingError("Fixed eFrm cannot move to follow.");
-    return EndFrmsptr();
 }
 
 bool EndFrame::isEndFrameq()
@@ -271,7 +270,6 @@ FColDsptr EndFrame::aOeO() const
 FMatDsptr EndFrame::pAjOepE(size_t j) const
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr EndFrame::pAjOepET(size_t axis)

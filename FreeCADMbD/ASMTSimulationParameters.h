@@ -25,6 +25,7 @@ namespace MbD {
         void sethmax(double hmax);
         void sethout(double hout);
         void seterrorTol(double errorTol);
+        void setAllTolForNDigit(int nDigit);
         void setmaxIter(size_t maxIter);
         void storeOnLevel(std::ofstream& os, size_t level) override;
 

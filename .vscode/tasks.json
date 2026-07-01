@@ -9,11 +9,12 @@
         "-S",
         ".",
         "-B",
-        "build-vs",
+        "build-vcpkg",
         "-G",
         "Visual Studio 17 2022",
         "-A",
         "x64",
+        "-DCMAKE_TOOLCHAIN_FILE=C:/Users/askoh/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "-DFREECADMBD_BUILD_EXE=ON",
         "-DFREECADMBD_BUILD_TESTS=ON"
       ],
@@ -28,7 +29,7 @@
       "command": "cmake",
       "args": [
         "--build",
-        "build-vs",
+        "build-vcpkg",
         "--config",
         "Debug",
         "--target",

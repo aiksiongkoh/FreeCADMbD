@@ -10,7 +10,6 @@ std::shared_ptr<MBDynPlugin> MBDynPlugin::newPlugin(std::string statement)
         return MBDynNodePlugin::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynPlugin>();
 }
 
 void MBDynPlugin::parseMBDyn(std::string line)

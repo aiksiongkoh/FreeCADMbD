@@ -209,7 +209,6 @@ namespace MbD
     inline double DiagonalMatrix<T>::maxMagnitude()
     {
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
 
     template <typename T>

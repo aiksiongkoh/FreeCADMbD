@@ -51,7 +51,6 @@ Symsptr Power::differentiateWRTy()
 Symsptr Power::simplifyUntil(Symsptr, std::shared_ptr<std::unordered_set<Symsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 double Power::getValue()

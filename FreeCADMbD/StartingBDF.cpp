@@ -60,5 +60,4 @@ void StartingBDF::setorder(size_t o)
 FColDsptr StartingBDF::derivativepresentpastpresentDerivativepastDerivative(size_t n, FColDsptr y, std::shared_ptr<std::vector<FColDsptr>> ypast, FColDsptr ydot, std::shared_ptr<std::vector<FColDsptr>> ydotpast)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }

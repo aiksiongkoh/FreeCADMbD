@@ -8,6 +8,9 @@
 
 #include "ASMTSimulationParameters.h"
 
+#include <algorithm>
+#include <cmath>
+
 using namespace MbD;
 
 std::shared_ptr<ASMTSimulationParameters> ASMTSimulationParameters::With()
@@ -89,6 +92,12 @@ void ASMTSimulationParameters::seterrorTol(double tol)
     corRelTol = tol;
     intAbsTol = tol;
     intRelTol = tol;
+}
+
+void ASMTSimulationParameters::setAllTolForNDigit(int nDigit)
+{
+    const auto tol = std::pow(10.0, -nDigit);
+    seterrorTol(tol * tol);
 }
 
 void ASMTSimulationParameters::setmaxIter(size_t maxIter)

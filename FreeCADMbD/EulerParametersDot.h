@@ -20,6 +20,7 @@ namespace MbD {
     {
         //qE aAdot aBdot aCdot pAdotpE
     public:
+        EulerParametersDot() : EulerArray<T>(4) {}
         EulerParametersDot(size_t count) : EulerArray<T>(count) {}
         EulerParametersDot(size_t count, const T& value) : EulerArray<T>(count, value) {}
         EulerParametersDot(std::initializer_list<T> list) : EulerArray<T>{ list } {}
@@ -65,7 +66,7 @@ namespace MbD {
     template<typename T>
     inline std::shared_ptr<EulerParametersDot<T>> EulerParametersDot<T>::FromqEOpAndOmegaOpO(std::shared_ptr<EulerParameters<T>> qEOp, FColDsptr omeOpO)
     {
-        auto answer = std::make_shared<EulerParametersDot<T>>(4);
+        auto answer = std::make_shared<EulerParametersDot<T>>();
         answer->initialize();    
         qEOp->calcABC();
         auto aB = qEOp->aB;

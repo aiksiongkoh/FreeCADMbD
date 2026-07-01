@@ -26,6 +26,7 @@ namespace MbD {
         void passRootToSystem() override;
         void basicSolveEquations() override;
         void solveEquations() override;
+        std::shared_ptr<MatrixSolver> matrixSolverClassNew() override;
         void initializeGlobally() override;
         void calcdxNorm() override;
         void handleSingularMatrix() override;

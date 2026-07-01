@@ -22,7 +22,6 @@ std::shared_ptr<ConstraintIeJe> ConstraintIeJe::With(EndFrmsptr frmi, EndFrmsptr
 {
     // Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<ConstraintIeJe>();
 }
 
 void ConstraintIeJe::initialize()

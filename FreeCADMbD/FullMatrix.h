@@ -492,7 +492,6 @@ namespace MbD
     inline SpMatsptr<T> FullMatrix<T>::timesSparseMatrix(SpMatsptr<T> spMat)
     {
         throw SimulationStoppingError("To be implemented.");
-        return SpMatsptr<T>();
     }
 
     template <>
@@ -695,7 +694,6 @@ namespace MbD
     inline double FullMatrix<T>::sumOfSquares()
     {
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
 
     template <typename T>
@@ -1022,7 +1020,7 @@ namespace MbD
                 return false;
             for (size_t j = 0; j < rowi->size(); j++)
             {
-                if (!Array<double>::equaltol((double)rowi->at(j), (double)rowi2->at(j), tol))
+                if (!Numeric::equaltol((double)rowi->at(j), (double)rowi2->at(j), tol))
                     return false;
             }
         }

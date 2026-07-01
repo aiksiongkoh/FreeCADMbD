@@ -10,10 +10,14 @@
 #include <cassert>
 #include <algorithm>
 #include <numeric>
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <limits>
+#include <numbers>
+#include <utility>
 
 #include "ASMTAssembly.h"
 #include "ASMTRevoluteJoint.h"
@@ -75,10 +79,58 @@ namespace
 {
     constexpr auto FreeCADMotionHeader = "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
     constexpr auto OndselSolverHeader = "OndselSolver";
+    constexpr auto SmallPendulumAmplitude = 1.0e-12;
+    constexpr auto SmallPendulumVelocity = 1.0e-12;
 
     bool isASMTHeader(const std::string& line)
     {
         return line == FreeCADMotionHeader || line == OndselSolverHeader;
+    }
+
+    double signum(double value)
+    {
+        if (value < 0.0) return -1.0;
+        if (value > 0.0) return 1.0;
+        return 0.0;
+    }
+
+    double inverseJacobiSn(double sn, double modulus)
+    {
+        sn = std::clamp(sn, -1.0, 1.0);
+        return std::ellint_1(modulus, std::asin(sn));
+    }
+
+    std::pair<double, double> jacobiSnCnFromU(double u, double modulus)
+    {
+        const auto kComplete = std::comp_ellint_1(modulus);
+        const auto period = 4.0 * kComplete;
+        auto reducedU = std::fmod(u, period);
+        if (reducedU < 0.0) reducedU += period;
+
+        auto signSn = 1.0;
+        auto signCn = 1.0;
+        if (reducedU > 2.0 * kComplete) {
+            reducedU -= 2.0 * kComplete;
+            signSn = -1.0;
+            signCn = -1.0;
+        }
+        if (reducedU > kComplete) {
+            reducedU = 2.0 * kComplete - reducedU;
+            signCn = -signCn;
+        }
+
+        double phi = std::clamp(reducedU, 0.0, std::numbers::pi / 2.0);
+        for (size_t i = 0; i < 12; ++i) {
+            const auto sinPhi = std::sin(phi);
+            const auto cosPhi = std::cos(phi);
+            const auto root = std::sqrt(std::max(0.0, 1.0 - modulus * modulus * sinPhi * sinPhi));
+            const auto residual = std::ellint_1(modulus, phi) - reducedU;
+            const auto correction = residual * root;
+            phi -= correction;
+            if (std::abs(correction) <= 2.0 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(phi))) break;
+            if (cosPhi == 0.0) break;
+        }
+        return { signSn * std::sin(phi), signCn * std::cos(phi) };
     }
 }
 
@@ -385,6 +437,62 @@ void ASMTAssembly::runSinglePendulum()
     assembly->setSimulationParameters(simulationParameters);
     //
     assembly->runKINEMATIC();
+}
+
+ASMTAssembly::SimplePendulumMotion ASMTAssembly::exactSimplePendulumMotion(
+    double time,
+    double length,
+    double gravity,
+    double initialTheta,
+    double initialOmega)
+{
+    //Origin is at pivot.
+    //x is to the right.
+    //y is up
+    //Point mass hanging down. 
+    //Positive gravity is down.
+    //theta is counter clockwise rotation from down direction (-y dir).
+    if (length <= 0.0) throw SimulationStoppingError("Simple pendulum length must be positive.");
+    if (gravity <= 0.0) throw SimulationStoppingError("Simple pendulum gravity must be positive.");
+
+    const auto naturalFrequency = std::sqrt(gravity / length);
+    const auto energy = (0.5 * initialOmega * initialOmega) - (naturalFrequency * naturalFrequency * std::cos(initialTheta));
+    if (energy >= naturalFrequency * naturalFrequency) {
+        throw SimulationStoppingError("Exact simple pendulum motion supports bounded oscillation only.");
+    }
+
+    const auto thetaMax = std::acos(-energy / (naturalFrequency * naturalFrequency));
+    const auto modulus = std::sin(0.5 * thetaMax);
+    double theta = 0.0;
+    double omega = 0.0;
+
+    if (std::abs(modulus) <= SmallPendulumAmplitude) {
+        theta = initialTheta * std::cos(naturalFrequency * time)
+            + (initialOmega / naturalFrequency) * std::sin(naturalFrequency * time);
+        omega = -initialTheta * naturalFrequency * std::sin(naturalFrequency * time)
+            + initialOmega * std::cos(naturalFrequency * time);
+    }
+    else {
+        const auto initialSn = std::sin(0.5 * initialTheta) / modulus;
+        const auto u0 = inverseJacobiSn(initialSn, modulus);
+        auto direction = signum(initialOmega);
+        if (direction == 0.0) direction = initialTheta >= 0.0 ? -1.0 : 1.0;
+        const auto u = u0 + (direction * naturalFrequency * time);
+        const auto [sn, cn] = jacobiSnCnFromU(u, modulus);
+        theta = 2.0 * std::asin(std::clamp(modulus * sn, -1.0, 1.0));
+        omega = 2.0 * modulus * cn * direction * naturalFrequency;
+        if (std::abs(omega) <= SmallPendulumVelocity) omega = 0.0;
+    }
+
+    SimplePendulumMotion motion;
+    motion.theta = theta;
+    motion.omega = omega;
+    // theta = 0 hangs straight down, so positive theta moves the bob toward +x.
+    motion.x = length * std::sin(theta);
+    motion.y = -length * std::cos(theta);
+    motion.vx = length * std::cos(theta) * omega;
+    motion.vy = length * std::sin(theta) * omega;
+    return motion;
 }
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::assemblyFromFile(const std::string &fileName)
@@ -1544,19 +1652,6 @@ std::shared_ptr<StateData> ASMTAssembly::dataFromMbD()
     data->aFfF = zeroCol;
     data->alpFfF = zeroCol;
     return data;
-}
-
-void ASMTAssembly::compareResults(AnalysisType type)
-{
-    ASMTSpatialContainer::compareResults(type);
-    for (auto part : *parts)
-        part->compareResults(type);
-    for (auto joint : *joints)
-        joint->compareResults(type);
-    for (auto motion : *motions)
-        motion->compareResults(type);
-    for (auto forceTorque : *forcesTorques)
-        forceTorque->compareResults(type);
 }
 
 void ASMTAssembly::compareResults2(AnalysisType type)

@@ -21,7 +21,6 @@ std::shared_ptr<MatrixDecomposition> MatrixDecomposition::With()
 FColDsptr MatrixDecomposition::forAndBackSubsaveOriginal(FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void MatrixDecomposition::applyRowOrderOnRightHandSideB()
@@ -37,7 +36,6 @@ void MatrixDecomposition::applyRowOrderOnRightHandSideB()
 FColDsptr MatrixDecomposition::basicSolvewithsaveOriginal(FMatDsptr, FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void MatrixDecomposition::forwardSubstituteIntoL()

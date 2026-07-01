@@ -40,7 +40,6 @@ std::shared_ptr<ConstraintSet> ASMTConstraintSet::mbdClassNew()
 {
     // Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<ConstraintSet>();
 }
 
 void ASMTConstraintSet::updateFromMbD()
@@ -76,86 +75,27 @@ std::shared_ptr<StateData> ASMTConstraintSet::dataFromMbD()
     return answer;
 }
 
-void ASMTConstraintSet::compareResults(AnalysisType)
-{
-    // Redundant constraint removal is very sensitive to numerical noise.
-    // Joint ForceTorque can change a lot when new and old redundant constraints are not the same.
-    if (infxs == nullptr || infxs->empty())
-        return;
-    auto lambda = [&](std::string name, std::shared_ptr<std::vector<FColDsptr>> cols, size_t icomp, FRowDsptr invals, size_t i, size_t nSig, double tol)
-    {
-        auto val = cols->at(i)->at(icomp);
-        auto inval = invals->at(i);
-        auto tol2 = tol / 10.0;
-        if (std::abs(val) < tol2 && std::abs(inval) < tol2)
-            return;
-        auto ratio = val / inval;
-        auto relDiff = std::abs(ratio) - 1.0;
-        if (ratio < 0.0)
-        {
-            std::cout << "                    Sign Error ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << " Redundant Constraint Differences??? ";
-            std::cout << std::endl;
-        }
-        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
-        {
-            std::cout << "                    ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << " Redundant Constraint Differences??? ";
-            std::cout << std::endl;
-        }
-    };
-
-    auto mbdUnts = mbdUnits();
-    size_t nDigit = 3;
-    auto factor = std::pow(10, -int(nDigit));
-    auto forceTol = mbdUnts->force * factor;
-    auto torqueTol = mbdUnts->torque * factor;
-    auto i = cFIO->size() - 1;
-    // Force
-    lambda("FIOx", cFIO, 0, infxs, i, nDigit, forceTol);
-    lambda("FIOy", cFIO, 1, infys, i, nDigit, forceTol);
-    lambda("FIOz", cFIO, 2, infzs, i, nDigit, forceTol);
-    // Torque
-    lambda("TIOx", cTIO, 0, intxs, i, nDigit, torqueTol);
-    lambda("TIOy", cTIO, 1, intys, i, nDigit, torqueTol);
-    lambda("TIOz", cTIO, 2, intzs, i, nDigit, torqueTol);
-}
-
 void ASMTConstraintSet::compareResults2(AnalysisType type)
 {
     // Redundant constraint removal is very sensitive to numerical noise.
     // Joint ForceTorque can change a lot when new and old redundant constraints are not the same.
     if (dataSeriesIn == nullptr || dataSeriesIn->empty())
         return;
+
     auto lambda = [&](std::string name, size_t i, FColDsptr col, FColDsptr incol, size_t nSig, double tol)
     {
         auto val = col->at(i);
         auto inval = incol->at(i);
-        auto tol2 = tol / 10.0;
-        if (std::abs(val) < tol2 && std::abs(inval) < tol2)
-            return;
-        auto ratio = val / inval;
-        auto relDiff = std::abs(ratio) - 1.0;
-        if (ratio < 0.0)
+        auto hasOutput = hasOutputEqualTol(name, val, inval, nSig, tol);
+        if (hasOutput)
         {
-            std::cout << "                    Sign Error ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << " Redundant Constraint Differences??? ";
-            std::cout << std::endl;
-        }
-        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
-        {
-            std::cout << "                    ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
             std::cout << " Redundant Constraint Differences??? ";
             std::cout << std::endl;
         }
     };
 
     auto mbdUnts = mbdUnits();
-    size_t nDigit = 3;
+    size_t nDigit = ASMTAssembly::resultComparisonDigits;
     auto factor = std::pow(10, -int(nDigit));
     auto forceTol = mbdUnts->force * factor;
     auto torqueTol = mbdUnts->torque * factor;

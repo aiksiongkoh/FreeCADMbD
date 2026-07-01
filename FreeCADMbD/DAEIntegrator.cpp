@@ -117,7 +117,6 @@ void DAEIntegrator::checkForDiscontinuity()
 double DAEIntegrator::suggestSmallerOrAcceptFirstStepSize(double hnew)
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 FColDsptr DAEIntegrator::integrationRelativeTolerance()

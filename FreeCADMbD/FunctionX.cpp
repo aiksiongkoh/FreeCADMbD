@@ -33,7 +33,6 @@ void FunctionX::arguments(Symsptr args)
 Symsptr FunctionX::copyWith(Symsptr)
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 Symsptr FunctionX::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>> set)
@@ -98,13 +97,11 @@ Symsptr FunctionX::integrateWRT(Symsptr var)
 Symsptr FunctionX::differentiateWRTx()
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 Symsptr FunctionX::integrateWRTx()
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 void FunctionX::createMbD()
@@ -115,7 +112,6 @@ void FunctionX::createMbD()
 double FunctionX::getValue()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 bool FunctionX::isConstant()

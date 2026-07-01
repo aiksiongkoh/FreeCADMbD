@@ -28,7 +28,7 @@ namespace MbD {
         void basicSolveEquations();
         void handleSingularMatrix() override;
         void logSingularMatrixMessage();
-        std::shared_ptr<MatrixSolver> matrixSolverClassNew();
+        virtual std::shared_ptr<MatrixSolver> matrixSolverClassNew();
         void solveEquations();
         void setSystem(Solver* sys) override;
 

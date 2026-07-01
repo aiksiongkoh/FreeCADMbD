@@ -32,7 +32,6 @@ std::shared_ptr<MBDynDrive> MBDynDrive::newDrive(std::string statement)
         return MBDynDriveString::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynDrive>();
 }
 
 void MBDynDrive::parseMBDyn(std::string line)

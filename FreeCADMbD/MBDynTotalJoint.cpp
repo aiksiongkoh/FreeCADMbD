@@ -234,5 +234,4 @@ std::shared_ptr<ASMTJoint> MBDynTotalJoint::asmtJointNew()
         orientationConstraints[2] == "inactive"
         )    return ASMTPointInPlaneJoint::With();
     throw SimulationStoppingError("To be implemented.");
-    return ASMTJoint::With();
 }

@@ -11,7 +11,6 @@
 #include "AssemblyFrame.h"
 #include "Part.h"
 #include "EulerConstraint.h"
-#include "AbsConstraint.h"
 #include "MarkerFrame.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"

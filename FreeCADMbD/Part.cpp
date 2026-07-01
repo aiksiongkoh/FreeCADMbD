@@ -211,11 +211,6 @@ void Part::setSystem(System *sys)
     system = sys;
 }
 
-void Part::asFixed()
-{
-    partFrame->asFixed();
-}
-
 void Part::postInput()
 {
     partFrame->postInput();

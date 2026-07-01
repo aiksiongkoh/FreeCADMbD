@@ -18,6 +18,7 @@ namespace MbD {
         TranslationConstraintIeqtJeq(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi) : TranslationConstraintIeqJeq(frmi, frmj, axisi) {}
         static std::shared_ptr<TranslationConstraintIeqtJeq> With(EndFrmsptr frmi, EndFrmsptr frmj, size_t axisi);
 
+        void fillPosICJacob(SpMatDsptr mat) override;
         void fillAccICIterError(FColDsptr col) override;
         void fillVelICError(FColDsptr col) override;
         void preAccIC() override;

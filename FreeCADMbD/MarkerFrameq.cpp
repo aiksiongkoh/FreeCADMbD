@@ -440,7 +440,6 @@ FColDsptr MarkerFrameq::vOmO() const
 FColDsptr MarkerFrameq::vOeO_of_rmem() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr MarkerFrameq::aOmO() const

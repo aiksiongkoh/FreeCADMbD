@@ -50,13 +50,11 @@ namespace MbD {
         FRowDsptr pvaluepEJ();
         FRowDsptr pvaluepXJ();
         FRowDsptr pvaluepEK();
-        FRowDsptr pvaluepXK();
         FRowDsptr pvaluepEdotI();
         FRowDsptr pvaluepXdotI();
         FRowDsptr pvaluepEdotJ();
         FRowDsptr pvaluepXdotJ();
         FRowDsptr pvaluepEdotK();
-        FRowDsptr pvaluepXdotK();
         SpRowDsptr pvalueplam();
         SpatialContainerFrame* partFrameI();
         SpatialContainerFrame* partFrameJ();

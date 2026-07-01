@@ -67,7 +67,6 @@ namespace MbD
         virtual void createMbD();
         virtual void updateFromMbD();
         virtual std::shared_ptr<StateData> dataFromMbD();
-        virtual void compareResults(AnalysisType type);
         virtual void compareResults2(AnalysisType type);
         virtual void outputResults(AnalysisType type);
         std::shared_ptr<Units> asmtUnits();
@@ -88,6 +87,7 @@ namespace MbD
         void storeOnArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<double>> arr);
         void storeOnArrayArray(std::ofstream &os, const std::string &str, std::shared_ptr<std::vector<FColDsptr>> arrarr, size_t i);
         void logString(const std::string &str);
+        bool hasOutputEqualTol(std::string name, double val, double inval, size_t nSig, double tol);
 
         std::string name;
         ASMTItem *owner = nullptr;

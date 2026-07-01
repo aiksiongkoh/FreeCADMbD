@@ -205,8 +205,6 @@ void ASMTPart::createMbD()
     mbdPart->qEddot(std::make_shared<FullColumn<double>>(4, 0));
     mbdSys()->addPart(mbdPart);
     ASMTSpatialContainer::createMbD();
-    if (isFixed)
-        std::static_pointer_cast<Part>(mbdObject)->asFixed();
 }
 
 void ASMTPart::updateFromMbD()

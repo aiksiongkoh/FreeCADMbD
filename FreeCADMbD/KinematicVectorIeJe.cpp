@@ -102,11 +102,6 @@ void KinematicVectorIeJe::calcppVectorpEJpEJ()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicVectorIeJe::calcpVectorpXK()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 void KinematicVectorIeJe::calcpVectorpEK()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -168,11 +163,6 @@ void KinematicVectorIeJe::calcppVectorpXJpt()
 }
 
 void KinematicVectorIeJe::calcppVectorpEJpt()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
-void KinematicVectorIeJe::calcppVectorpXKpt()
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -257,11 +247,6 @@ FMatFColDsptr KinematicVectorIeJe::getppVectorpEJpEJ()
     throw SimulationStoppingError("To be implemented.");
 }
 
-FMatDsptr KinematicVectorIeJe::getpVectorpXK()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 FMatDsptr KinematicVectorIeJe::getpVectorpEK()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -342,11 +327,6 @@ FMatDsptr KinematicVectorIeJe::getppVectorpEJpt()
     throw SimulationStoppingError("To be implemented.");
 }
 
-FMatDsptr KinematicVectorIeJe::getppVectorpXKpt()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 FMatDsptr KinematicVectorIeJe::getppVectorpEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -365,7 +345,6 @@ FMatDsptr KinematicVectorIeJe::getppCompipEJpEJ(size_t axis)
 double KinematicVectorIeJe::value()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 bool KinematicVectorIeJe::hasSameEndFrms(const std::shared_ptr<KinematicVectorIeJe> other) const

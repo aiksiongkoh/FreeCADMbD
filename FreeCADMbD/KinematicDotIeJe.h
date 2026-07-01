@@ -31,7 +31,6 @@ namespace MbD {
         virtual FRowDsptr pvaluepEdotK();
         virtual FRowDsptr pvaluepXdotI();
         virtual FRowDsptr pvaluepXdotJ();
-        virtual FRowDsptr pvaluepXdotK();
 
     };
 }

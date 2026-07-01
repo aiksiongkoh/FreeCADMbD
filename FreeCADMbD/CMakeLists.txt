@@ -8,7 +8,6 @@ endif()
 
 set(FREECADMBD_SRC
 		Abs.cpp
-		AbsConstraint.cpp
 		AccICKineNewtonRaphson.cpp
 		AccICNewtonRaphson.cpp
 		AccKineNewtonRaphson.cpp
@@ -460,7 +459,6 @@ set(FREECADMBD_SRC
 
 set(FREECADMBD_HEADERS
 		Abs.h
-		AbsConstraint.h
 		AccICKineNewtonRaphson.h
 		AccICNewtonRaphson.h
 		AccKineNewtonRaphson.h
@@ -664,6 +662,7 @@ set(FREECADMBD_HEADERS
 		EndFrameqt.h
 		EndFrameqt2.h
 		enum.h
+		ExactPendulum.h
 		EulerAngles.h
 		EulerAnglesDDot.h
 		EulerAnglesDot.h
@@ -916,6 +915,12 @@ set(FREECADMBD_HEADERS
 target_sources(FreeCADMbD PRIVATE
         "${FREECADMBD_SRC}"
         "${FREECADMBD_HEADERS}")
+
+find_package(Boost REQUIRED COMPONENTS math)
+
+target_link_libraries(FreeCADMbD
+        PUBLIC
+                Boost::math)
 
 set_target_properties(FreeCADMbD
         PROPERTIES VERSION ${PROJECT_VERSION}

@@ -10,6 +10,8 @@
 #include <limits>
 #include <memory>
 #include <chrono>
+#include <sstream>
+#include <typeinfo>
 
 #include "MatrixSolver.h"
 #include "SparseMatrix.h"
@@ -18,6 +20,25 @@
 #include "SimulationStoppingError.h"
 
 using namespace MbD;
+
+namespace
+{
+    std::string singularMatrixMessage(const MatrixSolver& solver, const std::string& context)
+    {
+        std::stringstream ss;
+        ss << "Singular matrix";
+        if (!context.empty())
+        {
+            ss << " in " << context;
+        }
+        ss << " using " << typeid(solver).name()
+           << " [m=" << solver.m
+           << ", n=" << solver.n
+           << ", singularPivotTolerance=" << solver.singularPivotTolerance
+           << "]";
+        return ss.str();
+    }
+}
 
 std::shared_ptr<MatrixSolver> MatrixSolver::With()
 {
@@ -70,21 +91,18 @@ FColDsptr MatrixSolver::timedSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr f
 FColDsptr MatrixSolver::timedSolvewithsaveOriginal(FMatDsptr, FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr MatrixSolver::basicSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr fullCol, bool saveOriginal)
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr MatrixSolver::basicSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr fullCol, bool saveOriginal)
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void MatrixSolver::preSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr fullCol, bool saveOriginal)
@@ -130,7 +148,7 @@ void MatrixSolver::findScalingsForRowRange(size_t begin, size_t end)
     for (size_t i = begin; i < end; i++)
     {
         double maxRowMagnitude = getmatrixArowimaxMagnitude(i);
-        if (maxRowMagnitude == 0.0) throwSingularMatrixError("");
+        if (maxRowMagnitude == 0.0) throwSingularMatrixError("findScalingsForRowRange");
         rowScalings->at(i) = 1.0 / maxRowMagnitude;
     }
 }
@@ -139,15 +157,21 @@ double MatrixSolver::getmatrixArowimaxMagnitude(size_t i)
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void MatrixSolver::throwSingularMatrixError(const std::string& str)
 {
-    throw SingularMatrixError(str);
+    throw SingularMatrixError(singularMatrixMessage(*this, str));
 }
 
 void MatrixSolver::throwSingularMatrixError(const std::string& str, std::shared_ptr<FullColumn<size_t>> redunEqnNos)
 {
-    throw SingularMatrixError(str, redunEqnNos);
+    auto message = singularMatrixMessage(*this, str);
+    if (redunEqnNos)
+    {
+        std::stringstream ss;
+        ss << message << " [redundantEqnNos=" << redunEqnNos->size() << "]";
+        message = ss.str();
+    }
+    throw SingularMatrixError(message, redunEqnNos);
 }

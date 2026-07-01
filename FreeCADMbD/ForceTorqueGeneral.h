@@ -86,13 +86,9 @@ namespace MbD {
         FMatDsptr pTIeOpEK;
         FMatDsptr pTJeOpEK;
 
-        FMatDsptr pQXIpXK;
         FMatDsptr pQXIpEK;
-        FMatDsptr pQEIpXK;
         FMatDsptr pQEIpEK;
-        FMatDsptr pQXJpXK;
         FMatDsptr pQXJpEK;
-        FMatDsptr pQEJpXK;
         FMatDsptr pQEJpEK;
 
     };

@@ -12,6 +12,7 @@
 #include "EndFrameqt.h"
 #include "DispIeqJeKeq.h"
 #include "DispIeqJeqKeq.h"
+#include "DispIeqtJeqKeqt.h"
 #include "DispIeJeqKe.h"
 #include "DispIetJeqKet.h"
 #include "SimulationStoppingError.h"
@@ -28,7 +29,7 @@ std::shared_ptr<DispIeJeKe> DispIeJeKe::With(EndFrmsptr frmi, EndFrmsptr frmj, E
             throwUnsupportedFrameCombination(factoryName);
         }
         else if (std::dynamic_pointer_cast<EndFrameq>(frmj)) {
-            throwUnsupportedFrameCombination(factoryName);
+            inst = std::make_shared<DispIeqtJeqKeqt>(frmi, frmj, frmk);
         }
         else if (std::dynamic_pointer_cast<EndFramet>(frmj)) {
             throwUnsupportedFrameCombination(factoryName);

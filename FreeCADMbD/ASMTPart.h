@@ -40,7 +40,6 @@ namespace MbD {
 
         //std::shared_ptr<std::vector<std::shared_ptr<ASMTFeature>>> featureOrder;
         std::shared_ptr<std::vector<std::shared_ptr<PosVelAccData>>> partSeries;
-        bool isFixed = false;
         std::shared_ptr<ASMTMarkerTemp> principalMassMarker = nullptr;
 
     };

@@ -38,17 +38,16 @@ bool Numeric::equaltol(double x, double xx, double tol)
 
 bool Numeric::equalDigitTol(double x, double xx, size_t nDigit, double tol)
 {
-    if (std::abs(x) < tol && std::abs(xx) < tol)
-        return true;
+    if (equaltol(x, xx, tol)) return true;
     auto ratio = x / xx;
-    if (ratio < 0.0)
-        return false; // Sign error.
+    if (std::abs(ratio) < 1.0) ratio = xx / x;
+    if (ratio < 0.0) return false; // Sign error.
     auto relDiff = ratio - 1.0;
-    return std::abs(relDiff) < std::pow(10, -int(nDigit));
+    return relDiff < std::pow(10, -int(nDigit));
 }
 
 bool Numeric::anglesEqual(double a, double b, double tol)
 {
-    double d = std::remainder(a - b, 2.0 * std::numbers::pi); // in [-pi, pi]
+    double d = std::remainder(a - b, 2.0 * std::numbers::pi);
     return std::abs(d) <= tol;
 }

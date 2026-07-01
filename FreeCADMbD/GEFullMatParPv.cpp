@@ -49,7 +49,7 @@ void GEFullMatParPv::doPivoting(size_t p)
         rowOrder->swapElems(p, rowPivot);
     }
     pivotValues->at(p) = max;
-    if (max < singularPivotTolerance) throwSingularMatrixError("");
+    if (max < singularPivotTolerance) throwSingularMatrixError("GEFullMatParPv::doPivoting");
 }
 
 void GEFullMatParPv::postSolve()

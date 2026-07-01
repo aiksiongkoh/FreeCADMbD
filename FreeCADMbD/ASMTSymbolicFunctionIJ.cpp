@@ -26,13 +26,11 @@ std::shared_ptr<KinematicIeJe> ASMTSymbolicFunctionIJ::mbdClassNew()
 {
     //Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<KinematicIeJe>();
 }
 
 std::shared_ptr<KinematicIeJe> MbD::ASMTSymbolicFunctionIJ::mbdKineIeJeWith(EndFrmsptr frmi, EndFrmsptr frmj)
 {
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<KinematicIeJe>();
 }
 
 void ASMTSymbolicFunctionIJ::createMbD()
@@ -49,7 +47,6 @@ void ASMTSymbolicFunctionIJ::createMbD()
 double ASMTSymbolicFunctionIJ::asmtUnit()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void MbD::ASMTSymbolicFunctionIJ::useUniqueDispIeJeO()

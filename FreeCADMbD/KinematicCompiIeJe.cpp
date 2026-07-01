@@ -93,11 +93,6 @@ FMatDsptr KinematicCompiIeJe::ppvaluepEJpEJ()
     return componentMatrixFrom(kineVector()->getppVectorpEJpEJ());
 }
 
-FRowDsptr KinematicCompiIeJe::pvaluepXK()
-{
-    return componentRowFrom(kineVector()->getpVectorpXK());
-}
-
 FRowDsptr KinematicCompiIeJe::pvaluepEK()
 {
     return componentRowFrom(kineVector()->getpVectorpEK());
@@ -156,11 +151,6 @@ FRowDsptr KinematicCompiIeJe::ppvaluepXJpt()
 FRowDsptr KinematicCompiIeJe::ppvaluepEJpt()
 {
     return componentRowFrom(kineVector()->getppVectorpEJpt());
-}
-
-FRowDsptr KinematicCompiIeJe::ppvaluepXKpt()
-{
-    return componentRowFrom(kineVector()->getppVectorpXKpt());
 }
 
 FRowDsptr KinematicCompiIeJe::ppvaluepEKpt()

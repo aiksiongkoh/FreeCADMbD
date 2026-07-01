@@ -182,7 +182,7 @@ void DynIntegrator::run()
             try {
                 DAEIntegrator::run();
             }
-            catch (SingularMatrixError ex) {
+            catch (const SingularMatrixError& ex) {
                 std::stringstream ss;
                 ss << "MbD: Solver has encountered a singular matrix." << std::endl;
                 ss << "MbD: Check to see if a massless or a very low mass part is under constrained." << std::endl;

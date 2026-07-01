@@ -55,7 +55,6 @@ namespace MbD {
         void createMbD() override;
         void updateMbDFromPosition3D(FColDsptr position3D);
         ASMTSpatialContainer* partOrAssembly() override;
-        void compareResults(AnalysisType type) override;
         void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void addRefPoint(std::shared_ptr<ASMTRefPoint> refPoint);

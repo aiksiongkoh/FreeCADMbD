@@ -44,6 +44,11 @@ void TranslationConstraintIeqtJeq::preAccIC()
     ppGptpt = riIeJeIe->ppvalueptpt();
 }
 
+void MbD::TranslationConstraintIeqtJeq::fillPosICJacob(SpMatDsptr mat)
+{
+    TranslationConstraintIeqJeq::fillPosICJacob(mat);
+}
+
 void TranslationConstraintIeqtJeq::fillAccICIterError(FColDsptr col)
 {
     TranslationConstraintIeqJeq::fillAccICIterError(col);

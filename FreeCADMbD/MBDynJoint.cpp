@@ -71,7 +71,6 @@ std::shared_ptr<MBDynJoint> MBDynJoint::newJoint(std::string statement)
         return MBDynRodJoint::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynJoint>();
 }
 
 void MBDynJoint::initialize()

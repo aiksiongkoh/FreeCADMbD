@@ -10,7 +10,6 @@ std::shared_ptr<MBDynGenel> MBDynGenel::newGenel(std::string statement)
         return MBDynClampGenel::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynGenel>();
 }
 
 void MBDynGenel::parseMBDyn(std::string line)

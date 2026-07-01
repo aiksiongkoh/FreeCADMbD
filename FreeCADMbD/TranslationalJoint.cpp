@@ -41,3 +41,8 @@ void TranslationalJoint::initializeGlobally()
         JointIJ::initializeGlobally();
     }
 }
+
+void MbD::TranslationalJoint::preAccIC()
+{
+        InLineJoint::preAccIC();
+}

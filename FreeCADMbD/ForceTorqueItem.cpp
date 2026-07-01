@@ -39,5 +39,4 @@ void ForceTorqueItem::postCollisionPredictor()
 FColDsptr ForceTorqueItem::getFTIeO() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }

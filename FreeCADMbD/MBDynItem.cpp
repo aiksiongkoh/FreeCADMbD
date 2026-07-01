@@ -560,7 +560,6 @@ size_t MBDynItem::readInt(const std::string& line)
 bool MBDynItem::readBool(const std::string& line)
 {
     throw SimulationStoppingError("To be implemented.");
-    return false;
 }
 
 std::string MBDynItem::asmtFormula(std::string mbdynFormula)

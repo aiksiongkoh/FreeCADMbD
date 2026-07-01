@@ -23,7 +23,6 @@ namespace MbD {
     class Part;
     class MarkerFrame;
     class EulerConstraint;
-    class AbsConstraint;
 
     class PartFrame : public SpatialContainerFrame
     {
@@ -39,7 +38,6 @@ namespace MbD {
         System* root() override;
         void initializeLocally() override;
         void initializeGlobally() override;
-        void asFixed();
         void postInput() override;
         void simUpdateAll() override;
 

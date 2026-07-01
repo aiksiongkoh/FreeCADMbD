@@ -38,8 +38,11 @@ void DispIeqtJeqKeqt::preVelIC()
 void DispIeqtJeqKeqt::preAccIC()
 {
     DispIeqJeqKeq::preAccIC();
+    calcppVectorpXIpt();
+    calcppVectorpEIpt();
     calcppVectorpXJpt();
     calcppVectorpEJpt();
+    calcppVectorpEKpt();
     calcppVectorptpt();
 }
 
@@ -115,15 +118,20 @@ FColDsptr DispIeqtJeqKeqt::getpVectorpt()
 
 FMatDsptr DispIeqtJeqKeqt::getppVectorpXIpt()
 {
-    return pprIeJeKepEIpt;
+    return pprIeJeKepXIpt;
 }
 
 FMatDsptr DispIeqtJeqKeqt::getppVectorpEJpt()
 {
-    return pprIeJeKepEIpt;
+    return pprIeJeKepEJpt;
 }
 
 FMatDsptr DispIeqtJeqKeqt::getppVectorpEIpt()
 {
     return pprIeJeKepEIpt;
+}
+
+FMatDsptr MbD::DispIeqtJeqKeqt::getppVectorpXJpt()
+{
+    return pprIeJeKepXJpt;
 }

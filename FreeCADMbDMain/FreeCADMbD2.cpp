@@ -92,7 +92,6 @@ int main(int argc, char* argv[])
 	ASMTAssembly::runSinglePendulumSimplified();
 	ASMTAssembly::runSinglePendulum();
 	auto cadSystem = std::make_shared<CADSystem>();
-	cadSystem->runOndselSinglePendulum();
 	cadSystem->runOndselDoublePendulum();
 	//cadSystem->runOndselPiston();		//For debugging
 	cadSystem->runPiston();
