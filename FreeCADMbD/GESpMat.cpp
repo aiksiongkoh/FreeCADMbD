@@ -48,7 +48,6 @@ FColDsptr GESpMat::basicSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr fullCo
 FColDsptr GESpMat::basicSolvewithsaveOriginal(FMatDsptr, FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void GESpMat::preSolvewithsaveOriginal(FMatDsptr, FColDsptr, bool)

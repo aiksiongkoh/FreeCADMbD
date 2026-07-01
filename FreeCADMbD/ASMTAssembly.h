@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #pragma once
+#include <cstddef>
 #include <fstream>    
 
 #include "ASMTSpatialContainer.h"
@@ -34,13 +35,29 @@ namespace MbD {
     {
         //
     public:
+        struct SimplePendulumMotion
+        {
+            // theta is measured from the downward vertical in the x-y plane.
+            double theta = 0.0;
+            // omega is d(theta)/dt about the +z axis.
+            double omega = 0.0;
+            // Bob position relative to the pivot: x right, y up.
+            double x = 0.0;
+            double y = 0.0;
+            // Bob velocity components in the same x-y frame.
+            double vx = 0.0;
+            double vy = 0.0;
+        };
+
         ASMTAssembly() {}
+        static constexpr size_t resultComparisonDigits = 3;
         static std::shared_ptr<ASMTAssembly> With();
         void initialize() override;
         static void runSinglePendulumSuperSimplified();
         static void runSinglePendulumSuperSimplified2();
         static void runSinglePendulumSimplified();
         static void runSinglePendulum();
+        static SimplePendulumMotion exactSimplePendulumMotion(double time, double length, double gravity, double initialTheta, double initialOmega = 0.0);
         static std::shared_ptr<ASMTAssembly> assemblyFromFile(const std::string& str);
         static std::shared_ptr<ASMTAssembly> runDynFile(const std::string& fileName);
         static std::shared_ptr<ASMTAssembly> runKineFile(const std::string& fileName);
@@ -113,7 +130,6 @@ namespace MbD {
         std::shared_ptr<ASMTTime> geoTime() const;
         void updateFromMbD() override;
         std::shared_ptr<StateData> dataFromMbD() override;
-        void compareResults(AnalysisType type) override;
         void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void addTime(std::shared_ptr<ASMTTime> time);

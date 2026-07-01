@@ -351,7 +351,6 @@ namespace MbD
     inline FColsptr<T> FullColumn<T>::simplified()
     {
         throw SimulationStoppingError("To be implemented.");
-        return FColsptr<T>();
     }
 
     template <typename T>

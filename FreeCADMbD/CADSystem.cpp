@@ -20,7 +20,9 @@
 #include "SystemSolver.h"
 #include "Part.h"
 #include "MarkerFrame.h"
+#include "MarkerFrameq.h"
 #include "PartFrame.h"
+#include "AssemblyFrame.h"
 #include "SymTime.h"
 #include "StateData.h"
 #include "EulerParameters.h"
@@ -66,17 +68,17 @@ void CADSystem::logString(double)
     throw SimulationStoppingError("To be implemented.");
 }
 
-void CADSystem::runOndselSinglePendulum()
+void CADSystem::runSinglePendulum()
 {
     //Double pendulum with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
-    std::cout << "runOndselSinglePendulum" << std::endl;
-    auto TheSystem = mbdSystem;
-    TheSystem->clear();
-    std::string name = "TheSystem";
-    TheSystem->name = name;
-    std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto systemSolver = TheSystem->systemSolver;
+    std::cout << "runSinglePendulum" << std::endl;
+    auto TheSystemOrAssembly = mbdSystem;
+    TheSystemOrAssembly->clear();
+    std::string name = "TheSystemOrAssembly";
+    TheSystemOrAssembly->name = name;
+    std::cout << "TheSystemOrAssembly->name " << TheSystemOrAssembly->name << std::endl;
+    auto systemSolver = TheSystemOrAssembly->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -85,7 +87,7 @@ void CADSystem::runOndselSinglePendulum()
     systemSolver->tend = 0.04;
     systemSolver->hmin = 1.0e-9;
     systemSolver->hmax = 1.0;
-    systemSolver->hout = 0.04;
+    systemSolver->hout = 0.01;
     systemSolver->corAbsTol = 1.0e-6;
     systemSolver->corRelTol = 1.0e-6;
     systemSolver->intAbsTol = 1.0e-6;
@@ -101,26 +103,11 @@ void CADSystem::runOndselSinglePendulum()
     FMatDsptr aAap, aApm;
     FRowDsptr fullRow;
     //
-    auto assembly1 = Part::With("/Assembly1");
-    std::cout << "assembly1->name " << assembly1->name << std::endl;
-    assembly1->m = 0.0;
-    assembly1->aJ = DiagonalMatrix<double>::With(ListD{ 0, 0, 0 });
-    qX = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    aAap = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
-    assembly1->setqX(qX);
-    assembly1->setaAap(aAap);
-    qXdot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    assembly1->setqXdot(qXdot);
-    assembly1->setomeOpO(omeOpO);
-    TheSystem->addPart(assembly1);
+    auto assemblyFrame = TheSystemOrAssembly->asmFrame;
+    assemblyFrame->name = "/Assembly1";
+    std::cout << "assembly1->name " << assemblyFrame->name << std::endl;
     {
-        auto partFrame = assembly1->partFrame;
-        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
+        auto marker2 = assemblyFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -129,9 +116,9 @@ void CADSystem::runOndselSinglePendulum()
             { 0, 0, 1 }
             });
         marker2->setaApm(aApm);
-        partFrame->addMarkerFrame(marker2);
+        assemblyFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
+        auto marker1 = assemblyFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -140,29 +127,28 @@ void CADSystem::runOndselSinglePendulum()
             { 0, -1, 0 }
             });
         marker1->setaApm(aApm);
-        partFrame->addMarkerFrame(marker1);
+        assemblyFrame->addMarkerFrame(marker1);
     }
-    assembly1->asFixed();
     //
-    auto crankPart1 = Part::With("/Assembly1/Part1");
-    std::cout << "crankPart1->name " << crankPart1->name << std::endl;
-    crankPart1->m = 1.0;
-    crankPart1->aJ = DiagonalMatrix<double>::With(ListD{ 1, 1, 1 });
+    auto pendulum = Part::With("/Assembly1/Part1");
+    std::cout << "pendulum->name " << pendulum->name << std::endl;
+    pendulum->m = 1.0;
+    pendulum->aJ = DiagonalMatrix<double>::With(ListD{ 1, 1, 1 });
     qX = std::make_shared<FullColumn<double>>(ListD{ 0.4, 0.0, -0.05 });
     aAap = FullMatrix<double>::With(ListListD{
         { 1, 0, 0 },
         { 0, 1, 0 },
         { 0, 0, 1 }
         });
-    crankPart1->setqX(qX);
-    crankPart1->setaAap(aAap);
+    pendulum->setqX(qX);
+    pendulum->setaAap(aAap);
     qXdot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
     omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    crankPart1->setqXdot(qXdot);
-    crankPart1->setomeOpO(omeOpO);
-    TheSystem->addPart(crankPart1);
+    pendulum->setqXdot(qXdot);
+    pendulum->setomeOpO(omeOpO);
+    TheSystemOrAssembly->addPart(pendulum);
     {
-        auto partFrame = crankPart1->partFrame;
+        auto partFrame = pendulum->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ -0.4, 0.0, 0.05 });
         marker1->setrpmp(rpmp);
@@ -188,17 +174,17 @@ void CADSystem::runOndselSinglePendulum()
     //
     auto revJoint1 = RevoluteJoint::With("/Assembly1/Joint1");
     std::cout << "revJoint1->name " << revJoint1->name << std::endl;
-    revJoint1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
-    TheSystem->addJoint(revJoint1);
+    revJoint1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), pendulum->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    TheSystemOrAssembly->addJoint(revJoint1);
     //
     auto rotMotion1 = ZRotation::With("/Assembly1/Motion1");
-    rotMotion1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    rotMotion1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), pendulum->partFrame->endFrame("/Assembly1/Part1/Marker1"));
     std::cout << "rotMotion1->name " << rotMotion1->name << std::endl;
     rotMotion1->the3zBlk = std::make_shared<Constant>(1.0);
     std::cout << "rotMotion1->the3zBlk " << *(rotMotion1->the3zBlk) << std::endl;
-    TheSystem->addMotion(rotMotion1);
+    TheSystemOrAssembly->addMotion(rotMotion1);
     //
-    TheSystem->runKINEMATIC(TheSystem);
+    TheSystemOrAssembly->runKINEMATIC(TheSystemOrAssembly);
 }
 
 void CADSystem::runOndselDoublePendulum()
@@ -206,12 +192,12 @@ void CADSystem::runOndselDoublePendulum()
     //Double pendulum with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
     std::cout << "runOndselDoublePendulum" << std::endl;
-    auto TheSystem = mbdSystem;
-    TheSystem->clear();
-    std::string name = "TheSystem";
-    TheSystem->name = name;
-    std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto systemSolver = TheSystem->systemSolver;
+    auto TheSystemOrAssembly = mbdSystem;
+    TheSystemOrAssembly->clear();
+    std::string name = "TheSystemOrAssembly";
+    TheSystemOrAssembly->name = name;
+    std::cout << "TheSystemOrAssembly->name " << TheSystemOrAssembly->name << std::endl;
+    auto systemSolver = TheSystemOrAssembly->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -220,7 +206,7 @@ void CADSystem::runOndselDoublePendulum()
     systemSolver->tend = 0.04;
     systemSolver->hmin = 1.0e-9;
     systemSolver->hmax = 1.0;
-    systemSolver->hout = 0.04;
+    systemSolver->hout = 0.01;
     systemSolver->corAbsTol = 1.0e-6;
     systemSolver->corRelTol = 1.0e-6;
     systemSolver->intAbsTol = 1.0e-6;
@@ -236,26 +222,11 @@ void CADSystem::runOndselDoublePendulum()
     FMatDsptr aAap, aApm;
     FRowDsptr fullRow;
     //
-    auto assembly1 = Part::With("/Assembly1");
-    std::cout << "assembly1->name " << assembly1->name << std::endl;
-    assembly1->m = 0.0;
-    assembly1->aJ = DiagonalMatrix<double>::With(ListD{ 0, 0, 0 });
-    qX = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    aAap = FullMatrix<double>::With(ListListD{
-        { 1, 0, 0 },
-        { 0, 1, 0 },
-        { 0, 0, 1 }
-        });
-    assembly1->setqX(qX);
-    assembly1->setaAap(aAap);
-    qXdot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    assembly1->setqXdot(qXdot);
-    assembly1->setomeOpO(omeOpO);
-    TheSystem->addPart(assembly1);
+    auto assemblyFrame = TheSystemOrAssembly->asmFrame;
+    assemblyFrame->name = "/Assembly1";
+    std::cout << "assembly1->name " << assemblyFrame->name << std::endl;
     {
-        auto partFrame = assembly1->partFrame;
-        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
+        auto marker2 = assemblyFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -264,9 +235,9 @@ void CADSystem::runOndselDoublePendulum()
             { 0, 0, 1 }
             });
         marker2->setaApm(aApm);
-        partFrame->addMarkerFrame(marker2);
+        assemblyFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
+        auto marker1 = assemblyFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -275,9 +246,8 @@ void CADSystem::runOndselDoublePendulum()
             { 0, -1, 0 }
             });
         marker1->setaApm(aApm);
-        partFrame->addMarkerFrame(marker1);
+        assemblyFrame->addMarkerFrame(marker1);
     }
-    assembly1->asFixed();
     //
     auto crankPart1 = Part::With("/Assembly1/Part1");
     std::cout << "crankPart1->name " << crankPart1->name << std::endl;
@@ -295,7 +265,7 @@ void CADSystem::runOndselDoublePendulum()
     omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
     crankPart1->setqXdot(qXdot);
     crankPart1->setomeOpO(omeOpO);
-    TheSystem->addPart(crankPart1);
+    TheSystemOrAssembly->addPart(crankPart1);
     {
         auto partFrame = crankPart1->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
@@ -336,7 +306,7 @@ void CADSystem::runOndselDoublePendulum()
     omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
     conrodPart2->setqXdot(qXdot);
     conrodPart2->setomeOpO(omeOpO);
-    TheSystem->addPart(conrodPart2);
+    TheSystemOrAssembly->addPart(conrodPart2);
     {
         auto partFrame = conrodPart2->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
@@ -364,15 +334,15 @@ void CADSystem::runOndselDoublePendulum()
     //
     auto revJoint1 = RevoluteJoint::With("/Assembly1/Joint1");
     std::cout << "revJoint1->name " << revJoint1->name << std::endl;
-    revJoint1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
-    TheSystem->addJoint(revJoint1);
+    revJoint1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    TheSystemOrAssembly->addJoint(revJoint1);
 
     auto revJoint2 = RevoluteJoint::With("/Assembly1/Joint2");
     std::cout << "revJoint2->name " << revJoint2->name << std::endl;
     revJoint2->connectsItoJ(crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker2"), conrodPart2->partFrame->endFrame("/Assembly1/Part2/Marker1"));
-    TheSystem->addJoint(revJoint2);
+    TheSystemOrAssembly->addJoint(revJoint2);
     //
-    TheSystem->runKINEMATIC(TheSystem);
+    TheSystemOrAssembly->runKINEMATIC(TheSystemOrAssembly);
 }
 
 void CADSystem::runOndselPiston()
@@ -380,12 +350,12 @@ void CADSystem::runOndselPiston()
     //Piston with easy input numbers for exact port from Smalltalk
     //GEOAssembly calcCharacteristicDimensions must set mbdUnits to unity.
     std::cout << "runOndselPiston" << std::endl;
-    auto TheSystem = mbdSystem;
-    TheSystem->clear();
-    std::string name = "TheSystem";
-    TheSystem->name = name;
-    std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto systemSolver = TheSystem->systemSolver;
+    auto TheSystemOrAssembly = mbdSystem;
+    TheSystemOrAssembly->clear();
+    std::string name = "TheSystemOrAssembly";
+    TheSystemOrAssembly->name = name;
+    std::cout << "TheSystemOrAssembly->name " << TheSystemOrAssembly->name << std::endl;
+    auto systemSolver = TheSystemOrAssembly->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -410,28 +380,11 @@ void CADSystem::runOndselPiston()
     FMatDsptr aApm;
     FRowDsptr fullRow;
     //
-    auto assembly1 = Part::With("/Assembly1");
-    std::cout << "assembly1->name " << assembly1->name << std::endl;
-    assembly1->m = 0.0;
-    assembly1->aJ = DiagonalMatrix<double>::With(ListD{ 0, 0, 0 });
-    qX = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    qE = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 1 });
-    assembly1->setqX(qX);
-    assembly1->setqE(qE);
-    qXdot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    assembly1->setqXdot(qXdot);
-    assembly1->setomeOpO(omeOpO);
-    qXddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
-    assembly1->setqXddot(qXddot);
-    assembly1->setqEddot(qEddot);
-    std::cout << "assembly1->getqX() " << *assembly1->getqX() << std::endl;
-    std::cout << "assembly1->getqE() " << *assembly1->getqE() << std::endl;
-    TheSystem->addPart(assembly1);
+    auto assemblyFrame = TheSystemOrAssembly->asmFrame;
+    assemblyFrame->name = "/Assembly1";
+    std::cout << "assemblyFrame->name " << assemblyFrame->name << std::endl;
     {
-        auto partFrame = assembly1->partFrame;
-        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
+        auto marker2 = assemblyFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -440,9 +393,9 @@ void CADSystem::runOndselPiston()
             { 0, 0, 1 }
             });
         marker2->setaApm(aApm);
-        partFrame->addMarkerFrame(marker2);
+        assemblyFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
+        auto marker1 = assemblyFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 3.0, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -451,9 +404,8 @@ void CADSystem::runOndselPiston()
             { 0, -1, 0 }
             });
         marker1->setaApm(aApm);
-        partFrame->addMarkerFrame(marker1);
+        assemblyFrame->addMarkerFrame(marker1);
     }
-    assembly1->asFixed();
     //
     auto crankPart1 = Part::With("/Assembly1/Part1");
     std::cout << "crankPart1->name " << crankPart1->name << std::endl;
@@ -471,7 +423,7 @@ void CADSystem::runOndselPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     crankPart1->setqXddot(qXddot);
     crankPart1->setqEddot(qEddot);
-    TheSystem->addPart(crankPart1);
+    TheSystemOrAssembly->addPart(crankPart1);
     {
         auto partFrame = crankPart1->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
@@ -513,7 +465,7 @@ void CADSystem::runOndselPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     conrodPart2->setqXddot(qXddot);
     conrodPart2->setqEddot(qEddot);
-    TheSystem->addPart(conrodPart2);
+    TheSystemOrAssembly->addPart(conrodPart2);
     {
         auto partFrame = conrodPart2->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
@@ -555,7 +507,7 @@ void CADSystem::runOndselPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     pistonPart3->setqXddot(qXddot);
     pistonPart3->setqEddot(qEddot);
-    TheSystem->addPart(pistonPart3);
+    TheSystemOrAssembly->addPart(pistonPart3);
     {
         auto partFrame = pistonPart3->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker1");
@@ -583,41 +535,41 @@ void CADSystem::runOndselPiston()
     //
     auto revJoint1 = RevoluteJoint::With("/Assembly1/Joint1");
     std::cout << "revJoint1->name " << revJoint1->name << std::endl;
-    revJoint1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
-    TheSystem->addJoint(revJoint1);
+    revJoint1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    TheSystemOrAssembly->addJoint(revJoint1);
 
     auto revJoint2 = RevoluteJoint::With("/Assembly1/Joint2");
     std::cout << "revJoint2->name " << revJoint2->name << std::endl;
     revJoint2->connectsItoJ(crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker2"), conrodPart2->partFrame->endFrame("/Assembly1/Part2/Marker1"));
-    TheSystem->addJoint(revJoint2);
+    TheSystemOrAssembly->addJoint(revJoint2);
 
     auto revJoint3 = RevoluteJoint::With("/Assembly1/Joint3");
     std::cout << "revJoint3->name " << revJoint3->name << std::endl;
     revJoint3->connectsItoJ(conrodPart2->partFrame->endFrame("/Assembly1/Part2/Marker2"), pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker1"));
-    TheSystem->addJoint(revJoint3);
+    TheSystemOrAssembly->addJoint(revJoint3);
 
     auto cylJoint4 = CylindricalJoint::With("/Assembly1/Joint4");
     std::cout << "cylJoint4->name " << cylJoint4->name << std::endl;
-    cylJoint4->connectsItoJ(pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker2"), assembly1->partFrame->endFrame("/Assembly1/Marker1"));
-    TheSystem->addJoint(cylJoint4);
+    cylJoint4->connectsItoJ(pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker2"), assemblyFrame->endFrame("/Assembly1/Marker1"));
+    TheSystemOrAssembly->addJoint(cylJoint4);
 
     auto rotMotion1 = ZRotation::With("/Assembly1/Motion1");
-    rotMotion1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    rotMotion1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
     std::cout << "rotMotion1->name " << rotMotion1->name << std::endl;
     auto omega = std::make_shared<Constant>(6.2831853071796);
     auto timeScale = std::make_shared<Constant>(1.0);
-    auto time = std::make_shared<Product>(timeScale, TheSystem->time);
+    auto time = std::make_shared<Product>(timeScale, TheSystemOrAssembly->time);
     rotMotion1->the3zBlk = std::make_shared<Product>(omega, time);
     std::cout << "rotMotion1->the3zBlk " << *(rotMotion1->the3zBlk) << std::endl;
-    TheSystem->addMotion(rotMotion1);
+    TheSystemOrAssembly->addMotion(rotMotion1);
     //
-    TheSystem->runKINEMATIC(TheSystem);
+    TheSystemOrAssembly->runKINEMATIC(TheSystemOrAssembly);
     str = "";
-    TheSystem->jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> jm) {
+    TheSystemOrAssembly->jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> jm) {
         str += jm->constraintSpecs();
         });
     str = "";
-    TheSystem->jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> jm) {
+    TheSystemOrAssembly->jointsMotionsLimitsDo([&](std::shared_ptr<ConstraintSet> jm) {
         str += jm->name + " constraints\n";
         jm->constraintsDo([&](std::shared_ptr<Constraint> con) {
             str += "    " + con->constraintSpec() + "\n";
@@ -629,12 +581,12 @@ void CADSystem::runOndselPiston()
 void CADSystem::runPiston()
 {
     std::cout << "runPiston" << std::endl;
-    auto TheSystem = mbdSystem;
-    TheSystem->clear();
-    std::string name = "TheSystem";
-    TheSystem->name = name;
-    std::cout << "TheSystem->name " << TheSystem->name << std::endl;
-    auto systemSolver = TheSystem->systemSolver;
+    auto TheSystemOrAssembly = mbdSystem;
+    TheSystemOrAssembly->clear();
+    std::string name = "TheSystemOrAssembly";
+    TheSystemOrAssembly->name = name;
+    std::cout << "TheSystemOrAssembly->name " << TheSystemOrAssembly->name << std::endl;
+    auto systemSolver = TheSystemOrAssembly->systemSolver;
     systemSolver->errorTolPosKine = 1.0e-6;
     systemSolver->errorTolAccKine = 1.0e-6;
     systemSolver->iterMaxPosKine = 25;
@@ -658,28 +610,11 @@ void CADSystem::runPiston()
     FMatDsptr aApm;
     FRowDsptr fullRow;
     //
-    auto assembly1 = Part::With("/Assembly1");
-    std::cout << "assembly1->name " << assembly1->name << std::endl;
-    assembly1->m = 0.0;
-    assembly1->aJ = DiagonalMatrix<double>::With(ListD{ 0, 0, 0 });
-    qX = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    qE = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 1 });
-    assembly1->setqX(qX);
-    assembly1->setqE(qE);
-    qXdot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    omeOpO = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    assembly1->setqXdot(qXdot);
-    assembly1->setomeOpO(omeOpO);
-    qXddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0 });
-    qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
-    assembly1->setqXddot(qXddot);
-    assembly1->setqEddot(qEddot);
-    std::cout << "assembly1->getqX() " << *assembly1->getqX() << std::endl;
-    std::cout << "assembly1->getqE() " << *assembly1->getqE() << std::endl;
-    TheSystem->addPart(assembly1);
+    auto assemblyFrame = TheSystemOrAssembly->asmFrame;
+    assemblyFrame->name = "/Assembly1";
+    std::cout << "assemblyFrame->name " << assemblyFrame->name << std::endl;
     {
-        auto partFrame = assembly1->partFrame;
-        auto marker2 = partFrame->createMarkerFrame("/Assembly1/Marker2");
+        auto marker2 = assemblyFrame->createMarkerFrame("/Assembly1/Marker2");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 0.0, 0.0 });
         marker2->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -688,9 +623,9 @@ void CADSystem::runPiston()
             { 0, 0, 1 }
             });
         marker2->setaApm(aApm);
-        partFrame->addMarkerFrame(marker2);
+        assemblyFrame->addMarkerFrame(marker2);
         //
-        auto marker1 = partFrame->createMarkerFrame("/Assembly1/Marker1");
+        auto marker1 = assemblyFrame->createMarkerFrame("/Assembly1/Marker1");
         rpmp = std::make_shared<FullColumn<double>>(ListD{ 0.0, 2.8817526385684, 0.0 });
         marker1->setrpmp(rpmp);
         aApm = FullMatrix<double>::With(ListListD{
@@ -699,9 +634,8 @@ void CADSystem::runPiston()
             { 0, -1, 0 }
             });
         marker1->setaApm(aApm);
-        partFrame->addMarkerFrame(marker1);
+        assemblyFrame->addMarkerFrame(marker1);
     }
-    assembly1->asFixed();
     //
     auto crankPart1 = Part::With("/Assembly1/Part1");
     std::cout << "crankPart1->name " << crankPart1->name << std::endl;
@@ -719,7 +653,7 @@ void CADSystem::runPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     crankPart1->setqXddot(qXddot);
     crankPart1->setqEddot(qEddot);
-    TheSystem->addPart(crankPart1);
+    TheSystemOrAssembly->addPart(crankPart1);
     {
         auto partFrame = crankPart1->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part1/Marker1");
@@ -761,7 +695,7 @@ void CADSystem::runPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     conrodPart2->setqXddot(qXddot);
     conrodPart2->setqEddot(qEddot);
-    TheSystem->addPart(conrodPart2);
+    TheSystemOrAssembly->addPart(conrodPart2);
     {
         auto partFrame = conrodPart2->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part2/Marker1");
@@ -803,7 +737,7 @@ void CADSystem::runPiston()
     qEddot = std::make_shared<FullColumn<double>>(ListD{ 0, 0, 0, 0 });
     pistonPart3->setqXddot(qXddot);
     pistonPart3->setqEddot(qEddot);
-    TheSystem->addPart(pistonPart3);
+    TheSystemOrAssembly->addPart(pistonPart3);
     {
         auto partFrame = pistonPart3->partFrame;
         auto marker1 = partFrame->createMarkerFrame("/Assembly1/Part3/Marker1");
@@ -831,35 +765,35 @@ void CADSystem::runPiston()
     //
     auto revJoint1 = RevoluteJoint::With("/Assembly1/Joint1");
     std::cout << "revJoint1->name " << revJoint1->name << std::endl;
-    revJoint1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
-    TheSystem->addJoint(revJoint1);
+    revJoint1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    TheSystemOrAssembly->addJoint(revJoint1);
 
     auto revJoint2 = RevoluteJoint::With("/Assembly1/Joint2");
     std::cout << "revJoint2->name " << revJoint2->name << std::endl;
     revJoint2->connectsItoJ(crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker2"), conrodPart2->partFrame->endFrame("/Assembly1/Part2/Marker1"));
-    TheSystem->addJoint(revJoint2);
+    TheSystemOrAssembly->addJoint(revJoint2);
 
     auto revJoint3 = RevoluteJoint::With("/Assembly1/Joint3");
     std::cout << "revJoint3->name " << revJoint3->name << std::endl;
     revJoint3->connectsItoJ(conrodPart2->partFrame->endFrame("/Assembly1/Part2/Marker2"), pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker1"));
-    TheSystem->addJoint(revJoint3);
+    TheSystemOrAssembly->addJoint(revJoint3);
 
     auto cylJoint4 = CylindricalJoint::With("/Assembly1/Joint4");
     std::cout << "cylJoint4->name " << cylJoint4->name << std::endl;
-    cylJoint4->connectsItoJ(pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker2"), assembly1->partFrame->endFrame("/Assembly1/Marker1"));
-    TheSystem->addJoint(cylJoint4);
+    cylJoint4->connectsItoJ(pistonPart3->partFrame->endFrame("/Assembly1/Part3/Marker2"), assemblyFrame->endFrame("/Assembly1/Marker1"));
+    TheSystemOrAssembly->addJoint(cylJoint4);
 
     auto rotMotion1 = ZRotation::With("/Assembly1/Motion1");
-    rotMotion1->connectsItoJ(assembly1->partFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
+    rotMotion1->connectsItoJ(assemblyFrame->endFrame("/Assembly1/Marker2"), crankPart1->partFrame->endFrame("/Assembly1/Part1/Marker1"));
     std::cout << "rotMotion1->name " << rotMotion1->name << std::endl;
     auto omega = std::make_shared<Constant>(6.2831853071796);
     auto timeScale = std::make_shared<Constant>(0.04);
-    auto time = std::make_shared<Product>(timeScale, TheSystem->time);
+    auto time = std::make_shared<Product>(timeScale, TheSystemOrAssembly->time);
     rotMotion1->the3zBlk = std::make_shared<Product>(omega, time);
     std::cout << "rotMotion1->the3zBlk " << *(rotMotion1->the3zBlk) << std::endl;
-    TheSystem->addMotion(rotMotion1);
+    TheSystemOrAssembly->addMotion(rotMotion1);
     //
-    TheSystem->runKINEMATIC(TheSystem);
+    TheSystemOrAssembly->runKINEMATIC(TheSystemOrAssembly);
 }
 
 void CADSystem::preMbDrun(std::shared_ptr<System>)

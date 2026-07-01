@@ -97,8 +97,3 @@ FRowDsptr KinematicDotIeJe::pvaluepXdotJ()
 {
     return FRowDsptr();
 }
-
-FRowDsptr KinematicDotIeJe::pvaluepXdotK()
-{
-    return FullRow<double>::With(0);
-}

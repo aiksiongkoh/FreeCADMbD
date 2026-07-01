@@ -45,7 +45,6 @@ FColDsptr StableBackwardDifference::derivativepresentpastpresentDerivativepastDe
     std::shared_ptr<std::vector<FColDsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr StableBackwardDifference::derivativeatpresentpastpresentDerivativepastDerivative(size_t n, double t, FColDsptr y, std::shared_ptr<std::vector<FColDsptr>> ypast, FColDsptr ydot, std::shared_ptr<std::vector<FColDsptr>> ydotpast)

@@ -12,7 +12,6 @@ std::shared_ptr<MBDynForce> MBDynForce::newForce(std::string statement)
         return MBDynAbsoluteForce::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynForce>();
 }
 
 void MBDynForce::parseMBDyn(std::string line)

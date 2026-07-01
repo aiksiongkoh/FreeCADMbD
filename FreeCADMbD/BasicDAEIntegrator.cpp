@@ -190,7 +190,7 @@ void BasicDAEIntegrator::correctFirstStep()
             correctValuesAtFirstStep();
             dynInt->postDAECorrector();
         }
-        catch (SingularMatrixError ex) {
+        catch (const SingularMatrixError& ex) {
             //"Step size is probably too small, causing an ill conditioned matrix."
             //"Increase step size. Multiply by 4.0d to offset reduction in selectFirstStepSize."
             corOK = false;
@@ -350,7 +350,6 @@ SpMatDsptr BasicDAEIntegrator::calcG()
 std::shared_ptr<LinearMultiStepMethod> BasicDAEIntegrator::correctorBDF()
 {
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<LinearMultiStepMethod>();
 }
 
 void BasicDAEIntegrator::calcOperatorMatrix()
@@ -393,7 +392,6 @@ void BasicDAEIntegrator::updateForDAECorrector()
 FColDsptr BasicDAEIntegrator::yDeriv(size_t order)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void BasicDAEIntegrator::calcTruncError()
@@ -410,7 +408,6 @@ void BasicDAEIntegrator::calcTruncError()
 FColDsptr BasicDAEIntegrator::dyOrderPlusOnedt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 bool BasicDAEIntegrator::isConvergedForand(size_t iterNo, std::shared_ptr<std::vector<double>> dyNorms) const
@@ -455,8 +452,8 @@ void BasicDAEIntegrator::correct()
             correctValuesAtNextStep();
             dynInt->postDAECorrector();
         }
-        catch (SingularMatrixError ex) {
-            newtonRaphson->matrixSolver->throwSingularMatrixError("");
+        catch (const SingularMatrixError& ex) {
+            newtonRaphson->matrixSolver->throwSingularMatrixError("BasicDAEIntegrator::correct");
         }
     }
     catch (MaximumIterationError ex) {

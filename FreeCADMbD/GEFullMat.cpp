@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include <cassert>
 
 #include "GEFullMat.h"
@@ -34,10 +34,10 @@ void GEFullMat::backSubstituteIntoDU()
 {
     answerX = std::make_shared<FullColumn<double>>(n);
     answerX->at(n - 1) = rightHandSideB->at(m - 1) / matrixA->at(m - 1)->at(n - 1);
-    for (int i = (int)n - 2; i >= 0; i--)    //Use int because of decrement
+    for (int i = (int)n - 2; i >= 0; i--) // Use int because of decrement
     {
         auto rowi = matrixA->at(i);
-        double sum = answerX->at(n) * rowi->at(n);
+        double sum = answerX->at(n - 1) * rowi->at(n - 1);
         for (size_t j = (size_t)i + 1; j < n - 1; j++)
         {
             sum += answerX->at(j) * rowi->at(j);
@@ -82,5 +82,4 @@ FColDsptr GEFullMat::basicSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr ful
 FColDsptr GEFullMat::basicSolvewithsaveOriginal(SpMatDsptr, FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }

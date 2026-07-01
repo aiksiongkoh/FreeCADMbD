@@ -28,9 +28,11 @@ std::shared_ptr<PosICNewtonRaphson> PosICNewtonRaphson::With()
 
 void PosICNewtonRaphson::run()
 {
-    while (true) {
-        try {
-            //VectorNewtonRaphson::run();   //Inlined to help debugging
+    while (true)
+    {
+        try
+        {
+            // VectorNewtonRaphson::run();   //Inlined to help debugging
             preRun();
             initializeLocally();
             initializeGlobally();
@@ -38,37 +40,37 @@ void PosICNewtonRaphson::run()
             postRun();
             break;
         }
-        catch (SingularMatrixError ex) {
+        catch (const SingularMatrixError& ex)
+        {
             auto redundantEqnNos = ex.getRedundantEqnNos();
-            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
-                item->removeRedundantConstraints(redundantEqnNos); 
-                });
-            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
-                item->constraintsReport(); 
-                });
-            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item) { 
-                item->setqsu(qsuOld); 
-                });
+            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item)
+                                               { item->removeRedundantConstraints(redundantEqnNos); });
+            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item)
+                                               { item->constraintsReport(); });
+            system->partsJointsMotionsLimitsDo([&](std::shared_ptr<Item> item)
+                                               { item->setqsu(qsuOld); });
         }
     }
 }
 
 void PosICNewtonRaphson::iterate()
 {
-    //VectorNewtonRaphson::iterate();    //Inlined to help debugging
+    // VectorNewtonRaphson::iterate();    //Inlined to help debugging
     iterNo = SIZE_MAX;
     fillY();
     calcyNorm();
     yNorms->push_back(yNorm);
 
-    while (true) {
+    while (true)
+    {
         incrementIterNo();
         fillPyPx();
         //outputSpreadsheet();
         solveEquations();
         calcDXNormImproveRootCalcYNorm();
-        if (isConverged()) {
-            //std::cout << "iterNo = " << iterNo << std::endl;
+        if (isConverged())
+        {
+            // std::cout << "iterNo = " << iterNo << std::endl;
             break;
         }
     }
@@ -76,7 +78,7 @@ void PosICNewtonRaphson::iterate()
 
 void PosICNewtonRaphson::preRun()
 {
-    const std::string& str("MbD: Assembling system. ");
+    const std::string &str("MbD: Assembling system. ");
     system->logString(str);
     PosNewtonRaphson::preRun();
 }
@@ -84,46 +86,50 @@ void PosICNewtonRaphson::preRun()
 void PosICNewtonRaphson::assignEquationNumbers()
 {
     auto parts = system->parts();
-    //auto contactEndFrames = system->contactEndFrames();
-    //auto uHolders = system->uHolders();
+    // auto contactEndFrames = system->contactEndFrames();
+    // auto uHolders = system->uHolders();
     auto essentialConstraints = system->essentialConstraints();
     auto displacementConstraints = system->displacementConstraints();
     auto perpendicularConstraints = system->perpendicularConstraints();
     size_t eqnNo = 0;
-    for (auto part : *parts) {
+    for (auto part : *parts)
+    {
         part->iqX(eqnNo);
         eqnNo = eqnNo + 3;
         part->iqE(eqnNo);
         eqnNo = eqnNo + 4;
     }
-    //for (auto endFrm : *contactEndFrames) {
-    //    endFrm->is(eqnNo);
-    //    eqnNo = eqnNo + endFrm->sSize();
-    //}
-    //for (auto uHolder : *uHolders) {
-    //    uHolder->iu(eqnNo);
-    //    eqnNo += 1;
-    //}
-    auto nEqns = eqnNo;    //C++ uses index 0.
+    // for (auto endFrm : *contactEndFrames) {
+    //     endFrm->is(eqnNo);
+    //     eqnNo = eqnNo + endFrm->sSize();
+    // }
+    // for (auto uHolder : *uHolders) {
+    //     uHolder->iu(eqnNo);
+    //     eqnNo += 1;
+    // }
+    auto nEqns = eqnNo; // C++ uses index 0.
     nqsu = nEqns;
-    for (auto con : *essentialConstraints) {
+    for (auto con : *essentialConstraints)
+    {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     auto lastEssenConEqnNo = eqnNo - 1;
-    for (auto con : *displacementConstraints) {
+    for (auto con : *displacementConstraints)
+    {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     auto lastDispConEqnNo = eqnNo - 1;
-    for (auto con : *perpendicularConstraints) {
+    for (auto con : *perpendicularConstraints)
+    {
         con->iG = eqnNo;
         eqnNo += 1;
     }
     auto lastEqnNo = eqnNo - 1;
-    nEqns = eqnNo;    //C++ uses index 0.
+    nEqns = eqnNo; // C++ uses index 0.
     n = nEqns;
-    auto rangelimits = { lastEssenConEqnNo + 1, lastDispConEqnNo + 1, lastEqnNo + 1 };
+    auto rangelimits = {lastEssenConEqnNo + 1, lastDispConEqnNo + 1, lastEqnNo + 1};
     pivotRowLimits = std::make_shared<std::vector<size_t>>(rangelimits);
 }
 
@@ -135,36 +141,36 @@ bool PosICNewtonRaphson::isConverged()
 void PosICNewtonRaphson::handleSingularMatrix()
 {
     nSingularMatrixError++;
-    if (nSingularMatrixError == 1) {
-        lookForRedundantConstraints();
-        matrixSolver = matrixSolverClassNew();
+    if (nSingularMatrixError == 1)
+    {
+        lookForRedundantConstraintsWillThrow();
+        throw SimulationStoppingError("Should not reach here.");
     }
-    else {
-        auto& r = *matrixSolver;
-        std::string str = typeid(r).name();
-        if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
-            matrixSolver = GESpMatParPvPrecise::With();
-            solveEquations();
-        }
-        else {
-            auto& msRef = *matrixSolver.get(); // extrapolated to suppress warning
-            str = typeid(msRef).name();
-            (void) msRef;                      // also for warning suppression
-            if (str.find("GESpMatParPvPrecise") != std::string::npos) {
-                lookForRedundantConstraints();
-                matrixSolver = matrixSolverClassNew();
-            } else {
-                throw SimulationStoppingError("To be implemented.");
-            }
-        }
+
+    const auto solverName = std::string(typeid(*matrixSolver).name());
+    if (solverName.find("GESpMatParPvMarkoFast") != std::string::npos)
+    {
+        matrixSolver = GESpMatParPvPrecise::With();
+        solveEquations();
+        return;
     }
+
+    if (solverName.find("GESpMatParPvPrecise") != std::string::npos)
+    {
+        lookForRedundantConstraintsWillThrow();
+        throw SimulationStoppingError("Should not reach here.");
+    }
+
+    throw SimulationStoppingError("Unhandled matrix solver in PosICNewtonRaphson::handleSingularMatrix.");
 }
 
-void PosICNewtonRaphson::lookForRedundantConstraints()
+void PosICNewtonRaphson::lookForRedundantConstraintsWillThrow()
 {
-    const std::string& str("MbD: Checking for redundant constraints.");
+    const std::string &str("MbD: Checking for redundant constraints.");
     system->logString(str);
     auto posICsolver = GESpMatFullPvPosIC::With();
     posICsolver->system = this;
     dx = posICsolver->solvewithsaveOriginal(pypx, y->negated(), false);
+    // Can throw SingularMatrixError("", redundantEqnNos);
+    // Will be caught in PosICNewtonRaphson::run()
 }

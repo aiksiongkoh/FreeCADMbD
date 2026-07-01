@@ -28,7 +28,6 @@ FColDsptr LDUFullMat::basicSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr fu
 FColDsptr LDUFullMat::basicSolvewithsaveOriginal(SpMatDsptr, FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void LDUFullMat::preSolvewithsaveOriginal(FMatDsptr, FColDsptr, bool)

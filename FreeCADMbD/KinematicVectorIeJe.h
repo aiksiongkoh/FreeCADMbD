@@ -42,7 +42,6 @@ namespace MbD {
         virtual void calcppVectorpXJpXJ();
         virtual void calcppVectorpXJpEJ();
         virtual void calcppVectorpEJpEJ();
-        virtual void calcpVectorpXK();
         virtual void calcpVectorpEK();
         virtual void calcppVectorpXIpEK();
         virtual void calcppVectorpEIpEK();
@@ -54,7 +53,6 @@ namespace MbD {
         virtual void calcppVectorpEIpt();
         virtual void calcppVectorpXJpt();
         virtual void calcppVectorpEJpt();
-        virtual void calcppVectorpXKpt();
         virtual void calcppVectorpEKpt();
         virtual void calcppVectorptpt();
 
@@ -73,7 +71,6 @@ namespace MbD {
         virtual FMatFColDsptr getppVectorpXJpXJ();
         virtual FMatFColDsptr getppVectorpXJpEJ();
         virtual FMatFColDsptr getppVectorpEJpEJ();
-        virtual FMatDsptr getpVectorpXK();
         virtual FMatDsptr getpVectorpEK();
         virtual FMatFColDsptr getppVectorpXIpEK();
         virtual FMatFColDsptr getppVectorpEIpEK();
@@ -90,7 +87,6 @@ namespace MbD {
         virtual FMatDsptr getppVectorpEIpt();
         virtual FMatDsptr getppVectorpXJpt();
         virtual FMatDsptr getppVectorpEJpt();
-        virtual FMatDsptr getppVectorpXKpt();
         virtual FMatDsptr getppVectorpEKpt();
         virtual FMatDsptr getppCompipEIpEI(size_t axis);
         virtual FMatDsptr getppCompipEJpEJ(size_t axis);

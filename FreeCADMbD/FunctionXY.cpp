@@ -35,12 +35,10 @@ Symsptr FunctionXY::differentiateWRTx()
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 Symsptr FunctionXY::differentiateWRTy()
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }

@@ -141,22 +141,21 @@ void AccNewtonRaphson::preRun()
 
 void AccNewtonRaphson::handleSingularMatrix()
 {
-    auto& r = *matrixSolver;
-    std::string str = typeid(r).name();
-    if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
+    const auto solverName = std::string(typeid(*matrixSolver).name());
+    if (solverName.find("GESpMatParPvMarkoFast") != std::string::npos)
+    {
         matrixSolver = GESpMatParPvPrecise::With();
-        this->solveEquations();
+        solveEquations();
+        return;
     }
-    else {
-        str = typeid(r).name();
-        if (str.find("GESpMatParPvPrecise") != std::string::npos) {
-            this->logSingularMatrixMessage();
-            matrixSolver->throwSingularMatrixError("AccNewtonRaphson");
-        }
-        else {
-            throw SimulationStoppingError("To be implemented.");
-        }
+
+    if (solverName.find("GESpMatParPvPrecise") != std::string::npos)
+    {
+        logSingularMatrixMessage();
+        matrixSolver->throwSingularMatrixError("AccNewtonRaphson");
     }
+
+    throw SimulationStoppingError("Unhandled matrix solver in AccNewtonRaphson::handleSingularMatrix.");
 }
 
 void AccNewtonRaphson::run()

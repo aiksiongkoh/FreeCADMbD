@@ -87,28 +87,32 @@ void DAECorrector::solveEquations()
     }
 }
 
+std::shared_ptr<MatrixSolver> DAECorrector::matrixSolverClassNew()
+{
+    return GESpMatParPvMarkoFast::With();
+}
+
 void DAECorrector::handleSingularMatrix()
-{    
-    std::string str = typeid(*matrixSolver).name();
-    if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
+{
+    const auto solverName = std::string(typeid(*matrixSolver).name());
+    if (solverName.find("GESpMatParPvMarkoFast") != std::string::npos) {
         matrixSolver = GESpMatParPvPrecise::With();
         solveEquations();
+        return;
     }
-    else {
-        if (str.find("GESpMatParPvPrecise") != std::string::npos) {
-            matrixSolver->throwSingularMatrixError("");
-        }
-        else {
-            throw SimulationStoppingError("To be implemented.");
-        }
+
+    if (solverName.find("GESpMatParPvPrecise") != std::string::npos) {
+        matrixSolver->throwSingularMatrixError("DAECorrector::handleSingularMatrix");
     }
+
+    throw SimulationStoppingError("Unhandled matrix solver in DAECorrector::handleSingularMatrix.");
 }
 
 void DAECorrector::initializeGlobally()
 {
     iterMax = daeSystem->iterMax();
     x = daeSystem->y;
-    matrixSolver = GESpMatParPvMarkoFast::With();
+    matrixSolver = matrixSolverClassNew();
 }
 
 void DAECorrector::run()

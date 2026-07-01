@@ -13,13 +13,11 @@ std::shared_ptr<EigenDecomposition> EigenDecomposition::With()
 FColDsptr EigenDecomposition::basicSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr fullCol, bool saveOriginal)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 FColDsptr EigenDecomposition::basicSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr fullCol, bool saveOriginal)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void EigenDecomposition::preSolvewithsaveOriginal(FMatDsptr fullMat, FColDsptr fullCol, bool saveOriginal)
@@ -55,5 +53,4 @@ void EigenDecomposition::postSolve()
 double EigenDecomposition::getmatrixArowimaxMagnitude(size_t i)
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }

@@ -46,14 +46,15 @@ int main(int argc, char *argv[])
         }
         return 0;
     }
-    switch (1)
+    switch (0)
     {
     case 0:
     {
         auto cadSystem = CADSystem::With();
+        cadSystem->runSinglePendulum();
         // cadSystem->runOndselSinglePendulum();
         // cadSystem->runOndselDoublePendulum();
-        cadSystem->runOndselPiston(); // For debugging
+        // cadSystem->runOndselPiston(); // For debugging
         // cadSystem->runPiston();
         break;
     }

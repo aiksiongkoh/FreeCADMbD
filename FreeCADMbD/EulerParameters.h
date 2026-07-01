@@ -39,6 +39,7 @@ namespace MbD {
             initialize();
             calc();
         }
+        static std::shared_ptr<EulerParameters<T>> With();
         static std::shared_ptr<EulerParameters<T>> With(size_t count);
         static std::shared_ptr<EulerParameters<T>> With(std::initializer_list<T> list);
         static std::shared_ptr<EulerParameters<T>> With(FColDsptr axis, double theta);
@@ -64,7 +65,15 @@ namespace MbD {
         FColFMatDsptr pApE;
     };
 
-    template<typename T>
+    template <typename T>
+    inline std::shared_ptr<EulerParameters<T>> EulerParameters<T>::With()
+    {
+        auto inst = std::make_shared<EulerParameters<T>>();
+        inst->initialize();
+        return inst;
+    }
+
+    template <typename T>
     inline std::shared_ptr<EulerParameters<T>> EulerParameters<T>::With(size_t count)
     {
         auto inst = std::make_shared<EulerParameters<T>>(count);

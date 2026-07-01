@@ -35,7 +35,6 @@ std::shared_ptr<MBDynStructural> MBDynStructural::newStructural(std::string stat
         return MBDynStructuralStatic::With();
     }
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<MBDynStructural>();
 }
 
 void MBDynStructural::parseMBDyn(std::string line)

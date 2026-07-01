@@ -34,7 +34,6 @@ namespace MbD {
         Array(std::initializer_list<T> list) : std::vector<T>{ list } {}
         virtual ~Array() {}
         static std::shared_ptr<Array<T>> With(size_t count);
-        static bool equaltol(double x, double xx, double tol);
 
         virtual void initialize();
         void noop();
@@ -105,12 +104,6 @@ namespace MbD {
         //Do nothing.
     }
 
-    template<>
-    inline bool Array<double>::equaltol(double x, double xx, double tol)
-    {
-        return std::abs(x - xx) < tol;
-    }
-
     template<typename T>
     inline void Array<T>::noop()
     {
@@ -142,7 +135,6 @@ namespace MbD {
     {
         //Subclasses must implement.
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
 
     template<typename T>
@@ -170,7 +162,6 @@ namespace MbD {
     {
         //Subclasses must implement.
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
     //template<>
     //inline double Array<double>::maxMagnitude()

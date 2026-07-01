@@ -93,9 +93,6 @@ namespace MbD {
 		double correctorRelativeTolerance();
 		double correctorAbsoluteTolerance();
 
-		System* system = nullptr; //Use raw pointer when pointing backwards.
-		std::shared_ptr<Solver> icTypeSolver;
-		std::shared_ptr<std::vector<std::shared_ptr<std::set<std::string>>>> setsOfRedundantConstraints;
 		void tstartPastsAddFirst(double t);
 		void output();
 		void time(double t);
@@ -104,6 +101,10 @@ namespace MbD {
 		void useDAEStepStats(std::shared_ptr<SolverStatistics> stats);
 		void deactivateLimits();
 		bool limitsSatisfied();
+
+		System* system = nullptr; //Use raw pointer when pointing backwards.
+		std::shared_ptr<Solver> icTypeSolver;
+		std::shared_ptr<std::vector<std::shared_ptr<std::set<std::string>>>> setsOfRedundantConstraints;
 
 		double errorTolPosKine = 1.0e-6;
 		double errorTolAccKine = 1.0e-6;

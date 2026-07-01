@@ -102,11 +102,6 @@ void KinematicIeJe::calcppvaluepEJpEJ()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcpvaluepXK()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 void KinematicIeJe::calcpvaluepEK()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -172,11 +167,6 @@ void KinematicIeJe::calcppvaluepEJpt()
     throw SimulationStoppingError("To be implemented.");
 }
 
-void KinematicIeJe::calcppvaluepXKpt()
-{
-    throw SimulationStoppingError("To be implemented.");
-}
-
 void KinematicIeJe::calcppvaluepEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
@@ -221,19 +211,16 @@ FRowDsptr KinematicIeJe::pvaluepEI()
 FMatDsptr KinematicIeJe::ppvaluepXIpXI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepXIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEIpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FRowDsptr KinematicIeJe::pvaluepXJ()
@@ -249,48 +236,36 @@ FRowDsptr KinematicIeJe::pvaluepEJ()
 FMatDsptr KinematicIeJe::ppvaluepXIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepXIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEIpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEIpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepXJpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepXJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEJpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
-}
-
-FRowDsptr KinematicIeJe::pvaluepXK()
-{
-    return FRowDsptr();
 }
 
 FRowDsptr KinematicIeJe::pvaluepEK()
@@ -301,109 +276,86 @@ FRowDsptr KinematicIeJe::pvaluepEK()
 FMatDsptr KinematicIeJe::ppvaluepXIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEIpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepXJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEJpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::ppvaluepEKpEK()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::puIeJeOpEI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::puIeJeOpXI()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::puIeJeOpEJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 FMatDsptr KinematicIeJe::puIeJeOpXJ()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
 }
 
 double KinematicIeJe::pvaluept()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 double KinematicIeJe::ppvalueptpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 FRowDsptr KinematicIeJe::ppvaluepXIpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
 FRowDsptr KinematicIeJe::ppvaluepEIpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
 FRowDsptr KinematicIeJe::ppvaluepXJpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
 FRowDsptr KinematicIeJe::ppvaluepEJpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
-}
-
-FRowDsptr KinematicIeJe::ppvaluepXKpt()
-{
-    throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
 FRowDsptr KinematicIeJe::ppvaluepEKpt()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FRowDsptr();
 }
 
 double KinematicIeJe::value()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void KinematicIeJe::initializeLocally()

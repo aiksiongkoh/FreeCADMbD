@@ -19,7 +19,6 @@ std::shared_ptr<PosNewtonRaphson> PosNewtonRaphson::With()
 {
     //Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<PosNewtonRaphson>();
 }
 
 void PosNewtonRaphson::preRun()

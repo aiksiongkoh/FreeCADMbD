@@ -170,7 +170,6 @@ double BasicIntegrator::tprevious() const
 FColDsptr BasicIntegrator::yDerivat(size_t n, double time)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void BasicIntegrator::subsequentSteps()

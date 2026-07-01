@@ -42,7 +42,7 @@ void DifferenceOperator::calcOperatorMatrix()
         auto matrixSolver = std::make_shared<LDUFullMatParPvRobust>();
         operatorMatrix = matrixSolver->inversesaveOriginal(taylorMatrix, false);
     }
-    catch (SingularMatrixError ex) {
+    catch (const SingularMatrixError& ex) {
         throw SimulationStoppingError("To be implemented.");
     }
 }
@@ -189,7 +189,6 @@ FColDsptr DifferenceOperator::derivativewith(size_t deriv, std::shared_ptr<std::
 FColDsptr DifferenceOperator::derivativeatpresentpast(size_t n, double t, FColDsptr y, std::shared_ptr<std::vector<FColDsptr>> ypast)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 void DifferenceOperator::noop()

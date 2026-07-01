@@ -87,7 +87,6 @@ namespace MbD {
     inline double FullVector<T>::sumOfSquares()
     {
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
 
     template<typename T>
@@ -156,7 +155,6 @@ namespace MbD {
     inline double FullVector<T>::maxMagnitude()
     {
         throw SimulationStoppingError("To be implemented.");
-        return 0.0;
     }
 
     template<>
@@ -202,7 +200,6 @@ namespace MbD {
     inline void FullVector<T>::conditionSelfWithTol(double tol)
     {
         throw SimulationStoppingError("To be implemented.");
-        return;
     }
 
     template<typename T>
@@ -210,7 +207,6 @@ namespace MbD {
     {
         //Return shallow copy of *this wrapped in shared_ptr
         throw SimulationStoppingError("To be implemented.");
-        return FullVector<T>(*this);
     }
 
     template<typename T>

@@ -42,7 +42,7 @@ void GESpMatParPvMarkoFast::preSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr
     {
         auto spRowi = spMat->at(i);
         double maxRowMagnitude = spRowi->maxMagnitude();
-        if (maxRowMagnitude == 0) throwSingularMatrixError("");
+        if (maxRowMagnitude == 0) throwSingularMatrixError("GESpMatParPvMarkoFast::preSolvewithsaveOriginal");
         auto scaling = 1.0 / maxRowMagnitude;
         matrixA->at(i) = spRowi->timesconditionedWithTol(scaling, singularPivotTolerance);
         rightHandSideB->atitimes(i, scaling);
@@ -69,7 +69,7 @@ void GESpMatParPvMarkoFast::doPivoting(size_t p)
     while (lookForFirstNonZeroInPivotCol) {
         spRowi = matrixA->at(i);
         if (spRowi->find(p) == spRowi->end()) {
-            if (i <= (int)p) throwSingularMatrixError("");    //Use int because i can be negative
+            if (i <= (int)p) throwSingularMatrixError("GESpMatParPvMarkoFast::doPivoting");    //Use int because i can be negative
         }
         else {
             markowitzPivotColCount = 0;
@@ -109,5 +109,5 @@ void GESpMatParPvMarkoFast::doPivoting(size_t p)
         rightHandSideB->swapElems(p, rowPivoti);
         if (aip != std::numeric_limits<double>::min()) rowPositionsOfNonZerosInPivotColumn->at(markowitzPivotColCount - 1) = rowPivoti;
     }
-    if (max < singularPivotTolerance) throwSingularMatrixError("");
+    if (max < singularPivotTolerance) throwSingularMatrixError("GESpMatParPvMarkoFast::doPivoting");
 }

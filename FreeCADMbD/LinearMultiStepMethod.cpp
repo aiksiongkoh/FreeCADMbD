@@ -41,13 +41,11 @@ FColDsptr LinearMultiStepMethod::derivativeatpresentpast(size_t n, double t, FCo
 FColDsptr LinearMultiStepMethod::derivativepresentpast(size_t, FColDsptr, std::shared_ptr<std::vector<FColDsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 double LinearMultiStepMethod::pvdotpv()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 double LinearMultiStepMethod::firstPastTimeNode()
@@ -60,5 +58,4 @@ FColDsptr LinearMultiStepMethod::derivativepresentpastpresentDerivativepastDeriv
     FColDsptr, std::shared_ptr<std::vector<FColDsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }

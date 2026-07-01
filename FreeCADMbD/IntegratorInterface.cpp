@@ -21,7 +21,6 @@ std::shared_ptr<IntegratorInterface> IntegratorInterface::With()
 {
     //Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<IntegratorInterface>();
 }
 
 void IntegratorInterface::initializeGlobally()
@@ -76,14 +75,12 @@ double IntegratorInterface::suggestSmallerOrAcceptFirstStepSize(double hnew)
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 double IntegratorInterface::suggestSmallerOrAcceptStepSize(double hnew)
 {
     //Subclasses must implement.
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void IntegratorInterface::checkForOutputThrough(double t)

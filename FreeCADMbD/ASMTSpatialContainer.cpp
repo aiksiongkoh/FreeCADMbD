@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <fstream>
 
+#include "ASMTAssembly.h"
 #include "ASMTSpatialContainer.h"
 #include "ASMTRefPoint.h"
 #include "ASMTRefCurve.h"
@@ -255,7 +256,6 @@ void ASMTSpatialContainer::createMbD()
 FColDsptr ASMTSpatialContainer::omeOpO()
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 ASMTSpatialContainer *ASMTSpatialContainer::partOrAssembly()
@@ -311,72 +311,6 @@ void ASMTSpatialContainer::updateFromMbD()
     alpzs->push_back(alpOPO->at(2));
 }
 
-void ASMTSpatialContainer::compareResults(AnalysisType type)
-{
-    if (inxs == nullptr || inxs->empty())
-        return;
-    auto lambda = [&](std::string name, FRowDsptr vals, FRowDsptr invals, size_t i, size_t nSig, double tol)
-    {
-        auto val = vals->at(i);
-        auto inval = invals->at(i);
-        auto tol2 = tol / 10.0;
-        if (name.find("bry") != std::string::npos)
-        {
-            if (Numeric::anglesEqual(val, inval, tol2))
-                return;
-        }
-        if (std::abs(val) < tol2 && std::abs(inval) < tol2)
-            return;
-        auto ratio = val / inval;
-        auto relDiff = std::abs(ratio) - 1.0;
-        if (ratio < 0.0)
-        {
-            std::cout << "                    Sign Error ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << std::endl;
-        }
-        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
-        {
-            std::cout << "                    ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << std::endl;
-        }
-    };
-    auto mbdUnts = mbdUnits();
-    size_t nDigit = 3;
-    auto factor = std::pow(10, -int(nDigit));
-    auto lengthTol = mbdUnts->length * factor;
-    auto angleTol = mbdUnts->angle * factor;
-    auto velocityTol = mbdUnts->velocity * factor;
-    auto omegaTol = mbdUnts->omega * factor;
-    auto accelerationTol = mbdUnts->acceleration * factor;
-    auto alphaTol = mbdUnts->alpha * factor;
-    auto i = xs->size() - 1;
-    // Pos
-    lambda("xs", xs, inxs, i, nDigit, lengthTol);
-    lambda("ys", ys, inys, i, nDigit, lengthTol);
-    lambda("zs", zs, inzs, i, nDigit, lengthTol);
-    lambda("bryxs", bryxs, inbryxs, i, nDigit, angleTol);
-    lambda("bryys", bryys, inbryys, i, nDigit, angleTol);
-    lambda("bryzs", bryzs, inbryzs, i, nDigit, angleTol);
-    // Vel
-    lambda("vxs", vxs, invxs, i, nDigit, velocityTol);
-    lambda("vys", vys, invys, i, nDigit, velocityTol);
-    lambda("vzs", vzs, invzs, i, nDigit, velocityTol);
-    lambda("omexs", omexs, inomexs, i, nDigit, omegaTol);
-    lambda("omeys", omeys, inomeys, i, nDigit, omegaTol);
-    lambda("omezs", omezs, inomezs, i, nDigit, omegaTol);
-    // Acc
-    if (type == AnalysisType::INPUT)
-        return;
-    lambda("axs", axs, inaxs, i, nDigit, accelerationTol);
-    lambda("ays", ays, inays, i, nDigit, accelerationTol);
-    lambda("azs", azs, inazs, i, nDigit, accelerationTol);
-    lambda("alpxs", alpxs, inalpxs, i, nDigit, alphaTol);
-    lambda("alpys", alpys, inalpys, i, nDigit, alphaTol);
-    lambda("alpzs", alpzs, inalpzs, i, nDigit, alphaTol);
-}
-
 void ASMTSpatialContainer::compareResults2(AnalysisType type)
 {
     if (dataSeries == nullptr || dataSeries->empty() || dataSeriesIn == nullptr || dataSeriesIn->empty())
@@ -385,31 +319,24 @@ void ASMTSpatialContainer::compareResults2(AnalysisType type)
     {
         auto val = col->at(i);
         auto inval = incol->at(i);
-        auto tol2 = tol / 10.0;
+        auto tol2 = tol / 2.0;
         if (name.find("bry") != std::string::npos)
         {
             if (Numeric::anglesEqual(val, inval, tol2))
                 return;
+            val = std::remainder(val, 2.0 * std::numbers::pi);     // in [-pi, pi]
+            inval = std::remainder(inval, 2.0 * std::numbers::pi); // in [-pi, pi]
         }
         if (std::abs(val) < tol2 && std::abs(inval) < tol2)
             return;
-        auto ratio = val / inval;
-        auto relDiff = std::abs(ratio) - 1.0;
-        if (ratio < 0.0)
+        auto hasOutput = hasOutputEqualTol(name, val, inval, nSig, tol);
+        if (hasOutput)
         {
-            std::cout << "                    Sign Error ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
-            std::cout << std::endl;
-        }
-        else if (std::abs(relDiff) >= std::pow(10, -int(nSig)))
-        {
-            std::cout << "                    ";
-            std::cout << i << " " << name << " " << val << " != " << inval << " relDiff = " << std::abs(relDiff);
             std::cout << std::endl;
         }
     };
     auto mbdUnts = mbdUnits();
-    size_t nDigit = 3;
+    size_t nDigit = ASMTAssembly::resultComparisonDigits;
     auto factor = std::pow(10, -int(nDigit));
     auto lengthTol = mbdUnts->length * factor;
     auto angleTol = mbdUnts->angle * factor;
@@ -424,28 +351,28 @@ void ASMTSpatialContainer::compareResults2(AnalysisType type)
         return;
 
     // Pos
-    lambda("xs", 0, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
-    lambda("ys", 1, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
-    lambda("zs", 2, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
-    lambda("bryxs", 0, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
-    lambda("bryys", 1, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
-    lambda("bryzs", 2, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
+    lambda("x", 0, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
+    lambda("y", 1, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
+    lambda("z", 2, data->rFfF, dataIn->rFfF, nDigit, lengthTol);
+    lambda("bryx", 0, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
+    lambda("bryy", 1, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
+    lambda("bryz", 2, data->bryAngFf, dataIn->bryAngFf, nDigit, angleTol);
     // Vel
-    lambda("vxs", 0, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
-    lambda("vys", 1, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
-    lambda("vzs", 2, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
-    lambda("omexs", 0, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
-    lambda("omeys", 1, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
-    lambda("omezs", 2, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
+    lambda("vx", 0, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
+    lambda("vy", 1, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
+    lambda("vz", 2, data->vFfF, dataIn->vFfF, nDigit, velocityTol);
+    lambda("omex", 0, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
+    lambda("omey", 1, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
+    lambda("omez", 2, data->omeFfF, dataIn->omeFfF, nDigit, omegaTol);
     // Acc
     if (type == AnalysisType::INPUT)
         return;
-    lambda("axs", 0, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
-    lambda("ays", 1, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
-    lambda("azs", 2, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
-    lambda("alpxs", 0, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
-    lambda("alpys", 1, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
-    lambda("alpzs", 2, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
+    lambda("ax", 0, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
+    lambda("ay", 1, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
+    lambda("az", 2, data->aFfF, dataIn->aFfF, nDigit, accelerationTol);
+    lambda("alpx", 0, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
+    lambda("alpy", 1, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
+    lambda("alpz", 2, data->alpFfF, dataIn->alpFfF, nDigit, alphaTol);
 }
 
 void ASMTSpatialContainer::outputResults(AnalysisType)

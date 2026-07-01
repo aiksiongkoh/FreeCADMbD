@@ -59,7 +59,6 @@ namespace MbD {
         FColDsptr alpOpO();
         
         void setSystem(System* sys);
-        void asFixed();
         void postInput() override;
         void simUpdateAll() override;
 

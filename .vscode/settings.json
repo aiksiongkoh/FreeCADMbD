@@ -2,9 +2,10 @@
   "cmake.configureOnOpen": true,
   "cmake.testExplorerIntegrationEnabled": true,
   "cmake.generator": "Visual Studio 17 2022",
-  "cmake.buildDirectory": "${workspaceFolder}/build-vs",
+  "cmake.buildDirectory": "${workspaceFolder}/build-vcpkg",
   "cmake.configureSettings": {
-    "CMAKE_GENERATOR_PLATFORM": "x64"
+    "CMAKE_GENERATOR_PLATFORM": "x64",
+    "CMAKE_TOOLCHAIN_FILE": "C:/Users/askoh/vcpkg/scripts/buildsystems/vcpkg.cmake"
   },
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "C_Cpp.default.intelliSenseMode": "windows-msvc-x64",

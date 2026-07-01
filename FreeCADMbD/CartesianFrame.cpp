@@ -43,11 +43,9 @@ bool CartesianFrame::has_s() const
 size_t CartesianFrame::iqX() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return size_t();
 }
 
 size_t CartesianFrame::iqE() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return size_t();
 }

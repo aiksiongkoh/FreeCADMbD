@@ -5,7 +5,7 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #include "VelSolver.h"
 #include "MatrixSolver.h"
 #include "SystemSolver.h"
@@ -36,22 +36,22 @@ void VelSolver::basicSolveEquations()
 
 void VelSolver::handleSingularMatrix()
 {
-    auto& r = *matrixSolver;
-    std::string str = typeid(r).name();
-    if (str.find("GESpMatParPvMarkoFast") != std::string::npos) {
+    const auto solverName = std::string(typeid(*matrixSolver).name());
+    if (solverName.find("GESpMatParPvMarkoFast") != std::string::npos)
+    {
         matrixSolver = GESpMatParPvPrecise::With();
         solveEquations();
+        return;
     }
-    else {
-        str = typeid(r).name();
-        if (str.find("GESpMatParPvPrecise") != std::string::npos) {
-            logSingularMatrixMessage();
-            matrixSolver = matrixSolverClassNew();
-        }
-        else {
-            throw SimulationStoppingError("To be implemented.");
-        }
+
+    if (solverName.find("GESpMatParPvPrecise") != std::string::npos)
+    {
+        logSingularMatrixMessage();
+        matrixSolver = matrixSolverClassNew();
+        throw SimulationStoppingError("Velocity solver singular matrix.");
     }
+
+    throw SimulationStoppingError("Unhandled matrix solver in VelSolver::handleSingularMatrix.");
 }
 
 void VelSolver::logSingularMatrixMessage()
@@ -67,15 +67,17 @@ std::shared_ptr<MatrixSolver> VelSolver::matrixSolverClassNew()
 
 void VelSolver::solveEquations()
 {
-    try {
+    try
+    {
         basicSolveEquations();
     }
-    catch (SingularMatrixError ex) {
+    catch (const SingularMatrixError &ex)
+    {
         handleSingularMatrix();
     }
 }
 
-void VelSolver::setSystem(Solver* sys)
+void VelSolver::setSystem(Solver *sys)
 {
-    system = static_cast<SystemSolver*>(sys);
+    system = static_cast<SystemSolver *>(sys);
 }

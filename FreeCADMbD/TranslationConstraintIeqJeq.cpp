@@ -104,8 +104,8 @@ void TranslationConstraintIeqJeq::fillPosICJacob(SpMatDsptr mat)
     mat->atijplusFullMatrix(iqEI, iqEJ, ppGpEIpEJlam);
 
     mat->atijplusTransposeFullMatrix(iqXJ, iqEI, ppGpEIpXJlam);
-
     mat->atijplusTransposeFullMatrix(iqEJ, iqEI, ppGpEIpEJlam);
+    
     mat->atijplusFullMatrixtimes(iqEJ, iqEJ, ppGpEJpEJ, lam);
 }
 

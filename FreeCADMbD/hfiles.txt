@@ -1,5 +1,4 @@
 Abs.h
-AbsConstraint.h
 AccICKineNewtonRaphson.h
 AccICNewtonRaphson.h
 AccKineNewtonRaphson.h
@@ -169,6 +168,7 @@ EndFrameqccq.h
 EndFrameqt.h
 EndFrameqt2.h
 enum.h
+ExactPendulum.h
 EulerAngles.h
 EulerAnglesDDot.h
 EulerAnglesDot.h

@@ -203,7 +203,6 @@ bool ASMTItem::readBool(const std::string &line)
     else
     {
         throw SimulationStoppingError("To be implemented.");
-        return false;
     }
 }
 
@@ -258,12 +257,6 @@ void ASMTItem::updateFromMbD()
 }
 
 std::shared_ptr<StateData> ASMTItem::dataFromMbD()
-{
-    throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<StateData>();
-}
-
-void ASMTItem::compareResults(AnalysisType)
 {
     throw SimulationStoppingError("To be implemented.");
 }
@@ -383,4 +376,37 @@ void ASMTItem::storeOnArrayArray(std::ofstream &os, const std::string &str, std:
 void ASMTItem::logString(const std::string &str)
 {
     std::cout << str << std::endl;
+}
+
+bool MbD::ASMTItem::hasOutputEqualTol(std::string name, double val, double inval, size_t nSig, double tol)
+{
+    auto tol2 = tol / 2.0;
+    if (std::abs(val) < tol2 && std::abs(inval) < tol2)
+        return false;
+    auto ratio = val / inval;
+    if (std::abs(ratio) < 1.0)
+        ratio = inval / val;
+    auto relDiff = std::abs(ratio) - 1.0;
+    if (relDiff >= std::pow(10, -int(nSig)))
+    {
+        if (ratio < 0.0)
+            relDiff = -relDiff;
+        std::cout << "                    ";
+        std::cout
+            << std::left << std::setw(8) << name << " "
+            << std::scientific << std::setprecision(6)
+            << std::right << std::setw(14) << val
+            << " != "
+            << std::right << std::setw(14) << inval
+            << "    relDiff = "
+            << std::right << std::setw(14) << relDiff
+            << ' ';
+        if (std::abs(relDiff) > 1.0){
+            std::cout << "! ";
+        } else {
+            std::cout << "  ";
+        }
+        return true;
+    }
+    return false;
 }

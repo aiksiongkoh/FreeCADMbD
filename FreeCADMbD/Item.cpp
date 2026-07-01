@@ -353,13 +353,11 @@ void Item::storeDynState()
 double Item::suggestSmallerOrAcceptCollisionFirstStepSize(double)
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 double Item::suggestSmallerOrAcceptCollisionStepSize(double)
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 double Item::suggestSmallerOrAcceptDynFirstStepSize(double hnew)
@@ -568,7 +566,6 @@ void Item::setqsuddotlam(FColDsptr col)
 std::shared_ptr<StateData> Item::stateData()
 {
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<StateData>();
 }
 
 void Item::storeCollisionState()
@@ -612,7 +609,6 @@ void Item::useEquationNumbers()
 double Item::value()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void Item::logString(const std::string& str)

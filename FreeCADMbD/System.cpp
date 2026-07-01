@@ -249,6 +249,7 @@ void System::initializeGlobally()
 void System::clear()
 {
     name = std::string();
+    createAssemblyFrame();
     parts->clear();
     dispIeJeOs->clear();
     dispIeJeKes->clear();

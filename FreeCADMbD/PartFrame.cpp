@@ -11,11 +11,11 @@
 #include "PartFrame.h"
 #include "Part.h"
 #include "EulerConstraint.h"
-#include "AbsConstraint.h"
 #include "MarkerFrame.h"
 #include "MarkerFrameq.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
+#include "EulerParametersDDot.h"
 #include "RedundantConstraint.h"
 #include "System.h"
 
@@ -323,11 +323,11 @@ FColDsptr PartFrame::aOpO()
 
 FMatDsptr PartFrame::aAddotOp()
 {
-    throw SimulationStoppingError("To be implemented.");
-    return FMatDsptr();
-    // auto aMbDEulerParametersDDot = EulerParametersDDot<double>::With(qEdot, qEddot);
-    //     aMbDEulerParametersDDot calcAddotBddotCddot.
-    //     ^ aMbDEulerParametersDDot aAddot
+    auto qEddotOp = EulerParametersDDot<double>::With();
+    qEddotOp->equalFullColumn(qEddot);
+    qEddotOp->qEdot = qEdot;
+    qEddotOp->calcAddotBddotCddot();
+    return qEddotOp->aAddot;
 }
 
 void PartFrame::fillEssenConstraints(std::shared_ptr<std::vector<std::shared_ptr<Constraint>>> essenConstraints)
@@ -743,16 +743,6 @@ void PartFrame::postDynOutput()
     aGeu->postDynOutput();
     aGabsDo([&](std::shared_ptr<Constraint> aGab)
             { aGab->postDynOutput(); });
-}
-
-void PartFrame::asFixed()
-{
-    for (size_t i = 0; i < 6; i++)
-    {
-        auto con = AbsConstraint::With(i);
-        con->owner = this;
-        aGabs->push_back(con);
-    }
 }
 
 void PartFrame::postInput()

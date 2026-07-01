@@ -17,7 +17,6 @@ std::shared_ptr<GESpMatParPv> GESpMatParPv::With()
 {
     //Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<GESpMatParPv>();
 }
 
 void GESpMatParPv::forwardEliminateWithPivot(size_t p)

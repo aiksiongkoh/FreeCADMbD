@@ -102,13 +102,11 @@ Symsptr Symbolic::sum(Symsptr arg, Symsptr arg1)
 Symsptr Symbolic::differentiateWRT(Symsptr)
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 Symsptr Symbolic::integrateWRT(Symsptr)
 {
     throw SimulationStoppingError("To be implemented.");
-    return Symsptr();
 }
 
 Symsptr Symbolic::simplified()
@@ -143,13 +141,11 @@ Symsptr Symbolic::expandUntil(std::shared_ptr<std::unordered_set<Symsptr>> set)
 Symsptr Symbolic::expandUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return sptr;
 }
 
 Symsptr Symbolic::simplifyUntil(Symsptr sptr, std::shared_ptr<std::unordered_set<Symsptr>>)
 {
     throw SimulationStoppingError("To be implemented.");
-    return sptr;
 }
 
 bool Symbolic::isZero()
@@ -188,7 +184,6 @@ std::ostream& Symbolic::printOn(std::ostream& s) const
 std::shared_ptr<std::vector<Symsptr>> Symbolic::getTerms()
 {
     throw SimulationStoppingError("To be implemented.");
-    return std::make_shared<std::vector<Symsptr>>();
 }
 
 void Symbolic::addTerm(Symsptr trm)
@@ -199,7 +194,6 @@ void Symbolic::addTerm(Symsptr trm)
 double Symbolic::getValue()
 {
     throw SimulationStoppingError("To be implemented.");
-    return 0.0;
 }
 
 void Symbolic::setValue(double)
@@ -210,14 +204,12 @@ void Symbolic::setValue(double)
 void Symbolic::createMbD()
 {
     throw SimulationStoppingError("To be implemented.");
-    return;
 }
 
 Symsptr Symbolic::clonesptr()
 {
     //Return shallow copy of *this wrapped in shared_ptr
     throw SimulationStoppingError("To be implemented.");
-    return std::make_shared<Symbolic>(*this);
 }
 
 std::shared_ptr<Constant> Symbolic::sptrConstant(double value)

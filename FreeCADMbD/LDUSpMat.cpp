@@ -39,7 +39,6 @@ void LDUSpMat::decomposesaveOriginal(SpMatDsptr, bool)
 FColDsptr LDUSpMat::forAndBackSubsaveOriginal(FColDsptr, bool)
 {
     throw SimulationStoppingError("To be implemented.");
-    return FColDsptr();
 }
 
 double LDUSpMat::getmatrixArowimaxMagnitude(size_t i)

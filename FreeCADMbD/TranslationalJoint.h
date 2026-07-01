@@ -21,6 +21,7 @@ namespace MbD {
         static std::shared_ptr<TranslationalJoint> With(const std::string& str);
 
         void initializeGlobally() override;
+        void preAccIC() override;
 
     };
 }

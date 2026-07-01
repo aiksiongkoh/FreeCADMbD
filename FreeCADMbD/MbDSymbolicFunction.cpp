@@ -178,11 +178,6 @@ FRowDsptr MbDSymbolicFunction::pvaluepEK()
     return std::dynamic_pointer_cast<KinematicIeJe>(mbdObject)->pvaluepEK();
 }
 
-FRowDsptr MbDSymbolicFunction::pvaluepXK()
-{
-    return std::dynamic_pointer_cast<KinematicIeJe>(mbdObject)->pvaluepXK();
-}
-
 FRowDsptr MbDSymbolicFunction::pvaluepEdotI()
 {
     return std::dynamic_pointer_cast<KinematicDotIeJe>(mbdObject)->pvaluepEdotI();
@@ -208,15 +203,9 @@ FRowDsptr MbDSymbolicFunction::pvaluepEdotK()
     return std::dynamic_pointer_cast<KinematicDotIeJe>(mbdObject)->pvaluepEdotK();
 }
 
-FRowDsptr MbDSymbolicFunction::pvaluepXdotK()
-{
-    return std::dynamic_pointer_cast<KinematicDotIeJe>(mbdObject)->pvaluepXdotK();
-}
-
 SpRowDsptr MbDSymbolicFunction::pvalueplam()
 {
     throw SimulationStoppingError("To be implemented.");
-    return SpRowDsptr();
 }
 
 SpatialContainerFrame* MbDSymbolicFunction::partFrameI()

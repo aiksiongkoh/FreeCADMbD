@@ -21,7 +21,6 @@ namespace MbD {
 
         void updateFromMbD() override;
         std::shared_ptr<StateData> dataFromMbD() override;
-        void compareResults(AnalysisType type) override;
         void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void readForceTorqueSeries(std::vector<std::string>& lines);

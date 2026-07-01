@@ -11,7 +11,6 @@
 #include "SpatialContainerFrame.h"
 #include "Part.h"
 #include "EulerConstraint.h"
-#include "AbsConstraint.h"
 #include "MarkerFrame.h"
 #include "EulerParameters.h"
 #include "EulerParametersDot.h"
@@ -47,6 +46,14 @@ EndFrmsptr SpatialContainerFrame::endFrame(std::string name) const
 {
     auto match = std::find_if(markerFrames->begin(), markerFrames->end(), [&](auto mkr)
                               { return mkr->name == name; });
+    if (match == markerFrames->end())
+    {
+        throw SimulationStoppingError("Marker frame not found: " + name);
+    }
+    if ((*match)->endFrames->empty())
+    {
+        throw SimulationStoppingError("Marker frame has no end frame: " + name);
+    }
     return (*match)->endFrames->at(0);
 }
 
@@ -343,118 +350,116 @@ void SpatialContainerFrame::postStaticIteration()
 size_t SpatialContainerFrame::iqX() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return size_t();
 }
 
 size_t SpatialContainerFrame::iqE() const
 {
     throw SimulationStoppingError("To be implemented.");
-    return size_t();
 }
 
 FColDsptr SpatialContainerFrame::qX()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<EulerParameters<double>> SpatialContainerFrame::qE()
 {
-    return std::shared_ptr<EulerParameters<double>>();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::qXdot()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 std::shared_ptr<EulerParametersDot<double>> SpatialContainerFrame::qEdot()
 {
-    return std::shared_ptr<EulerParametersDot<double>>();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::qXddot()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::qEddot()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aAOp()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aC()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aCdot()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::alpOpO()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColFMatDsptr SpatialContainerFrame::pAOppE()
 {
-    return FColFMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColFMatDsptr SpatialContainerFrame::pAdotOppE()
 {
-    return FColFMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::pomeOpOpE()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::pomeOpOpEdot()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::vOpO()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aAdotOp()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::aOpO()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aAddotOp()
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::omeOpO()
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FMatDsptr SpatialContainerFrame::aBOp() const
 {
-    return FMatDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 FColDsptr SpatialContainerFrame::aOmO() const
 {
-    return FColDsptr();
+    throw SimulationStoppingError("To be implemented.");
 }
 
 void SpatialContainerFrame::postInput()

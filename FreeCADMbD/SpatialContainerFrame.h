@@ -23,7 +23,6 @@ namespace MbD {
     class Part;
     class MarkerFrame;
     class EulerConstraint;
-    class AbsConstraint;
 
     class SpatialContainerFrame : public CartesianFrame
     {

@@ -17,6 +17,7 @@ namespace MbD {
     public:
         DispIeqtJeqKeqt() {}
         DispIeqtJeqKeqt(EndFrmsptr frmi, EndFrmsptr frmj) : DispIeqJeqKeq(frmi, frmj) {}
+        DispIeqtJeqKeqt(EndFrmsptr frmi, EndFrmsptr frmj, EndFrmsptr frmk) : DispIeqJeqKeq(frmi, frmj, frmk) {}
         static std::shared_ptr<DispIeqtJeqKeqt> With(EndFrmsptr frmi, EndFrmsptr frmj);
 
         void calcpVectorpt() override;
@@ -41,7 +42,6 @@ namespace MbD {
         FMatDsptr pprIeJeKepEIpt;
         FMatDsptr pprIeJeKepXJpt;
         FMatDsptr pprIeJeKepEJpt;
-        FMatDsptr pprIeJeKepXKpt;
         FMatDsptr pprIeJeKepEKpt;
         FColDsptr pprIeJeKeptpt;
     };

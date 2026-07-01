@@ -18,7 +18,6 @@ std::shared_ptr<GESpMatFullPv> GESpMatFullPv::With()
 {
     //Should not create abstract class.
     throw SimulationStoppingError("To be implemented.");
-    return std::shared_ptr<GESpMatFullPv>();
 }
 
 void GESpMatFullPv::doPivoting(size_t p)
@@ -61,7 +60,7 @@ void GESpMatFullPv::doPivoting(size_t p)
         positionsOfOriginalCols->at(colOrder->at(pivotCol)) = pivotCol;
     }
     pivotValues->at(p) = max;
-    if (max < singularPivotTolerance) throwSingularMatrixError("");
+    if (max < singularPivotTolerance) throwSingularMatrixError("GESpMatFullPv::doPivoting");
     auto jp = colOrder->at(p);
     rowPositionsOfNonZerosInPivotColumn = rowPositionsOfNonZerosInColumns->at(jp);
     if (rowPositionsOfNonZerosInPivotColumn->front() == p) {
@@ -174,7 +173,7 @@ void GESpMatFullPv::preSolvewithsaveOriginal(SpMatDsptr spMat, FColDsptr fullCol
         auto spRowi = spMat->at(i);
         double maxRowMagnitude = spRowi->maxMagnitude();
         if (maxRowMagnitude == 0) {
-            throwSingularMatrixError("");
+            throwSingularMatrixError("GESpMatFullPv::preSolvewithsaveOriginal");
         }
         matrixA->at(i) = spRowi->conditionedWithTol(singularPivotTolerance * maxRowMagnitude);
         rowOrder->at(i) = i;

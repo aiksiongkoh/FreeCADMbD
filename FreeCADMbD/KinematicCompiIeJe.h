@@ -35,7 +35,6 @@ namespace MbD {
         FMatDsptr ppvaluepXJpXJ() override;
         FMatDsptr ppvaluepXJpEJ() override;
         FMatDsptr ppvaluepEJpEJ() override;
-        FRowDsptr pvaluepXK() override;
         FRowDsptr pvaluepEK() override;
         FMatDsptr ppvaluepXIpEK() override;
         FMatDsptr ppvaluepEIpEK() override;
@@ -48,7 +47,6 @@ namespace MbD {
         FRowDsptr ppvaluepEIpt() override;
         FRowDsptr ppvaluepXJpt() override;
         FRowDsptr ppvaluepEJpt() override;
-        FRowDsptr ppvaluepXKpt() override;
         FRowDsptr ppvaluepEKpt() override;
         double value() override;
 

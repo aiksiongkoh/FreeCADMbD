@@ -26,7 +26,7 @@ void LDUFullMatParPvRobust::doPivoting(size_t p)
     try {
         LDUFullMatParPv::doPivoting(p);
     }
-    catch (SingularMatrixError ex) {
+    catch (const SingularMatrixError& ex) {
         //Resume
     }
 }

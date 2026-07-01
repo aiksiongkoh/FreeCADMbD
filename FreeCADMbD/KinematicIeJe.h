@@ -42,7 +42,6 @@ namespace MbD {
         virtual void calcppvaluepXJpXJ();
         virtual void calcppvaluepXJpEJ();
         virtual void calcppvaluepEJpEJ();
-        virtual void calcpvaluepXK();
         virtual void calcpvaluepEK();
         virtual void calcppvaluepXIpEK();
         virtual void calcppvaluepEIpEK();
@@ -54,7 +53,6 @@ namespace MbD {
         virtual void calcppvaluepEIpt();
         virtual void calcppvaluepXJpt();
         virtual void calcppvaluepEJpt();
-        virtual void calcppvaluepXKpt();
         virtual void calcppvaluepEKpt();
         virtual void calcppvalueptpt();
 
@@ -74,7 +72,6 @@ namespace MbD {
         virtual FMatDsptr ppvaluepXJpXJ();
         virtual FMatDsptr ppvaluepXJpEJ();
         virtual FMatDsptr ppvaluepEJpEJ();
-        virtual FRowDsptr pvaluepXK();
         virtual FRowDsptr pvaluepEK();
         virtual FMatDsptr ppvaluepXIpEK();
         virtual FMatDsptr ppvaluepEIpEK();
@@ -91,7 +88,6 @@ namespace MbD {
         virtual FRowDsptr ppvaluepEIpt();
         virtual FRowDsptr ppvaluepXJpt();
         virtual FRowDsptr ppvaluepEJpt();
-        virtual FRowDsptr ppvaluepXKpt();
         virtual FRowDsptr ppvaluepEKpt();
         virtual double value() override;
         SpatialContainerFrame* partFrameI();
