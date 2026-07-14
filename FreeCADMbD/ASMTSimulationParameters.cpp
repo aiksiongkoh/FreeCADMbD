@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include "ASMTSimulationParameters.h"
+#include "Numeric.h"
 
 #include <algorithm>
 #include <cmath>
@@ -22,12 +23,12 @@ std::shared_ptr<ASMTSimulationParameters> ASMTSimulationParameters::With()
 
 void ASMTSimulationParameters::initialize()
 {
-    //Do nothing.
+    // Do nothing.
 }
 
-void ASMTSimulationParameters::parseASMT(std::vector<std::string>& lines)
+void ASMTSimulationParameters::parseASMT(std::vector<std::string> &lines)
 {
-    //tstart, tend, hmin, hmax, hout, errorTol;
+    // tstart, tend, hmin, hmax, hout, errorTol;
 
     size_t pos = lines[0].find_first_not_of("\t");
     auto leadingTabs = lines[0].substr(0, pos);
@@ -55,7 +56,6 @@ void ASMTSimulationParameters::parseASMT(std::vector<std::string>& lines)
     lines.erase(lines.begin());
     seterrorTol(readDouble(lines[0]));
     lines.erase(lines.begin());
-
 }
 
 void ASMTSimulationParameters::settstart(double t)
@@ -98,6 +98,7 @@ void ASMTSimulationParameters::setAllTolForNDigit(int nDigit)
 {
     const auto tol = std::pow(10.0, -nDigit);
     seterrorTol(tol * tol);
+    hmin = tol * tol;
 }
 
 void ASMTSimulationParameters::setmaxIter(size_t maxIter)
@@ -106,7 +107,7 @@ void ASMTSimulationParameters::setmaxIter(size_t maxIter)
     iterMaxAccKine = maxIter;
 }
 
-void ASMTSimulationParameters::storeOnLevel(std::ofstream& os, size_t level)
+void ASMTSimulationParameters::storeOnLevel(std::ofstream &os, size_t level)
 {
     storeOnLevelString(os, level, "SimulationParameters");
     storeOnLevelString(os, level + 1, "tstart");
@@ -121,4 +122,65 @@ void ASMTSimulationParameters::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelDouble(os, level + 2, hout);
     storeOnLevelString(os, level + 1, "errorTol");
     storeOnLevelDouble(os, level + 2, errorTol);
+}
+
+std::string ASMTSimulationParameters::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItem::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTSimulationParameters>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTSimulationParameters.\n";
+    }
+
+    auto doubleReport = [this](const std::string& label, double value, double otherValue) {
+        if (!Numeric::equaltol(value, otherValue, 1.0e-9)) {
+            return fullName("") + " " + label + " " + std::to_string(value) + " != " + std::to_string(otherValue) + "\n";
+        }
+        return std::string{};
+    };
+    auto sizeReport = [this](const std::string& label, size_t value, size_t otherValue) {
+        if (value != otherValue) {
+            return fullName("") + " " + label + " " + std::to_string(value) + " != " + std::to_string(otherValue) + "\n";
+        }
+        return std::string{};
+    };
+
+    report = doubleReport("tstart", tstart, other->tstart);
+    if (!report.empty()) return report;
+    report = doubleReport("tend", tend, other->tend);
+    if (!report.empty()) return report;
+    report = doubleReport("hmin", hmin, other->hmin);
+    if (!report.empty()) return report;
+    report = doubleReport("hmax", hmax, other->hmax);
+    if (!report.empty()) return report;
+    report = doubleReport("hout", hout, other->hout);
+    if (!report.empty()) return report;
+    report = doubleReport("errorTol", errorTol, other->errorTol);
+    if (!report.empty()) return report;
+    report = doubleReport("errorTolPosKine", errorTolPosKine, other->errorTolPosKine);
+    if (!report.empty()) return report;
+    report = doubleReport("errorTolAccKine", errorTolAccKine, other->errorTolAccKine);
+    if (!report.empty()) return report;
+    report = doubleReport("corAbsTol", corAbsTol, other->corAbsTol);
+    if (!report.empty()) return report;
+    report = doubleReport("corRelTol", corRelTol, other->corRelTol);
+    if (!report.empty()) return report;
+    report = doubleReport("intAbsTol", intAbsTol, other->intAbsTol);
+    if (!report.empty()) return report;
+    report = doubleReport("intRelTol", intRelTol, other->intRelTol);
+    if (!report.empty()) return report;
+    report = doubleReport("translationLimit", translationLimit, other->translationLimit);
+    if (!report.empty()) return report;
+    report = doubleReport("rotationLimit", rotationLimit, other->rotationLimit);
+    if (!report.empty()) return report;
+    report = sizeReport("iterMaxPosKine", iterMaxPosKine, other->iterMaxPosKine);
+    if (!report.empty()) return report;
+    report = sizeReport("iterMaxAccKine", iterMaxAccKine, other->iterMaxAccKine);
+    if (!report.empty()) return report;
+    report = sizeReport("iterMaxDyn", iterMaxDyn, other->iterMaxDyn);
+    if (!report.empty()) return report;
+    return sizeReport("orderMax", orderMax, other->orderMax);
 }

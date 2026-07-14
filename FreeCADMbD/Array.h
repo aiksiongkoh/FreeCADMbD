@@ -44,7 +44,6 @@ namespace MbD {
         virtual size_t numberOfElements();
         void swapElems(size_t i, size_t ii);
         virtual double maxMagnitude();
-        double maxMagnitudeOfVector();
         void equalArrayAt(std::shared_ptr<Array<T>> array, size_t i);
         void atiput(size_t i, T value);
         void magnifySelf(T factor);
@@ -54,6 +53,8 @@ namespace MbD {
         virtual std::string to_CSV();
         void outputCSV(std::string filename);
         void appendCSV(std::string filename);
+        bool equaltol(std::shared_ptr<Array<T>> array, double tol);
+        bool equaltol(double target, double tol);
 
         virtual std::ostream& printOn(std::ostream& s) const {
             const std::string& str = typeid(*this).name();
@@ -177,18 +178,6 @@ namespace MbD {
     //}
 
     template<typename T>
-    inline double Array<T>::maxMagnitudeOfVector()
-    {
-        double answer = 0.0;
-        for (size_t i = 0; i < this->size(); i++)
-        {
-            double mag = std::abs(this->at(i));
-            if (answer < mag) answer = mag;
-        }
-        return answer;
-    }
-
-    template<typename T>
     inline void Array<T>::equalArrayAt(std::shared_ptr<Array<T>> array, size_t i)
     {
         for (size_t ii = 0; ii < this->size(); ii++)
@@ -291,5 +280,31 @@ namespace MbD {
         std::ofstream os(filename, std::ios_base::app);
         os << to_CSV();
         os << std::endl;
+    }
+    template <typename T>
+    inline bool Array<T>::equaltol(std::shared_ptr<Array<T>> array, double tol)
+    {
+        if (!array)
+            return false;
+        const auto n = this->size();
+        if (n != array->size())
+            return false;
+        for (size_t i = 0; i < n; i++)
+        {
+            if (!Numeric::equaltol(static_cast<double>((*this)[i]), static_cast<double>((*array)[i]), tol))
+                return false;
+        }
+        return true;
+    }
+    template <typename T>
+    inline bool Array<T>::equaltol(double target, double tol)
+    {
+        const auto n = this->size();
+        for (size_t i = 0; i < n; i++)
+        {
+            if (!Numeric::equaltol(static_cast<double>((*this)[i]), target, tol))
+                return false;
+        }
+        return true;
     }
 }

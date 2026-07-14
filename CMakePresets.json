@@ -14,7 +14,7 @@
       "architecture": "x64",
       "binaryDir": "${sourceDir}/build-vcpkg",
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "C:/Users/askoh/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "FREECADMBD_BUILD_TESTS": "ON",
         "FREECADMBD_BUILD_EXE": "ON"
       }

@@ -28,6 +28,7 @@ namespace MbD {
         void setAllTolForNDigit(int nDigit);
         void setmaxIter(size_t maxIter);
         void storeOnLevel(std::ofstream& os, size_t level) override;
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         double tstart = 0.0, tend = 1.0, hmin = 1.0e-9, hmax = 1.0e9, hout = 0.1, errorTol = 1.0e-6;
         double errorTolPosKine = 1.0e-6, errorTolAccKine = 1.0e-6, corAbsTol = 1.0e-6, corRelTol = 1.0e-6;

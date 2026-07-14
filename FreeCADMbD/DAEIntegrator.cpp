@@ -154,7 +154,7 @@ FColDsptr DAEIntegrator::integrationAbsoluteTolerance()
 
 FColDsptr DAEIntegrator::correctorRelativeTolerance()
 {
-    auto corRelTol = system->integrationRelativeTolerance();
+    auto corRelTol = system->correctorRelativeTolerance();
     auto col = std::make_shared<FullColumn<double>>(neqn);
     for (size_t i = 0; i < neqn; i++)
     {
@@ -165,7 +165,7 @@ FColDsptr DAEIntegrator::correctorRelativeTolerance()
 
 FColDsptr DAEIntegrator::correctorAbsoluteTolerance()
 {
-    auto corAbsTol = system->integrationRelativeTolerance();
+    auto corAbsTol = system->correctorAbsoluteTolerance();
     auto col = std::make_shared<FullColumn<double>>(neqn);
     for (size_t i = 0; i < neqn; i++)
     {

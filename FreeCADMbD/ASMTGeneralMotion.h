@@ -25,6 +25,7 @@ namespace MbD {
         void createMbD() override;
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnTimeSeries(std::ofstream& os) override;
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         std::shared_ptr<FullColumn<std::string>> rIJI = std::make_shared<FullColumn<std::string>>(3);
         std::shared_ptr<FullColumn<std::string>> angIJJ = std::make_shared<FullColumn<std::string>>(3);

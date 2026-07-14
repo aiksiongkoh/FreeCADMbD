@@ -10,9 +10,12 @@
 #include <cassert>
 #include "FullMatrix.h"
 #include "ASMTAssembly.h"
+#include "Numeric.h"
 #include "Part.h"
 #include "PartFrame.h"
 #include "MarkerFrameq.h"
+
+#include <sstream>
 
 using namespace MbD;
 
@@ -134,4 +137,38 @@ void ASMTMarkerTemp::zeroMass()
     mass = 0.0;
     density = 0.0;
     momentOfInertias = DiagonalMatrix<double>::With(ListD{ 0.0, 0.0, 0.0 });
+}
+
+std::string ASMTMarkerTemp::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTSpatialItem::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTMarkerTemp>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTMarkerTemp.\n";
+    }
+    if (!Numeric::equaltol(mass, other->mass, 1.0e-9)) {
+        std::ostringstream stream;
+        stream << fullName("") << " mass " << mass << " != " << other->mass << "\n";
+        return stream.str();
+    }
+    if (!Numeric::equaltol(density, other->density, 1.0e-9)) {
+        std::ostringstream stream;
+        stream << fullName("") << " density " << density << " != " << other->density << "\n";
+        return stream.str();
+    }
+    if (!momentOfInertias && other->momentOfInertias) {
+        return fullName("") + " missing momentOfInertias.\n";
+    }
+    if (momentOfInertias && !other->momentOfInertias) {
+        return fullName("") + " missing comparison momentOfInertias.\n";
+    }
+    if (momentOfInertias && other->momentOfInertias && !momentOfInertias->equaltol(other->momentOfInertias, 1.0e-9)) {
+        std::ostringstream stream;
+        stream << fullName("") << " momentOfInertias " << *momentOfInertias << " != " << *other->momentOfInertias << "\n";
+        return stream.str();
+    }
+    return std::string{};
 }

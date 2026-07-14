@@ -62,3 +62,16 @@ void ASMTRefItem::updateFromInputState()
         marker->updateFromInputState();
     }
 }
+
+std::string ASMTRefItem::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTSpatialItem::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTRefItem>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTRefItem.\n";
+    }
+    return ASMTItem::itemCollectionComparisonWith("marker", markers, other->markers);
+}

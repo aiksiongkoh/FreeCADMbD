@@ -1,8 +1,65 @@
 #include "ForceTorqueIJ.h"
+#include "ASMTItem.h"
 #include "ForceTorqueFunction.h"
 #include "System.h"
 
+#include <sstream>
+
 using namespace MbD;
+
+namespace
+{
+    std::string formulaString(const Symsptr& formula)
+    {
+        if (!formula) {
+            return "<null>";
+        }
+        std::ostringstream stream;
+        stream << *formula;
+        return stream.str();
+    }
+
+    std::string forceTorqueFunctionCollectionComparisonWith(
+        const std::string& ownerName,
+        const std::string& label,
+        const std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>>& functions,
+        const std::shared_ptr<std::vector<std::shared_ptr<ForceTorqueFunction>>>& otherFunctions)
+    {
+        if (!functions && !otherFunctions) {
+            return std::string{};
+        }
+        if (!functions) {
+            return ownerName + " missing " + label + ".\n";
+        }
+        if (!otherFunctions) {
+            return ownerName + " missing comparison " + label + ".\n";
+        }
+        if (functions->size() != otherFunctions->size()) {
+            return ownerName + " " + label + " size " + std::to_string(functions->size())
+                + " != " + std::to_string(otherFunctions->size()) + "\n";
+        }
+        for (size_t i = 0; i < functions->size(); ++i) {
+            const auto& function = functions->at(i);
+            const auto& otherFunction = otherFunctions->at(i);
+            if (!function && !otherFunction) {
+                continue;
+            }
+            if (!function) {
+                return ownerName + " missing " + label + "[" + std::to_string(i) + "].\n";
+            }
+            if (!otherFunction) {
+                return ownerName + " missing comparison " + label + "[" + std::to_string(i) + "].\n";
+            }
+            const auto formula = formulaString(function->getformula());
+            const auto otherFormula = formulaString(otherFunction->getformula());
+            if (formula != otherFormula) {
+                return ownerName + " " + label + "[" + std::to_string(i) + "] "
+                    + formula + " != " + otherFormula + "\n";
+            }
+        }
+        return std::string{};
+    }
+}
 
 void ForceTorqueIJ::calcaFJeO()
 {

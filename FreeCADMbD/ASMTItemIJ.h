@@ -46,6 +46,7 @@ namespace MbD {
         virtual bool isJoint();
         virtual bool isMotion();
         virtual bool isForceTorque();
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         std::shared_ptr<ASMTMarker> markerI, markerJ;
         std::shared_ptr<std::vector<FColDsptr>> cFIO;

@@ -28,6 +28,7 @@ namespace MbD {
         void settype(const std::string& _type);
         void setlimit(const std::string& _limit);
         void settol(const std::string& _tol);
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         std::string motionJoint, type, limit, tol;
 

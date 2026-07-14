@@ -22,6 +22,8 @@
 #include "SimulationStoppingError.h"
 #include "EulerAngles.h"
 
+#include <sstream>
+
 using namespace MbD;
 
 void ASMTSpatialContainer::initialize()
@@ -48,6 +50,48 @@ void ASMTSpatialContainer::initialize()
     alpxs = FullRow<double>::With();
     alpys = FullRow<double>::With();
     alpzs = FullRow<double>::With();
+}
+
+std::string ASMTSpatialContainer::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTSpatialItem::reportComparisonWith(otherItem);
+    if (!report.empty())
+    {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTSpatialContainer>(otherItem);
+    if (!other)
+    {
+        return fullName("") + " comparison item is not an ASMTSpatialContainer.\n";
+    }
+    if (!velocity3D->equaltol(other->velocity3D, 1.0e-9))
+    {
+        std::ostringstream stream;
+        stream << fullName("") << " velocity3D " << *velocity3D << " != " << *other->velocity3D << "\n";
+        return stream.str();
+    }
+    if (!omega3D->equaltol(other->omega3D, 1.0e-9))
+    {
+        std::ostringstream stream;
+        stream << fullName("") << " omega3D " << *omega3D << " != " << *other->omega3D << "\n";
+        return stream.str();
+    }
+    report = ASMTSpatialContainer::itemCollectionComparisonWith("refPoint", refPoints, other->refPoints);
+    if (!report.empty())
+    {
+        return report;
+    }
+    report = ASMTSpatialContainer::itemCollectionComparisonWith("refCurve", refCurves, other->refCurves);
+    if (!report.empty())
+    {
+        return report;
+    }
+    report = ASMTSpatialContainer::itemCollectionComparisonWith("refSurface", refSurfaces, other->refSurfaces);
+    if (!report.empty())
+    {
+        return report;
+    }
+    return std::string{};
 }
 
 void ASMTSpatialContainer::readRefPoints(std::vector<std::string> &lines)

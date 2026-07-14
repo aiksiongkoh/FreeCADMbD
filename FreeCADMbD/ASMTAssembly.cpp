@@ -18,6 +18,7 @@
 #include <limits>
 #include <numbers>
 #include <utility>
+#include <array>
 
 #include "ASMTAssembly.h"
 #include "ASMTRevoluteJoint.h"
@@ -38,6 +39,7 @@
 #include "ASMTConstantGravity.h"
 #include "ASMTSimulationParameters.h"
 #include "ASMTAnimationParameters.h"
+#include "Numeric.h"
 #include "Part.h"
 #include "ASMTTime.h"
 #include "ASMTItem.h"
@@ -135,6 +137,109 @@ namespace
 }
 
 using namespace MbD;
+
+namespace {
+    using RotationMatrixValues = std::array<double, 9>;
+
+    template <typename T>
+    void setRotationMatrix(const std::shared_ptr<T>& item, const RotationMatrixValues& rotation)
+    {
+        item->setRotationMatrix(
+            rotation[0], rotation[1], rotation[2],
+            rotation[3], rotation[4], rotation[5],
+            rotation[6], rotation[7], rotation[8]);
+    }
+
+    std::shared_ptr<ASMTAssembly> pointPendulumRevJt(
+        const RotationMatrixValues& rotation,
+        double gravityX,
+        double gravityY,
+        double gravityZ)
+    {
+        auto assembly = ASMTAssembly::With();
+
+        assembly->setNotes("");
+        assembly->setName("Assembly1");
+        assembly->setPosition3D(0, 0, 0);
+        assembly->setRotationMatrix(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1);
+        assembly->setVelocity3D(0, 0, 0);
+        assembly->setOmega3D(0, 0, 0);
+
+        auto mkrAM1 = ASMTMarker::With();
+        mkrAM1->setName("Marker1");
+        mkrAM1->setPosition3D(0, 0, 0);
+        setRotationMatrix(mkrAM1, rotation);
+        assembly->addMarker(mkrAM1);
+
+        auto part1 = ASMTPart::With();
+        part1->setName("Part1");
+        part1->setPosition3D(0, 0, 0);
+        setRotationMatrix(part1, rotation);
+        part1->setVelocity3D(0, 0, 0);
+        part1->setOmega3D(0, 0, 0);
+        assembly->addPart(part1);
+
+        auto massMarker = ASMTMarkerTemp::With();
+        massMarker->setMass(0.2);
+        massMarker->setDensity(1000.0);
+        massMarker->setMomentOfInertias(0, 0, 0);
+        massMarker->setPosition3D(0.2, 0, 0);
+        massMarker->setRotationMatrix(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1);
+        part1->setPrincipalMassMarker(massMarker);
+
+        auto mkrP1M1 = ASMTMarker::With();
+        mkrP1M1->setName("Marker1");
+        mkrP1M1->setPosition3D(0, 0, 0);
+        mkrP1M1->setRotationMatrix(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1);
+        part1->addMarker(mkrP1M1);
+
+        auto joint = ASMTRevoluteJoint::With();
+        joint->setName("Joint1");
+        joint->setMarkerI(mkrAM1);
+        joint->setMarkerJ(mkrP1M1);
+        assembly->addJoint(joint);
+
+        auto constantGravity = ASMTConstantGravity::With();
+        constantGravity->setg(gravityX, gravityY, gravityZ);
+        assembly->setConstantGravity(constantGravity);
+
+        auto simulationParameters = ASMTSimulationParameters::With();
+        simulationParameters->settstart(0.0);
+        simulationParameters->settend(2.0);
+        simulationParameters->sethmin(1.0e-9);
+        simulationParameters->sethmax(1.0);
+        simulationParameters->sethout(0.02);
+        simulationParameters->seterrorTol(1.0e-8);
+        assembly->setSimulationParameters(simulationParameters);
+        return assembly;
+    }
+
+    std::string optionalAssemblyItemComparisonWith(
+        const std::string& label,
+        const std::shared_ptr<ASMTItem>& item,
+        const std::shared_ptr<ASMTItem>& otherItem)
+    {
+        if (!item && !otherItem) {
+            return std::string{};
+        }
+        if (!item) {
+            return "Missing " + label + ".\n";
+        }
+        if (!otherItem) {
+            return "Missing comparison " + label + ".\n";
+        }
+        return item->reportComparisonWith(otherItem);
+    }
+}
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::With()
 {
@@ -437,6 +542,51 @@ void ASMTAssembly::runSinglePendulum()
     assembly->setSimulationParameters(simulationParameters);
     //
     assembly->runKINEMATIC();
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_XY()
+{
+    return pointPendulumRevJt(
+        { 1, 0, 0,
+          0, 1, 0,
+          0, 0, 1 },
+        0.0, -9.81, 0.0);
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_YZ()
+{
+    return pointPendulumRevJt(
+        { 0, 0, 1,
+          1, 0, 0,
+          0, 1, 0 },
+        0.0, 0.0, -9.81);
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_ZX()
+{
+    return pointPendulumRevJt(
+        { 1, 0, 0,
+          0, 0, 1,
+          1, 0, 0 },
+        -9.81, 0.0, 0.0);
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_XZ()
+{
+    return pointPendulumRevJt(
+        { 1, 0, 0,
+          0, 0, -1,
+          0, 1, 0 },
+        0.0, 0.0, -9.81);
+}
+
+std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_YX()
+{
+    return pointPendulumRevJt(
+        { 0, 1, 0,
+          1, 0, 0,
+          0, 0, -1 },
+        -9.81, 0.0, 0.0);
 }
 
 ASMTAssembly::SimplePendulumMotion ASMTAssembly::exactSimplePendulumMotion(
@@ -1665,6 +1815,73 @@ void ASMTAssembly::compareResults2(AnalysisType type)
         motion->compareResults2(type);
     for (auto forceTorque : *forcesTorques)
         forceTorque->compareResults2(type);
+}
+
+std::string ASMTAssembly::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTSpatialContainer::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTAssembly>(otherItem);
+    if (!other) {
+        return "Missing comparison assembly.\n";
+    }
+    report = ASMTItem::itemCollectionComparisonWith("part", parts, other->parts);
+    if (!report.empty()){
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("kinematicIJ", kinematicIJs, other->kinematicIJs);
+    if (!report.empty()) {
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("constraintSet", constraintSets, other->constraintSets);
+    if (!report.empty()) {
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("joint", joints, other->joints);
+    if (!report.empty()) {
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("motion", motions, other->motions);
+    if (!report.empty()) {
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("limit", limits, other->limits);
+    if (!report.empty()) {
+        return report;
+    }
+    report = ASMTItem::itemCollectionComparisonWith("forceTorque", forcesTorques, other->forcesTorques);
+    if (!report.empty()) {
+        return report;
+    }
+    report = optionalAssemblyItemComparisonWith("constantGravity", constantGravity, other->constantGravity);
+    if (!report.empty()) {
+        return report;
+    }
+    report = optionalAssemblyItemComparisonWith("simulationParameters", simulationParameters, other->simulationParameters);
+    if (!report.empty()) {
+        return report;
+    }
+    // report = optionalAssemblyItemComparisonWith("animationParameters", animationParameters, other->animationParameters);
+    // if (!report.empty()) {
+    //     return report;
+    // }
+    if (!asmtTime && other->asmtTime) {
+        return "Missing time.\n";
+    }
+    if (asmtTime && !other->asmtTime) {
+        return "Missing comparison time.\n";
+    }
+    if (asmtTime && other->asmtTime) {
+        if (asmtTime->getName() != other->asmtTime->getName()) {
+            return asmtTime->getName() + " != " + other->asmtTime->getName() + "\n";
+        }
+        // if (!Numeric::equaltol(asmtTime->getValue(), other->asmtTime->getValue(), 1.0e-9)) {
+        //     return asmtTime->getName() + " value differs.\n";
+        // }
+    }
+    return std::string{};
 }
 
 void ASMTAssembly::outputResults(AnalysisType type)

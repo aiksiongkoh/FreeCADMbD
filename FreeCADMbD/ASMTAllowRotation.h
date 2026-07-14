@@ -24,6 +24,7 @@ namespace MbD {
         void setMotionJoint(const std::string& motionJoint);
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void storeOnTimeSeries(std::ofstream& os) override;
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         std::string motionJoint, rotationZ;
     };

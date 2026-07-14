@@ -54,8 +54,10 @@ namespace MbD
         static std::shared_ptr<FullColumn<T>> With(size_t count);
         static std::shared_ptr<FullColumn<T>> With(size_t count, const T &value);
 
+        FColsptr<T> plusNumber(T num);
         FColsptr<T> plusFullColumn(FColsptr<T> fullCol);
         FColsptr<T> plusFullColumntimes(FColsptr<T> fullCol, double factor);
+        FColsptr<T> minusNumber(T num);
         FColsptr<T> minusFullColumn(FColsptr<T> fullCol);
         FColsptr<T> times(T a);
         FMatsptr<T> timesFullRowtimes(FRowsptr<T> row, double a);
@@ -108,6 +110,18 @@ namespace MbD
     }
 
     template <typename T>
+    inline FColsptr<T> FullColumn<T>::plusNumber(T num)
+    {
+        size_t n = this->size();
+        auto answer = std::make_shared<FullColumn<T>>(n);
+        for (size_t i = 0; i < n; i++)
+        {
+            answer->at(i) = this->at(i) + num;
+        }
+        return answer;
+    }
+
+    template <typename T>
     inline FColsptr<T> FullColumn<T>::plusFullColumn(FColsptr<T> fullCol)
     {
         size_t n = this->size();
@@ -127,6 +141,18 @@ namespace MbD
         for (size_t i = 0; i < n; i++)
         {
             answer->at(i) = this->at(i) + fullCol->at(i) * factor;
+        }
+        return answer;
+    }
+
+    template <typename T>
+    inline FColsptr<T> FullColumn<T>::minusNumber(T num)
+    {
+        size_t n = this->size();
+        auto answer = std::make_shared<FullColumn<T>>(n);
+        for (size_t i = 0; i < n; i++)
+        {
+            answer->at(i) = this->at(i) - num;
         }
         return answer;
     }

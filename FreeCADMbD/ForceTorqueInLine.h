@@ -57,7 +57,6 @@ namespace MbD {
         void setTension(Symsptr formula) override;
         void setTwist(Symsptr formula) override;
         void useEquationNumbers() override;
-
         std::shared_ptr<DistIeJe> distIeJe;
         FColDsptr uIeJeO;
         FMatDsptr puIeJeOpXI;
