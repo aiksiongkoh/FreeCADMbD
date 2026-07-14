@@ -13,6 +13,8 @@
 #include "System.h"
 #include "Part.h"
 
+#include <sstream>
+
 using namespace MbD;
 
 std::shared_ptr<ASMTConstantGravity> ASMTConstantGravity::With()
@@ -60,4 +62,28 @@ void ASMTConstantGravity::storeOnLevel(std::ofstream& os, size_t level)
 {
     storeOnLevelString(os, level, "ConstantGravity");
     storeOnLevelArray(os, level + 1, *g);
+}
+
+std::string ASMTConstantGravity::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItem::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTConstantGravity>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTConstantGravity.\n";
+    }
+    if (!g && other->g) {
+        return fullName("") + " missing g.\n";
+    }
+    if (g && !other->g) {
+        return fullName("") + " missing comparison g.\n";
+    }
+    if (g && other->g && !g->equaltol(other->g, 1.0e-9)) {
+        std::ostringstream stream;
+        stream << fullName("") << " g " << *g << " != " << *other->g << "\n";
+        return stream.str();
+    }
+    return std::string{};
 }

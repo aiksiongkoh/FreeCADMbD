@@ -98,3 +98,22 @@ void ASMTRotationalMotion::storeOnTimeSeries(std::ofstream& os)
     os << "RotationalMotionSeries\t" << fullName("") << std::endl;
     ASMTItemIJ::storeOnTimeSeries(os);
 }
+
+std::string ASMTRotationalMotion::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTRotationalMotion>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTRotationalMotion.\n";
+    }
+    if (motionJoint != other->motionJoint) {
+        return fullName("") + " motionJoint " + motionJoint + " != " + other->motionJoint + "\n";
+    }
+    if (rotationZ != other->rotationZ) {
+        return fullName("") + " rotationZ " + rotationZ + " != " + other->rotationZ + "\n";
+    }
+    return std::string{};
+}

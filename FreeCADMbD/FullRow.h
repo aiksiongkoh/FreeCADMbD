@@ -55,7 +55,9 @@ namespace MbD
 
         FRowsptr<T> times(T a);
         FRowsptr<T> negated();
+        FRowsptr<T> plusNumber(T num);
         FRowsptr<T> plusFullRow(FRowsptr<T> fullRow);
+        FRowsptr<T> minusNumber(T num);
         FRowsptr<T> minusFullRow(FRowsptr<T> fullRow);
         T timesFullColumn(FColsptr<T> fullCol);
         T timesFullColumn(FullColumn<T> *fullCol);
@@ -152,6 +154,18 @@ namespace MbD
     }
 
     template <typename T>
+    inline FRowsptr<T> FullRow<T>::plusNumber(T num)
+    {
+        size_t n = this->size();
+        auto answer = FullRow<T>::With(n);
+        for (size_t i = 0; i < n; i++)
+        {
+            answer->at(i) = this->at(i) + num;
+        }
+        return answer;
+    }
+
+    template <typename T>
     inline FRowsptr<T> FullRow<T>::plusFullRow(FRowsptr<T> fullRow)
     {
         size_t n = this->size();
@@ -159,6 +173,18 @@ namespace MbD
         for (size_t i = 0; i < n; i++)
         {
             answer->at(i) = this->at(i) + fullRow->at(i);
+        }
+        return answer;
+    }
+
+    template <typename T>
+    inline FRowsptr<T> FullRow<T>::minusNumber(T num)
+    {
+        size_t n = this->size();
+        auto answer = FullRow<T>::With(n);
+        for (size_t i = 0; i < n; i++)
+        {
+            answer->at(i) = this->at(i) - num;
         }
         return answer;
     }

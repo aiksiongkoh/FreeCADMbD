@@ -29,6 +29,7 @@ namespace MbD {
         void readTyOnI(std::vector<std::string>& lines);
         void readTzOnI(std::vector<std::string>& lines);
         void readMarkerKSign(std::vector<std::string>& lines);
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         std::string markerKSign;
         std::shared_ptr<ASMTMarker> markerK;

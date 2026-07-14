@@ -200,3 +200,49 @@ void ASMTForceTorqueGeneral::readMarkerKSign(std::vector<std::string> &lines)
     readStringNoSpacesOffTopEqualOrThrow(lines, "MarkerK");
     markerKSign = readStringNoSpacesOffTop(lines);
 }
+
+std::string MbD::ASMTForceTorqueGeneral::reportComparisonWith(std::shared_ptr<ASMTItem> other)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(other);
+    if (!report.empty()) {
+        return report;
+    }
+    auto otherForceTorque = std::dynamic_pointer_cast<ASMTForceTorqueGeneral>(other);
+    if (!otherForceTorque) {
+        return fullName("") + " comparison item is not an ASMTForceTorqueGeneral.\n";
+    }
+    if (markerKSign != otherForceTorque->markerKSign) {
+        return fullName("") + " markerKSign " + markerKSign + " != " + otherForceTorque->markerKSign + "\n";
+    }
+
+    auto componentReport = [this](const std::string& label,
+        const FColsptr<std::string>& components,
+        const FColsptr<std::string>& otherComponents) {
+        if (!components && !otherComponents) {
+            return std::string{};
+        }
+        if (!components) {
+            return fullName("") + " missing " + label + ".\n";
+        }
+        if (!otherComponents) {
+            return fullName("") + " missing comparison " + label + ".\n";
+        }
+        if (components->size() != otherComponents->size()) {
+            return fullName("") + " " + label + " size " + std::to_string(components->size())
+                + " != " + std::to_string(otherComponents->size()) + "\n";
+        }
+        for (size_t i = 0; i < components->size(); ++i) {
+            if (components->at(i) != otherComponents->at(i)) {
+                return fullName("") + " " + label + "[" + std::to_string(i) + "] "
+                    + components->at(i) + " != " + otherComponents->at(i) + "\n";
+            }
+        }
+        return std::string{};
+    };
+
+    report = componentReport("aFIeKe", aFIeKe, otherForceTorque->aFIeKe);
+    if (!report.empty()) {
+        return report;
+    }
+    return componentReport("aTIeKe", aTIeKe, otherForceTorque->aTIeKe);
+}

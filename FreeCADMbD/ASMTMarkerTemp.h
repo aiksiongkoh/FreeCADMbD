@@ -35,6 +35,7 @@ namespace MbD {
         void setMomentOfInertias(double a, double b, double c);
         void storeOnLevel(std::ofstream& os, size_t level) override;
         void zeroMass();
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         double mass = 1.0;
         double density = 10.0;

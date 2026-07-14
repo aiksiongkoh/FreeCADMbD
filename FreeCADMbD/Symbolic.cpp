@@ -9,6 +9,7 @@
 #include <memory>
 #include <assert.h>
 #include <unordered_set>
+#include <sstream>
 
 #include "Symbolic.h"
 #include "System.h"
@@ -179,6 +180,13 @@ std::ostream& Symbolic::printOn(std::ostream& s) const
     auto classname = str.substr(11, str.size() - 11);
     s << classname;
     return s;
+}
+
+std::string Symbolic::str() const
+{
+    std::ostringstream stream;
+    stream << *this;
+    return stream.str();
 }
 
 std::shared_ptr<std::vector<Symsptr>> Symbolic::getTerms()

@@ -57,6 +57,11 @@ namespace MbD {
         static void runSinglePendulumSuperSimplified2();
         static void runSinglePendulumSimplified();
         static void runSinglePendulum();
+        static std::shared_ptr<ASMTAssembly> pointPendulumRevJt_XY();
+        static std::shared_ptr<ASMTAssembly> pointPendulumRevJt_YZ();
+        static std::shared_ptr<ASMTAssembly> pointPendulumRevJt_ZX();
+        static std::shared_ptr<ASMTAssembly> pointPendulumRevJt_XZ();
+        static std::shared_ptr<ASMTAssembly> pointPendulumRevJt_YX();
         static SimplePendulumMotion exactSimplePendulumMotion(double time, double length, double gravity, double initialTheta, double initialOmega = 0.0);
         static std::shared_ptr<ASMTAssembly> assemblyFromFile(const std::string& str);
         static std::shared_ptr<ASMTAssembly> runDynFile(const std::string& fileName);
@@ -104,6 +109,7 @@ namespace MbD {
         FColDsptr omeOpO() override;
 
         void outputFor(AnalysisType type);
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
         void preMbDrun(std::shared_ptr<System> mbdSys);
         void postMbDrun();
         std::shared_ptr<std::vector<std::shared_ptr<ASMTItemIJ>>> connectorList() const;

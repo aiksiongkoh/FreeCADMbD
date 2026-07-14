@@ -5,12 +5,13 @@
  *                                                                         *
  *   See LICENSE file for details about copyright.                         *
  ***************************************************************************/
- 
+
 #pragma once
 
 #include "ASMTSpatialItem.h"
 
-namespace MbD {
+namespace MbD
+{
     class ASMTRefPoint;
     class ASMTRefCurve;
     class ASMTRefSurface;
@@ -27,34 +28,35 @@ namespace MbD {
     public:
         ASMTSpatialContainer() {}
         void initialize() override;
-        
-        void readRefPoints(std::vector<std::string>& lines);
-        void readRefPoint(std::vector<std::string>& lines);
-        void readRefCurves(std::vector<std::string>& lines);
-        void readRefCurve(std::vector<std::string>& lines);
-        void readRefSurfaces(std::vector<std::string>& lines);
-        void readRefSurface(std::vector<std::string>& lines);
-        void readXs(std::vector<std::string>& lines);
-        void readYs(std::vector<std::string>& lines);
-        void readZs(std::vector<std::string>& lines);
-        void readBryantxs(std::vector<std::string>& lines);
-        void readBryantys(std::vector<std::string>& lines);
-        void readBryantzs(std::vector<std::string>& lines);
-        void readVXs(std::vector<std::string>& lines);
-        void readVYs(std::vector<std::string>& lines);
-        void readVZs(std::vector<std::string>& lines);
-        void readOmegaXs(std::vector<std::string>& lines);
-        void readOmegaYs(std::vector<std::string>& lines);
-        void readOmegaZs(std::vector<std::string>& lines);
-        void readAXs(std::vector<std::string>& lines);
-        void readAYs(std::vector<std::string>& lines);
-        void readAZs(std::vector<std::string>& lines);
-        void readAlphaXs(std::vector<std::string>& lines);
-        void readAlphaYs(std::vector<std::string>& lines);
-        void readAlphaZs(std::vector<std::string>& lines);
+
+        void readRefPoints(std::vector<std::string> &lines);
+        void readRefPoint(std::vector<std::string> &lines);
+        void readRefCurves(std::vector<std::string> &lines);
+        void readRefCurve(std::vector<std::string> &lines);
+        void readRefSurfaces(std::vector<std::string> &lines);
+        void readRefSurface(std::vector<std::string> &lines);
+        void readXs(std::vector<std::string> &lines);
+        void readYs(std::vector<std::string> &lines);
+        void readZs(std::vector<std::string> &lines);
+        void readBryantxs(std::vector<std::string> &lines);
+        void readBryantys(std::vector<std::string> &lines);
+        void readBryantzs(std::vector<std::string> &lines);
+        void readVXs(std::vector<std::string> &lines);
+        void readVYs(std::vector<std::string> &lines);
+        void readVZs(std::vector<std::string> &lines);
+        void readOmegaXs(std::vector<std::string> &lines);
+        void readOmegaYs(std::vector<std::string> &lines);
+        void readOmegaZs(std::vector<std::string> &lines);
+        void readAXs(std::vector<std::string> &lines);
+        void readAYs(std::vector<std::string> &lines);
+        void readAZs(std::vector<std::string> &lines);
+        void readAlphaXs(std::vector<std::string> &lines);
+        void readAlphaYs(std::vector<std::string> &lines);
+        void readAlphaZs(std::vector<std::string> &lines);
         void createMbD() override;
         void updateMbDFromPosition3D(FColDsptr position3D);
-        ASMTSpatialContainer* partOrAssembly() override;
+        ASMTSpatialContainer *partOrAssembly() override;
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
         void compareResults2(AnalysisType type) override;
         void outputResults(AnalysisType type) override;
         void addRefPoint(std::shared_ptr<ASMTRefPoint> refPoint);
@@ -63,17 +65,17 @@ namespace MbD {
         std::shared_ptr<std::vector<std::shared_ptr<ASMTMarker>>> markerList() const;
         void setVelocity3D(FColDsptr velocity3D);
         void setOmega3D(FColDsptr omega3D);
-        void readVelocity3D(std::vector<std::string>& lines);
-        void readOmega3D(std::vector<std::string>& lines);
+        void readVelocity3D(std::vector<std::string> &lines);
+        void readOmega3D(std::vector<std::string> &lines);
         void setVelocity3D(double a, double b, double c);
         void setOmega3D(double a, double b, double c);
-        void storeOnLevel(std::ofstream& os, size_t level) override;
-        void storeOnLevelVelocity(std::ofstream& os, size_t level);
-        void storeOnLevelOmega(std::ofstream& os, size_t level);
-        void storeOnLevelRefPoints(std::ofstream& os, size_t level);
-        void storeOnLevelRefCurves(std::ofstream& os, size_t level);
-        void storeOnLevelRefSurfaces(std::ofstream& os, size_t level);
-        void storeOnTimeSeries(std::ofstream& os) override;
+        void storeOnLevel(std::ofstream &os, size_t level) override;
+        void storeOnLevelVelocity(std::ofstream &os, size_t level);
+        void storeOnLevelOmega(std::ofstream &os, size_t level);
+        void storeOnLevelRefPoints(std::ofstream &os, size_t level);
+        void storeOnLevelRefCurves(std::ofstream &os, size_t level);
+        void storeOnLevelRefSurfaces(std::ofstream &os, size_t level);
+        void storeOnTimeSeries(std::ofstream &os) override;
         FColDsptr getVelocity3D(size_t i) const;
         FColDsptr getOmega3D(size_t i) const;
         virtual void updateFromInputState();
@@ -88,6 +90,11 @@ namespace MbD {
         virtual FColDsptr rOcmO() = 0;
         virtual FColDsptr vOcmO() = 0;
         virtual FColDsptr omeOpO() = 0;
+        template <typename T>
+        static std::string itemCollectionComparisonWith(
+            const std::string &label,
+            const std::shared_ptr<std::vector<std::shared_ptr<T>>> &items,
+            const std::shared_ptr<std::vector<std::shared_ptr<T>>> &otherItems);
 
         FColDsptr velocity3D = std::make_shared<FullColumn<double>>(3);
         FColDsptr omega3D = std::make_shared<FullColumn<double>>(3);
@@ -100,7 +107,64 @@ namespace MbD {
         FRowDsptr axs, ays, azs, alpxs, alpys, alpzs;
         FRowDsptr invxs, invys, invzs, inomexs, inomeys, inomezs;
         FRowDsptr inaxs, inays, inazs, inalpxs, inalpys, inalpzs;
-
     };
-}
 
+    template <typename T>
+    inline std::string ASMTSpatialContainer::itemCollectionComparisonWith(
+        const std::string &label,
+        const std::shared_ptr<std::vector<std::shared_ptr<T>>> &items,
+        const std::shared_ptr<std::vector<std::shared_ptr<T>>> &otherItems)
+    {
+        if (!items && !otherItems)
+        {
+            return std::string{};
+        }
+        if (!items)
+        {
+            return "Missing " + label + ".\n";
+        }
+        if (!otherItems)
+        {
+            return "Missing comparison " + label + ".\n";
+        }
+        assert(std::all_of(items->cbegin(), items->cend(), [](auto refItem) { return refItem->markers->size() == 1; }));
+        assert(std::all_of(otherItems->cbegin(), otherItems->cend(), [](auto refItem) { return refItem->markers->size() == 1; }));
+        for (const auto &item : *items)
+        {
+            auto markerName = item->markers->front()->fullName("");
+            auto found = std::find_if(
+                otherItems->begin(),
+                otherItems->end(),
+                [&markerName](const auto &otherItem)
+                {
+                    return otherItem->markers->front()->fullName("") == markerName;
+                });
+            if (found == otherItems->end())
+            {
+                return "Missing " + label + ": " + markerName + "\n";
+            }
+            auto report = item->reportComparisonWith(*found);
+            if (!report.empty())
+            {
+                return report;
+            }
+        }
+        for (const auto &otherItem : *otherItems)
+        {
+            auto otherMarkerName = otherItem->markers->front()->fullName("");
+            auto found = std::find_if(
+                items->begin(),
+                items->end(),
+                [&otherMarkerName](const auto &item)
+                {
+                    return item->markers->front()->fullName("") == otherMarkerName;
+                });
+            if (found == items->end())
+            {
+                return "Extra " + label + ": " + otherMarkerName + "\n";
+            }
+        }
+        return std::string{};
+    }
+
+}

@@ -67,6 +67,7 @@ namespace MbD {
         virtual void fillJointTorques(std::shared_ptr<std::vector<std::shared_ptr<MbDSymbolicFunction>>> jointActions);
 
         virtual std::ostream& printOn(std::ostream& s) const;
+        std::string str() const;
         friend std::ostream& operator<<(std::ostream& s, const Symbolic& sym)
         {
             return sym.printOn(s);

@@ -270,6 +270,27 @@ void ASMTItem::outputResults(AnalysisType)
     throw SimulationStoppingError("To be implemented.");
 }
 
+std::string ASMTItem::reportComparisonWith(std::shared_ptr<ASMTItem> other)
+{
+    if (!other)
+    {
+        return "Missing comparison item.\n";
+    }
+    auto thisClassname = this->classname();
+    auto otherClassname = other->classname();
+    if (thisClassname != otherClassname)
+    {
+        return thisClassname + " != " + otherClassname + "\n";
+    }
+    auto thisName = this->fullName("");
+    auto otherName = other->fullName("");
+    if (thisName != otherName)
+    {
+        return thisName + " != " + otherName + "\n";
+    }
+    return std::string{};
+}
+
 std::shared_ptr<Units> ASMTItem::asmtUnits()
 {
     return root()->asmtUnits;

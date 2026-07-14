@@ -15,6 +15,8 @@
 #include "SparseMatrix.h"
 #include "enum.h"
 
+#include <algorithm>
+
 namespace MbD
 {
     class ASMTAssembly;
@@ -69,6 +71,12 @@ namespace MbD
         virtual std::shared_ptr<StateData> dataFromMbD();
         virtual void compareResults2(AnalysisType type);
         virtual void outputResults(AnalysisType type);
+        virtual std::string reportComparisonWith(std::shared_ptr<ASMTItem> other);
+        template <typename T>
+        static std::string itemCollectionComparisonWith(
+            const std::string& label,
+            const std::shared_ptr<std::vector<std::shared_ptr<T>>>& items,
+            const std::shared_ptr<std::vector<std::shared_ptr<T>>>& otherItems);
         std::shared_ptr<Units> asmtUnits();
         std::shared_ptr<Units> mbdUnits();
         std::shared_ptr<System> mbdSys();
@@ -95,6 +103,52 @@ namespace MbD
         std::shared_ptr<std::vector<std::shared_ptr<StateData>>> dataSeries = std::make_shared<std::vector<std::shared_ptr<StateData>>>();
         std::shared_ptr<std::vector<std::shared_ptr<StateData>>> dataSeriesIn = std::make_shared<std::vector<std::shared_ptr<StateData>>>();
     };
+
+    template <typename T>
+    inline std::string ASMTItem::itemCollectionComparisonWith(
+        const std::string& label,
+        const std::shared_ptr<std::vector<std::shared_ptr<T>>>& items,
+        const std::shared_ptr<std::vector<std::shared_ptr<T>>>& otherItems)
+    {
+        if (!items && !otherItems) {
+            return std::string{};
+        }
+        if (!items) {
+            return "Missing " + label + ".\n";
+        }
+        if (!otherItems) {
+            return "Missing comparison " + label + ".\n";
+        }
+        for (const auto& item : *items) {
+            auto itemName = item->fullName("");
+            auto found = std::find_if(
+                otherItems->begin(),
+                otherItems->end(),
+                [&itemName](const auto& otherItem) {
+                    return otherItem->fullName("") == itemName;
+                });
+            if (found == otherItems->end()) {
+                return "Missing " + label + ": " + itemName + "\n";
+            }
+            auto report = item->reportComparisonWith(*found);
+            if (!report.empty()) {
+                return report;
+            }
+        }
+        for (const auto& otherItem : *otherItems) {
+            auto otherItemName = otherItem->fullName("");
+            auto found = std::find_if(
+                items->begin(),
+                items->end(),
+                [&otherItemName](const auto& item) {
+                    return item->fullName("") == otherItemName;
+                });
+            if (found == items->end()) {
+                return "Extra " + label + ": " + otherItemName + "\n";
+            }
+        }
+        return std::string{};
+    }
 
     template <typename T>
     inline void ASMTItem::storeOnLevelArray(std::ofstream &os, size_t level, std::vector<T> array)

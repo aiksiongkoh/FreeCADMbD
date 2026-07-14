@@ -166,3 +166,35 @@ void ASMTGeneralMotion::storeOnTimeSeries(std::ofstream& os)
     os << "GeneralMotionSeries\t" << fullName("") << std::endl;
     ASMTItemIJ::storeOnTimeSeries(os);
 }
+
+std::string ASMTGeneralMotion::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTGeneralMotion>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTGeneralMotion.\n";
+    }
+
+    for (size_t i = 0; i < rIJI->size(); ++i) {
+        if (rIJI->at(i) != other->rIJI->at(i)) {
+            return fullName("") + " rIJI" + std::to_string(i + 1) + " " + rIJI->at(i) + " != " + other->rIJI->at(i) + "\n";
+        }
+    }
+    for (size_t i = 0; i < angIJJ->size(); ++i) {
+        if (angIJJ->at(i) != other->angIJJ->at(i)) {
+            return fullName("") + " angIJJ" + std::to_string(i + 1) + " " + angIJJ->at(i) + " != " + other->angIJJ->at(i) + "\n";
+        }
+    }
+    if (rotationOrder->size() != other->rotationOrder->size()) {
+        return fullName("") + " rotationOrder size differs.\n";
+    }
+    for (size_t i = 0; i < rotationOrder->size(); ++i) {
+        if (rotationOrder->at(i) != other->rotationOrder->at(i)) {
+            return fullName("") + " rotationOrder " + std::to_string(rotationOrder->at(i)) + " != " + std::to_string(other->rotationOrder->at(i)) + "\n";
+        }
+    }
+    return std::string{};
+}

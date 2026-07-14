@@ -77,3 +77,19 @@ void ASMTAllowRotation::storeOnTimeSeries(std::ofstream &os)
     os << "AllowRotationSeries\t" << fullName("") << std::endl;
     ASMTItemIJ::storeOnTimeSeries(os);
 }
+
+std::string ASMTAllowRotation::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTAllowRotation>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTAllowRotation.\n";
+    }
+    if (motionJoint != other->motionJoint) {
+        return fullName("") + " motionJoint " + motionJoint + " != " + other->motionJoint + "\n";
+    }
+    return std::string{};
+}

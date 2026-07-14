@@ -93,3 +93,22 @@ void ASMTForceTorqueInLine::createMbD()
     mbdObject = mbdForceTorqueInLine;
     mbdSys()->addForceTorque(mbdForceTorqueInLine);
 }
+
+std::string ASMTForceTorqueInLine::reportComparisonWith(std::shared_ptr<ASMTItem> other)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(other);
+    if (!report.empty()) {
+        return report;
+    }
+    auto otherForceTorque = std::dynamic_pointer_cast<ASMTForceTorqueInLine>(other);
+    if (!otherForceTorque) {
+        return fullName("") + " comparison item is not an ASMTForceTorqueInLine.\n";
+    }
+    if (tensionFunc != otherForceTorque->tensionFunc) {
+        return fullName("") + " tension " + tensionFunc + " != " + otherForceTorque->tensionFunc + "\n";
+    }
+    if (twistFunc != otherForceTorque->twistFunc) {
+        return fullName("") + " twist " + twistFunc + " != " + otherForceTorque->twistFunc + "\n";
+    }
+    return std::string{};
+}

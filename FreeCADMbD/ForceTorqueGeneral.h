@@ -66,7 +66,6 @@ namespace MbD {
         void calcpQEJpEK();
         FColDsptr getaFIeK() const;
         FColDsptr getaTIeK() const;
-
         EndFrmsptr eFrmK;
         size_t iqEK = SIZE_MAX;
         FColDsptr aFIeKe;

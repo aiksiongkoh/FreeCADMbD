@@ -123,3 +123,28 @@ void ASMTLimit::settol(const std::string& _tol)
 {
     tol = _tol;
 }
+
+std::string ASMTLimit::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItemIJ::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTLimit>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTLimit.\n";
+    }
+    if (motionJoint != other->motionJoint) {
+        return fullName("") + " motionJoint " + motionJoint + " != " + other->motionJoint + "\n";
+    }
+    if (type != other->type) {
+        return fullName("") + " type " + type + " != " + other->type + "\n";
+    }
+    if (limit != other->limit) {
+        return fullName("") + " limit " + limit + " != " + other->limit + "\n";
+    }
+    if (tol != other->tol) {
+        return fullName("") + " tol " + tol + " != " + other->tol + "\n";
+    }
+    return std::string{};
+}

@@ -29,6 +29,7 @@ namespace MbD {
 
         void setg(double a, double b, double c);
         void storeOnLevel(std::ofstream& os, size_t level) override;
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         FColDsptr g = std::make_shared<FullColumn<double>>(ListD{ 0.,0.,0. });
     };

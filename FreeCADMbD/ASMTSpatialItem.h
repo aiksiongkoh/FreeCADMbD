@@ -22,6 +22,7 @@ namespace MbD {
         void setRotationMatrix(FMatDsptr rotationMatrix);
         void readPosition3D(std::vector<std::string>& lines);
         void readRotationMatrix(std::vector<std::string>& lines);
+        std::string reportComparisonWith(std::shared_ptr<ASMTItem> other) override;
 
         // Overloads to simplify syntax.
         void getPosition3D(double& a, double& b, double& c);

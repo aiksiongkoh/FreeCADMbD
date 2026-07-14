@@ -50,7 +50,7 @@ namespace MbD {
             h_ = energyParameter();
         }
 
-        Result theta(double t) const
+        Result result(double t) const
         {
             if (h_ <= eps_) {
                 return makeResult(t, theta0_, omega0_, Mode::Oscillation);

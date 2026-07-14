@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include <algorithm>
+#include <sstream>
 #include "ASMTPart.h"
 #include "ASMTMarkerTemp.h"
 #include "Part.h"
@@ -23,6 +24,37 @@ std::shared_ptr<ASMTPart> ASMTPart::With()
     auto inst = std::make_shared<ASMTPart>();
     inst->initialize();
     return inst;
+}
+
+std::string ASMTPart::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTSpatialContainer::reportComparisonWith(otherItem);
+    if (!report.empty())
+    {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTPart>(otherItem);
+    if (!other)
+    {
+        return "Missing comparison part.";
+    }
+    if (!principalMassMarker && other->principalMassMarker)
+    {
+        return "Missing principal mass marker: " + other->principalMassMarker->fullName("") + "\n";
+    }
+    if (principalMassMarker && !other->principalMassMarker)
+    {
+        return "Missing comparison principal mass marker: " + principalMassMarker->fullName("") + "\n";
+    }
+    if (principalMassMarker)
+    {
+        report = principalMassMarker->reportComparisonWith(other->principalMassMarker);
+        if (!report.empty())
+        {
+            return report;
+        }
+    }
+    return std::string{};
 }
 
 void ASMTPart::parseASMT(std::vector<std::string> &lines)

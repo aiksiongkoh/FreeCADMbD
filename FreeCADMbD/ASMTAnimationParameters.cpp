@@ -76,3 +76,34 @@ void ASMTAnimationParameters::storeOnLevel(std::ofstream& os, size_t level)
     storeOnLevelString(os, level + 1, "framesPerSecond");
     storeOnLevelSize_t(os, level + 2, framesPerSecond);
 }
+
+std::string ASMTAnimationParameters::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItem::reportComparisonWith(otherItem);
+    if (!report.empty()) {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTAnimationParameters>(otherItem);
+    if (!other) {
+        return fullName("") + " comparison item is not an ASMTAnimationParameters.\n";
+    }
+
+    auto sizeReport = [this](const std::string& label, size_t value, size_t otherValue) {
+        if (value != otherValue) {
+            return fullName("") + " " + label + " " + std::to_string(value) + " != " + std::to_string(otherValue) + "\n";
+        }
+        return std::string{};
+    };
+    report = sizeReport("nframe", nframe, other->nframe);
+    if (!report.empty()) return report;
+    report = sizeReport("icurrent", icurrent, other->icurrent);
+    if (!report.empty()) return report;
+    report = sizeReport("istart", istart, other->istart);
+    if (!report.empty()) return report;
+    report = sizeReport("iend", iend, other->iend);
+    if (!report.empty()) return report;
+    if (isForward != other->isForward) {
+        return fullName("") + " isForward differs.\n";
+    }
+    return sizeReport("framesPerSecond", framesPerSecond, other->framesPerSecond);
+}

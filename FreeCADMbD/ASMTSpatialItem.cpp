@@ -12,6 +12,8 @@
 #include "ASMTSpatialContainer.h"
 #include "EulerAngles.h"
 
+#include <sstream>
+
 using namespace MbD;
 
 std::shared_ptr<ASMTSpatialItem> ASMTSpatialItem::With()
@@ -24,6 +26,33 @@ std::shared_ptr<ASMTSpatialItem> ASMTSpatialItem::With()
 void ASMTSpatialItem::initialize()
 {
     //Do nothing.
+}
+
+std::string ASMTSpatialItem::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
+{
+    auto report = ASMTItem::reportComparisonWith(otherItem);
+    if (!report.empty())
+    {
+        return report;
+    }
+    auto other = std::dynamic_pointer_cast<ASMTSpatialItem>(otherItem);
+    if (!other)
+    {
+        return fullName("") + " comparison item is not an ASMTSpatialItem.\n";
+    }
+    if (!position3D->equaltol(other->position3D, 1.0e-9))
+    {
+        std::ostringstream stream;
+        stream << fullName("") << " position3D " << *position3D << " != " << *other->position3D << "\n";
+        return stream.str();
+    }
+    if (!rotationMatrix->equaltol(other->rotationMatrix, 1.0e-9))
+    {
+        std::ostringstream stream;
+        stream << fullName("") << " rotationMatrix " << *rotationMatrix << " != " << *other->rotationMatrix << "\n";
+        return stream.str();
+    }
+    return std::string{};
 }
 
 void ASMTSpatialItem::setPosition3D(FColDsptr vec)
