@@ -81,18 +81,21 @@ namespace
 {
     constexpr auto FreeCADMotionHeader = "freeCAD: 3D CAD with Motion Simulation  by  askoh.com";
     constexpr auto OndselSolverHeader = "OndselSolver";
+    constexpr auto FreeCADMbDHeader = "FreeCADMbD";
     constexpr auto SmallPendulumAmplitude = 1.0e-12;
     constexpr auto SmallPendulumVelocity = 1.0e-12;
 
-    bool isASMTHeader(const std::string& line)
+    bool isASMTHeader(const std::string &line)
     {
-        return line == FreeCADMotionHeader || line == OndselSolverHeader;
+        return line == FreeCADMotionHeader || line == OndselSolverHeader || line == FreeCADMbDHeader;
     }
 
     double signum(double value)
     {
-        if (value < 0.0) return -1.0;
-        if (value > 0.0) return 1.0;
+        if (value < 0.0)
+            return -1.0;
+        if (value > 0.0)
+            return 1.0;
         return 0.0;
     }
 
@@ -107,42 +110,49 @@ namespace
         const auto kComplete = std::comp_ellint_1(modulus);
         const auto period = 4.0 * kComplete;
         auto reducedU = std::fmod(u, period);
-        if (reducedU < 0.0) reducedU += period;
+        if (reducedU < 0.0)
+            reducedU += period;
 
         auto signSn = 1.0;
         auto signCn = 1.0;
-        if (reducedU > 2.0 * kComplete) {
+        if (reducedU > 2.0 * kComplete)
+        {
             reducedU -= 2.0 * kComplete;
             signSn = -1.0;
             signCn = -1.0;
         }
-        if (reducedU > kComplete) {
+        if (reducedU > kComplete)
+        {
             reducedU = 2.0 * kComplete - reducedU;
             signCn = -signCn;
         }
 
         double phi = std::clamp(reducedU, 0.0, std::numbers::pi / 2.0);
-        for (size_t i = 0; i < 12; ++i) {
+        for (size_t i = 0; i < 12; ++i)
+        {
             const auto sinPhi = std::sin(phi);
             const auto cosPhi = std::cos(phi);
             const auto root = std::sqrt(std::max(0.0, 1.0 - modulus * modulus * sinPhi * sinPhi));
             const auto residual = std::ellint_1(modulus, phi) - reducedU;
             const auto correction = residual * root;
             phi -= correction;
-            if (std::abs(correction) <= 2.0 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(phi))) break;
-            if (cosPhi == 0.0) break;
+            if (std::abs(correction) <= 2.0 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(phi)))
+                break;
+            if (cosPhi == 0.0)
+                break;
         }
-        return { signSn * std::sin(phi), signCn * std::cos(phi) };
+        return {signSn * std::sin(phi), signCn * std::cos(phi)};
     }
 }
 
 using namespace MbD;
 
-namespace {
+namespace
+{
     using RotationMatrixValues = std::array<double, 9>;
 
     template <typename T>
-    void setRotationMatrix(const std::shared_ptr<T>& item, const RotationMatrixValues& rotation)
+    void setRotationMatrix(const std::shared_ptr<T> &item, const RotationMatrixValues &rotation)
     {
         item->setRotationMatrix(
             rotation[0], rotation[1], rotation[2],
@@ -151,7 +161,7 @@ namespace {
     }
 
     std::shared_ptr<ASMTAssembly> pointPendulumRevJt(
-        const RotationMatrixValues& rotation,
+        const RotationMatrixValues &rotation,
         double gravityX,
         double gravityY,
         double gravityZ)
@@ -224,17 +234,20 @@ namespace {
     }
 
     std::string optionalAssemblyItemComparisonWith(
-        const std::string& label,
-        const std::shared_ptr<ASMTItem>& item,
-        const std::shared_ptr<ASMTItem>& otherItem)
+        const std::string &label,
+        const std::shared_ptr<ASMTItem> &item,
+        const std::shared_ptr<ASMTItem> &otherItem)
     {
-        if (!item && !otherItem) {
+        if (!item && !otherItem)
+        {
             return std::string{};
         }
-        if (!item) {
+        if (!item)
+        {
             return "Missing " + label + ".\n";
         }
-        if (!otherItem) {
+        if (!otherItem)
+        {
             return "Missing comparison " + label + ".\n";
         }
         return item->reportComparisonWith(otherItem);
@@ -547,45 +560,45 @@ void ASMTAssembly::runSinglePendulum()
 std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_XY()
 {
     return pointPendulumRevJt(
-        { 1, 0, 0,
-          0, 1, 0,
-          0, 0, 1 },
+        {1, 0, 0,
+         0, 1, 0,
+         0, 0, 1},
         0.0, -9.81, 0.0);
 }
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_YZ()
 {
     return pointPendulumRevJt(
-        { 0, 0, 1,
-          1, 0, 0,
-          0, 1, 0 },
+        {0, 0, 1,
+         1, 0, 0,
+         0, 1, 0},
         0.0, 0.0, -9.81);
 }
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_ZX()
 {
     return pointPendulumRevJt(
-        { 1, 0, 0,
-          0, 0, 1,
-          1, 0, 0 },
+        {1, 0, 0,
+         0, 0, 1,
+         1, 0, 0},
         -9.81, 0.0, 0.0);
 }
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_XZ()
 {
     return pointPendulumRevJt(
-        { 1, 0, 0,
-          0, 0, -1,
-          0, 1, 0 },
+        {1, 0, 0,
+         0, 0, -1,
+         0, 1, 0},
         0.0, 0.0, -9.81);
 }
 
 std::shared_ptr<ASMTAssembly> ASMTAssembly::pointPendulumRevJt_YX()
 {
     return pointPendulumRevJt(
-        { 0, 1, 0,
-          1, 0, 0,
-          0, 0, -1 },
+        {0, 1, 0,
+         1, 0, 0,
+         0, 0, -1},
         -9.81, 0.0, 0.0);
 }
 
@@ -596,18 +609,21 @@ ASMTAssembly::SimplePendulumMotion ASMTAssembly::exactSimplePendulumMotion(
     double initialTheta,
     double initialOmega)
 {
-    //Origin is at pivot.
-    //x is to the right.
-    //y is up
-    //Point mass hanging down. 
-    //Positive gravity is down.
-    //theta is counter clockwise rotation from down direction (-y dir).
-    if (length <= 0.0) throw SimulationStoppingError("Simple pendulum length must be positive.");
-    if (gravity <= 0.0) throw SimulationStoppingError("Simple pendulum gravity must be positive.");
+    // Origin is at pivot.
+    // x is to the right.
+    // y is up
+    // Point mass hanging down.
+    // Positive gravity is down.
+    // theta is counter clockwise rotation from down direction (-y dir).
+    if (length <= 0.0)
+        throw SimulationStoppingError("Simple pendulum length must be positive.");
+    if (gravity <= 0.0)
+        throw SimulationStoppingError("Simple pendulum gravity must be positive.");
 
     const auto naturalFrequency = std::sqrt(gravity / length);
     const auto energy = (0.5 * initialOmega * initialOmega) - (naturalFrequency * naturalFrequency * std::cos(initialTheta));
-    if (energy >= naturalFrequency * naturalFrequency) {
+    if (energy >= naturalFrequency * naturalFrequency)
+    {
         throw SimulationStoppingError("Exact simple pendulum motion supports bounded oscillation only.");
     }
 
@@ -616,22 +632,24 @@ ASMTAssembly::SimplePendulumMotion ASMTAssembly::exactSimplePendulumMotion(
     double theta = 0.0;
     double omega = 0.0;
 
-    if (std::abs(modulus) <= SmallPendulumAmplitude) {
-        theta = initialTheta * std::cos(naturalFrequency * time)
-            + (initialOmega / naturalFrequency) * std::sin(naturalFrequency * time);
-        omega = -initialTheta * naturalFrequency * std::sin(naturalFrequency * time)
-            + initialOmega * std::cos(naturalFrequency * time);
+    if (std::abs(modulus) <= SmallPendulumAmplitude)
+    {
+        theta = initialTheta * std::cos(naturalFrequency * time) + (initialOmega / naturalFrequency) * std::sin(naturalFrequency * time);
+        omega = -initialTheta * naturalFrequency * std::sin(naturalFrequency * time) + initialOmega * std::cos(naturalFrequency * time);
     }
-    else {
+    else
+    {
         const auto initialSn = std::sin(0.5 * initialTheta) / modulus;
         const auto u0 = inverseJacobiSn(initialSn, modulus);
         auto direction = signum(initialOmega);
-        if (direction == 0.0) direction = initialTheta >= 0.0 ? -1.0 : 1.0;
+        if (direction == 0.0)
+            direction = initialTheta >= 0.0 ? -1.0 : 1.0;
         const auto u = u0 + (direction * naturalFrequency * time);
         const auto [sn, cn] = jacobiSnCnFromU(u, modulus);
         theta = 2.0 * std::asin(std::clamp(modulus * sn, -1.0, 1.0));
         omega = 2.0 * modulus * cn * direction * naturalFrequency;
-        if (std::abs(omega) <= SmallPendulumVelocity) omega = 0.0;
+        if (std::abs(omega) <= SmallPendulumVelocity)
+            omega = 0.0;
     }
 
     SimplePendulumMotion motion;
@@ -1820,61 +1838,76 @@ void ASMTAssembly::compareResults2(AnalysisType type)
 std::string ASMTAssembly::reportComparisonWith(std::shared_ptr<ASMTItem> otherItem)
 {
     auto report = ASMTSpatialContainer::reportComparisonWith(otherItem);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     auto other = std::dynamic_pointer_cast<ASMTAssembly>(otherItem);
-    if (!other) {
+    if (!other)
+    {
         return "Missing comparison assembly.\n";
     }
     report = ASMTItem::itemCollectionComparisonWith("part", parts, other->parts);
-    if (!report.empty()){
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("kinematicIJ", kinematicIJs, other->kinematicIJs);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("constraintSet", constraintSets, other->constraintSets);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("joint", joints, other->joints);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("motion", motions, other->motions);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("limit", limits, other->limits);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = ASMTItem::itemCollectionComparisonWith("forceTorque", forcesTorques, other->forcesTorques);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = optionalAssemblyItemComparisonWith("constantGravity", constantGravity, other->constantGravity);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     report = optionalAssemblyItemComparisonWith("simulationParameters", simulationParameters, other->simulationParameters);
-    if (!report.empty()) {
+    if (!report.empty())
+    {
         return report;
     }
     // report = optionalAssemblyItemComparisonWith("animationParameters", animationParameters, other->animationParameters);
     // if (!report.empty()) {
     //     return report;
     // }
-    if (!asmtTime && other->asmtTime) {
+    if (!asmtTime && other->asmtTime)
+    {
         return "Missing time.\n";
     }
-    if (asmtTime && !other->asmtTime) {
+    if (asmtTime && !other->asmtTime)
+    {
         return "Missing comparison time.\n";
     }
-    if (asmtTime && other->asmtTime) {
-        if (asmtTime->getName() != other->asmtTime->getName()) {
+    if (asmtTime && other->asmtTime)
+    {
+        if (asmtTime->getName() != other->asmtTime->getName())
+        {
             return asmtTime->getName() + " != " + other->asmtTime->getName() + "\n";
         }
         // if (!Numeric::equaltol(asmtTime->getValue(), other->asmtTime->getValue(), 1.0e-9)) {
@@ -2038,7 +2071,7 @@ void ASMTAssembly::storeOnTimeSeries(std::ofstream &os)
     {
         os << i << '\t';
     }
-    os << n;
+    os << n - 1;
     os << std::endl;
     os << "Time\tInput\t";
     for (size_t i = 1; i < n - 1; i++)
@@ -2090,29 +2123,29 @@ void ASMTAssembly::updateFromInputState()
 
 void MbD::ASMTAssembly::combineInputInitialConditionsWithCalculationResults()
 {
-        // tempAssembly.asmt has data from calculations
-        // Its initial conditions is not exactly the same as inFileName
-        // Therefore, the redundant constraints removed can be different between the two files
-        // To prevent that, tempAssembly2.asmt has the initial conditions of inFileName and results from tempAssembly.asmt
-        std::ifstream in(inFileName);
-        if (!in)
-            throw std::runtime_error("Cannot open input file");
-        std::ifstream in2("tempAssembly.asmt");
-        if (!in2)
-            throw std::runtime_error("Cannot open input file");
-        std::ofstream out("tempAssembly2.asmt");
-        if (!out)
-            throw std::runtime_error("Cannot open output file");
-        std::string data((std::istreambuf_iterator<char>(in)),
-                         std::istreambuf_iterator<char>());
-        std::string data2((std::istreambuf_iterator<char>(in2)),
-                          std::istreambuf_iterator<char>());
-        std::size_t pos = data.find("TimeSeries");
-        if (pos == std::string::npos)
-            pos = data.size();
-        std::size_t pos2 = data2.find("TimeSeries");
-        out.write(data.data(), static_cast<std::streamsize>(pos));
-        out.write(data2.data() + pos2,
-                  static_cast<std::streamsize>(data2.size() - pos2));
-        out.close();
+    // tempAssembly.asmt has data from calculations
+    // Its initial conditions is not exactly the same as inFileName
+    // Therefore, the redundant constraints removed can be different between the two files
+    // To prevent that, tempAssembly2.asmt has the initial conditions of inFileName and results from tempAssembly.asmt
+    std::ifstream in(inFileName);
+    if (!in)
+        throw std::runtime_error("Cannot open input file");
+    std::ifstream in2("tempAssembly.asmt");
+    if (!in2)
+        throw std::runtime_error("Cannot open input file");
+    std::ofstream out("tempAssembly2.asmt");
+    if (!out)
+        throw std::runtime_error("Cannot open output file");
+    std::string data((std::istreambuf_iterator<char>(in)),
+                     std::istreambuf_iterator<char>());
+    std::string data2((std::istreambuf_iterator<char>(in2)),
+                      std::istreambuf_iterator<char>());
+    std::size_t pos = data.find("TimeSeries");
+    if (pos == std::string::npos)
+        pos = data.size();
+    std::size_t pos2 = data2.find("TimeSeries");
+    out.write(data.data(), static_cast<std::streamsize>(pos));
+    out.write(data2.data() + pos2,
+              static_cast<std::streamsize>(data2.size() - pos2));
+    out.close();
 }

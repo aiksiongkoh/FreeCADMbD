@@ -56,4 +56,5 @@ build-vs/
 build-debug/
 build-vcpkg/
 tempAssembly.asmt
+tempAssembly2.asmt
 /release/
