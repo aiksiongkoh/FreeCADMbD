@@ -5,7 +5,7 @@
       "name": "Debug FreeCADMbDMain (no args)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -17,7 +17,7 @@
       "name": "Debug FreeCADMbDMain (no args, build first)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -29,7 +29,7 @@
       "name": "Debug FreeCADMbDMain (.asmt)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [
         "${input:asmtFile}"
       ],
@@ -43,9 +43,9 @@
       "name": "Debug FreeCADMbDMain (.asmt, build first)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [
-        "${input:asmtFile}"
+        "C:/Users/askoh/Documents/GitHub/aiksiongkoh/FreeCAD/feature-mbdfem/data/examples/RealisticPendulumMbDFEM3.asmt"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -57,7 +57,7 @@
       "name": "Debug FreeCADMbDMain (.mbd)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [
         "${input:mbdFile}"
       ],
@@ -71,7 +71,7 @@
       "name": "Debug FreeCADMbDMain (.mbd, build first)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
+      "program": "${workspaceFolder}/build-vcpkg/FreeCADMbDMain/Debug/FreeCADMbDMain.exe",
       "args": [
         "${input:mbdFile}"
       ],
@@ -85,7 +85,7 @@
       "name": "Debug test_run fourbot",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build-vs/tests/Debug/test_run.exe",
+      "program": "${workspaceFolder}/build-vcpkg/tests/Debug/test_run.exe",
       "args": [
         "--gtest_filter=FreeCADMbD.fourbot"
       ],

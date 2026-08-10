@@ -837,7 +837,7 @@ namespace MbD
         auto answer = EulerAngles<T>::With();
         auto sthe1y = this->at(0)->at(2);
         T the0x, the1y, the2z, cthe0x, sthe0x, y, x;
-        if (std::abs(sthe1y) > 0.9999)
+        if (std::abs(sthe1y) > (1.0 - 1.0e-9))
         {
             if (sthe1y > 0.0)
             {
