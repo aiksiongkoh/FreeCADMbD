@@ -126,6 +126,7 @@ namespace MbD
         T trace();
         double maxMagnitude() override;
         std::shared_ptr<EulerAngles<T>> bryantAngles();
+        std::shared_ptr<EulerAngles<T>> bryantAngles2();
         std::shared_ptr<EulerAngles<T>> eulerAngleszxz();
         std::shared_ptr<EulerAngles<T>> eulerAngles();
         bool isDiagonal();
@@ -837,7 +838,7 @@ namespace MbD
         auto answer = EulerAngles<T>::With();
         auto sthe1y = this->at(0)->at(2);
         T the0x, the1y, the2z, cthe0x, sthe0x, y, x;
-        if (std::abs(sthe1y) > (1.0 - 1.0e-9))
+        if (std::abs(sthe1y) > (1.0 - 1.0e-12))
         {
             if (sthe1y > 0.0)
             {
@@ -873,6 +874,40 @@ namespace MbD
         answer->atiput(1, the1y);
         answer->atiput(2, the2z);
         return answer;
+    }
+
+    template <typename T>
+    inline std::shared_ptr<EulerAngles<T>> FullMatrix<T>::bryantAngles2()
+    {
+        auto a = EulerAngles<T>::With();
+        T cy, phi, theta, psi;
+        cy = std::hypot(this->at(0)->at(0), this->at(1)->at(0));
+
+        // Threshold should reflect expected matrix accuracy,
+        // not simply machine epsilon.
+        constexpr T tol = 1e-12;
+
+        if (cy > tol)
+        {
+            phi = std::atan2(this->at(2)->at(1), this->at(2)->at(2));
+            theta = std::atan2(-this->at(2)->at(0), cy);
+            psi = std::atan2(this->at(1)->at(0), this->at(0)->at(0));
+        }
+        else
+        {
+            // Gimbal lock: theta ~= +/- pi/2.
+            // phi and psi are not individually identifiable.
+            //
+            // Choose psi = 0 as the canonical solution.
+            phi = std::atan2(-this->at(1)->at(2), this->at(1)->at(1));
+            theta = std::atan2(-this->at(2)->at(0), cy);
+            psi = 0.0;
+        }
+
+        a->atiput(0, phi);
+        a->atiput(1, theta);
+        a->atiput(2, psi);
+        return a;
     }
 
     template <typename T>
