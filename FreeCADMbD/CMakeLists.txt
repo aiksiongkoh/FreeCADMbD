@@ -916,11 +916,7 @@ target_sources(FreeCADMbD PRIVATE
         "${FREECADMBD_SRC}"
         "${FREECADMBD_HEADERS}")
 
-find_package(Boost REQUIRED COMPONENTS math)
-
-target_link_libraries(FreeCADMbD
-        PUBLIC
-                Boost::math)
+target_compile_features(FreeCADMbD PUBLIC cxx_std_20)
 
 set_target_properties(FreeCADMbD
         PROPERTIES VERSION ${PROJECT_VERSION}

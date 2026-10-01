@@ -139,7 +139,25 @@ void DAECorrector::askSystemToUpdate()
 
 bool DAECorrector::isConverged()
 {
-    return daeSystem->isConvergedForand(iterNo, dxNorms);
+    if (daeSystem->isConvergedForand(iterNo, dxNorms)) return true;
+    if (iterNo == 0 || !std::isfinite(dxNorm) || dxNorm < 0.5 * dxNorms->at(iterNo - 1)) return false;
+
+    // A BDF Jacobian contains coefficients proportional to 1/h. At small
+    // steps, position roundoff can therefore produce momentum corrections
+    // above the requested tolerance. Reducing h makes this worse. Once the
+    // corrections stall, also allow convergence at the numerical limit, but
+    // only if EVERY residual has a small componentwise backward error:
+    // |F_i| <= 8 epsilon sum_j |J_ij| max(|x_j|, absoluteTolerance_j).
+    // Refresh J at the corrected state; do not use a factored/scaled matrix.
+    fillPyPx();
+    for (size_t i = 0; i < y->size(); ++i) {
+        double scale = 0.0;
+        for (const auto& entry : *pypx->at(i)) {
+            scale += std::abs(entry.second) * std::max(std::abs(x->at(entry.first)), daeSystem->corAbsTol->at(entry.first));
+        }
+        if (!std::isfinite(scale) || !(std::abs(y->at(i)) <= 8.0 * std::numeric_limits<double>::epsilon() * scale)) return false;
+    }
+    return true;
 }
 
 void DAECorrector::postRun()

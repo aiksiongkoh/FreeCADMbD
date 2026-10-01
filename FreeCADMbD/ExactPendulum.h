@@ -9,11 +9,10 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <cmath>
+#include <limits>
 #include <stdexcept>
-
-#include <boost/math/special_functions/ellint_1.hpp>
-#include <boost/math/special_functions/jacobi_elliptic.hpp>
 
 namespace MbD {
     class ExactPendulum
@@ -80,6 +79,50 @@ namespace MbD {
 
         static constexpr double eps_ = 1e-12;
 
+        struct JacobiValues {
+            double sn;
+            double cn;
+            double dn;
+        };
+
+        // C++20 supplies elliptic integrals, but not Jacobi elliptic functions.
+        // Arithmetic-geometric mean and backward amplitude recurrence:
+        // https://dlmf.nist.gov/22.20#ii (22.20.1, 22.20.3-5).
+        // Called only with 0 <= k < 1; the separatrix is handled separately.
+        static JacobiValues jacobi(double k, double u)
+        {
+            std::array<double, 32> a{}, c{};
+            a[0] = 1.0;
+            const double complementarySquared = (1.0 - k) * (1.0 + k);
+            double b = std::sqrt(complementarySquared);
+            size_t n = 0;
+            while (std::abs(a[n] - b) > std::numeric_limits<double>::epsilon() * a[n]) {
+                if (n + 1 == a.size()) {
+                    throw std::runtime_error("Jacobi AGM did not converge.");
+                }
+                const double previousA = a[n];
+                ++n;
+                a[n] = (previousA + b) / 2.0;
+                c[n] = (previousA - b) / 2.0;
+                b = std::sqrt(previousA * b);
+            }
+
+            // Reduce the argument before the backward recurrence to retain
+            // accuracy over multiple periods, including negative times.
+            u = std::remainder(u, 4.0 * std::comp_ellint_1(k));
+            double phi = std::ldexp(a[n] * u, static_cast<int>(n));
+            while (n > 0) {
+                const double correction = std::clamp(c[n] * std::sin(phi) / a[n], -1.0, 1.0);
+                phi = (phi + std::asin(correction)) / 2.0;
+                --n;
+            }
+            const double sn = std::sin(phi);
+            const double cn = std::cos(phi);
+            // Equivalent to sqrt(1-k*k*sn*sn), without cancellation near k=1.
+            const double dn = std::sqrt(complementarySquared + k * k * cn * cn);
+            return {sn, cn, dn};
+        }
+
         static double signNonzero(double x)
         {
             return x >= 0.0 ? 1.0 : -1.0;
@@ -98,22 +141,17 @@ namespace MbD {
 
         Result thetaOmegaOscillation(double t) const
         {
-            using boost::math::ellint_1;
-            using boost::math::jacobi_cn;
-            using boost::math::jacobi_sn;
-
             const double k = std::sqrt(h_);
 
             double s = std::sin(theta0_ / 2.0) / k;
             s = std::clamp(s, -1.0, 1.0);
 
             double phi = std::asin(s);
-            double u0 = ellint_1(k, phi);
+            double u0 = std::ellint_1(k, phi);
 
             const double sigma = signNonzero(omega0_);
             double u = sigma * omega_n_ * t + u0;
-            double sn = jacobi_sn(k, u);
-            double cn = jacobi_cn(k, u);
+            const auto [sn, cn, dn] = jacobi(k, u);
 
             return makeResult(t, 2.0 * std::asin(k * sn), 2.0 * sigma * k * omega_n_ * cn, Mode::Oscillation);
         }
@@ -132,22 +170,15 @@ namespace MbD {
 
         Result thetaOmegaRotation(double t) const
         {
-            using boost::math::ellint_1;
-            using boost::math::jacobi_cn;
-            using boost::math::jacobi_dn;
-            using boost::math::jacobi_sn;
-
             const double k = 1.0 / std::sqrt(h_);
             const double sigma = signNonzero(omega0_);
 
             double phi0 = theta0_ / 2.0;
-            double u0 = ellint_1(k, phi0);
+            double u0 = std::ellint_1(k, phi0);
 
             double u = sigma * omega_n_ * t / k + u0;
 
-            double sn = jacobi_sn(k, u);
-            double cn = jacobi_cn(k, u);
-            double dn = jacobi_dn(k, u);
+            const auto [sn, cn, dn] = jacobi(k, u);
 
             double am = std::atan2(sn, cn);
 

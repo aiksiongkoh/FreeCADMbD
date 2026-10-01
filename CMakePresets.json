@@ -1,62 +1,40 @@
 {
   "version": 6,
   "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 25,
+    "major": 4,
+    "minor": 2,
     "patch": 0
   },
   "configurePresets": [
     {
-      "name": "windows-vs-vcpkg",
-      "displayName": "Windows VS 2022 x64 with vcpkg",
-      "description": "Visual Studio 2022 x64 build using the vcpkg toolchain.",
-      "generator": "Visual Studio 17 2022",
-      "architecture": "x64",
-      "binaryDir": "${sourceDir}/build-vcpkg",
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "C:/Users/askoh/vcpkg/scripts/buildsystems/vcpkg.cmake",
-        "FREECADMBD_BUILD_TESTS": "ON",
-        "FREECADMBD_BUILD_EXE": "ON"
-      }
-    },
-    {
       "name": "windows-vs",
-      "displayName": "Windows VS 2022 x64",
-      "description": "Visual Studio 2022 x64 build without a package-manager toolchain.",
-      "generator": "Visual Studio 17 2022",
+      "displayName": "Windows VS 2026 x64 (MSVC)",
+      "description": "Visual Studio 2026 with the Microsoft v145 toolset and C++20.",
+      "generator": "Visual Studio 18 2026",
       "architecture": "x64",
       "binaryDir": "${sourceDir}/build-vs",
       "cacheVariables": {
         "FREECADMBD_BUILD_TESTS": "ON",
         "FREECADMBD_BUILD_EXE": "ON"
-      }
+      },
+      "toolset": "v145,host=x64"
     },
     {
       "name": "windows-ninja-debug",
       "displayName": "Windows Ninja Debug",
-      "description": "Single-config Ninja Debug build.",
+      "description": "Run from the VS 2026 x64 Native Tools environment.",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build-ninja",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "FREECADMBD_BUILD_TESTS": "ON",
-        "FREECADMBD_BUILD_EXE": "ON"
+        "FREECADMBD_BUILD_EXE": "ON",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl"
       }
     }
   ],
   "buildPresets": [
-    {
-      "name": "windows-vs-vcpkg-debug",
-      "displayName": "Build Windows VS vcpkg Debug",
-      "configurePreset": "windows-vs-vcpkg",
-      "configuration": "Debug"
-    },
-    {
-      "name": "windows-vs-vcpkg-release",
-      "displayName": "Build Windows VS vcpkg Release",
-      "configurePreset": "windows-vs-vcpkg",
-      "configuration": "Release"
-    },
     {
       "name": "windows-vs-debug",
       "displayName": "Build Windows VS Debug",
@@ -77,27 +55,35 @@
   ],
   "testPresets": [
     {
-      "name": "windows-vs-vcpkg-debug",
-      "displayName": "Test Windows VS vcpkg Debug",
-      "configurePreset": "windows-vs-vcpkg",
-      "configuration": "Debug",
-      "output": {
-        "outputOnFailure": true
-      }
-    },
-    {
       "name": "windows-vs-debug",
       "displayName": "Test Windows VS Debug",
       "configurePreset": "windows-vs",
       "configuration": "Debug",
       "output": {
         "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 1
       }
     },
     {
       "name": "windows-ninja-debug",
       "displayName": "Test Windows Ninja Debug",
       "configurePreset": "windows-ninja-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 1
+      }
+    },
+    {
+      "configuration": "Release",
+      "name": "windows-vs-release",
+      "execution": {
+        "jobs": 1
+      },
+      "configurePreset": "windows-vs",
       "output": {
         "outputOnFailure": true
       }

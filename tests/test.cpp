@@ -1,8 +1,12 @@
 #include "pch.h"
+#include <array>
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <limits>
 #include <numbers>
+#include <sstream>
 #include <CADSystem.h>
 #include <ASMTAssembly.h>
 #include <ASMTPart.h>
@@ -16,6 +20,7 @@
 #include <Constant.h>
 #include <EulerAngles.h>
 #include <ExactPendulum.h>
+#include <BasicDAEIntegrator.h>
 
 using namespace MbD;
 
@@ -59,7 +64,7 @@ namespace
     {
         // The ASMT files model pendulums swinging in the x-y plane about +z.
         // theta is measured counter-clockwise from the downward vertical.
-        SCOPED_TRACE(filename);
+        SCOPED_TRACE(::testing::Message() << filename << ", idigit=" << idigit);
         PendulumRevJtDiffs diffs;
         diffs.tol = std::pow(10.0, -idigit);
         auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
@@ -109,312 +114,99 @@ namespace
         return diffs;
     }
 
-    template <typename LengthFunction, typename OmegaNaturalFunction>
-    PendulumRevJtDiffs pendulumRevJt_YZRegressionDiffs(const std::string &filename,
-                                                       int idigit,
-                                                       LengthFunction lengthFunction,
-                                                       OmegaNaturalFunction omegaNaturalFunction)
+    // Map each plane to XY coordinates, including the signed rotation axis.
+    // Bryant-angle conventions need separate offsets and signs.
+    void pointPendulumPlaneEquivalence(const std::string& plane,
+                                       size_t rightAxis, size_t upAxis,
+                                       size_t rotationAxis, size_t bryantAxis,
+                                       double rotationSign, double angleSign, double angleOffset)
     {
-        // The ASMT files model pendulums swinging in the x-y plane about +z.
-        // theta is measured counter-clockwise from the downward vertical.
-        SCOPED_TRACE(filename);
-        PendulumRevJtDiffs diffs;
-        diffs.tol = std::pow(10.0, -idigit);
-        auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
-        auto simPara = assembly->simulationParameters;
-        simPara->setAllTolForNDigit(idigit);
-        auto pendulum = assembly->partNamed("/Assembly1/Part1");
-
-        auto length = lengthFunction(pendulum);
-        auto gravity = -assembly->constantGravity->g->at(2); // -z dir
-        auto theta0 = pendulum->rotationMatrix->bryantAngles()->at(2) + std::numbers::pi / 2.0;
-        auto omega0 = pendulum->omega3D->at(0);
-        auto exactPendulum = ExactPendulum(theta0, omega0, omegaNaturalFunction(gravity, length));
-        size_t n = (simPara->tend - simPara->tstart) / simPara->hout;
-        n = n + 2; // add count for input and initial time
-
-        assembly->runDYNAMIC();
-
-        EXPECT_EQ(n, assembly->times->size());
-        EXPECT_EQ(n, pendulum->xs->size());
-        EXPECT_EQ(n, pendulum->ys->size());
-        EXPECT_EQ(n, pendulum->bryzs->size());
-        EXPECT_EQ(n, pendulum->omezs->size());
-        EXPECT_EQ(n, pendulum->alpzs->size());
-        if (n != assembly->times->size() || n != pendulum->xs->size() || n != pendulum->ys->size() || n != pendulum->bryzs->size() || n != pendulum->omezs->size() || n != pendulum->alpzs->size())
+        for (int idigit = 4; idigit <= 6; ++idigit)
         {
-            diffs.maxRightDiff = std::numeric_limits<double>::max();
-            diffs.maxUpDiff = std::numeric_limits<double>::max();
-            diffs.maxBryDiff = std::numeric_limits<double>::max();
-            diffs.maxOmeDiff = std::numeric_limits<double>::max();
-            diffs.maxAlpDiff = std::numeric_limits<double>::max();
-            return diffs;
-        }
-
-        for (size_t i = 1; i < n; i++)
-        {
-            auto exactResult = exactPendulum.result(assembly->times->at(i));
-            auto bryz = exactResult.theta - std::numbers::pi / 2.0;
-            auto x = (length * std::sin(exactResult.theta)) - (length * std::cos(bryz));
-            auto y = (-length * std::cos(exactResult.theta)) - (length * std::sin(bryz));
-            diffs.maxRightDiff = std::max(diffs.maxRightDiff, std::abs(x - pendulum->xs->at(i)));
-            diffs.maxUpDiff = std::max(diffs.maxUpDiff, std::abs(y - pendulum->ys->at(i)));
-            diffs.maxBryDiff = std::max(diffs.maxBryDiff, std::abs(bryz - pendulum->bryzs->at(i)));
-            auto omex = exactResult.omega;
-            diffs.maxOmeDiff = std::max(diffs.maxOmeDiff, std::abs(omex - pendulum->omexs->at(i)));
-            auto alpx = exactResult.alpha;
-            diffs.maxAlpDiff = std::max(diffs.maxAlpDiff, std::abs(alpx - pendulum->alpxs->at(i)));
-        }
-        return diffs;
-    }
-
-    template <typename LengthFunction, typename OmegaNaturalFunction>
-    PendulumRevJtDiffs pendulumRevJt_ZXRegressionDiffs(const std::string &filename,
-                                                       int idigit,
-                                                       LengthFunction lengthFunction,
-                                                       OmegaNaturalFunction omegaNaturalFunction)
-    {
-        // The ASMT files model pendulums swinging in the z-x plane about +y.
-        // Gravity is -x direction.
-        // theta is measured counter-clockwise from the downward vertical.
-        SCOPED_TRACE(filename);
-        PendulumRevJtDiffs diffs;
-        diffs.tol = std::pow(10.0, -idigit);
-        auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
-        auto simPara = assembly->simulationParameters;
-        simPara->setAllTolForNDigit(idigit);
-        auto pendulum = assembly->partNamed("/Assembly1/Part1");
-
-        auto length = lengthFunction(pendulum);
-        auto gravity = -assembly->constantGravity->g->at(0);
-        auto theta0 = pendulum->rotationMatrix->bryantAngles()->at(2) + std::numbers::pi;
-        auto omega0 = pendulum->omega3D->at(1);
-        auto exactPendulum = ExactPendulum(theta0, omega0, omegaNaturalFunction(gravity, length));
-        size_t n = (simPara->tend - simPara->tstart) / simPara->hout;
-        n = n + 2; // add count for input and initial time
-
-        assembly->runDYNAMIC();
-
-        EXPECT_EQ(n, assembly->times->size());
-        EXPECT_EQ(n, pendulum->zs->size());
-        EXPECT_EQ(n, pendulum->xs->size());
-        EXPECT_EQ(n, pendulum->bryzs->size());
-        EXPECT_EQ(n, pendulum->omeys->size());
-        EXPECT_EQ(n, pendulum->alpys->size());
-        if (n != assembly->times->size() || n != pendulum->zs->size() || n != pendulum->xs->size() || n != pendulum->bryzs->size() || n != pendulum->omeys->size() || n != pendulum->alpys->size())
-        {
-            diffs.maxRightDiff = std::numeric_limits<double>::max();
-            diffs.maxUpDiff = std::numeric_limits<double>::max();
-            diffs.maxBryDiff = std::numeric_limits<double>::max();
-            diffs.maxOmeDiff = std::numeric_limits<double>::max();
-            diffs.maxAlpDiff = std::numeric_limits<double>::max();
-            return diffs;
-        }
-
-        for (size_t i = 1; i < n; i++)
-        {
-            auto exactResult = exactPendulum.result(assembly->times->at(i));
-            auto bryz = exactResult.theta - std::numbers::pi;
-            auto z = (length * std::sin(exactResult.theta)) + (length * std::sin(bryz));
-            auto x = (-length * std::cos(exactResult.theta)) - (length * std::cos(bryz));
-            diffs.maxRightDiff = std::max(diffs.maxRightDiff, std::abs(z - pendulum->zs->at(i)));
-            diffs.maxUpDiff = std::max(diffs.maxUpDiff, std::abs(x - pendulum->xs->at(i)));
-            auto bryzsi = pendulum->bryzs->at(i);
-            if (bryzsi > 0.0)
+            SCOPED_TRACE(::testing::Message() << plane << ", idigit=" << idigit);
+            const auto tol = std::pow(10.0, -idigit);
+            auto xy = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/pointPendulumRevJt_XY.asmt");
+            auto other = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/pointPendulumRevJt_" + plane + ".asmt");
+            xy->simulationParameters->setAllTolForNDigit(idigit);
+            other->simulationParameters->setAllTolForNDigit(idigit);
+            auto pxy = xy->partNamed("/Assembly1/Part1");
+            auto part = other->partNamed("/Assembly1/Part1");
+            const auto theta = [=](double bryant)
             {
-                bryzsi -= 2.0 * std::numbers::pi;
+                return std::remainder(angleSign * bryant + angleOffset, 2.0 * std::numbers::pi);
+            };
+            const auto theta0 = pxy->rotationMatrix->bryantAngles()->at(2) + std::numbers::pi / 2.0;
+            EXPECT_NEAR(theta0, theta(part->rotationMatrix->bryantAngles()->at(bryantAxis)), 1e-14);
+            EXPECT_DOUBLE_EQ(pxy->omega3D->at(2), rotationSign * part->omega3D->at(rotationAxis));
+            const auto length = pxy->principalMassMarker->position3D->at(0);
+            EXPECT_DOUBLE_EQ(length, part->principalMassMarker->position3D->at(0));
+            EXPECT_DOUBLE_EQ(xy->constantGravity->g->at(1), other->constantGravity->g->at(upAxis));
+            EXPECT_DOUBLE_EQ(xy->simulationParameters->tend, other->simulationParameters->tend);
+            EXPECT_DOUBLE_EQ(xy->simulationParameters->tstart, other->simulationParameters->tstart);
+            EXPECT_DOUBLE_EQ(xy->simulationParameters->hout, other->simulationParameters->hout);
+            ExactPendulum exact(theta0, pxy->omega3D->at(2), std::sqrt(-xy->constantGravity->g->at(1) / length));
+            xy->runDYNAMIC();
+            other->runDYNAMIC();
+            const size_t n = static_cast<size_t>((xy->simulationParameters->tend - xy->simulationParameters->tstart) / xy->simulationParameters->hout) + 2;
+            ASSERT_EQ(n, xy->times->size());
+            ASSERT_EQ(n, other->times->size());
+            const auto positions = std::array{part->xs, part->ys, part->zs};
+            const auto angles = std::array{part->bryxs, part->bryys, part->bryzs};
+            const auto omegas = std::array{part->omexs, part->omeys, part->omezs};
+            const auto alphas = std::array{part->alpxs, part->alpys, part->alpzs};
+            const auto bryants = angles.at(bryantAxis);
+            const auto omega = omegas.at(rotationAxis);
+            const auto alpha = alphas.at(rotationAxis);
+            for (const auto& history : {pxy->xs, pxy->ys, pxy->zs, pxy->bryzs, pxy->omezs, pxy->alpzs,
+                                       part->xs, part->ys, part->zs, bryants, omega, alpha})
+            {
+                ASSERT_EQ(n, history->size());
+                for (size_t i = 1; i < n; ++i)
+                    ASSERT_TRUE(std::isfinite(history->at(i))) << "sample=" << i;
             }
-            diffs.maxBryDiff = std::max(diffs.maxBryDiff, std::abs(bryz - bryzsi));
-            auto omey = exactResult.omega;
-            diffs.maxOmeDiff = std::max(diffs.maxOmeDiff, std::abs(omey - pendulum->omeys->at(i)));
-            auto alpy = exactResult.alpha;
-            diffs.maxAlpDiff = std::max(diffs.maxAlpDiff, std::abs(alpy - pendulum->alpys->at(i)));
+            PendulumRevJtDiffs between, analytic;
+            for (size_t i = 1; i < n; ++i) // Exclude the unevaluated input state.
+            {
+                SCOPED_TRACE(::testing::Message() << "sample=" << i);
+                EXPECT_NEAR(xy->times->at(i), other->times->at(i), 1e-14);
+                for (const auto& position : positions)
+                    EXPECT_NEAR(position->at(i), 0.0, 5.0 * tol);
+                between.maxRightDiff = std::max(between.maxRightDiff, std::abs(pxy->xs->at(i) - positions.at(rightAxis)->at(i)));
+                between.maxUpDiff = std::max(between.maxUpDiff, std::abs(pxy->ys->at(i) - positions.at(upAxis)->at(i)));
+                EXPECT_NEAR(pxy->zs->at(i), rotationSign * positions.at(rotationAxis)->at(i), 10.0 * tol);
+                const auto thetaXY = pxy->bryzs->at(i) + std::numbers::pi / 2.0;
+                const auto thetaOther = theta(bryants->at(i));
+                const auto omegaOther = rotationSign * omega->at(i);
+                const auto alphaOther = rotationSign * alpha->at(i);
+                between.maxBryDiff = std::max(between.maxBryDiff, std::abs(thetaXY - thetaOther));
+                between.maxOmeDiff = std::max(between.maxOmeDiff, std::abs(pxy->omezs->at(i) - omegaOther));
+                between.maxAlpDiff = std::max(between.maxAlpDiff, std::abs(pxy->alpzs->at(i) - alphaOther));
+                const auto reference = exact.result(other->times->at(i));
+                analytic.maxBryDiff = std::max(analytic.maxBryDiff, std::abs(thetaOther - reference.theta));
+                analytic.maxOmeDiff = std::max(analytic.maxOmeDiff, std::abs(omegaOther - reference.omega));
+                analytic.maxAlpDiff = std::max(analytic.maxAlpDiff, std::abs(alphaOther - reference.alpha));
+            }
+            const auto report = [&](const std::string& label, const PendulumRevJtDiffs& d)
+            {
+                std::ostringstream message;
+                message << std::setprecision(12) << "Pendulum comparison idigit=" << idigit << " " << label
+                        << " theta=" << d.maxBryDiff << " omega=" << d.maxOmeDiff << " alpha=" << d.maxAlpDiff << '\n';
+                std::cout << message.str();
+            };
+            report("XY-" + plane, between);
+            report(plane + "-exact", analytic);
+            // Preserve standalone analytic bounds; XY has its own regression.
+            EXPECT_LE(analytic.maxBryDiff, 5.0 * tol);
+            EXPECT_LE(analytic.maxOmeDiff, 50.0 * tol);
+            EXPECT_LE(analytic.maxAlpDiff, 500.0 * tol);
+            // Independent adaptive runs may use the sum of their error budgets.
+            EXPECT_LE(between.maxRightDiff, 10.0 * tol);
+            EXPECT_LE(between.maxUpDiff, 10.0 * tol);
+            EXPECT_LE(between.maxBryDiff, 10.0 * tol);
+            EXPECT_LE(between.maxOmeDiff, 100.0 * tol);
+            EXPECT_LE(between.maxAlpDiff, 1000.0 * tol);
         }
-        return diffs;
     }
-
-    template <typename LengthFunction, typename OmegaNaturalFunction>
-    PendulumRevJtDiffs pendulumRevJt_ZYRegressionDiffs(const std::string &filename,
-                                                       int idigit,
-                                                       LengthFunction lengthFunction,
-                                                       OmegaNaturalFunction omegaNaturalFunction)
-    {
-        // The ASMT files model pendulums swinging in the z-y plane about +x.
-        // Gravity is -y direction.
-        // theta is measured counter-clockwise from the downward vertical.
-        SCOPED_TRACE(filename);
-        PendulumRevJtDiffs diffs;
-        diffs.tol = std::pow(10.0, -idigit);
-        auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
-        auto simPara = assembly->simulationParameters;
-        simPara->setAllTolForNDigit(idigit);
-        auto pendulum = assembly->partNamed("/Assembly1/Part1");
-
-        auto length = lengthFunction(pendulum);
-        auto gravity = -assembly->constantGravity->g->at(1);
-        auto theta0 = std::numbers::pi / 2.0 - pendulum->rotationMatrix->bryantAngles()->at(0);
-        auto omega0 = pendulum->omega3D->at(0);
-        auto exactPendulum = ExactPendulum(theta0, omega0, omegaNaturalFunction(gravity, length));
-        size_t n = (simPara->tend - simPara->tstart) / simPara->hout;
-        n = n + 2; // add count for input and initial time
-
-        assembly->runDYNAMIC();
-
-        EXPECT_EQ(n, assembly->times->size());
-        EXPECT_EQ(n, pendulum->zs->size());
-        EXPECT_EQ(n, pendulum->ys->size());
-        EXPECT_EQ(n, pendulum->bryxs->size());
-        EXPECT_EQ(n, pendulum->omexs->size());
-        EXPECT_EQ(n, pendulum->alpxs->size());
-        if (n != assembly->times->size() || n != pendulum->zs->size() || n != pendulum->ys->size() || n != pendulum->bryxs->size() || n != pendulum->omexs->size() || n != pendulum->alpxs->size())
-        {
-            diffs.maxRightDiff = std::numeric_limits<double>::max();
-            diffs.maxUpDiff = std::numeric_limits<double>::max();
-            diffs.maxBryDiff = std::numeric_limits<double>::max();
-            diffs.maxOmeDiff = std::numeric_limits<double>::max();
-            diffs.maxAlpDiff = std::numeric_limits<double>::max();
-            return diffs;
-        }
-
-        for (size_t i = 1; i < n; i++)
-        {
-            auto exactResult = exactPendulum.result(assembly->times->at(i));
-            auto bryx = std::numbers::pi / 2.0 - exactResult.theta;
-            auto z = (length * std::sin(exactResult.theta)) - (length * std::cos(bryx));
-            auto y = (-length * std::cos(exactResult.theta)) - (-length * std::sin(bryx));
-            diffs.maxRightDiff = std::max(diffs.maxRightDiff, std::abs(z - pendulum->zs->at(i)));
-            diffs.maxUpDiff = std::max(diffs.maxUpDiff, std::abs(y - pendulum->ys->at(i)));
-            diffs.maxBryDiff = std::max(diffs.maxBryDiff, std::abs(bryx - pendulum->bryxs->at(i)));
-            auto omex = -exactResult.omega;
-            diffs.maxOmeDiff = std::max(diffs.maxOmeDiff, std::abs(omex - pendulum->omexs->at(i)));
-            auto alpx = -exactResult.alpha;
-            diffs.maxAlpDiff = std::max(diffs.maxAlpDiff, std::abs(alpx - pendulum->alpxs->at(i)));
-        }
-        return diffs;
-    }
-}
-
-template <typename LengthFunction, typename OmegaNaturalFunction>
-PendulumRevJtDiffs pendulumRevJt_YXRegressionDiffs(const std::string &filename,
-                                                   int idigit,
-                                                   LengthFunction lengthFunction,
-                                                   OmegaNaturalFunction omegaNaturalFunction)
-{
-    // The ASMT files model pendulums swinging in the x-y plane about +z.
-    // theta is measured counter-clockwise from the downward vertical.
-    SCOPED_TRACE(filename);
-    PendulumRevJtDiffs diffs;
-    diffs.tol = std::pow(10.0, -idigit);
-    auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
-    auto simPara = assembly->simulationParameters;
-    simPara->setAllTolForNDigit(idigit);
-    auto pendulum = assembly->partNamed("/Assembly1/Part1");
-
-    auto length = lengthFunction(pendulum);
-    auto gravity = -assembly->constantGravity->g->at(0);
-    auto theta0 = pendulum->rotationMatrix->bryantAngles()->at(2) + std::numbers::pi;
-    auto omega0 = pendulum->omega3D->at(2);
-    auto exactPendulum = ExactPendulum(theta0, omega0, omegaNaturalFunction(gravity, length));
-    size_t n = (simPara->tend - simPara->tstart) / simPara->hout;
-    n = n + 2; // add count for input and initial time
-    assembly->runDYNAMIC();
-
-    EXPECT_EQ(n, assembly->times->size());
-    EXPECT_EQ(n, pendulum->xs->size());
-    EXPECT_EQ(n, pendulum->ys->size());
-    EXPECT_EQ(n, pendulum->bryzs->size());
-    EXPECT_EQ(n, pendulum->omezs->size());
-    EXPECT_EQ(n, pendulum->alpzs->size());
-    if (n != assembly->times->size() || n != pendulum->xs->size() || n != pendulum->ys->size() || n != pendulum->bryzs->size() || n != pendulum->omezs->size() || n != pendulum->alpzs->size())
-    {
-        diffs.maxRightDiff = std::numeric_limits<double>::max();
-        diffs.maxUpDiff = std::numeric_limits<double>::max();
-        diffs.maxBryDiff = std::numeric_limits<double>::max();
-        diffs.maxOmeDiff = std::numeric_limits<double>::max();
-        diffs.maxAlpDiff = std::numeric_limits<double>::max();
-        return diffs;
-    }
-
-    for (size_t i = 1; i < n; i++)
-    {
-        auto exactResult = exactPendulum.result(assembly->times->at(i));
-        auto bryz = exactResult.theta - std::numbers::pi;
-        auto x = (-length * std::cos(exactResult.theta)) - (length * std::cos(bryz));
-        auto y = (-length * std::sin(exactResult.theta)) - (length * std::sin(bryz));
-        diffs.maxRightDiff = std::max(diffs.maxRightDiff, std::abs(x - pendulum->xs->at(i)));
-        diffs.maxUpDiff = std::max(diffs.maxUpDiff, std::abs(y - pendulum->ys->at(i)));
-        auto bryzsi = pendulum->bryzs->at(i);
-        if (bryzsi > 0.0)
-        {
-            bryzsi -= 2.0 * std::numbers::pi;
-        }
-        diffs.maxBryDiff = std::max(diffs.maxBryDiff, std::abs(bryz - bryzsi));
-        auto omez = -exactResult.omega;
-        diffs.maxOmeDiff = std::max(diffs.maxOmeDiff, std::abs(omez - pendulum->omezs->at(i)));
-        auto alpz = -exactResult.alpha;
-        diffs.maxAlpDiff = std::max(diffs.maxAlpDiff, std::abs(alpz - pendulum->alpzs->at(i)));
-    }
-    return diffs;
-}
-
-template <typename LengthFunction, typename OmegaNaturalFunction>
-PendulumRevJtDiffs pendulumRevJt_XZRegressionDiffs(const std::string &filename,
-                                                   int idigit,
-                                                   LengthFunction lengthFunction,
-                                                   OmegaNaturalFunction omegaNaturalFunction)
-{
-    // The ASMT files model pendulums swinging in the x-z plane about -y.
-    // Gravity is -z direction.
-    // theta is measured counter-clockwise from the downward vertical.
-    SCOPED_TRACE(filename);
-    PendulumRevJtDiffs diffs;
-    diffs.tol = std::pow(10.0, -idigit);
-    auto assembly = ASMTAssembly::assemblyFromFile(std::string(TEST_DATA_PATH) + "/ASMT/" + filename);
-    auto simPara = assembly->simulationParameters;
-    simPara->setAllTolForNDigit(idigit);
-    auto pendulum = assembly->partNamed("/Assembly1/Part1");
-
-    auto length = lengthFunction(pendulum);
-    auto gravity = -assembly->constantGravity->g->at(2);
-    auto theta0 = pendulum->rotationMatrix->bryantAngles()->at(2) + std::numbers::pi / 2.0;
-    auto omega0 = pendulum->omega3D->at(1); // y-component
-    auto exactPendulum = ExactPendulum(theta0, omega0, omegaNaturalFunction(gravity, length));
-    size_t n = (simPara->tend - simPara->tstart) / simPara->hout;
-    n = n + 2; // add count for input and initial time
-
-    assembly->runDYNAMIC();
-
-    EXPECT_EQ(n, assembly->times->size());
-    EXPECT_EQ(n, pendulum->xs->size());
-    EXPECT_EQ(n, pendulum->zs->size());
-    EXPECT_EQ(n, pendulum->bryzs->size());
-    EXPECT_EQ(n, pendulum->omeys->size());
-    EXPECT_EQ(n, pendulum->alpys->size());
-    if (n != assembly->times->size() || n != pendulum->xs->size() || n != pendulum->zs->size() || n != pendulum->bryzs->size() || n != pendulum->omeys->size() || n != pendulum->alpys->size())
-    {
-        diffs.maxRightDiff = std::numeric_limits<double>::max();
-        diffs.maxUpDiff = std::numeric_limits<double>::max();
-        diffs.maxBryDiff = std::numeric_limits<double>::max();
-        diffs.maxOmeDiff = std::numeric_limits<double>::max();
-        diffs.maxAlpDiff = std::numeric_limits<double>::max();
-        return diffs;
-    }
-
-    for (size_t i = 1; i < n; i++)
-    {
-        auto exactResult = exactPendulum.result(assembly->times->at(i));
-        auto bryz = exactResult.theta - std::numbers::pi / 2.0;
-        auto x = (length * std::sin(exactResult.theta)) - (length * std::cos(bryz));
-        auto z = (-length * std::cos(exactResult.theta)) - (length * std::sin(bryz));
-        diffs.maxRightDiff = std::max(diffs.maxRightDiff, std::abs(x - pendulum->xs->at(i)));
-        diffs.maxUpDiff = std::max(diffs.maxUpDiff, std::abs(z - pendulum->zs->at(i)));
-        diffs.maxBryDiff = std::max(diffs.maxBryDiff, std::abs(bryz - pendulum->bryzs->at(i)));
-        auto omey = -exactResult.omega;
-        diffs.maxOmeDiff = std::max(diffs.maxOmeDiff, std::abs(omey - pendulum->omeys->at(i)));
-        auto alpy = -exactResult.alpha;
-        diffs.maxAlpDiff = std::max(diffs.maxAlpDiff, std::abs(alpy - pendulum->alpys->at(i)));
-    }
-    return diffs;
 }
 
 TEST(FreeCADMbD, TestName)
@@ -546,7 +338,7 @@ TEST(FreeCADMbD, comparePointPendulumRevJt_XY)
 
 TEST(FreeCADMbD, comparePointPendulumRevJt_XY_XZ)
 {
-    // Why XY succeeds and XZ fails when errorTol = 1.0e-12 ?
+    // Compare equivalent orientations with errorTol = 1.0e-12.
     auto idigit = 6;
     auto tol = std::pow(10.0, -idigit);
     auto lambda = [&](std::shared_ptr<ASMTSimulationParameters> simPara)
@@ -717,6 +509,46 @@ TEST(FreeCADMbD, pointPendulumRevJt_ZX)
     EXPECT_LE(maxAlpDiff, 500.0 * tol);
 }
 
+TEST(FreeCADMbD, bryantAnglesReconstructRotation)
+{
+    const double halfPi = std::numbers::pi / 2.0;
+    for (double x : {-2.4, 0.0, 0.7}) {
+        for (double y : {-2.0, -halfPi, -halfPi + 5e-13, -halfPi + 1e-8,
+                         0.0, halfPi - 1e-8, halfPi - 5e-13, halfPi, 2.0}) {
+            for (double z : {-0.8, 0.0, 1.3}) {
+                SCOPED_TRACE(::testing::Message() << x << ", " << y << ", " << z);
+                auto matrix = FullMatrix<double>::rotatex(x)->timesFullMatrix(
+                    FullMatrix<double>::rotatey(y)->timesFullMatrix(FullMatrix<double>::rotatez(z)));
+                auto angles = matrix->bryantAngles();
+                angles->calc();
+                for (size_t row = 0; row < 3; ++row)
+                    for (size_t col = 0; col < 3; ++col)
+                        EXPECT_NEAR(matrix->at(row)->at(col), angles->aA->at(row)->at(col), 2e-12);
+                if (std::abs(std::cos(y)) <= 1e-12)
+                    EXPECT_EQ(0.0, angles->at(2));
+            }
+        }
+    }
+}
+
+TEST(FreeCADMbD, bryantAnglesYZSingularityWithMatrixDrift)
+{
+    // Matrix captured from the YZ pendulum at t=0.86. R02 drift must
+    // not cause atan2(-R12, R22) to interpret roundoff as a rotation.
+    auto matrix = FullMatrix<double>::With(ListListD{
+        {-2.0816681711721685e-17, 0.0, 0.99999998492675446},
+        {0.58869519393157632, 0.80835508193823646, 0.0},
+        {-0.80835508193823657, 0.58869519393157632, -2.0816681711721685e-17}});
+    auto angles = matrix->bryantAngles();
+    EXPECT_NEAR(std::atan2(matrix->at(1)->at(0), -matrix->at(2)->at(0)), angles->at(0), 1e-12);
+    EXPECT_DOUBLE_EQ(std::numbers::pi / 2.0, angles->at(1));
+    EXPECT_EQ(0.0, angles->at(2));
+    angles->calc();
+    for (size_t row = 0; row < 3; ++row)
+        for (size_t col = 0; col < 3; ++col)
+            EXPECT_NEAR(matrix->at(row)->at(col), angles->aA->at(row)->at(col), 3e-8);
+}
+
 TEST(FreeCADMbD, simplePendulumExactMotion)
 {
     constexpr auto length = 1.0;
@@ -791,6 +623,113 @@ TEST(FreeCADMbD, exactPendulumInitialAngularVelocity)
     EXPECT_NEAR(-omega_n * omega_n * std::sin(theta0), exactResult.alpha, 1.0e-12);
 }
 
+TEST(FreeCADMbD, exactPendulumJacobiReference)
+{
+    // Independent 10-decimal reference: https://dlmf.nist.gov/22.20#ii
+    constexpr double k = 0.65, u = 0.8;
+    constexpr double sn = 0.6950642165, cn = 0.7189476580, dn = 0.8921234349;
+    const auto oscillation = ExactPendulum(0.0, 2.0 * k, 1.0).result(u);
+    EXPECT_NEAR(2.0 * std::asin(k * sn), oscillation.theta, 2e-10);
+    EXPECT_NEAR(2.0 * k * cn, oscillation.omega, 2e-10);
+    const auto rotation = ExactPendulum(0.0, 2.0 / k, 1.0).result(k * u);
+    EXPECT_EQ(ExactPendulum::Mode::Rotation, rotation.mode);
+    EXPECT_NEAR(2.0 * std::atan2(sn, cn), rotation.theta, 2e-10);
+    EXPECT_NEAR(2.0 * dn / k, rotation.omega, 2e-10);
+}
+
+TEST(FreeCADMbD, exactPendulumAgainstNumericalIntegration)
+{
+    // RK4 integrates the physical ODE independently of elliptic functions.
+    // Cover both directions, negative times, rotation, and both sides of h=1.
+    const double initialStates[][2] = {
+        {0.7, 0.4}, {0.7, -0.4}, {0.3, 3.0}, {0.3, -3.0},
+        {0.0, 2.0 * std::sqrt(1.0 - 1e-8)},
+        {0.0, 2.0 * std::sqrt(1.0 + 1e-8)}, {0.0, 2.0}
+    };
+    for (const auto &initial : initialStates) {
+        for (double endTime : {-2.0, 2.0}) {
+            SCOPED_TRACE(::testing::Message() << initial[0] << ", " << initial[1] << ", t=" << endTime);
+            double theta = initial[0], omega = initial[1];
+            const double dt = endTime / 2000.0;
+            for (int i = 0; i < 2000; ++i) {
+                const double t1 = omega, w1 = -std::sin(theta);
+                const double t2 = omega + dt * w1 / 2.0, w2 = -std::sin(theta + dt * t1 / 2.0);
+                const double t3 = omega + dt * w2 / 2.0, w3 = -std::sin(theta + dt * t2 / 2.0);
+                const double t4 = omega + dt * w3, w4 = -std::sin(theta + dt * t3);
+                theta += dt * (t1 + 2.0 * t2 + 2.0 * t3 + t4) / 6.0;
+                omega += dt * (w1 + 2.0 * w2 + 2.0 * w3 + w4) / 6.0;
+            }
+            const ExactPendulum pendulum(initial[0], initial[1], 1.0);
+            const auto result = pendulum.result(endTime);
+            EXPECT_NEAR(0.0, std::remainder(result.theta - theta, 2.0 * std::numbers::pi), 1e-9);
+            EXPECT_NEAR(omega, result.omega, 1e-9);
+            const double energy = std::pow(std::sin(result.theta / 2.0), 2) + std::pow(result.omega / 2.0, 2);
+            EXPECT_NEAR(pendulum.energy(), energy, 1e-12);
+        }
+    }
+}
+
+TEST(FreeCADMbD, exactPendulumMultiplePeriods)
+{
+    for (double k : {1e-5, 0.65, 0.999999}) {
+        const ExactPendulum pendulum(0.0, 2.0 * k, 1.0);
+        const double period = 4.0 * std::comp_ellint_1(k);
+        for (double cycles : {-100.0, -1.0, 0.0, 1.0, 100.0}) {
+            const auto result = pendulum.result(cycles * period);
+            EXPECT_NEAR(0.0, result.theta, 1e-10);
+            EXPECT_NEAR(2.0 * k, result.omega, 1e-12);
+            const auto turningPoint = pendulum.result((cycles + 0.25) * period);
+            EXPECT_NEAR(2.0 * std::asin(k), turningPoint.theta, 1e-10);
+            EXPECT_NEAR(0.0, turningPoint.omega, 1e-10);
+        }
+    }
+}
+
+TEST(FreeCADMbD, daeCorrectorRoundoffConvergence)
+{
+    // A stiff BDF row amplifies position roundoff into momentum corrections.
+    // Supply its Jacobian directly so each convergence guard is exercised.
+    class FixedJacobianCorrector : public DAECorrector {
+    public:
+        void fillPyPx() override {}
+    } corrector;
+    auto integrator = BasicDAEIntegrator::With();
+    integrator->corAbsTol = FullColumn<double>::With(2, 1e-12);
+    corrector.setSystem(integrator.get());
+    corrector.x = FullColumn<double>::With(2, 1.0);
+    corrector.y = FullColumn<double>::With(2, 0.0);
+    corrector.pypx = std::make_shared<SparseMatrix<double>>(2, 2);
+    corrector.pypx->atijput(0, 0, 1.0);
+    corrector.pypx->atijput(0, 1, -1e6);
+    corrector.pypx->atijput(1, 1, 1.0);
+    corrector.dxNorms = std::make_shared<std::vector<double>>(2, 10.0);
+    corrector.dxNorm = 10.0;
+    corrector.iterNo = 1;
+    corrector.y->at(0) = 1e-10;
+    corrector.y->at(1) = 1e-16;
+    EXPECT_TRUE(corrector.isConverged());
+
+    // A small residual in one equation cannot hide another unsatisfied row.
+    corrector.y->at(1) = 1e-10;
+    EXPECT_FALSE(corrector.isConverged());
+    corrector.y->at(1) = 1e-16;
+    corrector.y->at(0) = 1e-7;
+    EXPECT_FALSE(corrector.isConverged());
+    corrector.y->at(0) = 1e-10;
+
+    corrector.iterNo = 0;
+    EXPECT_FALSE(corrector.isConverged());
+    corrector.iterNo = 1;
+    corrector.dxNorms->at(0) = 100.0; // Still converging: keep iterating.
+    EXPECT_FALSE(corrector.isConverged());
+    corrector.dxNorms->at(0) = 10.0;
+    corrector.y->at(0) = std::numeric_limits<double>::quiet_NaN();
+    EXPECT_FALSE(corrector.isConverged());
+    corrector.y->at(0) = 1e-10;
+    corrector.pypx->atijput(0, 1, std::numeric_limits<double>::infinity());
+    EXPECT_FALSE(corrector.isConverged());
+}
+
 TEST(FreeCADMbD, pointPendulumRevJtXYRegression)
 {
     for (int idigit = 4; idigit <= 6; idigit++)
@@ -810,101 +749,34 @@ TEST(FreeCADMbD, pointPendulumRevJtXYRegression)
     }
 }
 
-TEST(FreeCADMbD, pointPendulumRevJtYZRegression)
+TEST(FreeCADMbD, pointPendulumRevJtXYYZEquivalence)
 {
-    for (int idigit = 4; idigit <= 6; idigit++)
-    {
-        auto diffs = pendulumRevJt_YZRegressionDiffs(
-            "pointPendulumRevJt_YZ.asmt",
-            idigit,
-            [](const auto &pendulum)
-            { return pendulum->principalMassMarker->position3D->at(0); },
-            [](double gravity, double length)
-            { return std::sqrt(gravity / length); });
-        EXPECT_LE(diffs.maxRightDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxUpDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxBryDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxOmeDiff, 50.0 * diffs.tol);
-        EXPECT_LE(diffs.maxAlpDiff, 500.0 * diffs.tol);
-    }
+    // XY x->y, y->z, z->x; theta = bryx.
+    pointPendulumPlaneEquivalence("YZ", 1, 2, 0, 0, 1.0, 1.0, 0.0);
 }
 
-TEST(FreeCADMbD, pointPendulumRevJtZXRegression)
+TEST(FreeCADMbD, pointPendulumRevJtXYZXEquivalence)
 {
-    for (int idigit = 4; idigit <= 6; idigit++)
-    {
-        auto diffs = pendulumRevJt_ZXRegressionDiffs(
-            "pointPendulumRevJt_ZX.asmt",
-            idigit,
-            [](const auto &pendulum)
-            { return pendulum->principalMassMarker->position3D->at(0); },
-            [](double gravity, double length)
-            { return std::sqrt(gravity / length); });
-        EXPECT_LE(diffs.maxRightDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxUpDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxBryDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxOmeDiff, 50.0 * diffs.tol);
-        EXPECT_LE(diffs.maxAlpDiff, 500.0 * diffs.tol);
-    }
+    // XY x->z, y->x, z->y; theta = wrapped(bryz + pi).
+    pointPendulumPlaneEquivalence("ZX", 2, 0, 1, 2, 1.0, 1.0, std::numbers::pi);
 }
 
-TEST(FreeCADMbD, pointPendulumRevJtZYRegression)
+TEST(FreeCADMbD, pointPendulumRevJtXYZYEquivalence)
 {
-    for (int idigit = 4; idigit <= 6; idigit++)
-    {
-        auto diffs = pendulumRevJt_ZYRegressionDiffs(
-            "pointPendulumRevJt_ZY.asmt",
-            idigit,
-            [](const auto &pendulum)
-            { return pendulum->principalMassMarker->position3D->at(0); },
-            [](double gravity, double length)
-            { return std::sqrt(gravity / length); });
-        EXPECT_LE(diffs.maxRightDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxUpDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxBryDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxOmeDiff, 50.0 * diffs.tol);
-        EXPECT_LE(diffs.maxAlpDiff, 500.0 * diffs.tol);
-    }
+    // XY x->z, y->y, z->-x; theta = pi/2 - bryx.
+    pointPendulumPlaneEquivalence("ZY", 2, 1, 0, 0, -1.0, -1.0, std::numbers::pi / 2.0);
 }
 
-TEST(FreeCADMbD, pointPendulumRevJtYXRegression)
+TEST(FreeCADMbD, pointPendulumRevJtXYYXEquivalence)
 {
-    for (int idigit = 4; idigit <= 6; idigit++)
-    {
-        auto diffs = pendulumRevJt_YXRegressionDiffs(
-            "pointPendulumRevJt_YX.asmt",
-            idigit,
-            [](const auto &pendulum)
-            { return pendulum->principalMassMarker->position3D->at(0); },
-            [](double gravity, double length)
-            { return std::sqrt(gravity / length); });
-        EXPECT_LE(diffs.maxRightDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxUpDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxBryDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxOmeDiff, 50.0 * diffs.tol);
-        EXPECT_LE(diffs.maxAlpDiff, 500.0 * diffs.tol);
-    }
+    // XY x->y, y->x, z->-z; theta = wrapped(bryz + pi).
+    pointPendulumPlaneEquivalence("YX", 1, 0, 2, 2, -1.0, 1.0, std::numbers::pi);
 }
 
-TEST(FreeCADMbD, pointPendulumRevJtXZRegression)
+TEST(FreeCADMbD, pointPendulumRevJtXYXZEquivalence)
 {
-    for (int idigit = 4; idigit <= 6; idigit++)
-    {
-        // if (idigit = 6)
-        //     break; // errorTol = 1.0e-12 is too stringent for simulation
-        auto diffs = pendulumRevJt_XZRegressionDiffs(
-            "pointPendulumRevJt_XZ.asmt",
-            idigit,
-            [](const auto &pendulum)
-            { return pendulum->principalMassMarker->position3D->at(0); },
-            [](double gravity, double length)
-            { return std::sqrt(gravity / length); });
-        EXPECT_LE(diffs.maxRightDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxUpDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxBryDiff, 5.0 * diffs.tol);
-        EXPECT_LE(diffs.maxOmeDiff, 50.0 * diffs.tol);
-        EXPECT_LE(diffs.maxAlpDiff, 500.0 * diffs.tol);
-    }
+    // XY x->x, y->z, z->-y; theta = bryz + pi/2.
+    pointPendulumPlaneEquivalence("XZ", 0, 2, 1, 2, -1.0, 1.0, std::numbers::pi / 2.0);
 }
 
 TEST(FreeCADMbD, line2PendulumRevJtXYRegression)

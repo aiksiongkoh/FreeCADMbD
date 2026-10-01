@@ -836,38 +836,26 @@ namespace MbD
     inline std::shared_ptr<EulerAngles<T>> FullMatrix<T>::bryantAngles()
     {
         auto answer = EulerAngles<T>::With();
-        auto sthe1y = this->at(0)->at(2);
-        T the0x, the1y, the2z, cthe0x, sthe0x, y, x;
-        if (std::abs(sthe1y) > (1.0 - 1.0e-12))
+        const T sthe1y = this->at(0)->at(2);
+        // R = Rx(x) Ry(y) Rz(z): hypot(R00, R01) = |cos(y)|.
+        // Detect the vanishing entries directly; R02 can drift away from
+        // +/-1 in a numerically computed matrix even at gimbal lock.
+        const T cy = std::hypot(this->at(0)->at(0), this->at(0)->at(1));
+        constexpr T singularTol = T(1.0e-12);
+        T the0x, the1y, the2z;
+        if (cy <= singularTol)
         {
-            if (sthe1y > 0.0)
-            {
-                the0x = std::atan2(this->at(1)->at(0), this->at(1)->at(1));
-                the1y = std::numbers::pi_v<T> / 2.0;
-                the2z = 0.0;
-            }
-            else
-            {
-                the0x = std::atan2(this->at(2)->at(1), this->at(2)->at(0));
-                the1y = std::numbers::pi_v<T> / -2.0;
-                the2z = 0.0;
-            }
+            // X and Z cannot be separated. Choose Z=0 and recover X
+            // from well-conditioned entries for either sign of Y.
+            const T sign = sthe1y >= T(0) ? T(1) : T(-1);
+            the0x = std::atan2(sign * this->at(1)->at(0), this->at(1)->at(1));
+            the1y = sign * std::numbers::pi_v<T> / T(2);
+            the2z = T(0);
         }
         else
         {
             the0x = std::atan2(-this->at(1)->at(2), this->at(2)->at(2));
-            cthe0x = std::cos(the0x);
-            sthe0x = std::sin(the0x);
-            y = sthe1y;
-            if (std::abs(cthe0x) > std::abs(sthe0x))
-            {
-                x = this->at(2)->at(2) / cthe0x;
-            }
-            else
-            {
-                x = this->at(1)->at(2) / -sthe0x;
-            }
-            the1y = std::atan2(y, x);
+            the1y = std::atan2(sthe1y, cy);
             the2z = std::atan2(-this->at(0)->at(1), this->at(0)->at(0));
         }
         answer->atiput(0, the0x);

@@ -1,11 +1,11 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.testExplorerIntegrationEnabled": true,
-  "cmake.generator": "Visual Studio 17 2022",
-  "cmake.buildDirectory": "${workspaceFolder}/build-vcpkg",
+  "cmake.useCMakePresets": "always",
+  "cmake.ctest.testExplorerIntegrationEnabled": true,
+  "cmake.generator": "Visual Studio 18 2026",
+  "cmake.buildDirectory": "${workspaceFolder}/build-vs",
   "cmake.configureSettings": {
-    "CMAKE_GENERATOR_PLATFORM": "x64",
-    "CMAKE_TOOLCHAIN_FILE": "C:/Users/askoh/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    "CMAKE_GENERATOR_PLATFORM": "x64"
   },
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "C_Cpp.default.intelliSenseMode": "windows-msvc-x64",
